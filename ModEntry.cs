@@ -33,7 +33,7 @@ public sealed class ModEntry : SimpleMod
         AccessTools.DeclaredMethod(typeof(SpicaShip), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
         AccessTools.DeclaredMethod(typeof(ShieldOrShot), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
         AccessTools.DeclaredMethod(typeof(FixedStar), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
-        AccessTools.DeclaredMethod(typeof(Merge), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
+        AccessTools.DeclaredMethod(typeof(Shrink), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
         AccessTools.DeclaredMethod(typeof(DodgeOrShift), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
     }
 }

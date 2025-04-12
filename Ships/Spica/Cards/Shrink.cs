@@ -4,7 +4,7 @@ using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal class Merge : Card, IRegisterable
+internal class Shrink : Card, IRegisterable
 {
 	public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
@@ -32,7 +32,7 @@ internal class Merge : Card, IRegisterable
                 dontOffer = true
             },
             Art = StableSpr.cards_ScootLeft,
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "card", "Merge", "name"]).Localize,
+            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "card", "Shrink", "name"]).Localize,
         });
     }
 
@@ -47,8 +47,8 @@ internal class Merge : Card, IRegisterable
             cost = 1,
             art = flipped ? StableSpr.cards_ScootRight : StableSpr.cards_ScootLeft,
             description = flipped 
-                ? ModEntry.Instance.Localizations.Localize(["ship", "Spica", "card", "Merge_Flipped", "description"])
-                : ModEntry.Instance.Localizations.Localize(["ship", "Spica", "card", "Merge", "description"])
+                ? ModEntry.Instance.Localizations.Localize(["ship", "Spica", "card", "Shrink_Flipped", "description"])
+                : ModEntry.Instance.Localizations.Localize(["ship", "Spica", "card", "Shrink", "description"])
         };
         return result;
     }

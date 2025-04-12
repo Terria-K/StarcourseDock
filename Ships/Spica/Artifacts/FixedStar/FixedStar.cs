@@ -33,7 +33,7 @@ internal class FixedStar : Artifact, IRegisterable
 
     public override List<Tooltip>? GetExtraTooltips()
     {
-        return [new TTCard { card = new Merge() }];
+        return [new TTCard { card = new Shrink() }];
     }
 
     public override void OnTurnStart(State state, Combat combat)
@@ -41,7 +41,7 @@ internal class FixedStar : Artifact, IRegisterable
         bool alreadyHasOne = false;
         foreach (var card in combat.hand)
         {
-            if (card is Merge)
+            if (card is Shrink)
             {
                 alreadyHasOne = true;
                 break;
@@ -52,7 +52,7 @@ internal class FixedStar : Artifact, IRegisterable
         {
             combat.Queue(new AAddCard
             {
-                card = new Merge(),
+                card = new Shrink(),
                 destination = CardDestination.Hand
             });
         }

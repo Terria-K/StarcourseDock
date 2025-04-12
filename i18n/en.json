@@ -10,12 +10,12 @@
                 "DodgeOrShift": {
                     "name": "Dodge or Shift"
                 },
-                "Merge": {
-                    "name": "Merge",
+                "Shrink": {
+                    "name": "Shrink",
                     "description": "Remove scaffold and merge rightmost part to the left."
                 },
-                "Merge_Flipped": {
-                    "name": "Merge",
+                "Shrink_Flipped": {
+                    "name": "Shrink",
                     "description": "Remove scaffold and merge leftmost part to the right."
                 }
             },
@@ -23,8 +23,8 @@
                 "FixedStar": {
                     "name": "FIXED STAR",
                     "description": [
-                        "At the start of your turn, add <c=card>Merge</c> to your hand.",
-                        "Evade will move your cannon instead of the ship"
+                        "At the start of your turn, add <c=card>Shrink</c> to your hand.",
+                        "Evade will move the cannon instead of the ship"
                     ]
                 }
             }
