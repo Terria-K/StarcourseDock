@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Shrike" Version="3.1.0" />
-    <PackageReference Include="Shrike.Harmony" Version="3.1.1" />
+    <PackageReference Include="Shrike" Version="3.1.0" PrivateAssets="All" ExcludeAssets="runtime"/>
+    <PackageReference Include="Shrike.Harmony" Version="3.1.1" PrivateAssets="All" ExcludeAssets="runtime"/>
 		<PackageReference Include="Nickel.ModBuildConfig" Version="2.0.1" />
     <PackageReference Include="EnumByNameSourceGenerator" Version="1.1.2" PrivateAssets="All" ExcludeAssets="runtime" />
 	</ItemGroup>
