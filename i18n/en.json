@@ -1,0 +1,33 @@
+{
+    "ship": {
+        "Spica": {
+            "name": "Spica",
+            "description": "A fixed ship that cannot move on its own.",
+            "card": {
+                "ShieldOrShot": {
+                    "name": "Shield Or Shot"
+                },
+                "DodgeOrShift": {
+                    "name": "Dodge or Shift"
+                },
+                "Merge": {
+                    "name": "Merge",
+                    "description": "Remove scaffold and merge rightmost part to the left."
+                },
+                "Merge_Flipped": {
+                    "name": "Merge",
+                    "description": "Remove scaffold and merge leftmost part to the right."
+                }
+            },
+            "artifact": {
+                "FixedStar": {
+                    "name": "FIXED STAR",
+                    "description": [
+                        "At the start of your turn, add <c=card>Merge</c> to your hand.",
+                        "Evade will move your cannon instead of the ship"
+                    ]
+                }
+            }
+        }
+    }
+}
