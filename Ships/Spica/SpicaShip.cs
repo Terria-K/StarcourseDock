@@ -45,9 +45,9 @@ internal sealed class SpicaShip : IRegisterable
                 ship = new()
                 {
                     x = 3,
-                    hull = 18,
-                    hullMax = 18,
-                    shieldMaxBase = 10,
+                    hull = 13,
+                    hullMax = 13,
+                    shieldMaxBase = 7,
                     parts = [
                         new Part()
                         {
