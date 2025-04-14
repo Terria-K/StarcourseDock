@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.0.1</Version>
+    <Version>1.1.0</Version>
     <GameExePath>../../../CobaltCore.exe</GameExePath>
     <GameDllPath>../../../CobaltCore.dll</GameDllPath>
     <ModLoaderPath>../../</ModLoaderPath>
@@ -16,8 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Shrike" Version="3.1.0" PrivateAssets="All" ExcludeAssets="runtime"/>
-    <PackageReference Include="Shrike.Harmony" Version="3.1.1" PrivateAssets="All" ExcludeAssets="runtime"/>
 		<PackageReference Include="Nickel.ModBuildConfig" Version="2.0.1" />
     <PackageReference Include="EnumByNameSourceGenerator" Version="1.1.2" PrivateAssets="All" ExcludeAssets="runtime" />
 	</ItemGroup>
