@@ -1,6 +1,8 @@
+using System.Reflection.Emit;
 using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
+using Teuria.Utilities;
 
 namespace Teuria.StarcourseDock;
 
@@ -115,7 +117,7 @@ internal sealed class SpicaShip : IRegisterable
 
         ModEntry.Instance.Harmony.Patch(
             original: AccessTools.DeclaredMethod(typeof(Ship), nameof(Ship.DrawTopLayer)),
-            postfix: new HarmonyMethod(Ship_DrawTopLayer_Postfix)
+            transpiler: new HarmonyMethod(Ship_DrawTopLayer_Transpiler)
         );
     }
 
@@ -127,22 +129,42 @@ internal sealed class SpicaShip : IRegisterable
         }
     }
 
-    internal static void Ship_DrawTopLayer_Postfix(Ship __instance, G g, Vec v, Vec worldPos) 
+    internal static IEnumerable<CodeInstruction> Ship_DrawTopLayer_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator) 
     {
-        if (!__instance.isPlayerShip)
+        var cursor = new ILCursor(generator, instructions);
+
+        object? part = null;
+        object? glowPos = null;
+
+        cursor.GotoNext(
+            instr => instr.MatchExtract(OpCodes.Stloc_S, out part),
+            instr => instr.Match(OpCodes.Ldc_I4_S)
+        );
+
+        cursor.GotoNext(
+            instr => instr.MatchExtract(OpCodes.Stloc_S, out glowPos),
+            instr => instr.Match(OpCodes.Ldloc_S),
+            instr => instr.Match(OpCodes.Ldfld),
+            instr => instr.MatchContains("cockpit_cicada")
+        );
+
+        cursor.Index += 1;
+
+        cursor.Emit(OpCodes.Ldarg_0);
+        cursor.Emit(OpCodes.Ldloc, part);
+        cursor.Emit(OpCodes.Ldloc, glowPos);
+        cursor.EmitDelegate(static (Ship __instance, Part part, Vec glowPos) => 
         {
-            return;
-        }
-        for (int i = 0; i < __instance.parts.Count; i++)
-        {
-            var part = __instance.parts[i];
-            Vec partPos = worldPos + new Vec((part.xLerped ?? i) * 16.0, -32.0 + (__instance.isPlayerShip ? part.offset.y : (1.0 + -part.offset.y)));
-			Vec screenPos = v + partPos;
+            if (!__instance.isPlayerShip)
+            {
+                return;
+            }
+
             if (part.skin == SpicaCockpit.UniqueName)
             {
-                Vec glowPos = screenPos + new Vec(8.0, 32 + 12 * (__instance.isPlayerShip ? (-1) : 1));
                 Glow.Draw(glowPos + new Vec(0, 5), 30.0, new Color("c5a7e5"));
             }
-        }
+        });
+        return cursor.Generate();
     }
 }
