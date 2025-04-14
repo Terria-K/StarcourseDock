@@ -27,72 +27,18 @@ internal sealed class ILCursor
 
     public void GotoPrev(MoveType moveType, params Func<CursorInstruction, bool>[] matches)
     {
-        bool found = false;
-        var decrement = matches.Length;
-        int oldIndex = Index;
-        for (; Index >= 0; Index -= 1)
+        if (!TryGotoPrev(moveType, matches))
         {
-            var setInstructions = instructions[Index..(Index + decrement)];
-            for (int j = 0; j < setInstructions.Count; j += 1)
-            {
-                var instr = setInstructions[j];
-                if (!matches[j](new CursorInstruction(instr)))
-                {
-                    found = false;
-                    break;
-                }
-                found = true;
-            }
-
-            if (found)
-            {
-                if (moveType == MoveType.After)
-                {
-                    Index += 1;
-                }
-                return;
-            }
+            throw new Exception("Matches cannot be found!");
         }
-
-        Index = oldIndex;
-        throw new Exception("Match cannot be found!");
     }
 
     public void GotoNext(MoveType moveType, params Func<CursorInstruction, bool>[] matches)
     {
-        bool found = false;
-        var increment = matches.Length;
-        int oldIndex = Index;
-        for (; Index < instructions.Count; Index += 1)
+        if (!TryGotoNext(moveType, matches))
         {
-            if (Index + increment >= instructions.Count)
-            {
-                break;
-            }
-            var setInstructions = instructions[Index..(Index + increment)];
-            for (int j = 0; j < setInstructions.Count; j += 1)
-            {
-                var instr = setInstructions[j];
-                if (!matches[j](new CursorInstruction(instr)))
-                {
-                    found = false;
-                    break;
-                }
-                found = true;
-            }
-
-            if (found)
-            {
-                if (moveType == MoveType.After)
-                {
-                    Index += 1;
-                }
-                return;
-            }
+            throw new Exception("Matches cannot be found!");
         }
-
-        Index = oldIndex;
-        throw new Exception("Match cannot be found!");
     }
 
     public void GotoPrev(params Func<CursorInstruction, bool>[] matches)
@@ -103,6 +49,86 @@ internal sealed class ILCursor
     public void GotoNext(params Func<CursorInstruction, bool>[] matches)
     {
         GotoNext(MoveType.Before, matches);
+    }
+
+    public bool TryGotoPrev(params Func<CursorInstruction, bool>[] matches)
+    {
+        return TryGotoPrev(MoveType.Before, matches);
+    }
+
+    public bool TryGotoNext(params Func<CursorInstruction, bool>[] matches)
+    {
+        return TryGotoNext(MoveType.Before, matches);
+    }
+
+    public bool TryGotoPrev(MoveType moveType, params Func<CursorInstruction, bool>[] matches)
+    {
+        bool found = false;
+        var len = matches.Length;
+        int oldIndex = Index;
+        for (; Index >= 0; Index -= 1)
+        {
+            var setInstructions = instructions[Index..(Index + len)];
+            for (int j = 0; j < setInstructions.Count; j += 1)
+            {
+                var instr = setInstructions[j];
+                if (!matches[j](new CursorInstruction(instr)))
+                {
+                    found = false;
+                    break;
+                }
+                found = true;
+            }
+
+            if (found)
+            {
+                if (moveType == MoveType.After)
+                {
+                    Index += len;
+                }
+                return true;
+            }
+        }
+
+        Index = oldIndex;
+        return false;
+    }
+
+    public bool TryGotoNext(MoveType moveType, params Func<CursorInstruction, bool>[] matches)
+    {
+        bool found = false;
+        var len = matches.Length;
+        int oldIndex = Index;
+        for (; Index < instructions.Count; Index += 1)
+        {
+            if (Index + len >= instructions.Count)
+            {
+                break;
+            }
+            var setInstructions = instructions[Index..(Index + len)];
+            for (int j = 0; j < setInstructions.Count; j += 1)
+            {
+                var instr = setInstructions[j];
+                if (!matches[j](new CursorInstruction(instr)))
+                {
+                    found = false;
+                    break;
+                }
+                found = true;
+            }
+
+            if (found)
+            {
+                if (moveType == MoveType.After)
+                {
+                    Index += len;
+                }
+                return true;
+            }
+        }
+
+        Index = oldIndex;
+        return false;
     }
 
     public void Emit(in OpCode opCodes)
