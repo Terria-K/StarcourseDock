@@ -1,6 +1,6 @@
 {
 	"UniqueName": "Teuria.StarcourseDock",
-	"Version": "1.0.1",
+	"Version": "1.1.0",
 	"DisplayName": "Starcourse Dock",
 	"Description": "Collection of Teuria's Ship that has its own unique abilities.",
 	"Author": "Teuria",
@@ -12,5 +12,10 @@
 			"UniqueName": "Shockah.Kokoro",
 			"Version": "2.7.0"
 		}
-	]
+	],
+    "UpdateChecks": {
+        "NexusMods": {
+            "ID": 55
+        }
+    }
 }
