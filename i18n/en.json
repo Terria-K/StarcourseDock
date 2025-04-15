@@ -28,6 +28,21 @@
                     ]
                 }
             }
+        },
+        "Albireo": {
+            "name": "Albireo",
+            "description": "A double tempered ship that harness the energy of double stars.",
+            "artifact": {
+                "DoubleStar": {
+                    "name": "DOUBLE STAR",
+                    "description": [
+                        "<c=downside>Deactivates orange parts when it is on the left side, deactivates blue parts when it is on the right side.</c>",
+                        "If all blue parts were inactive, <c=action>all cards do its action twice</c> and <c=downside>gain 1 less energy next turn</c>",
+                        "If all orange parts were inactive, <c=action>all attacks generates</c> <c=status>Stun</c> and gain 1 more energy next turn",
+                        "If there is a Binary Star, artifact is temporarily disabled."
+                    ]
+                }
+            }
         }
     }
 }
