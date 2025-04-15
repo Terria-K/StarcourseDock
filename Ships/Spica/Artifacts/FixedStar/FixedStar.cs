@@ -6,7 +6,7 @@ namespace Teuria.StarcourseDock;
 
 internal class FixedStar : Artifact, IRegisterable
 {
-    private List<Part>? tempParts;
+    public List<Part>? tempParts;
 	public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
 	{
         var fixedStarSprite = helper.Content.Sprites.RegisterSprite(
