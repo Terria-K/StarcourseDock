@@ -29,6 +29,29 @@
                 }
             }
         },
+        "Alpherg": {
+            "name": "Alpherg",
+            "description": "An aquatic ray-like ship that fires from its empty space.",
+            "artifact": {
+                "Piscium": {
+                    "name": "PISCIUM",
+                    "description": "For every turn, <c=action>put the scaffold at the opposite side of the ship.</c>"
+                },
+                "RoutedCannon": {
+                    "name": "ROUTED CANNON",
+                    "description": "<c=action>Allows ship to shoot from empty space.</c>"
+                }
+            },
+            "card": {
+                "RerouteCannon": {
+                    "name": "Reroute Cannon",
+                    "description": "Temporarily activate cannon and <c=downside>deactivate <c=artifact>ROUTED CANNON.</c></c>",
+                    "B": {
+                        "description": "Temporarily activate cannon."
+                    }
+                }
+            }
+        },
         "Albireo": {
             "name": "Albireo",
             "description": "A double tempered ship that harness the energy of double stars.",
