@@ -6,14 +6,25 @@ namespace Teuria.StarcourseDock;
 
 internal sealed class AlbireoShip : IRegisterable
 {
+    private static readonly UK AlbireoAUK = ModEntry.Instance.Helper.Utilities.ObtainEnumCase<UK>();
+    private static readonly UK AlbireoBUK = ModEntry.Instance.Helper.Utilities.ObtainEnumCase<UK>();
     internal static IPartEntry AlbireoCannonLeft { get; private set; } = null!;
     internal static IPartEntry AlbireoCannonRight { get; private set; } = null!;
     internal static IPartEntry AlbireoMissileBayLeft { get; private set; } = null!;
     internal static IPartEntry AlbireoMissileBayRight { get; private set; } = null!;
 	internal static IShipEntry ShipEntry { get; private set; } = null!;
 
+    internal static ISpriteEntry AlbireoAIcon { get; private set; } = null!;
+    internal static ISpriteEntry AlbireoBIcon { get; private set; } = null!;
+
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
+        AlbireoAIcon = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/blue_zone.png")
+        );
+        AlbireoBIcon = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/orange_zone.png")
+        );
         var inactiveMissileBaySprite = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/albireo_missilebay_inactive.png")
         ).Sprite;
@@ -76,13 +87,13 @@ internal sealed class AlbireoShip : IRegisterable
                         {
                             type = PType.missiles,
                             skin = AlbireoMissileBayLeft.UniqueName,
-                            key = "left",
+                            key = "left_missile",
                         },
                         new Part()
                         {
                             type = PType.cannon,
                             skin = AlbireoCannonLeft.UniqueName,
-                            key = "left",
+                            key = "left_cannon",
                         },
                         new Part()
                         {
@@ -98,13 +109,13 @@ internal sealed class AlbireoShip : IRegisterable
                         {
                             type = PType.cannon,
                             skin = AlbireoCannonRight.UniqueName,
-                            key = "right",
+                            key = "right_cannon",
                         },
                         new Part()
                         {
                             type = PType.missiles,
                             skin = AlbireoMissileBayRight.UniqueName,
-                            key = "right",
+                            key = "right_missile",
                         }
                     ]
                 },
@@ -122,9 +133,85 @@ internal sealed class AlbireoShip : IRegisterable
             original: AccessTools.DeclaredMethod(typeof(Combat), nameof(Combat.DrawBG)),
             postfix: new HarmonyMethod(Combat_DrawBG_Postfix)
         );
+
+        ModEntry.Instance.Harmony.Patch(
+            original: AccessTools.DeclaredMethod(typeof(Combat), nameof(Combat.RenderWalls)),
+            postfix: new HarmonyMethod(Combat_RenderWalls_Postfix)
+        );
     }
 
-    internal static void Combat_DrawBG_Postfix(Combat __instance, G g) 
+    internal static void Combat_RenderWalls_Postfix(Combat __instance, G g) 
+    {
+        if (!g.state.EnumerateAllArtifacts().Any(x => x is DoubleStar))
+        {
+            return;
+        }
+
+        const double AllY = 19.0;
+
+        bool drawIcons = __instance.introTimer > 1.0;
+        var rect = new Rect?(new Rect() + Combat.arenaPos + __instance.GetCamOffset());
+        g.Push(rect: rect);
+        {
+            Box box = g.Push(new UIKey(AlbireoAUK), new Rect?(new Rect(0.0, 40.0, 16.0, 50.0) + new Vec((16 * 7) - 1, AllY)));
+            Vec boxPos = box.rect.xy;
+
+            Color starBlueColor = new Color(0.01, 0.05, 0.5, 1.0).gain(15);
+            if (drawIcons && box.IsHover())
+            {
+                var albireoA = new GlossaryTooltip($"{ModEntry.Instance.Package.Manifest.UniqueName}::Albireo::A") 
+                {
+                    Title = ModEntry.Instance.Localizations.Localize(["ship", "Albireo", "tooltip", "AlbireoA", "title"]),
+                    TitleColor = starBlueColor,
+                    Description = ModEntry.Instance.Localizations.Localize(["ship", "Albireo", "tooltip", "AlbireoA", "description"])
+                };
+                g.tooltips.Add(boxPos + new Vec(17.0, 0.0), albireoA);
+            }
+
+            Draw.Rect(boxPos.x - 1.0 + 9, -1000.0, 1, 2000.0, starBlueColor with { a = 0.6 });
+
+            if (drawIcons)
+            {
+                Color? color = box.IsHover() ? null : new Color(1.0, 1.0, 1.0, 0.3);
+
+                Draw.Sprite(AlbireoAIcon.Sprite, boxPos.x, boxPos.y + 17.0, color: color);
+            }
+            g.Pop();
+        }
+        g.Pop();
+
+        rect = new Rect?(new Rect() + Combat.arenaPos + __instance.GetCamOffset());
+        g.Push(rect: rect);
+        {
+            Box box = g.Push(new UIKey(AlbireoBUK), new Rect?(new Rect(0.0, 40.0, 16.0, 50.0) + new Vec((16 * 11) - 1, AllY)));
+            Vec boxPos = box.rect.xy;
+
+            Color starOrangeColor = new Color(0.5, 0.15, 0.01, 1.0).gain(10);
+            if (drawIcons && box.IsHover())
+            {
+                var albireoA = new GlossaryTooltip($"{ModEntry.Instance.Package.Manifest.UniqueName}::Albireo::B") 
+                {
+                    Title = ModEntry.Instance.Localizations.Localize(["ship", "Albireo", "tooltip", "AlbireoB", "title"]),
+                    TitleColor = starOrangeColor,
+                    Description = ModEntry.Instance.Localizations.Localize(["ship", "Albireo", "tooltip", "AlbireoB", "description"])
+                };
+                g.tooltips.Add(boxPos + new Vec(17.0, 0.0), albireoA);
+            }
+
+            Draw.Rect(boxPos.x - 1.0 + 9, -1000.0, 1, 2000.0, starOrangeColor with { a = 0.6 });
+
+            if (drawIcons)
+            {
+                Color? color = box.IsHover() ? null : new Color(1.0, 1.0, 1.0, 0.3);
+
+                Draw.Sprite(AlbireoBIcon.Sprite, boxPos.x, boxPos.y + 17.0, color: color);
+            }
+            g.Pop();
+        }
+        g.Pop();
+    }
+
+    internal static void Combat_DrawBG_Postfix(Combat __instance, G g)
     {
         if (__instance.modifier is MBinaryStar)
         {

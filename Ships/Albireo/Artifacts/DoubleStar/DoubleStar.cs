@@ -35,6 +35,11 @@ internal class DoubleStar : Artifact, IRegisterable
         evadeAction.RegisterPaymentOption(new DoubleStarPaymentOption());
     }
 
+    public override List<Tooltip>? GetExtraTooltips()
+    {
+        return [new TTCard { card = new RelativeMotion() }];
+    }
+
     public override Spr GetSprite()
     {
         if (binaryStarDetected)
@@ -46,20 +51,25 @@ internal class DoubleStar : Artifact, IRegisterable
 
     public override void OnCombatStart(State state, Combat combat)
     {
+        combat.Queue(new AAddCard() 
+        {
+            card = new RelativeMotion(),
+            destination = CardDestination.Hand
+        });
         combat.Queue(new ACheckParts());
     }
 
     public override void OnTurnStart(State state, Combat combat)
     {
         binaryStarDetected = combat.modifier is MBinaryStar;
-        if (state.ship.x > 8)
+        if (state.ship.x > 11)
         {
 			combat.QueueImmediate(new AEnergy() 
             {
                 changeAmount = -1
             });
         }
-        else if (state.ship.x < 6)
+        else if (state.ship.x < 3)
         {
 			combat.QueueImmediate(new AEnergy() 
             {
@@ -76,7 +86,7 @@ internal class DoubleStar : Artifact, IRegisterable
         }
 
         combat.Queue(new ACheckParts());
-        if (state.ship.x > 8)
+        if (state.ship.x > 11)
         {
             Pulse();
             combat.Queue(new ADoubler() 
@@ -92,6 +102,6 @@ internal class DoubleStar : Artifact, IRegisterable
         {
             return false;
         }
-        return state.ship.x < 6;
+        return state.ship.x < 3;
     }
 }

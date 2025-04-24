@@ -7,52 +7,20 @@ internal sealed class ACheckParts : CardAction
         var ship = s.ship;
         var x = s.ship.x;
 
-        // FIXME: do not hardcode with numbers, use keys instead
-        // FIXME: make sure that the x coordinate is accurate when scaffolding or shuffled in the play
         for (int i = 0 ; i < ship.parts.Count; i++)
         {
             var part = ship.parts[i];
-            switch (i)
+            int realX = x - i;
+
+            switch (part.key)
             {
-            case 0:
-                if (x > 8)
-                {
-                    part.active = false;
-                }
-                else 
-                {
-                    part.active = true;
-                }
+            case "left_missile":
+            case "left_cannon":
+                part.active = !(realX > 10);
                 break;
-            case 1:
-                if (x > 7)
-                {
-                    part.active = false;
-                }
-                else 
-                {
-                    part.active = true;
-                }
-                break;
-            case 3:
-                if (x < 7)
-                {
-                    part.active = false;
-                }
-                else 
-                {
-                    part.active = true;
-                }
-                break;
-            case 4:
-                if (x < 6)
-                {
-                    part.active = false;
-                }
-                else 
-                {
-                    part.active = true;
-                }
+            case "right_cannon":
+            case "right_missile":
+                part.active = !(realX < 0);
                 break;
             }
 

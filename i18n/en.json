@@ -36,11 +36,26 @@
                 "DoubleStar": {
                     "name": "DOUBLE STAR",
                     "description": [
-                        "<c=downside>Deactivates orange parts when it is on the left side, deactivates blue parts when it is on the right side.</c>",
-                        "If all blue parts were inactive, <c=action>all cards do its action twice</c> and <c=downside>gain 1 less energy next turn</c>",
-                        "If all orange parts were inactive, <c=action>all attacks generates</c> <c=status>Stun</c> and gain 1 more energy next turn",
+                        "Two zones will appear and add <c=card>Relative Motion</c> at the start of the combat.",
+                        "If the ship is inside orange zone, <c=action>all cards do its action twice</c> and <c=downside>gain 1 less energy next turn.</c>",
+                        "If the ship is inside blue zone, <c=action>all attacks generate</c> <c=status>Stun</c> and gain 1 more energy next turn.",
                         "If there is a Binary Star, artifact is temporarily disabled."
                     ]
+                }
+            },
+            "card": {
+                "RelativeMotion": {
+                    "name": "Relative Motion"
+                }
+            },
+            "tooltip": {
+                "AlbireoA": {
+                    "title": "BLUE STAR",
+                    "description": "Beyond this point, <c=downside>orange parts will be disabled.</c>"
+                },
+                "AlbireoB": {
+                    "title": "ORANGE STAR",
+                    "description": "Beyond this point, <c=downside>blue parts will be disabled.</c>"
                 }
             }
         }
