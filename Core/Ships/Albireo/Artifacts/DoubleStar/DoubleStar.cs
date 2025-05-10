@@ -4,19 +4,12 @@ using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal class DoubleStar : Artifact, IRegisterable
+internal class DoubleStar : Artifact
 {
     public bool binaryStarDetected = false;
-    public static ISpriteEntry DoubleStarSprite { get; internal set; } = null!;
-    public static ISpriteEntry DoubleStarInactiveSprite { get; internal set; } = null!;
+
 	public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
 	{
-        DoubleStarSprite = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/artifacts/DoubleStar.png")
-        );
-        DoubleStarInactiveSprite = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/artifacts/DoubleStarInactive.png")
-        );
 		helper.Content.Artifacts.RegisterArtifact("DoubleStar", new()
 		{
 			ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -26,7 +19,7 @@ internal class DoubleStar : Artifact, IRegisterable
 				pools = [ArtifactPool.EventOnly],
 				unremovable = true,
 			},
-			Sprite = DoubleStarSprite.Sprite,
+			Sprite = Sprites.DoubleStar.Sprite,
 			Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Albireo", "artifact", "DoubleStar", "name"]).Localize,
 			Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Albireo", "artifact", "DoubleStar", "description"]).Localize
 		});
@@ -44,9 +37,9 @@ internal class DoubleStar : Artifact, IRegisterable
     {
         if (binaryStarDetected)
         {
-            return DoubleStarInactiveSprite.Sprite;
+            return Sprites.DoubleStarInactive.Sprite;
         }
-        return DoubleStarSprite.Sprite;
+        return Sprites.DoubleStar.Sprite;
     }
 
     public override void OnCombatStart(State state, Combat combat)

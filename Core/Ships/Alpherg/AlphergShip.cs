@@ -11,33 +11,40 @@ internal sealed class AlphergShip : IRegisterable
 {
     internal static IPartEntry AlphergScaffoldOrange { get; set; } = null!;
     internal static IPartEntry AlphergScaffoldBlue { get; set; } = null!;
-    internal static ISpriteEntry AlphergChassisRight { get; set; } = null!;
-    internal static ISpriteEntry AlphergChassisLeft { get; set; } = null!;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        AlphergScaffoldOrange =  helper.Content.Ships.RegisterPart("AlphergScaffoldOrange", new () 
+        AlphergScaffoldOrange = helper.Content.Ships.RegisterPart("AlphergScaffoldOrange", new () 
         {
-            Sprite = helper.Content.Sprites.RegisterSprite(
-                package.PackageRoot.GetRelativeFile("assets/parts/alpherg_scaffold_orange.png")
-            ).Sprite
+            Sprite = Sprites.alpherg_scaffold_orange.Sprite
         });
 
-        AlphergScaffoldBlue =  helper.Content.Ships.RegisterPart("AlphergScaffoldBlue", new () 
+        AlphergScaffoldBlue = helper.Content.Ships.RegisterPart("AlphergScaffoldBlue", new () 
         {
-            Sprite = helper.Content.Sprites.RegisterSprite(
-                package.PackageRoot.GetRelativeFile("assets/parts/alpherg_scaffold_blue.png")
-            ).Sprite
+            Sprite = Sprites.alpherg_scaffold_blue.Sprite
         });
 
-        AlphergChassisRight = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/parts/alpherg_chassis.png"));
-        AlphergChassisLeft = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/parts/alpherg_chassis_left.png"));
+        var chassisSprite = helper.Content.Sprites.RegisterDynamicSprite("AlphergDynamicChassis", () => 
+        {
+            var state = MG.inst.g.state;
+            if (!ModEntry.Instance.Helper.ModData.TryGetModData(state, "alpherg_chassis.activation", out bool leftActive))
+            {
+                return SpriteLoader.Get(Sprites.alpherg_chassis.Sprite)!;
+            }
+            if (leftActive)
+            {
+                return SpriteLoader.Get(Sprites.alpherg_chassis_left.Sprite)!;
+            }
+
+            return SpriteLoader.Get(Sprites.alpherg_chassis.Sprite)!;
+        });
+
 
         helper.Content.Ships.RegisterShip("Alpherg", new () 
         {
             Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Alpherg", "name"]).Localize,
             Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Alpherg", "description"]).Localize,
-            UnderChassisSprite = AlphergChassisRight.Sprite,
+            UnderChassisSprite = chassisSprite.Sprite,
             Ship = new() 
             {
                 ship = new()
@@ -52,9 +59,7 @@ internal sealed class AlphergShip : IRegisterable
                             damageModifier = PDamMod.armor,
                             skin = helper.Content.Ships.RegisterPart("AlphergWingLeft", new () 
                             {
-                                Sprite = helper.Content.Sprites.RegisterSprite(
-                                    package.PackageRoot.GetRelativeFile("assets/parts/alpherg_wing_left.png")
-                                ).Sprite
+                                Sprite = Sprites.alpherg_wing_left.Sprite
                             }).UniqueName
                         },
                         new Part()
@@ -67,12 +72,8 @@ internal sealed class AlphergShip : IRegisterable
                             type = PType.cannon,
                             skin = helper.Content.Ships.RegisterPart("AlphergCannon", new () 
                             {
-                                Sprite = helper.Content.Sprites.RegisterSprite(
-                                    package.PackageRoot.GetRelativeFile("assets/parts/alpherg_cannon.png")
-                                ).Sprite,
-                                DisabledSprite = helper.Content.Sprites.RegisterSprite(
-                                    package.PackageRoot.GetRelativeFile("assets/parts/alpherg_cannon_inactive.png")
-                                ).Sprite
+                                Sprite = Sprites.alpherg_cannon.Sprite,
+                                DisabledSprite = Sprites.alpherg_cannon_inactive.Sprite
                             }).UniqueName,
                             active = false
                         },
@@ -81,9 +82,7 @@ internal sealed class AlphergShip : IRegisterable
                             type = PType.cockpit,
                             skin = helper.Content.Ships.RegisterPart("AlphergCockpit", new () 
                             {
-                                Sprite = helper.Content.Sprites.RegisterSprite(
-                                    package.PackageRoot.GetRelativeFile("assets/parts/alpherg_cockpit.png")
-                                ).Sprite
+                                Sprite = Sprites.alpherg_cockpit.Sprite
                             }).UniqueName,
                         },
                         new Part()
@@ -91,9 +90,7 @@ internal sealed class AlphergShip : IRegisterable
                             type = PType.missiles,
                             skin = helper.Content.Ships.RegisterPart("AlphergBay", new () 
                             {
-                                Sprite = helper.Content.Sprites.RegisterSprite(
-                                    package.PackageRoot.GetRelativeFile("assets/parts/alpherg_missilebay.png")
-                                ).Sprite
+                                Sprite = Sprites.alpherg_missilebay.Sprite
                             }).UniqueName,
                         },
                         new Part()
@@ -101,9 +98,7 @@ internal sealed class AlphergShip : IRegisterable
                             type = PType.wing,
                             skin = helper.Content.Ships.RegisterPart("AlphergWingRight", new () 
                             {
-                                Sprite = helper.Content.Sprites.RegisterSprite(
-                                    package.PackageRoot.GetRelativeFile("assets/parts/alpherg_wing_right.png")
-                                ).Sprite
+                                Sprite = Sprites.alpherg_wing_right.Sprite
                             }).UniqueName,
                         },
                     ]

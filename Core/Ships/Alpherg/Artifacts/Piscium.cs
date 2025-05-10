@@ -7,11 +7,10 @@ namespace Teuria.StarcourseDock;
 internal class Piscium : Artifact, IRegisterable
 {
     public bool isRight;
+
+
 	public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
 	{
-        var pisciumSprite = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/artifacts/Piscium.png")
-        );
 		helper.Content.Artifacts.RegisterArtifact("Piscium", new()
 		{
 			ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -21,7 +20,7 @@ internal class Piscium : Artifact, IRegisterable
 				pools = [ArtifactPool.EventOnly],
 				unremovable = true,
 			},
-			Sprite = pisciumSprite.Sprite,
+			Sprite = Sprites.Piscium.Sprite,
 			Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Alpherg", "artifact", "Piscium", "name"]).Localize,
 			Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Alpherg", "artifact", "Piscium", "description"]).Localize
 		});
@@ -34,6 +33,10 @@ internal class Piscium : Artifact, IRegisterable
             isRight = false;
             return;
         }
+    }
+
+    public override void OnPlayerPlayCard(int energyCost, Deck deck, Card card, State state, Combat combat, int handPosition, int handCount)
+    {
         isRight = !isRight;
         combat.Queue(new ASwapScaffold() { isRight = isRight });
     }
@@ -42,7 +45,6 @@ internal class Piscium : Artifact, IRegisterable
     {
         if (isRight)
         {
-            isRight = false;
             state.rewardsQueue.Queue(new ASwapScaffold() { isRight = false });
         }
     }

@@ -8,19 +8,8 @@ internal class RoutedCannon : Artifact, IRegisterable
 {
     public bool disabled;
 
-    public static ISpriteEntry RoutedCannonSprite { get; set; } = null!;
-    public static ISpriteEntry RoutedCannonInactiveSprite { get; set; } = null!;
-
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        RoutedCannonSprite = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/artifacts/RoutedCannon.png")
-        );
-
-        RoutedCannonInactiveSprite = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/artifacts/RoutedCannonInactive.png")
-        );
-
 		helper.Content.Artifacts.RegisterArtifact("RoutedCannon", new()
 		{
 			ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -30,7 +19,7 @@ internal class RoutedCannon : Artifact, IRegisterable
 				pools = [ArtifactPool.EventOnly],
 				unremovable = true,
 			},
-			Sprite = RoutedCannonSprite.Sprite,
+			Sprite = Sprites.RoutedCannon.Sprite,
 			Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Alpherg", "artifact", "RoutedCannon", "name"]).Localize,
 			Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Alpherg", "artifact", "RoutedCannon", "description"]).Localize
 		});
@@ -40,9 +29,9 @@ internal class RoutedCannon : Artifact, IRegisterable
     {
         if (disabled)
         {
-            return RoutedCannonInactiveSprite.Sprite;
+            return Sprites.RoutedCannonInactive.Sprite;
         }
-        return RoutedCannonSprite.Sprite;
+        return Sprites.RoutedCannon.Sprite;
     }
 
     public override void OnTurnStart(State state, Combat combat)

@@ -17,23 +17,17 @@ internal sealed class SpicaShip : IRegisterable
     {
         SpicaScaffold = helper.Content.Ships.RegisterPart("SpicaScaffolding", new () 
         {
-            Sprite = helper.Content.Sprites.RegisterSprite(
-                package.PackageRoot.GetRelativeFile("assets/parts/spica_scaffolding.png")
-            ).Sprite
+            Sprite = Sprites.spica_scaffolding.Sprite
         });
 
         SpicaCannon = helper.Content.Ships.RegisterPart("SpicaCannon", new () 
         {
-            Sprite = helper.Content.Sprites.RegisterSprite(
-                package.PackageRoot.GetRelativeFile("assets/parts/spica_cannon.png")
-            ).Sprite
+            Sprite = Sprites.spica_cannon.Sprite
         });
 
         SpicaCockpit = helper.Content.Ships.RegisterPart("SpicaCockpit", new () 
         {
-            Sprite = helper.Content.Sprites.RegisterSprite(
-                package.PackageRoot.GetRelativeFile("assets/parts/spica_cockpit.png")
-            ).Sprite
+            Sprite = Sprites.spica_cockpit.Sprite
         });
 
             
@@ -41,7 +35,7 @@ internal sealed class SpicaShip : IRegisterable
         {
             Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "name"]).Localize,
             Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "description"]).Localize,
-            UnderChassisSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/parts/spica_chassis.png")).Sprite,
+            UnderChassisSprite = Sprites.spica_chassis.Sprite,
             Ship = new() 
             {
                 ship = new()
@@ -57,9 +51,7 @@ internal sealed class SpicaShip : IRegisterable
                             damageModifier = PDamMod.armor,
                             skin = helper.Content.Ships.RegisterPart("SpicaWingLeft", new () 
                             {
-                                Sprite = helper.Content.Sprites.RegisterSprite(
-                                    package.PackageRoot.GetRelativeFile("assets/parts/spica_wing_left.png")
-                                ).Sprite
+                                Sprite = Sprites.spica_wing_left.Sprite
                             }).UniqueName
                         },
                         new Part()
@@ -84,9 +76,7 @@ internal sealed class SpicaShip : IRegisterable
                             type = PType.missiles,
                             skin = helper.Content.Ships.RegisterPart("SpicaMissileBay", new () 
                             {
-                                Sprite = helper.Content.Sprites.RegisterSprite(
-                                    package.PackageRoot.GetRelativeFile("assets/parts/spica_missilebay.png")
-                                ).Sprite
+                                Sprite = Sprites.spica_missilebay.Sprite
                             }).UniqueName,
                         },
                         new Part()
@@ -95,9 +85,7 @@ internal sealed class SpicaShip : IRegisterable
                             damageModifier = PDamMod.armor,
                             skin = helper.Content.Ships.RegisterPart("SpicaWingRight", new () 
                             {
-                                Sprite = helper.Content.Sprites.RegisterSprite(
-                                    package.PackageRoot.GetRelativeFile("assets/parts/spica_wing_right.png")
-                                ).Sprite
+                                Sprite = Sprites.spica_wing_right.Sprite
                             }).UniqueName,
                         },
                     ]

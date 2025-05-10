@@ -4,7 +4,7 @@ using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed class AlbireoShip : IRegisterable
+internal sealed class AlbireoShip 
 {
     private static readonly UK AlbireoAUK = ModEntry.Instance.Helper.Utilities.ObtainEnumCase<UK>();
     private static readonly UK AlbireoBUK = ModEntry.Instance.Helper.Utilities.ObtainEnumCase<UK>();
@@ -14,59 +14,30 @@ internal sealed class AlbireoShip : IRegisterable
     internal static IPartEntry AlbireoMissileBayRight { get; private set; } = null!;
 	internal static IShipEntry ShipEntry { get; private set; } = null!;
 
-    internal static ISpriteEntry AlbireoAIcon { get; private set; } = null!;
-    internal static ISpriteEntry AlbireoBIcon { get; private set; } = null!;
-
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        AlbireoAIcon = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/icons/blue_zone.png")
-        );
-        AlbireoBIcon = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/icons/orange_zone.png")
-        );
-        var inactiveMissileBaySprite = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/parts/albireo_missilebay_inactive.png")
-        ).Sprite;
-
-        var inactiveCannonLeft = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/parts/albireo_cannon_left_inactive.png")
-        ).Sprite;
-
-        var inactiveCannonRight = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/parts/albireo_cannon_right_inactive.png")
-        ).Sprite;
-
         AlbireoCannonLeft = helper.Content.Ships.RegisterPart("AlbireoCannonLeft", new () 
         {
-            Sprite = helper.Content.Sprites.RegisterSprite(
-                package.PackageRoot.GetRelativeFile("assets/parts/albireo_cannon_left.png")
-            ).Sprite,
-            DisabledSprite = inactiveCannonLeft
+            Sprite = Sprites.albireo_cannon_left.Sprite,
+            DisabledSprite = Sprites.albireo_cannon_left_inactive.Sprite
         });
 
         AlbireoCannonRight = helper.Content.Ships.RegisterPart("AlbireoCannonRight", new () 
         {
-            Sprite = helper.Content.Sprites.RegisterSprite(
-                package.PackageRoot.GetRelativeFile("assets/parts/albireo_cannon_right.png")
-            ).Sprite,
-            DisabledSprite = inactiveCannonRight
+            Sprite = Sprites.albireo_cannon_right.Sprite,
+            DisabledSprite = Sprites.albireo_cannon_right_inactive.Sprite
         });
 
         AlbireoMissileBayLeft = helper.Content.Ships.RegisterPart("AlbireoMissileBayLeft", new () 
         {
-            Sprite = helper.Content.Sprites.RegisterSprite(
-                package.PackageRoot.GetRelativeFile("assets/parts/albireo_missilebay_left.png")
-            ).Sprite,
-            DisabledSprite = inactiveMissileBaySprite
+            Sprite = Sprites.albireo_missilebay_left.Sprite,
+            DisabledSprite = Sprites.albireo_missilebay_inactive.Sprite
         });
 
         AlbireoMissileBayRight = helper.Content.Ships.RegisterPart("AlbireoMissileBayRight", new () 
         {
-            Sprite = helper.Content.Sprites.RegisterSprite(
-                package.PackageRoot.GetRelativeFile("assets/parts/albireo_missilebay_right.png")
-            ).Sprite,
-            DisabledSprite = inactiveMissileBaySprite
+            Sprite = Sprites.albireo_missilebay_right.Sprite,
+            DisabledSprite = Sprites.albireo_missilebay_inactive.Sprite 
         });
 
             
@@ -74,7 +45,7 @@ internal sealed class AlbireoShip : IRegisterable
         {
             Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Albireo", "name"]).Localize,
             Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Albireo", "description"]).Localize,
-            UnderChassisSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/parts/albireo_chassis.png")).Sprite,
+            UnderChassisSprite = Sprites.albireo_chassis.Sprite,
             Ship = new() 
             {
                 ship = new()
@@ -100,9 +71,7 @@ internal sealed class AlbireoShip : IRegisterable
                             type = PType.cockpit,
                             skin = helper.Content.Ships.RegisterPart("AlbireoCockpit", new() 
                             {
-                                Sprite = helper.Content.Sprites.RegisterSprite(
-                                    package.PackageRoot.GetRelativeFile("assets/parts/albireo_cockpit.png")
-                                ).Sprite
+                                Sprite = Sprites.albireo_cockpit.Sprite
                             }).UniqueName
                         },
                         new Part()
@@ -174,7 +143,7 @@ internal sealed class AlbireoShip : IRegisterable
             {
                 Color? color = box.IsHover() ? null : new Color(1.0, 1.0, 1.0, 0.3);
 
-                Draw.Sprite(AlbireoAIcon.Sprite, boxPos.x, boxPos.y + 17.0, color: color);
+                Draw.Sprite(Sprites.blue_zone.Sprite, boxPos.x, boxPos.y + 17.0, color: color);
             }
             g.Pop();
         }
@@ -204,7 +173,7 @@ internal sealed class AlbireoShip : IRegisterable
             {
                 Color? color = box.IsHover() ? null : new Color(1.0, 1.0, 1.0, 0.3);
 
-                Draw.Sprite(AlbireoBIcon.Sprite, boxPos.x, boxPos.y + 17.0, color: color);
+                Draw.Sprite(Sprites.orange_zone.Sprite, boxPos.x, boxPos.y + 17.0, color: color);
             }
             g.Pop();
         }

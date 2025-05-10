@@ -6,8 +6,6 @@ namespace Teuria.StarcourseDock;
 
 internal class ShieldOrShot : Card, IRegisterable
 {
-    private static ISpriteEntry shieldOrShotBottom = null!;
-    private static ISpriteEntry shieldOrShotTop = null!;
 	public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
         helper.Content.Cards.RegisterCard(MethodBase.GetCurrentMethod()!.DeclaringType!.Name, new() 
@@ -22,9 +20,6 @@ internal class ShieldOrShot : Card, IRegisterable
             },
             Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "card", "ShieldOrShot", "name"]).Localize
         });
-
-        shieldOrShotBottom = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/ShieldOrShot_Bottom.png"));
-        shieldOrShotTop = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/ShieldOrShot_Top.png"));
     }
 
     public override CardData GetData(State state)
@@ -47,7 +42,7 @@ internal class ShieldOrShot : Card, IRegisterable
                 floppable = true
             },
         };
-        result.art = this.flipped ? shieldOrShotBottom.Sprite : shieldOrShotTop.Sprite;
+        result.art = this.flipped ? Sprites.ShieldOrShot_Bottom.Sprite : Sprites.ShieldOrShot_Top.Sprite;
         return result;
     }
 

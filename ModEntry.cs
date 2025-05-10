@@ -1,8 +1,10 @@
-﻿using HarmonyLib;
+﻿using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Logging;
 using Nanoray.PluginManager;
 using Nickel;
 using Shockah.Kokoro;
+
+[assembly: InternalsVisibleTo("GeneratedTextTransformation")]
 
 namespace Teuria.StarcourseDock;
 
@@ -28,17 +30,19 @@ public sealed class ModEntry : SimpleMod
 		);
 
         KokoroAPI = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!;
-        
-        AccessTools.DeclaredMethod(typeof(SpicaShip), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
-        AccessTools.DeclaredMethod(typeof(ShieldOrShot), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
-        AccessTools.DeclaredMethod(typeof(FixedStar), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
-        AccessTools.DeclaredMethod(typeof(Shrink), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
-        AccessTools.DeclaredMethod(typeof(DodgeOrShift), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
+        Sprites.Register(package, helper);
+        Registerables.Register(package, helper);
 
-        AccessTools.DeclaredMethod(typeof(AlphergShip), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
-        AccessTools.DeclaredMethod(typeof(Piscium), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
-        AccessTools.DeclaredMethod(typeof(RoutedCannon), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
-        AccessTools.DeclaredMethod(typeof(RerouteCannon), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
+        // AccessTools.DeclaredMethod(typeof(SpicaShip), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
+        // AccessTools.DeclaredMethod(typeof(ShieldOrShot), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
+        // AccessTools.DeclaredMethod(typeof(FixedStar), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
+        // AccessTools.DeclaredMethod(typeof(Shrink), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
+        // AccessTools.DeclaredMethod(typeof(DodgeOrShift), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
+
+        // AccessTools.DeclaredMethod(typeof(AlphergShip), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
+        // AccessTools.DeclaredMethod(typeof(Piscium), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
+        // AccessTools.DeclaredMethod(typeof(RoutedCannon), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
+        // AccessTools.DeclaredMethod(typeof(RerouteCannon), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
 
         // AccessTools.DeclaredMethod(typeof(AlbireoShip), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
         // AccessTools.DeclaredMethod(typeof(DoubleStar), nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);

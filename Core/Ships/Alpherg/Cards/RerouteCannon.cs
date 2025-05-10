@@ -17,9 +17,7 @@ internal class RerouteCannon : Card, IRegisterable
                 titleColor = Colors.white
             },
             DefaultCardArt = StableSpr.cards_colorless,
-            BorderSprite = helper.Content.Sprites.RegisterSprite(
-                package.PackageRoot.GetRelativeFile("assets/cardShared/border_alpherg.png")
-            ).Sprite,
+            BorderSprite = Sprites.border_alpherg.Sprite,
             Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Alpherg", "name"]).Localize
         });
 

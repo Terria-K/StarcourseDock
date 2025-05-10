@@ -9,9 +9,6 @@ internal class FixedStar : Artifact, IRegisterable
     public List<Part>? tempParts;
 	public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
 	{
-        var fixedStarSprite = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/artifacts/FixedStar.png")
-        );
 		helper.Content.Artifacts.RegisterArtifact("FixedStar", new()
 		{
 			ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -21,7 +18,7 @@ internal class FixedStar : Artifact, IRegisterable
 				pools = [ArtifactPool.EventOnly],
 				unremovable = true,
 			},
-			Sprite = fixedStarSprite.Sprite,
+			Sprite = Sprites.FixedStar.Sprite,
 			Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "artifact", "FixedStar", "name"]).Localize,
 			Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "artifact", "FixedStar", "description"]).Localize
 		});

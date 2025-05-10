@@ -4,7 +4,7 @@ using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal class RelativeMotion : Card, IRegisterable
+internal class RelativeMotion : Card
 {
 	public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {

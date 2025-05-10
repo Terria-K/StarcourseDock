@@ -6,6 +6,7 @@ internal class ASwapScaffold : CardAction
 
     public override void Begin(G g, State s, Combat c)
     {
+        ModEntry.Instance.Helper.ModData.SetModData(s, "alpherg_chassis.activation", isRight);
         int len = s.ship.parts.Count;
         var retained = new List<Part>(len);
         if (isRight)
@@ -26,8 +27,6 @@ internal class ASwapScaffold : CardAction
             }
 
             s.ship.parts = retained;
-            DB.parts[$"{AlphergShip.AlphergChassisLeft.UniqueName}::underChassis"] = AlphergShip.AlphergChassisLeft.Sprite;
-            s.ship.chassisUnder = $"{AlphergShip.AlphergChassisLeft.UniqueName}::underChassis";
             s.ship.InsertPart(s, len - x - 1, len - x - 2, false, new Part() {
                 skin = AlphergShip.AlphergScaffoldBlue.UniqueName,
                 type = PType.empty
@@ -51,8 +50,6 @@ internal class ASwapScaffold : CardAction
             }
 
             s.ship.parts = retained;
-            DB.parts[$"{AlphergShip.AlphergChassisLeft.UniqueName}::underChassis"] = AlphergShip.AlphergChassisRight.Sprite;
-            s.ship.chassisUnder = $"{AlphergShip.AlphergChassisLeft.UniqueName}::underChassis";
             s.ship.InsertPart(s, Math.Abs(x - len + 1), 0, false, new Part() {
                 skin = AlphergShip.AlphergScaffoldOrange.UniqueName,
                 type = PType.empty

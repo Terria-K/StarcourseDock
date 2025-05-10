@@ -6,9 +6,6 @@ namespace Teuria.StarcourseDock;
 
 internal class DodgeOrShift : Card, IRegisterable
 {
-    private static ISpriteEntry dodgeOrShiftBottom = null!;
-    private static ISpriteEntry dodgeOrShiftTop = null!;
-
 	public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
         helper.Content.Cards.RegisterCard(MethodBase.GetCurrentMethod()!.DeclaringType!.Name, new() 
@@ -23,9 +20,6 @@ internal class DodgeOrShift : Card, IRegisterable
             },
             Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "card", "DodgeOrShift", "name"]).Localize
         });
-
-        dodgeOrShiftBottom = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/DodgeOrShift_Bottom.png"));
-        dodgeOrShiftTop = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/DodgeOrShift_Top.png"));
     }
 
     public override CardData GetData(State state)
@@ -48,7 +42,7 @@ internal class DodgeOrShift : Card, IRegisterable
                 floppable = true
             },
         };
-        result.art = this.flipped ? dodgeOrShiftBottom.Sprite : dodgeOrShiftTop.Sprite;
+        result.art = this.flipped ? Sprites.DodgeOrShift_Bottom.Sprite : Sprites.DodgeOrShift_Top.Sprite;
         return result;
     }
 
