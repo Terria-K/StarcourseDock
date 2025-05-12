@@ -1,4 +1,6 @@
+using static Shockah.Kokoro.IKokoroApi.IV2.IEvadeHookApi;
 using System.Reflection;
+using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
 
@@ -24,8 +26,23 @@ internal class FixedStar : Artifact, IRegisterable
 		});
 
         ModEntry.Instance.KokoroAPI.V2.EvadeHook.RegisterHook(new FixedStarHook(), 10);
-        var evadeAction = ModEntry.Instance.KokoroAPI.V2.EvadeHook.RegisterAction(new FixedStarAction(), 10);
-        evadeAction.RegisterPaymentOption(new FixedStarPaymentOption());
+
+        ModEntry.Instance.Harmony.Patch(
+            AccessTools.DeclaredMethod(typeof(AMove), nameof(AMove.Begin)),
+            prefix: new HarmonyMethod(AMove_Begin_Prefix)
+        );
+    }
+
+    public static bool AMove_Begin_Prefix(AMove __instance, State s, Combat c)
+    {
+        if (s.EnumerateAllArtifacts().Any(x => x is FixedStar) && __instance.targetPlayer && __instance.fromEvade)
+        {
+            __instance.timer = 0f;
+            c.QueueImmediate(new ACannonMove() { dir = __instance.dir, ignoreHermes = __instance.ignoreHermes, preferRightWhenZero = __instance.preferRightWhenZero });
+            return false;
+        }
+
+        return true;
     }
 
     public override List<Tooltip>? GetExtraTooltips()
@@ -106,6 +123,44 @@ internal class FixedStar : Artifact, IRegisterable
         {
             state.ship.x -= 1;
             state.ship.xLerped -= 1;
+        }
+    }
+
+    private class FixedStarHook : IHook
+    {
+        public bool IsEvadeActionEnabled(IHook.IIsEvadeActionEnabledArgs args) 
+        {
+            var state = args.State;
+
+            if (!state.EnumerateAllArtifacts().Any(x => x is FixedStar))
+            {
+                return true;
+            }
+
+            int dir = (int)args.Direction;
+            int cannonIndex = 0;
+            int i = 0;
+            int length = state.ship.parts.Count;
+            foreach (var s in state.ship.parts)
+            {
+                if (s.type == PType.cannon)
+                {
+                    cannonIndex = i;
+                    break;
+                }
+                i += 1;
+            }
+            if (dir == -1 && cannonIndex == 1)
+            {
+                return false;
+            }
+
+            if (dir == 1 && cannonIndex == length - 2)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
