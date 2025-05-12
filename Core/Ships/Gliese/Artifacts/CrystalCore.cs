@@ -30,7 +30,7 @@ internal sealed class CrystalCore : Artifact, IRegisterable
         int stunCharges = state.ship.Get(Status.stunCharge);
         if (stunCharges < 3)
         {
-            state.ship.Set(Status.stunCharge, 3);
+            state.ship.Add(Status.stunCharge, 3);
         }
 
         if (combat.turn == 1)
@@ -47,12 +47,20 @@ internal sealed class CrystalCore : Artifact, IRegisterable
         state.rewardsQueue.Queue(new ARepairAllBrokenPart());
     }
 
+    public override List<Tooltip>? GetExtraTooltips()
+    {
+        return [
+			new TTGlossary("status.stunCharge", ["3"]),
+			new TTGlossary("status.lockdown"),
+			new TTGlossary("action.stun", Array.Empty<object>())
+        ];
+    }
+
     public override void OnPlayerTakeNormalDamage(State state, Combat combat, int rawAmount, Part? part)
     {
         if (part != null && part.key == "portal")
         {
-            int center = state.ship.parts.IndexOf(part);
-            state.ship.InsertPart(state, "portal", "there is no center key, just add it please", false, new Part() 
+            state.ship.InsertPart(state, "portal", "portal", false, new Part() 
             {
                 type = PType.special,
                 skin = GlieseShip.GlieseCrystal2.UniqueName,
@@ -73,7 +81,8 @@ internal sealed class CrystalCore : Artifact, IRegisterable
 
                 if (count == 3)
                 {
-                    combat.otherShip.Set(Status.lockdown, 1);
+                    combat.otherShip.Add(Status.lockdown, 2);
+                    count = 0;
                 }
             }
         }

@@ -68,10 +68,10 @@
                 "CrystalCore": {
                     "name": "CRYSTAL CORE",
                     "description": [
-                        "Gain maximum of 3 <c=status>Stun Charge</c> every turn.",
-                        "After 3 successful <c=action>stun</c>, enemy will gain <c=status>Engine Lock</c>.",
-                        "At the end of enemy's turn, your ship's parts will be <c=downside>shuffled.</c>",
-                        "If a wing get hit, <c=downside>add a crystal part.</c>"
+                        "At the start of each turn, gain 3 <c=status>STUN CHARGE</c>.",
+                        "After 3 successful <c=action>stuns</c>, enemy will gain 2 <c=status>ENGINE LOCK</c>.",
+                        "At the end of enemy's turn, your ship's parts will <c=downside>shuffle.</c>",
+                        "If a wing gets <c=action>hit</c>, <c=downside>add a breakable part.</c>"
                     ]
                 }
             }
