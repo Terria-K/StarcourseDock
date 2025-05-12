@@ -11,6 +11,7 @@ internal sealed class AlphergShip : IRegisterable
 {
     internal static IPartEntry AlphergScaffoldOrange { get; set; } = null!;
     internal static IPartEntry AlphergScaffoldBlue { get; set; } = null!;
+    internal static IShipEntry AlphergEntry { get; set; } = null!;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
@@ -40,7 +41,7 @@ internal sealed class AlphergShip : IRegisterable
         });
 
 
-        helper.Content.Ships.RegisterShip("Alpherg", new () 
+        AlphergEntry = helper.Content.Ships.RegisterShip("Alpherg", new () 
         {
             Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Alpherg", "name"]).Localize,
             Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Alpherg", "description"]).Localize,
@@ -126,7 +127,7 @@ internal sealed class AlphergShip : IRegisterable
 
     internal static bool StoryNode_Filter_Prefix(string key, State s, ref bool __result)
     {
-        if (s.ship.key == $"{ModEntry.Instance.Package.Manifest.UniqueName}::Alpherg" && key == "AddScaffold")
+        if (s.ship.key == AlphergEntry.UniqueName && key == "AddScaffold")
         {
             __result = false;
             return false;
@@ -137,7 +138,7 @@ internal sealed class AlphergShip : IRegisterable
 
     internal static void ArtifactReward_GetBlockedArtifacts_Postfix(HashSet<Type> __result, State s) 
     {
-        if (s.ship.key == $"{ModEntry.Instance.Package.Manifest.UniqueName}::Alpherg")
+        if (s.ship.key == AlphergEntry.UniqueName)
         {
             __result.Add(typeof(GlassCannon));
         }
