@@ -115,11 +115,6 @@ internal sealed class AlphergShip : IRegisterable
         });
 
         ModEntry.Instance.Harmony.Patch(
-            original: AccessTools.DeclaredMethod(typeof(ArtifactReward), nameof(ArtifactReward.GetBlockedArtifacts)),
-            postfix: new HarmonyMethod(ArtifactReward_GetBlockedArtifacts_Postfix)
-        );
-
-        ModEntry.Instance.Harmony.Patch(
             original: AccessTools.DeclaredMethod(typeof(StoryNode), nameof(StoryNode.Filter)),
             prefix: new HarmonyMethod(StoryNode_Filter_Prefix)
         );
@@ -134,13 +129,5 @@ internal sealed class AlphergShip : IRegisterable
         }
 
         return true;
-    }
-
-    internal static void ArtifactReward_GetBlockedArtifacts_Postfix(HashSet<Type> __result, State s) 
-    {
-        if (s.ship.key == AlphergEntry.UniqueName)
-        {
-            __result.Add(typeof(GlassCannon));
-        }
     }
 }
