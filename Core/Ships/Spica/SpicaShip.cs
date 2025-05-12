@@ -11,7 +11,7 @@ internal sealed class SpicaShip : IRegisterable
     internal static IPartEntry SpicaScaffold { get; private set; } = null!;
     internal static IPartEntry SpicaCannon { get; private set; } = null!;
 	internal static IPartEntry SpicaCockpit { get; private set; } = null!;
-	internal static IShipEntry ShipEntry { get; private set; } = null!;
+	internal static IShipEntry SpicaEntry { get; private set; } = null!;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
@@ -31,7 +31,7 @@ internal sealed class SpicaShip : IRegisterable
         });
 
             
-        ShipEntry = helper.Content.Ships.RegisterShip("Spica", new () 
+        SpicaEntry = helper.Content.Ships.RegisterShip("Spica", new () 
         {
             Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "name"]).Localize,
             Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "description"]).Localize,
@@ -111,7 +111,7 @@ internal sealed class SpicaShip : IRegisterable
 
     internal static void ArtifactReward_GetBlockedArtifacts_Postfix(HashSet<Type> __result, State s) 
     {
-        if (s.ship.key == $"{ModEntry.Instance.Package.Manifest.UniqueName}::Spica")
+        if (s.ship.key == SpicaEntry.UniqueName)
         {
             __result.Add(typeof(AdaptivePlating));
         }
