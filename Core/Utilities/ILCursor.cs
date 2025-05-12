@@ -64,6 +64,11 @@ internal sealed class ILCursor
     {
         bool found = false;
         var len = matches.Length;
+        if (len == 0)
+        {
+            Index -= 1;
+            return true;
+        }
         int oldIndex = Index;
         for (; Index >= 0; Index -= 1)
         {
@@ -97,6 +102,11 @@ internal sealed class ILCursor
     {
         bool found = false;
         var len = matches.Length;
+        if (len == 0)
+        {
+            Index += 1;
+            return true;
+        }
         int oldIndex = Index;
         for (; Index < instructions.Count; Index += 1)
         {
