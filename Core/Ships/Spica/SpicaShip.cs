@@ -90,7 +90,7 @@ internal sealed class SpicaShip : IRegisterable
                         },
                     ]
                 },
-                artifacts = [new ShieldPrep(), new FixedStar()],
+                artifacts = [new ShieldPrep(), new FixedStar(), new SaveState()],
                 cards = [
                     new ShieldOrShot(),
                     new DodgeOrShift()

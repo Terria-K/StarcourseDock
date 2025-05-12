@@ -5,12 +5,14 @@ namespace Teuria.StarcourseDock;
 
 public static partial class Sprites 
 {
+    public static ISpriteEntry CrystalCore = null!;
     public static ISpriteEntry DoubleStar = null!;
     public static ISpriteEntry DoubleStarInactive = null!;
     public static ISpriteEntry FixedStar = null!;
     public static ISpriteEntry Piscium = null!;
     public static ISpriteEntry RoutedCannon = null!;
     public static ISpriteEntry RoutedCannonInactive = null!;
+    public static ISpriteEntry SaveState = null!;
     public static ISpriteEntry DodgeOrShift_Bottom = null!;
     public static ISpriteEntry DodgeOrShift_Top = null!;
     public static ISpriteEntry ShieldOrShot_Bottom = null!;
@@ -38,6 +40,16 @@ public static partial class Sprites
     public static ISpriteEntry alpherg_scaffold_orange = null!;
     public static ISpriteEntry alpherg_wing_left = null!;
     public static ISpriteEntry alpherg_wing_right = null!;
+    public static ISpriteEntry gliese_cannon = null!;
+    public static ISpriteEntry gliese_chassis = null!;
+    public static ISpriteEntry gliese_cockpit = null!;
+    public static ISpriteEntry gliese_missilebay = null!;
+    public static ISpriteEntry gliese_scaffolding_0 = null!;
+    public static ISpriteEntry gliese_scaffolding_1 = null!;
+    public static ISpriteEntry gliese_wings_0 = null!;
+    public static ISpriteEntry gliese_wings_1 = null!;
+    public static ISpriteEntry gliese_wings_2 = null!;
+    public static ISpriteEntry gliese_wings_3 = null!;
     public static ISpriteEntry spica_cannon = null!;
     public static ISpriteEntry spica_chassis = null!;
     public static ISpriteEntry spica_cockpit = null!;
@@ -48,6 +60,9 @@ public static partial class Sprites
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
+        CrystalCore = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/CrystalCore.png")
+        );
         DoubleStar = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/DoubleStar.png")
         );
@@ -65,6 +80,9 @@ public static partial class Sprites
         );
         RoutedCannonInactive = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/RoutedCannonInactive.png")
+        );
+        SaveState = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/SaveState.png")
         );
         DodgeOrShift_Bottom = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/cards/DodgeOrShift_Bottom.png")
@@ -146,6 +164,36 @@ public static partial class Sprites
         );
         alpherg_wing_right = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/alpherg_wing_right.png")
+        );
+        gliese_cannon = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/gliese_cannon.png")
+        );
+        gliese_chassis = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/gliese_chassis.png")
+        );
+        gliese_cockpit = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/gliese_cockpit.png")
+        );
+        gliese_missilebay = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/gliese_missilebay.png")
+        );
+        gliese_scaffolding_0 = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/gliese_scaffolding_0.png")
+        );
+        gliese_scaffolding_1 = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/gliese_scaffolding_1.png")
+        );
+        gliese_wings_0 = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/gliese_wings_0.png")
+        );
+        gliese_wings_1 = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/gliese_wings_1.png")
+        );
+        gliese_wings_2 = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/gliese_wings_2.png")
+        );
+        gliese_wings_3 = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/gliese_wings_3.png")
         );
         spica_cannon = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/spica_cannon.png")

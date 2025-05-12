@@ -18,7 +18,7 @@ using Nanoray.PluginManager;
         {
             if (allowedExtension.Where(x => file.Contains(x)).Any() && !file.Contains(".dyn"))
             {
-                sprites.Add((Path.GetFileNameWithoutExtension(file), file));
+                sprites.Add((Path.GetFileNameWithoutExtension(file), file.Replace('\\', '/')));
             }
         }
 

@@ -1,8 +1,17 @@
 {
+    "artifact": {
+        "SaveState": {
+            "name": "SAVE STATE",
+            "description": [
+                "At the start of a combat, save your current ship's parts.",
+                "At the end of a combat, load your saved ship's parts."
+            ]
+        }
+    },
     "ship": {
         "Spica": {
             "name": "Spica",
-            "description": "A fixed ship that cannot move on its own.",
+            "description": "A fixed ship that <c=downside>cannot move on its own.</c>",
             "card": {
                 "ShieldOrShot": {
                     "name": "Shield Or Shot"
@@ -49,6 +58,21 @@
                     "B": {
                         "description": "Temporarily <c=action>activate</c> cannon."
                     }
+                }
+            }
+        },
+        "Gliese": {
+            "name": "Gliese",
+            "description": "Chaotic crystalline entity that has a freezing ability, <c=downside>but constantly shuffle its part.</c>",
+            "artifact": {
+                "CrystalCore": {
+                    "name": "CRYSTAL CORE",
+                    "description": [
+                        "Gain maximum of 3 <c=status>Stun Charge</c> every turn.",
+                        "After 3 successful <c=action>stun</c>, enemy will gain <c=status>Engine Lock</c>.",
+                        "At the end of enemy's turn, your ship's parts will be <c=downside>shuffled.</c>",
+                        "If a wing get hit, <c=downside>add a crystal part.</c>"
+                    ]
                 }
             }
         },

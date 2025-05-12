@@ -10,5 +10,10 @@ internal class AResetShip : CardAction
         {
             s.ship.parts = parts;
         }
+
+        if (s.ship.key == GlieseShip.GlieseEntry.UniqueName)
+        {
+            s.rewardsQueue.Queue(new ARepairAllBrokenPart());
+        }
     }
 }

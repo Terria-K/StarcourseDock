@@ -8,7 +8,6 @@ namespace Teuria.StarcourseDock;
 
 internal class FixedStar : Artifact, IRegisterable
 {
-    public List<Part>? tempParts;
 	public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
 	{
 		helper.Content.Artifacts.RegisterArtifact("FixedStar", new()
@@ -74,18 +73,9 @@ internal class FixedStar : Artifact, IRegisterable
 
         if (combat.turn == 1)
         {
-            tempParts = [.. state.ship.parts];
             return;
         }
         Reset(state);
-    }
-
-    public override void OnCombatEnd(State state)
-    {
-        state.rewardsQueue.Queue(new AResetShip
-        {
-            parts = tempParts
-        });
     }
 
     private static void Reset(State state)
