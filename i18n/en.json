@@ -34,20 +34,20 @@
             "description": "An aquatic ray-like ship that fires from its empty space.",
             "artifact": {
                 "Piscium": {
-                    "name": "PISCIUM",
-                    "description": "For every turn, <c=action>put the scaffold at the opposite side of the ship.</c>"
+                    "name": "PISCIUM DANCE",
+                    "description": "For everytime your ship <c=action>attacks</c>, <c=action>swap</c> the scaffold at the opposite side of the ship."
                 },
                 "RoutedCannon": {
                     "name": "ROUTED CANNON",
-                    "description": "<c=action>Allows ship to shoot from empty space.</c>"
+                    "description": "Allows ship to <c=action>attack</c> from empty space."
                 }
             },
             "card": {
                 "RerouteCannon": {
                     "name": "Reroute Cannon",
-                    "description": "Temporarily activate cannon and <c=downside>deactivate <c=artifact>ROUTED CANNON.</c></c>",
+                    "description": "Temporarily <c=action>activate</c> cannon and <c=downside>deactivate <c=artifact>ROUTED CANNON.</c></c>",
                     "B": {
-                        "description": "Temporarily activate cannon."
+                        "description": "Temporarily <c=action>activate</c> cannon."
                     }
                 }
             }

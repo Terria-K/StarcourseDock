@@ -1,4 +1,5 @@
 using System.Reflection;
+using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
 
@@ -42,20 +43,19 @@ internal class RerouteCannon : Card, IRegisterable
         {
             Upgrade.A => new()
             {
-                cost = 1,
+                recycle = true,
+                cost = 0,
                 description = ModEntry.Instance.Localizations.Localize(["ship", "Alpherg", "card", "RerouteCannon", "description"]),
                 unremovableAtShops = true
             },
             Upgrade.B => new() 
             {
-                exhaust = true,
                 description = ModEntry.Instance.Localizations.Localize(["ship", "Alpherg", "card", "RerouteCannon", "B", "description"]),
                 cost = 1,
                 unremovableAtShops = true
             },
             _ => new()
             {
-                exhaust = true,
                 description = ModEntry.Instance.Localizations.Localize(["ship", "Alpherg", "card", "RerouteCannon", "description"]),
                 cost = 1,
                 unremovableAtShops = true
