@@ -64,7 +64,7 @@
 
         "Gliese": {
             "name": "Gliese",
-            "description": "Chaotic crystalline entity that has a freezing ability, <c=downside>but constantly shuffle its part.</c>",
+            "description": "Chaotic crystalline entity that has a freezing ability, <c=downside>but constantly shuffles its part.</c>",
             "artifact": {
                 "CrystalCore": {
                     "name": "CRYSTAL CORE",
