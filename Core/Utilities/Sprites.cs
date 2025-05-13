@@ -6,9 +6,11 @@ namespace Teuria.StarcourseDock;
 public static partial class Sprites 
 {
     public static ISpriteEntry CrystalCore = null!;
+    public static ISpriteEntry CrystalCoreV2 = null!;
     public static ISpriteEntry DoubleStar = null!;
     public static ISpriteEntry DoubleStarInactive = null!;
     public static ISpriteEntry FixedStar = null!;
+    public static ISpriteEntry FrostCannon = null!;
     public static ISpriteEntry Piscium = null!;
     public static ISpriteEntry RoutedCannon = null!;
     public static ISpriteEntry RoutedCannonInactive = null!;
@@ -41,6 +43,7 @@ public static partial class Sprites
     public static ISpriteEntry alpherg_wing_left = null!;
     public static ISpriteEntry alpherg_wing_right = null!;
     public static ISpriteEntry gliese_cannon = null!;
+    public static ISpriteEntry gliese_cannon_temp = null!;
     public static ISpriteEntry gliese_chassis = null!;
     public static ISpriteEntry gliese_cockpit = null!;
     public static ISpriteEntry gliese_missilebay = null!;
@@ -63,6 +66,9 @@ public static partial class Sprites
         CrystalCore = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/CrystalCore.png")
         );
+        CrystalCoreV2 = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/CrystalCoreV2.png")
+        );
         DoubleStar = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/DoubleStar.png")
         );
@@ -71,6 +77,9 @@ public static partial class Sprites
         );
         FixedStar = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/FixedStar.png")
+        );
+        FrostCannon = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/FrostCannon.png")
         );
         Piscium = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/Piscium.png")
@@ -167,6 +176,9 @@ public static partial class Sprites
         );
         gliese_cannon = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/gliese_cannon.png")
+        );
+        gliese_cannon_temp = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/gliese_cannon_temp.png")
         );
         gliese_chassis = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/gliese_chassis.png")

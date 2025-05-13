@@ -61,6 +61,7 @@
                 }
             }
         },
+
         "Gliese": {
             "name": "Gliese",
             "description": "Chaotic crystalline entity that has a freezing ability, <c=downside>but constantly shuffle its part.</c>",
@@ -68,14 +69,35 @@
                 "CrystalCore": {
                     "name": "CRYSTAL CORE",
                     "description": [
-                        "At the start of each turn, gain 3 <c=status>STUN CHARGE</c>.",
-                        "After 3 successful <c=action>stuns</c>, enemy will gain 2 <c=status>ENGINE LOCK</c>.",
                         "At the end of enemy's turn, your ship's parts will <c=downside>shuffle.</c>",
                         "If a wing gets <c=action>hit</c>, <c=downside>add a breakable part.</c>"
                     ]
+                },
+
+                "CrystalCoreV2": {
+                    "name": "CRYSTAL HEART",
+                    "description": [
+                        "At the start of a combat, add an <c=card>Absolute Zero</c> in your draw pile.",
+                        "If a wing gets <c=action>hit</c>, <c=downside>add a temporary cannon that last after your turn.</c>"
+                    ]
+                },
+
+                "FrostCannon": {
+                    "name": "FROST CANNON",
+                    "description": [
+                        "At the start of each turn, gain 3 <c=status>STUN CHARGE</c>.",
+                        "After 3 consecutive <c=action>stuns</c>, enemy will gain an <c=status>ENGINE LOCK</c> and <c=action>total stun</c> all intents."
+                    ]
+                }
+            },
+            "card": {
+                "AbsoluteZero": {
+                    "name": "Absolute Zero",
+                    "description": "<c=action>Shuffles</c> your parts. While in your hand, all <c=action>attacks</c> <c=downside>deal 0 dmg.</c>"
                 }
             }
         },
+
         "Albireo": {
             "name": "Albireo",
             "description": "A double tempered ship that harness the energy of double stars.",

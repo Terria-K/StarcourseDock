@@ -13,6 +13,9 @@ internal static class Registerables
         Teuria.StarcourseDock.RoutedCannon.Register(package, helper);
         Teuria.StarcourseDock.RerouteCannon.Register(package, helper);
         Teuria.StarcourseDock.CrystalCore.Register(package, helper);
+        Teuria.StarcourseDock.CrystalCoreV2.Register(package, helper);
+        Teuria.StarcourseDock.FrostCannon.Register(package, helper);
+        Teuria.StarcourseDock.AbsoluteZero.Register(package, helper);
         Teuria.StarcourseDock.GlieseShip.Register(package, helper);
         Teuria.StarcourseDock.FixedStar.Register(package, helper);
         Teuria.StarcourseDock.DodgeOrShift.Register(package, helper);

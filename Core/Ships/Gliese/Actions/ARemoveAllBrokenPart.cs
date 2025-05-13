@@ -12,7 +12,7 @@ internal class ARemoveAllBrokenPart : CardAction
                 continue;
             }
 
-            if (part.type == PType.special)
+            if (part.type != PType.empty)
             {
                 continue;
             }

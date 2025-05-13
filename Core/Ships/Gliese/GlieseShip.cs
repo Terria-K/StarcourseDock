@@ -14,6 +14,7 @@ internal sealed class GlieseShip : IRegisterable
     internal static IPartEntry GlieseCrystal3 { get; private set; } = null!;
     internal static IPartEntry GlieseScaffolding1 { get; private set; } = null!;
     internal static IPartEntry GlieseScaffolding2 { get; private set; } = null!;
+    internal static IPartEntry GlieseCannonTemp { get; private set; } = null!;
     internal static IPartEntry GliesePortal { get; private set; } = null!;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
@@ -48,6 +49,11 @@ internal sealed class GlieseShip : IRegisterable
             Sprite = Sprites.gliese_wings_3.Sprite
         });
 
+        GlieseCannonTemp = helper.Content.Ships.RegisterPart("GliesecrystalCannon", new() 
+        {
+            Sprite = Sprites.gliese_cannon_temp.Sprite
+        });
+
         GlieseEntry = helper.Content.Ships.RegisterShip("Gliese", new () 
         {
             Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Gliese", "name"]).Localize,
@@ -57,10 +63,10 @@ internal sealed class GlieseShip : IRegisterable
             {
                 ship = new()
                 {
-                    x = -1,
+                    x = -2,
                     hull = 10,
                     hullMax = 10,
-                    shieldMaxBase = 4,
+                    shieldMaxBase = 5,
                     parts = [
                         new Part() 
                         {
@@ -128,11 +134,12 @@ internal sealed class GlieseShip : IRegisterable
                         {
                             type = PType.wing,
                             key = "portal",
+                            damageModifier = PDamMod.armor,
                             skin = GliesePortal.UniqueName
                         },
                     ]
                 },
-                artifacts = [new ShieldPrep(), new CrystalCore(), new SaveState()],
+                artifacts = [new ShieldPrep(), new CrystalCore(), new FrostCannon(), new SaveState()],
                 cards = [
                     new BasicShieldColorless(),
                     new DodgeColorless(),
@@ -142,12 +149,29 @@ internal sealed class GlieseShip : IRegisterable
         });
 
         ModEntry.Instance.Harmony.Patch(
+            AccessTools.DeclaredMethod(typeof(ArtifactReward), nameof(ArtifactReward.GetBlockedArtifacts)),
+            postfix: new HarmonyMethod(ArtifactReward_GetBlockedArtifacts)
+        );
+
+        ModEntry.Instance.Harmony.Patch(
             AccessTools.DeclaredMethod(typeof(Part), nameof(Part.GetBrokenPartSkin)),
             postfix: new HarmonyMethod(Part_GetBrokenPartSkin_Postfix)
         );
     }
 
-    public static void Part_GetBrokenPartSkin_Postfix(Part __instance, ref string __result)
+    private static void ArtifactReward_GetBlockedArtifacts(HashSet<Type> __result, State s)
+    {
+        if (s.ship.key != GlieseEntry.UniqueName)
+        {
+            __result.Add(typeof(CrystalCoreV2));
+        }
+        if (s.ship.key == GlieseEntry.UniqueName)
+        {
+            __result.Add(typeof(StunCalibrator));
+        }
+    }
+
+    private static void Part_GetBrokenPartSkin_Postfix(Part __instance, ref string __result)
     {
         switch (__instance.key)
         {
