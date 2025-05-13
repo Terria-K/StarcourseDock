@@ -50,7 +50,7 @@ internal sealed class FrostCannon : Artifact, IRegisterable
         if (part != null)
         {
             int stunStatus = state.ship.Get(Status.stunCharge);
-            if (part.intent != null)
+            if (part.intent != null && stunStatus > 0)
             {
                 count += 1;
 
