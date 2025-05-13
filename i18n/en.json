@@ -33,7 +33,7 @@
                     "name": "FIXED STAR",
                     "description": [
                         "At the start of your turn, add <c=card>Shrink</c> to your hand.",
-                        "Evade will move the cannon instead of the ship"
+                        "Using <c=status>EVADE</c> will <c=action>move</c> the <c=downside>cannon instead of the ship.</c>"
                     ]
                 }
             }
