@@ -55,9 +55,20 @@ internal class ACannonMove : CardAction
             i += 1;
         }
 
+        int index = 0;
+
+        if (dir >= 1)
+        {
+            index = Math.Min(cannonIndex + dir, s.ship.parts.Count - 2);
+        }
+        else if (dir <= -1)
+        {
+            index = Math.Max(cannonIndex + dir, 1);
+        }
+
         s.ship.parts.Clear();
         s.ship.parts = list;
-        s.ship.parts.Insert(cannonIndex + dir, new Part() 
+        s.ship.parts.Insert(index, new Part() 
         {
             type = PType.cannon,
             skin = SpicaShip.SpicaCannon.UniqueName,

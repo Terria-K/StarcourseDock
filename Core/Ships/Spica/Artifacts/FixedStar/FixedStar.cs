@@ -140,12 +140,12 @@ internal class FixedStar : Artifact, IRegisterable
                 }
                 i += 1;
             }
-            if (dir == -1 && cannonIndex == 1)
+            if (dir <= -1 && cannonIndex <= 1)
             {
                 return false;
             }
 
-            if (dir == 1 && cannonIndex == length - 2)
+            if (dir >= 1 && cannonIndex >= length - 2)
             {
                 return false;
             }
