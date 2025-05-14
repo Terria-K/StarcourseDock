@@ -1,4 +1,5 @@
 using System.Reflection;
+using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
 
@@ -23,6 +24,11 @@ internal sealed class FrostCannon : Artifact, IRegisterable
 			Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Gliese", "artifact", "FrostCannon", "name"]).Localize,
 			Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Gliese", "artifact", "FrostCannon", "description"]).Localize
 		});
+
+        ModEntry.Instance.Harmony.Patch(
+            AccessTools.DeclaredMethod(typeof(AStunPart), nameof(AStunPart.Begin)),
+            prefix: new HarmonyMethod(AStunPart_Begin_Prefix)
+        );
     }
 
     public override void OnTurnStart(State state, Combat combat)
@@ -45,20 +51,27 @@ internal sealed class FrostCannon : Artifact, IRegisterable
         ];
     }
 
-    public override void OnEnemyGetHit(State state, Combat combat, Part? part)
+    private static void AStunPart_Begin_Prefix(AStunPart __instance, State s, Combat c)
     {
-        if (part != null)
+        FrostCannon? frostCannon = s.EnumerateAllArtifacts().OfType<FrostCannon>().FirstOrDefault();
+        if (frostCannon is null)
         {
-            int stunStatus = state.ship.Get(Status.stunCharge);
+            return;
+        }
+
+        Part? part = c.otherShip.GetPartAtWorldX(__instance.worldX);
+        if (part != null && part.stunModifier != PStunMod.unstunnable)
+        {
+            int stunStatus = s.ship.Get(Status.stunCharge);
             if (part.intent != null && stunStatus > 0)
             {
-                count += 1;
+                frostCannon.count += 1;
 
-                if (count >= 3)
+                if (frostCannon.count >= 3)
                 {
-                    combat.otherShip.Add(Status.lockdown, 1);
-                    count = 0;
-                    combat.Queue(new AStunShip());
+                    c.otherShip.Add(Status.lockdown, 1);
+                    frostCannon.count = 0;
+                    c.Queue(new AStunShip());
                 }
             }
         }
