@@ -96,6 +96,7 @@
                 "CrystalCoreV2": {
                     "name": "CRYSTAL HEART",
                     "description": [
+                        "Replaces <c=artifact>CRYSTAL CORE</c>.",
                         "At the start of a combat, add an <c=card>Absolute Zero</c> in your draw pile.",
                         "If a wing gets <c=action>hit</c>, <c=downside>add a temporary cannon that last after your turn.</c>"
                     ]
