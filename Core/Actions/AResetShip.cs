@@ -13,7 +13,7 @@ internal class AResetShip : CardAction
 
         if (s.ship.key == GlieseShip.GlieseEntry.UniqueName)
         {
-            s.rewardsQueue.Queue(new ARepairAllBrokenPart());
+            s.rewardsQueue.QueueImmediate(new ARepairAllBrokenPart());
         }
     }
 }
