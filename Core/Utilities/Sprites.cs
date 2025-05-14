@@ -22,6 +22,8 @@ public static partial class Sprites
     public static ISpriteEntry border_alpherg = null!;
     public static ISpriteEntry border_spica = null!;
     public static ISpriteEntry blue_zone = null!;
+    public static ISpriteEntry cold = null!;
+    public static ISpriteEntry freeze = null!;
     public static ISpriteEntry orange_zone = null!;
     public static ISpriteEntry albireo_cannon_left = null!;
     public static ISpriteEntry albireo_cannon_left_inactive = null!;
@@ -113,6 +115,12 @@ public static partial class Sprites
         );
         blue_zone = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/blue_zone.png")
+        );
+        cold = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/cold.png")
+        );
+        freeze = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/freeze.png")
         );
         orange_zone = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/orange_zone.png")

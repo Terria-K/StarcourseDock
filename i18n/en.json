@@ -8,6 +8,24 @@
             ]
         }
     },
+
+    "status": {
+        "Cold": {
+            "name": "COLD",
+            "description": [
+                "If cold is 3 or more at end of turn, <c=action>FREEZE.</c>",
+                "<c=downside>Decreases by 1 at the end of a turn.</c>"
+            ]
+        }
+    },
+
+    "action": {
+        "Freeze": {
+            "name": "FREEZE",
+            "description": "<c=downside>Gain an <c=status>ENGINE LOCK</c>, and a <c=action>total stun</c>.</c>"
+        }
+    },
+
     "ship": {
         "Spica": {
             "name": "Spica",
@@ -65,6 +83,7 @@
         "Gliese": {
             "name": "Gliese",
             "description": "Chaotic crystalline entity that has a freezing ability, <c=downside>but constantly shuffles its part.</c>",
+
             "artifact": {
                 "CrystalCore": {
                     "name": "CRYSTAL CORE",
@@ -86,7 +105,7 @@
                     "name": "FROST CANNON",
                     "description": [
                         "At the start of each turn, gain 3 <c=status>STUN CHARGE</c>.",
-                        "After 3 consecutive <c=action>stuns</c>, enemy will gain an <c=status>ENGINE LOCK</c> and <c=action>total stun</c> all intents."
+                        "<c=action>Stun</c> will inflict 1 <c=status>COLD</c> to the enemy."
                     ]
                 }
             },

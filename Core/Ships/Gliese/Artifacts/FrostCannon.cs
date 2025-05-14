@@ -7,8 +7,6 @@ namespace Teuria.StarcourseDock;
 
 internal sealed class FrostCannon : Artifact, IRegisterable
 {
-    public int count;
-
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
 		helper.Content.Artifacts.RegisterArtifact("FrostCannon", new()
@@ -33,21 +31,15 @@ internal sealed class FrostCannon : Artifact, IRegisterable
 
     public override void OnTurnStart(State state, Combat combat)
     {
-        count = 0;
-        int stunCharges = state.ship.Get(Status.stunCharge);
-        if (stunCharges < 3)
-        {
-            state.ship.Add(Status.stunCharge, 3);
-        }
+        state.ship.Add(Status.stunCharge, 3);
     }
 
     public override List<Tooltip>? GetExtraTooltips()
     {
         return [
 			new TTGlossary("status.stunCharge", ["3"]),
-			new TTGlossary("status.lockdown"),
 			new TTGlossary("action.stun", Array.Empty<object>()),
-			new TTGlossary("action.stunShip"),
+            ..StatusMeta.GetTooltips(ColdStatus.ColdEntry.Status, 1)
         ];
     }
 
@@ -62,23 +54,17 @@ internal sealed class FrostCannon : Artifact, IRegisterable
         Part? part = c.otherShip.GetPartAtWorldX(__instance.worldX);
         if (part != null && part.stunModifier != PStunMod.unstunnable)
         {
-            int stunStatus = s.ship.Get(Status.stunCharge);
-            if (part.intent != null && stunStatus > 0)
+            if (part.intent != null)
             {
-                frostCannon.count += 1;
-
-                if (frostCannon.count >= 3)
+                c.Queue(new AStatus() 
                 {
-                    c.otherShip.Add(Status.lockdown, 1);
-                    frostCannon.count = 0;
-                    c.Queue(new AStunShip());
-                }
+                    targetPlayer = false,
+                    status = ColdStatus.ColdEntry.Status,
+                    statusAmount = 1,
+                });
+
+                frostCannon.Pulse();
             }
         }
-    }
-
-    public override int? GetDisplayNumber(State s)
-    {
-        return count;
     }
 }

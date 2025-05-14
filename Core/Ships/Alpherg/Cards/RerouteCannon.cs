@@ -39,7 +39,7 @@ internal class RerouteCannon : Card, IRegisterable
 
     public override CardData GetData(State state)
     {
-        CardData result = upgrade switch 
+        return upgrade switch 
         {
             Upgrade.A => new()
             {
@@ -61,7 +61,6 @@ internal class RerouteCannon : Card, IRegisterable
                 unremovableAtShops = true
             },
         };
-        return result;
     }
 
     public override List<CardAction> GetActions(State s, Combat c)
