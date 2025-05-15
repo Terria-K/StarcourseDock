@@ -6,7 +6,6 @@ namespace Teuria.StarcourseDock;
 
 internal sealed class SaveState : Artifact, IRegisterable
 {
-	public bool allowRepairBroken;
     public List<Part>? tempParts;
 	public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
 	{
