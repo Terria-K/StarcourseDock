@@ -63,7 +63,7 @@ internal sealed class GlieseShip : IRegisterable
             {
                 ship = new()
                 {
-                    x = -2,
+                    x = 2,
                     hull = 10,
                     hullMax = 10,
                     shieldMaxBase = 5,
