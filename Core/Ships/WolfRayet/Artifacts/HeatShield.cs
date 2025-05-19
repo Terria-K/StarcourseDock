@@ -9,6 +9,7 @@ internal sealed class HeatShield : Artifact, IRegisterable
     public int currentHeatCounter;
     public int heatDifference;
     public bool hit;
+    public bool goalAchieved;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
@@ -27,14 +28,15 @@ internal sealed class HeatShield : Artifact, IRegisterable
         });
     }
 
-    public override void OnCombatStart(State state, Combat combat)
-    {
-        combat.Queue(new AStatus() { statusAmount = 2, status = Status.shield });
-    }
-
     public override void OnTurnStart(State state, Combat combat)
     {
+        if (combat.turn == 1)
+        {
+            combat.Queue(new AStatus() { statusAmount = 2, status = Status.shield, targetPlayer = true });
+            Pulse();
+        }
         currentHeatCounter = 0;
+        goalAchieved = false;
     }
 
     public override void OnTurnEnd(State state, Combat combat)
@@ -63,6 +65,10 @@ internal sealed class HeatShield : Artifact, IRegisterable
         }
 
         hit = false;
+        if (goalAchieved)
+        {
+            return;
+        }
         var heat = state.ship.Get(Status.heat);
         if (heat <= heatDifference)
         {
@@ -75,6 +81,7 @@ internal sealed class HeatShield : Artifact, IRegisterable
 
         if (currentHeatCounter >= 2)
         {
+            goalAchieved = true;
             state.ship.Add(Status.shield, 2);
             Pulse();
         }
@@ -83,5 +90,15 @@ internal sealed class HeatShield : Artifact, IRegisterable
     public override int? GetDisplayNumber(State s)
     {
         return currentHeatCounter;
+    }
+
+    public override Spr GetSprite()
+    {
+        if (goalAchieved)
+        {
+            return Sprites.HeatShieldInactive.Sprite;
+        }
+
+        return Sprites.HeatShield.Sprite;
     }
 }

@@ -13,6 +13,7 @@ public static partial class Sprites
     public static ISpriteEntry FixedStar = null!;
     public static ISpriteEntry FrostCannon = null!;
     public static ISpriteEntry HeatShield = null!;
+    public static ISpriteEntry HeatShieldInactive = null!;
     public static ISpriteEntry Piscium = null!;
     public static ISpriteEntry RoutedCannon = null!;
     public static ISpriteEntry RoutedCannonInactive = null!;
@@ -97,6 +98,9 @@ public static partial class Sprites
         );
         HeatShield = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/HeatShield.png")
+        );
+        HeatShieldInactive = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/HeatShieldInactive.png")
         );
         Piscium = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/Piscium.png")
