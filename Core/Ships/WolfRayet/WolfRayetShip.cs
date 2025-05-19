@@ -114,8 +114,8 @@ internal sealed class WolfRayetShip : IRegisterable
         );
 
         ModEntry.Instance.Harmony.Patch(
-            AccessTools.DeclaredMethod(typeof(AAttack), nameof(AAttack.Begin)),
-            transpiler: new HarmonyMethod(AAttack_Begin_Transpiler)
+            AccessTools.DeclaredMethod(typeof(Ship), nameof(Ship.NormalDamage)),
+            prefix: new HarmonyMethod(Ship_NormalDamage_Prefix)
         );
 
         ModEntry.Instance.Harmony.Patch(
@@ -150,42 +150,29 @@ internal sealed class WolfRayetShip : IRegisterable
         return true;
     }
 
-    private static IEnumerable<CodeInstruction> AAttack_Begin_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+    private static void Ship_NormalDamage_Prefix(Ship __instance, int? maybeWorldGridX)
     {
-        var cursor = new ILCursor(generator, instructions);
-
-        cursor.GotoNext(
-            MoveType.After,
-            instr => instr.Match(OpCodes.Ldloc_3),
-            instr => instr.MatchContains("hitShip"),
-            instr => instr.Match(OpCodes.Brfalse)
-        );
-
-        cursor.Emit(OpCodes.Ldarg_0);
-        cursor.Emit(OpCodes.Ldarg_2);
-        cursor.Emit(OpCodes.Ldarg_3);
-        cursor.Emit(OpCodes.Ldloc_3);
-        cursor.EmitDelegate((AAttack __instance, State s, Combat c, RaycastResult ray) =>
+        if (maybeWorldGridX is null)
         {
-            Ship target = (__instance.targetPlayer ? s.ship : c.otherShip);
-            Part? part = target.GetPartAtWorldX(ray.worldX);
-            if (part == null)
-            {
-                return;
-            }
+            return;
+        }
 
-            if (!part.active)
-            {
-                part.active = true;
-            }
+        Part? part = __instance.GetPartAtWorldX(maybeWorldGridX.Value);
 
-            if (part.stunModifier == HotStunModifier)
-            {
-                target.Add(Status.heat, 1);
-            }
-        });
+        if (part == null)
+        {
+            return;
+        }
 
-        return cursor.Generate();
+        if (part.type == MissilePartType && !part.active)
+        {
+            part.active = true;
+        }
+
+        if (part.stunModifier == HotStunModifier)
+        {
+            __instance.Add(Status.heat, 1);
+        }
     }
 
     private static void Ship_RenderPartUI_Postfix(Ship __instance, G g, Part part, int localX, string keyPrefix, bool isPreview)
