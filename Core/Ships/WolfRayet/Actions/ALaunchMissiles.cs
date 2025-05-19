@@ -94,6 +94,14 @@ internal sealed class ALaunchMissile : CardAction
             dmg = target.NormalDamage(s, c, 4, ray.worldX, false);
             Part? partAtWorldX = target.GetPartAtWorldX(ray.worldX);
 
+            if (partAtWorldX != null)
+            {
+                if (partAtWorldX.stunModifier == PStunMod.stunnable)
+                {
+                    c.QueueImmediate(new AStunPart() { worldX = ray.worldX });
+                }
+            }
+
             if ((target.Get(Status.payback) > 0) || target.Get(Status.tempPayback) > 0)
             {
                 c.QueueImmediate(
