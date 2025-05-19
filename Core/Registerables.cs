@@ -15,7 +15,6 @@ internal static class Registerables
         Teuria.StarcourseDock.CrystalCore.Register(package, helper);
         Teuria.StarcourseDock.CrystalCoreV2.Register(package, helper);
         Teuria.StarcourseDock.FrostCannon.Register(package, helper);
-        Teuria.StarcourseDock.ColdStatus.Register(package, helper);
         Teuria.StarcourseDock.AbsoluteZero.Register(package, helper);
         Teuria.StarcourseDock.GlieseShip.Register(package, helper);
         Teuria.StarcourseDock.FixedStar.Register(package, helper);
@@ -23,5 +22,9 @@ internal static class Registerables
         Teuria.StarcourseDock.ShieldOrShot.Register(package, helper);
         Teuria.StarcourseDock.Shrink.Register(package, helper);
         Teuria.StarcourseDock.SpicaShip.Register(package, helper);
+        Teuria.StarcourseDock.DeliveryNote.Register(package, helper);
+        Teuria.StarcourseDock.HeatShield.Register(package, helper);
+        Teuria.StarcourseDock.WolfRayetShip.Register(package, helper);
+        Teuria.StarcourseDock.ColdStatus.Register(package, helper);
     }
 }

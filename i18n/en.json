@@ -13,8 +13,25 @@
         "Cold": {
             "name": "COLD",
             "description": [
-                "If cold is 3 or more at end of turn, <c=action>FREEZE.</c>",
+                "If cold is 3 or more at end of turn, <c=action>FREEZE</c>.",
                 "<c=downside>Decreases by 1 at the end of a turn.</c>"
+            ]
+        }
+    },
+
+    "parttrait": {
+        "Hot": {
+            "name": "HOT",
+            "description": "When this part is hit, gain a <c=status>HEAT</c>."
+        }
+    },
+
+    "parttype": {
+        "Missile": {
+            "name": "<c=part>MISSILE LAUNCHER</c>",
+            "description": [
+                "When this part is hit, activate it.",
+                "When the part is active, and the ship <c=action>overheats</c>, <c=action>launch</c> the missile to the opposing ship, dealing <c=boldPink>4</c> damages."
             ]
         }
     },
@@ -114,6 +131,26 @@
                 "AbsoluteZero": {
                     "name": "Absolute Zero",
                     "description": "<c=action>Shuffles</c> your parts. While in your hand, all <c=action>attacks</c> <c=downside>deal 0 dmg.</c>"
+                }
+            }
+        },
+
+        "WolfRayet": {
+            "name": "Wolf Rayet",
+            "description": "Heated ship with heat-powered missiles.",
+            "artifact": {
+                "HeatShield": {
+                    "name": "HEAT SHIELD",
+                    "description": [
+                        "At the start of a combat, gain <c=boldPink>2</c> <c=status>SHIELD</c>.",
+                        "When you get <c=boldPink>2</c> or more <c=status>HEAT</c> in one enemy turn, add <c=boldPink>2</c> <c=status>SHIELD</c>."
+                    ]
+                },
+                "DeliveryNote": {
+                    "name": "DELIVERY NOTE",
+                    "description": [
+                        "Deliver extra missiles to your <c=part>empty</c> space at the start of your turn."
+                    ]
                 }
             }
         },

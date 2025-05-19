@@ -7,10 +7,12 @@ public static partial class Sprites
 {
     public static ISpriteEntry CrystalCore = null!;
     public static ISpriteEntry CrystalCoreV2 = null!;
+    public static ISpriteEntry DeliveryNote = null!;
     public static ISpriteEntry DoubleStar = null!;
     public static ISpriteEntry DoubleStarInactive = null!;
     public static ISpriteEntry FixedStar = null!;
     public static ISpriteEntry FrostCannon = null!;
+    public static ISpriteEntry HeatShield = null!;
     public static ISpriteEntry Piscium = null!;
     public static ISpriteEntry RoutedCannon = null!;
     public static ISpriteEntry RoutedCannonInactive = null!;
@@ -62,6 +64,13 @@ public static partial class Sprites
     public static ISpriteEntry spica_scaffolding = null!;
     public static ISpriteEntry spica_wing_left = null!;
     public static ISpriteEntry spica_wing_right = null!;
+    public static ISpriteEntry wolf_rayet_cannon = null!;
+    public static ISpriteEntry wolf_rayet_chassis = null!;
+    public static ISpriteEntry wolf_rayet_cockpit = null!;
+    public static ISpriteEntry wolf_rayet_missiles = null!;
+    public static ISpriteEntry wolf_rayet_missiles_inactive = null!;
+    public static ISpriteEntry wolf_rayet_misslebay = null!;
+    public static ISpriteEntry wolf_rayet_scaffolding = null!;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
@@ -70,6 +79,9 @@ public static partial class Sprites
         );
         CrystalCoreV2 = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/CrystalCoreV2.png")
+        );
+        DeliveryNote = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/DeliveryNote.png")
         );
         DoubleStar = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/DoubleStar.png")
@@ -82,6 +94,9 @@ public static partial class Sprites
         );
         FrostCannon = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/FrostCannon.png")
+        );
+        HeatShield = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/HeatShield.png")
         );
         Piscium = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/Piscium.png")
@@ -235,6 +250,27 @@ public static partial class Sprites
         );
         spica_wing_right = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/spica_wing_right.png")
+        );
+        wolf_rayet_cannon = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/wolf_rayet_cannon.png")
+        );
+        wolf_rayet_chassis = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/wolf_rayet_chassis.png")
+        );
+        wolf_rayet_cockpit = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/wolf_rayet_cockpit.png")
+        );
+        wolf_rayet_missiles = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/wolf_rayet_missiles.png")
+        );
+        wolf_rayet_missiles_inactive = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/wolf_rayet_missiles_inactive.png")
+        );
+        wolf_rayet_misslebay = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/wolf_rayet_misslebay.png")
+        );
+        wolf_rayet_scaffolding = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/wolf_rayet_scaffolding.png")
         );
     }
 
