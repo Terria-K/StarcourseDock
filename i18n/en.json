@@ -137,7 +137,7 @@
 
         "WolfRayet": {
             "name": "Wolf Rayet",
-            "description": "Heated ship with heat-powered missiles.",
+            "description": "Heavy ship loaded with heat-powered missiles.",
             "artifact": {
                 "HeatShield": {
                     "name": "HEAT SHIELD",

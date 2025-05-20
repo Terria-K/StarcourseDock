@@ -14,6 +14,7 @@ internal sealed class MissileDeliveryFX : FX
         {
             if (g.state is not null && g.state.route is Combat c && part is not null)
             {
+                part.active = false;
                 part.skin = WolfRayetShip.MissileSlot.UniqueName;
                 part.type = WolfRayetShip.MissilePartType;
                 part.stunModifier = WolfRayetShip.HotStunModifier;

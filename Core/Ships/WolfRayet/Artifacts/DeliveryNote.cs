@@ -29,7 +29,7 @@ internal sealed class DeliveryNote : Artifact, IRegisterable
         for (int i = 0; i < state.ship.parts.Count; i++)
         {
             var part = state.ship.parts[i];
-            if (part.key == $"{ModEntry.Instance.Package.Manifest.UniqueName}::LaunchedMissile")
+            if (part.type == PType.empty)
             {
                 combat.QueueImmediate(new AAddMissile() { x = i, targetPlayer = true });
                 part.key = null;

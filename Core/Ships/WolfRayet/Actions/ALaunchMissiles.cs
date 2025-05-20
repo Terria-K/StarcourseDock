@@ -54,7 +54,6 @@ internal sealed class ALaunchMissile : CardAction
             part.skin = WolfRayetShip.MissileEmptySlot.UniqueName;
             part.type = PType.empty;
             part.stunModifier = PStunMod.none;
-            part.key = $"{ModEntry.Instance.Package.Manifest.UniqueName}::LaunchedMissile";
             part.active = false;
         }
 
