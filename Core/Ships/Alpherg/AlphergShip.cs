@@ -57,7 +57,6 @@ internal sealed class AlphergShip : IRegisterable
                         new Part()
                         {
                             type = PType.wing,
-                            damageModifier = PDamMod.armor,
                             skin = helper.Content.Ships.RegisterPart("AlphergWingLeft", new () 
                             {
                                 Sprite = Sprites.alpherg_wing_left.Sprite
