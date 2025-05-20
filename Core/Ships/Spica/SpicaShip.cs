@@ -35,7 +35,7 @@ internal sealed class SpicaShip : IRegisterable
         {
             Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "name"]).Localize,
             Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "description"]).Localize,
-            UnderChassisSprite = Sprites.spica_chassis.Sprite,
+            UnderChassisSprite = Sprites.gliese_chassis.Sprite,
             Ship = new() 
             {
                 ship = new()
@@ -102,11 +102,6 @@ internal sealed class SpicaShip : IRegisterable
             original: AccessTools.DeclaredMethod(typeof(ArtifactReward), nameof(ArtifactReward.GetBlockedArtifacts)),
             postfix: new HarmonyMethod(ArtifactReward_GetBlockedArtifacts_Postfix)
         );
-
-        ModEntry.Instance.Harmony.Patch(
-            original: AccessTools.DeclaredMethod(typeof(Ship), nameof(Ship.DrawTopLayer)),
-            transpiler: new HarmonyMethod(Ship_DrawTopLayer_Transpiler)
-        );
     }
 
     internal static void ArtifactReward_GetBlockedArtifacts_Postfix(HashSet<Type> __result, State s) 
@@ -115,44 +110,5 @@ internal sealed class SpicaShip : IRegisterable
         {
             __result.Add(typeof(AdaptivePlating));
         }
-    }
-
-    internal static IEnumerable<CodeInstruction> Ship_DrawTopLayer_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator) 
-    {
-        var cursor = new ILCursor(generator, instructions);
-
-        object? part = null;
-        object? glowPos = null;
-
-        cursor.GotoNext(
-            instr => instr.MatchExtract(OpCodes.Stloc_S, out part),
-            instr => instr.Match(OpCodes.Ldc_I4_S)
-        );
-
-        cursor.GotoNext(
-            instr => instr.MatchExtract(OpCodes.Stloc_S, out glowPos),
-            instr => instr.Match(OpCodes.Ldloc_S),
-            instr => instr.Match(OpCodes.Ldfld),
-            instr => instr.MatchContains("cockpit_cicada")
-        );
-
-        cursor.Index += 1;
-
-        cursor.Emit(OpCodes.Ldarg_0);
-        cursor.Emit(OpCodes.Ldloc, part);
-        cursor.Emit(OpCodes.Ldloc, glowPos);
-        cursor.EmitDelegate(static (Ship __instance, Part part, Vec glowPos) => 
-        {
-            if (!__instance.isPlayerShip)
-            {
-                return;
-            }
-
-            if (part.skin == SpicaCockpit.UniqueName)
-            {
-                Glow.Draw(glowPos + new Vec(0, 5), 30.0, new Color("c5a7e5"));
-            }
-        });
-        return cursor.Generate();
     }
 }
