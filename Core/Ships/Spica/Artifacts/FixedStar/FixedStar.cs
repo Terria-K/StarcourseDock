@@ -46,7 +46,10 @@ internal class FixedStar : Artifact, IRegisterable
 
     public override List<Tooltip>? GetExtraTooltips()
     {
-        return [new TTCard { card = new Shrink() }];
+        return [
+            new TTGlossary("status.evade"),
+            new TTCard { card = new Shrink()
+        }];
     }
 
     public override void OnTurnStart(State state, Combat combat)
