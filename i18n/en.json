@@ -1,14 +1,4 @@
 {
-    "artifact": {
-        "SaveState": {
-            "name": "SAVE STATE",
-            "description": [
-                "At the start of a combat, save your current ship's parts.",
-                "At the end of a combat, load your saved ship's parts."
-            ]
-        }
-    },
-
     "status": {
         "Cold": {
             "name": "COLD",
@@ -126,7 +116,8 @@
                     "name": "CRYSTAL CORE",
                     "description": [
                         "At the end of enemy's turn, your ship's parts will <c=downside>shuffle.</c>",
-                        "If a wing gets <c=action>hit</c>, <c=downside>add a breakable part.</c>"
+                        "If a wing gets <c=action>hit</c>, <c=downside>add a breakable part.</c>",
+                        "<c=downside>(Reset parts after combat)</c>"
                     ]
                 },
 
@@ -135,7 +126,8 @@
                     "description": [
                         "Replaces <c=artifact>CRYSTAL CORE</c>.",
                         "At the start of a combat, add an <c=card>Absolute Zero</c> in your draw pile.",
-                        "If a wing gets <c=action>hit</c>, <c=downside>add a temporary cannon that last after your turn.</c>"
+                        "If a wing gets <c=action>hit</c>, <c=downside>add a temporary cannon that last after your turn.</c>",
+                        "<c=downside>(Reset parts after combat)</c>"
                     ]
                 },
 

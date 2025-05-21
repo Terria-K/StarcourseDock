@@ -6,6 +6,8 @@ namespace Teuria.StarcourseDock;
 
 internal sealed class CrystalCore : Artifact, IRegisterable
 {
+    public List<Part>? tempParts;
+
 	public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
 	{
 		helper.Content.Artifacts.RegisterArtifact("CrystalCore", new()
@@ -27,6 +29,7 @@ internal sealed class CrystalCore : Artifact, IRegisterable
     {
         if (combat.turn == 1)
         {
+            tempParts = [.. state.ship.parts];
             return;
         }
 
@@ -36,7 +39,11 @@ internal sealed class CrystalCore : Artifact, IRegisterable
 
     public override void OnCombatEnd(State state)
     {
-        state.rewardsQueue.Queue(new ARepairAllBrokenPart());
+        state.rewardsQueue.QueueImmediate(new ARepairAllBrokenPart());
+        state.rewardsQueue.QueueImmediate(new AResetShip
+        {
+            parts = tempParts
+        });
     }
 
     public override void OnPlayerTakeNormalDamage(State state, Combat combat, int rawAmount, Part? part)

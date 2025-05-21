@@ -7,7 +7,6 @@ internal static class Registerables
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        Teuria.StarcourseDock.SaveState.Register(package, helper);
         Teuria.StarcourseDock.AlphergShip.Register(package, helper);
         Teuria.StarcourseDock.Piscium.Register(package, helper);
         Teuria.StarcourseDock.RoutedCannon.Register(package, helper);

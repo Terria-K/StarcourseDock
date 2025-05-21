@@ -139,7 +139,7 @@ internal sealed class GlieseShip : IRegisterable
                         },
                     ]
                 },
-                artifacts = [new ShieldPrep(), new CrystalCore(), new FrostCannon(), new SaveState()],
+                artifacts = [new ShieldPrep(), new CrystalCore(), new FrostCannon()],
                 cards = [
                     new BasicShieldColorless(),
                     new DodgeColorless(),
