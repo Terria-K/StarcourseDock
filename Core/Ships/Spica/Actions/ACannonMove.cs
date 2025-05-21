@@ -45,14 +45,15 @@ internal class ACannonMove : CardAction
 
         int index = 0;
 
-        if (dir >= 1)
+        if (!s.HasArtifact<TinyWormhole>())
         {
-            index = Math.Min(cannonIndex + dir, s.ship.parts.Count - 2);
+            index = Mutil.Clamp(cannonIndex + dir, 1, s.ship.parts.Count - 2);
         }
-        else if (dir <= -1)
+        else
         {
-            index = Math.Max(cannonIndex + dir, 1);
+            index = MathUtils.Wrap(cannonIndex + dir, 1, s.ship.parts.Count - 1);
         }
+
 
         s.ship.parts.Clear();
         s.ship.parts = list;

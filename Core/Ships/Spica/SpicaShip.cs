@@ -113,6 +113,7 @@ internal sealed class SpicaShip : IRegisterable
         if (s.ship.key != SpicaEntry.UniqueName)
         {
             __result.Add(typeof(ShrinkMechanismV2));
+            __result.Add(typeof(TinyWormhole));
         }
     }
 }

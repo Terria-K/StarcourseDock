@@ -85,3 +85,17 @@ internal static class ShipExtensions
         return ship.parts.AsValueEnumerable().Where(predicate).ToList();
     }
 }
+
+internal static class MathUtils
+{
+    public static int Wrap(int value, int min, int max)
+    {
+        int range = max - min;
+        if (range == 0)
+        {
+            return min;
+        }
+
+        return min + ((((value - min) % range) + range) % range);
+    }
+}

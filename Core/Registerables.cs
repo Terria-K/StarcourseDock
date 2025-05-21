@@ -19,6 +19,7 @@ internal static class Registerables
         Teuria.StarcourseDock.FixedStar.Register(package, helper);
         Teuria.StarcourseDock.ShrinkMechanism.Register(package, helper);
         Teuria.StarcourseDock.ShrinkMechanismV2.Register(package, helper);
+        Teuria.StarcourseDock.TinyWormhole.Register(package, helper);
         Teuria.StarcourseDock.DodgeOrShift.Register(package, helper);
         Teuria.StarcourseDock.ShieldOrShot.Register(package, helper);
         Teuria.StarcourseDock.Shrink.Register(package, helper);

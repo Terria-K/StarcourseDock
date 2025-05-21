@@ -55,7 +55,7 @@ internal class FixedStar : Artifact, IRegisterable
         {
             var state = args.State;
 
-            if (!state.HasArtifact<FixedStar>())
+            if (!state.HasArtifact<FixedStar>() || state.HasArtifact<TinyWormhole>())
             {
                 return true;
             }

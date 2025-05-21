@@ -59,8 +59,13 @@ ship:
         description: 
         - "Replaces <c=artifact>SHRINK MECHANISM</c>"
         - "At the start of your turn, if you don't have a <c=card>Shrink A</c> in your hand, gain one."
-        - "Everytime a wing get hit, <c=action>shrink</c> a next or previous part if its not a wing."
+        - "Everytime a wing get hit, <c=downside>remove the next or previous part if its not a wing.</c>"
         - "<c=downside>(Reset parts after turn or combat)</c>"
+      TinyWormhole: 
+        name: TINY WORMHOLE
+        description: 
+        - "(Spica-exclusive artifact!)"
+        - "When trying to <c=action>move</c> a cannon off the limit, <c=action>move</c> it to the opposite side."
 
   Alpherg: 
     name: Alpherg

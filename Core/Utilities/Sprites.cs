@@ -20,6 +20,7 @@ public static partial class Sprites
     public static ISpriteEntry SaveState = null!;
     public static ISpriteEntry ShrinkMechanism = null!;
     public static ISpriteEntry ShrinkMechanismV2 = null!;
+    public static ISpriteEntry TinyWormhole = null!;
     public static ISpriteEntry VolcanicShield = null!;
     public static ISpriteEntry DodgeOrShift_Bottom = null!;
     public static ISpriteEntry DodgeOrShift_Top = null!;
@@ -122,6 +123,12 @@ public static partial class Sprites
         );
         ShrinkMechanismV2 = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/ShrinkMechanismV2.png")
+        );
+        TinyWormhole = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/TinyWormhole.png")
+        );
+        VolcanicShield = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/VolcanicShield.png")
         );
         DodgeOrShift_Bottom = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/cards/DodgeOrShift_Bottom.png")
