@@ -4,39 +4,42 @@ using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed class HeatShield : Artifact, IRegisterable
+internal sealed class HeatShieldV2 : Artifact, IRegisterable
 {
     public int currentHeatCounter;
     public int oldHeat;
     public bool hit;
-    public bool goalAchieved;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        helper.Content.Artifacts.RegisterArtifact("HeatShield", new()
+        helper.Content.Artifacts.RegisterArtifact("HeatShieldV2", new()
         {
             ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new()
             {
                 owner = Deck.colorless,
-                pools = [ArtifactPool.EventOnly],
+                pools = [ArtifactPool.Boss],
                 unremovable = true,
             },
-            Sprite = Sprites.HeatShield.Sprite,
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "WolfRayet", "artifact", "HeatShield", "name"]).Localize,
-            Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "WolfRayet", "artifact", "HeatShield", "description"]).Localize
+            Sprite = Sprites.VolcanicShield.Sprite,
+            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "WolfRayet", "artifact", "HeatShieldV2", "name"]).Localize,
+            Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "WolfRayet", "artifact", "HeatShieldV2", "description"]).Localize
         });
+    }
+
+    public override void OnReceiveArtifact(State state)
+    {
+        state.GetCurrentQueue().QueueImmediate(new ALoseArtifact { artifactType = new HeatShield().Key() });
     }
 
     public override void OnTurnStart(State state, Combat combat)
     {
         if (combat.turn == 1)
         {
-            combat.Queue(new AStatus() { statusAmount = 2, status = Status.shield, targetPlayer = true });
+            combat.Queue(new AStatus() { statusAmount = 3, status = Status.shield, targetPlayer = true });
             Pulse();
         }
         currentHeatCounter = 0;
-        goalAchieved = false;
     }
 
     public override void OnTurnEnd(State state, Combat combat)
@@ -47,7 +50,7 @@ internal sealed class HeatShield : Artifact, IRegisterable
     public override List<Tooltip>? GetExtraTooltips()
     {
         return [
-            new TTGlossary("status.shield", ["2"]),
+            new TTGlossary("status.shield", ["3"]),
             new TTGlossary("status.heat", ["3"])
         ];
     }
@@ -65,10 +68,7 @@ internal sealed class HeatShield : Artifact, IRegisterable
         }
 
         hit = false;
-        if (goalAchieved)
-        {
-            return;
-        }
+
         var heat = state.ship.Get(Status.heat);
         if (heat <= oldHeat)
         {
@@ -81,8 +81,8 @@ internal sealed class HeatShield : Artifact, IRegisterable
 
         if (currentHeatCounter >= 2)
         {
-            goalAchieved = true;
-            state.ship.Add(Status.shield, 2);
+            currentHeatCounter = 0;
+            state.ship.Add(Status.shield, 3);
             Pulse();
         }
     }
@@ -90,15 +90,5 @@ internal sealed class HeatShield : Artifact, IRegisterable
     public override int? GetDisplayNumber(State s)
     {
         return currentHeatCounter;
-    }
-
-    public override Spr GetSprite()
-    {
-        if (goalAchieved)
-        {
-            return Sprites.HeatShieldInactive.Sprite;
-        }
-
-        return Sprites.HeatShield.Sprite;
     }
 }

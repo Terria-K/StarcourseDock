@@ -20,6 +20,7 @@ public static partial class Sprites
     public static ISpriteEntry SaveState = null!;
     public static ISpriteEntry ShrinkMechanism = null!;
     public static ISpriteEntry ShrinkMechanismV2 = null!;
+    public static ISpriteEntry VolcanicShield = null!;
     public static ISpriteEntry DodgeOrShift_Bottom = null!;
     public static ISpriteEntry DodgeOrShift_Top = null!;
     public static ISpriteEntry ShieldOrShot_Bottom = null!;

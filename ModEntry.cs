@@ -21,9 +21,9 @@ public sealed class ModEntry : SimpleMod
         Instance = this;
         Harmony = helper.Utilities.Harmony;
 
-		this.AnyLocalizations = new JsonLocalizationProvider(
+		this.AnyLocalizations = new YamlLocalizationProvider(
 			tokenExtractor: new SimpleLocalizationTokenExtractor(),
-			localeStreamFunction: locale => package.PackageRoot.GetRelativeFile($"i18n/{locale}.json").OpenRead()
+			localeStreamFunction: locale => package.PackageRoot.GetRelativeFile($"i18n/{locale}.yaml").OpenRead()
 		);
         this.Localizations = new MissingPlaceholderLocalizationProvider<IReadOnlyList<string>>(
 			new CurrentLocaleOrEnglishLocalizationProvider<IReadOnlyList<string>>(this.AnyLocalizations)

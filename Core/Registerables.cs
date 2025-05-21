@@ -25,6 +25,7 @@ internal static class Registerables
         Teuria.StarcourseDock.SpicaShip.Register(package, helper);
         Teuria.StarcourseDock.DeliveryNote.Register(package, helper);
         Teuria.StarcourseDock.HeatShield.Register(package, helper);
+        Teuria.StarcourseDock.HeatShieldV2.Register(package, helper);
         Teuria.StarcourseDock.WolfRayetShip.Register(package, helper);
         Teuria.StarcourseDock.ColdStatus.Register(package, helper);
     }
