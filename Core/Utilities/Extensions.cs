@@ -73,6 +73,13 @@ internal static class ShipExtensions
             .Any();
     }
 
+    public static Part? GetPartByKey(this Ship ship, string key)
+    {
+        return ship.parts.AsValueEnumerable()
+            .Where(x => x.key == key)
+            .FirstOrDefault();
+    }
+
     public static List<Part> RetainParts(this Ship ship, Func<Part, bool> predicate)
     {
         return ship.parts.AsValueEnumerable().Where(predicate).ToList();

@@ -16,7 +16,7 @@ internal class AMerge : CardAction
         artifact.leftParts ??= new List<Part>();
         artifact.rightParts ??= new List<Part>();
 
-        part ??= flipped ? s.ship.GetPartAtLocalX(0) : s.ship.GetPartAtLocalX(s.ship.parts.Count - 1);
+        part ??= flipped ? s.ship.GetPartByKey("leftwing") : s.ship.GetPartByKey("rightwing");
 
         if (part == null)
         {

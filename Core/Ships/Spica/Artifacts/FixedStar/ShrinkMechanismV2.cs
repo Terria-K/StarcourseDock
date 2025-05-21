@@ -102,14 +102,15 @@ internal class ShrinkMechanismV2 : Artifact, IRegisterable
     {
         if (leftParts != null)
         {
-            state.ship.InsertParts(state, 0, 0, true, leftParts);
+            int index = state.ship.FindPartIndex("leftwing");
+            state.ship.InsertParts(state, index, index, true, leftParts);
             leftParts.Clear();
         }
 
         if (rightParts != null)
         {
-            int endIndex = state.ship.parts.Count;
-            state.ship.InsertParts(state, endIndex - 1, endIndex - 1, false, rightParts.AsValueEnumerable().Reverse().ToList());
+            int index = state.ship.FindPartIndex("rightwing");
+            state.ship.InsertParts(state, index, index, false, rightParts.AsValueEnumerable().Reverse().ToList());
             rightParts.Clear();
         }
     }
