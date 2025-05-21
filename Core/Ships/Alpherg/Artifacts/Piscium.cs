@@ -38,6 +38,14 @@ internal class Piscium : Artifact, IRegisterable
         );
     }
 
+    public override void OnTurnStart(State state, Combat combat)
+    {
+        if (combat.turn == 1)
+        {
+            combat.Queue(new ASwapScaffold() { isRight = isRight });
+        }
+    }
+
     public override void OnTurnEnd(State state, Combat combat)
     {
         aAttack = null;
@@ -71,7 +79,7 @@ internal class Piscium : Artifact, IRegisterable
         {
             if (data)
             {
-                var piscium = s.EnumerateAllArtifacts().Where(x => x is Piscium).Cast<Piscium>().FirstOrDefault();
+                var piscium = s.GetArtifact<Piscium>();
                 if (piscium is null)
                 {
                     return;
@@ -91,10 +99,5 @@ internal class Piscium : Artifact, IRegisterable
         }
         isRight = !isRight;
         combat.QueueImmediate(new ASwapScaffold() { isRight = isRight });
-    }
-
-    public override void OnCombatEnd(State state)
-    {
-        state.rewardsQueue.Queue(new ASwapScaffold() { isRight = isRight });
     }
 }

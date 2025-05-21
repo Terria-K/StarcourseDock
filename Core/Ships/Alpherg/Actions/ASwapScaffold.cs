@@ -6,51 +6,35 @@ internal class ASwapScaffold : CardAction
 
     public override void Begin(G g, State s, Combat c)
     {
-        ModEntry.Instance.Helper.ModData.SetModData(s, "alpherg_chassis.activation", isRight);
-        int len = s.ship.parts.Count;
-        var retained = new List<Part>(len);
+        ModEntry.Instance.Helper.ModData.SetModData(c, "alpherg_chassis.activation", isRight);
         if (isRight)
         {
-            int i;
-            int x = -1;
-            for (i = 0; i < len; i += 1)
+            int x = s.ship.FindPartIndex(x => x.skin == AlphergShip.AlphergScaffoldOrange.UniqueName);
+            if (x == 0)
             {
-                var part = s.ship.parts[i];
-                if (part.skin != AlphergShip.AlphergScaffoldOrange.UniqueName)
-                {
-                    retained.Add(part);
-                }
-                else 
-                {
-                    x = i;
-                }
+                return;
             }
+            s.ship.parts = s.ship.RetainParts(x => x.skin != AlphergShip.AlphergScaffoldOrange.UniqueName);
 
-            s.ship.parts = retained;
-            s.ship.InsertPart(s, len - x - 1, len - x - 2, false, new Part() {
+            int len = s.ship.parts.Count;
+
+            s.ship.InsertPart(s, len - 1 - x, 0, true, new Part() {
                 skin = AlphergShip.AlphergScaffoldBlue.UniqueName,
                 type = PType.empty
             });
         }
         else 
         {
-            int i;
-            int x = -1;
-            for (i = 0; i < len; i += 1)
+            int x = s.ship.FindPartIndex(x => x.skin == AlphergShip.AlphergScaffoldBlue.UniqueName);
+            if (x == 0)
             {
-                var part = s.ship.parts[i];
-                if (part.skin != AlphergShip.AlphergScaffoldBlue.UniqueName)
-                {
-                    retained.Add(part);
-                }
-                else 
-                {
-                    x = i;
-                }
+                return;
             }
+            s.ship.parts = s.ship.RetainParts(x => x.skin != AlphergShip.AlphergScaffoldBlue.UniqueName);
 
-            s.ship.parts = retained;
-            s.ship.InsertPart(s, Math.Abs(x - len + 1), 0, false, new Part() {
+            int len = s.ship.parts.Count;
+
+            s.ship.InsertPart(s, Math.Abs(x - len), 0, false, new Part() {
                 skin = AlphergShip.AlphergScaffoldOrange.UniqueName,
                 type = PType.empty
             });

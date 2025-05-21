@@ -18,6 +18,8 @@ public static partial class Sprites
     public static ISpriteEntry RoutedCannon = null!;
     public static ISpriteEntry RoutedCannonInactive = null!;
     public static ISpriteEntry SaveState = null!;
+    public static ISpriteEntry ShrinkMechanism = null!;
+    public static ISpriteEntry ShrinkMechanismV2 = null!;
     public static ISpriteEntry DodgeOrShift_Bottom = null!;
     public static ISpriteEntry DodgeOrShift_Top = null!;
     public static ISpriteEntry ShieldOrShot_Bottom = null!;
@@ -113,6 +115,12 @@ public static partial class Sprites
         );
         SaveState = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/SaveState.png")
+        );
+        ShrinkMechanism = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/ShrinkMechanism.png")
+        );
+        ShrinkMechanismV2 = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/ShrinkMechanismV2.png")
         );
         DodgeOrShift_Bottom = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/cards/DodgeOrShift_Bottom.png")

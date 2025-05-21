@@ -34,7 +34,7 @@ internal class FixedStar : Artifact, IRegisterable
 
     public static bool AMove_Begin_Prefix(AMove __instance, State s, Combat c)
     {
-        if (s.EnumerateAllArtifacts().Any(x => x is FixedStar) && __instance.targetPlayer && __instance.fromEvade)
+        if (s.HasArtifact<FixedStar>() && __instance.targetPlayer && __instance.fromEvade)
         {
             __instance.timer = 0f;
             c.QueueImmediate(new ACannonMove() { dir = __instance.dir, ignoreHermes = __instance.ignoreHermes, preferRightWhenZero = __instance.preferRightWhenZero });
@@ -46,77 +46,7 @@ internal class FixedStar : Artifact, IRegisterable
 
     public override List<Tooltip>? GetExtraTooltips()
     {
-        return [
-            new TTGlossary("status.evade"),
-            new TTCard { card = new Shrink()
-        }];
-    }
-
-    public override void OnTurnStart(State state, Combat combat)
-    {
-        bool alreadyHasOne = false;
-        foreach (var card in combat.hand)
-        {
-            if (card is Shrink)
-            {
-                alreadyHasOne = true;
-                break;
-            }
-        }
-
-        if (!alreadyHasOne)
-        {
-            combat.Queue(new AAddCard
-            {
-                card = new Shrink(),
-                destination = CardDestination.Hand
-            });
-        }
-
-
-        if (combat.turn == 1)
-        {
-            return;
-        }
-        Reset(state);
-    }
-
-    private static void Reset(State state)
-    {
-        int i = 0;
-        int cannonIndex = 0;
-        bool shouldContinue = true;
-        foreach (var s in state.ship.parts)
-        {
-            if (s.key == "toRemove")
-            {
-                shouldContinue = false;
-                break;
-            }
-            if (s.key == "closeToScaffold")
-            {
-                cannonIndex = i;
-            }
-            i += 1;
-        }
-
-        if (!shouldContinue)
-        {
-            return;
-        }
-
-        state.ship.parts.Insert(cannonIndex + 1, new Part() 
-        {
-            type = PType.empty,
-            skin = SpicaShip.SpicaScaffold.UniqueName,
-            key = "toRemove"
-        });
-
-        if (state.ship.IsTouchingRightWall(state))
-        {
-            state.ship.x -= 1;
-            state.ship.xLerped -= 1;
-        }
+        return [new TTGlossary("status.evade")];
     }
 
     private class FixedStarHook : IHook
@@ -125,24 +55,20 @@ internal class FixedStar : Artifact, IRegisterable
         {
             var state = args.State;
 
-            if (!state.EnumerateAllArtifacts().Any(x => x is FixedStar))
+            if (!state.HasArtifact<FixedStar>())
             {
                 return true;
             }
 
-            int dir = (int)args.Direction;
-            int cannonIndex = 0;
-            int i = 0;
-            int length = state.ship.parts.Count;
-            foreach (var s in state.ship.parts)
+            if (!state.ship.HasPartType(PType.cannon))
             {
-                if (s.type == PType.cannon)
-                {
-                    cannonIndex = i;
-                    break;
-                }
-                i += 1;
+                return false;
             }
+
+            int dir = (int)args.Direction;
+            int cannonIndex = state.ship.FindPartIndex(PType.cannon);
+            int length = state.ship.parts.Count;
+            
             if (dir <= -1 && cannonIndex <= 1)
             {
                 return false;

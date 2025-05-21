@@ -6,7 +6,7 @@ internal class DoubleStarAction : IEvadeAction
 {
     public bool CanDoEvadeAction(IEvadeAction.ICanDoEvadeArgs args)
     {
-        var doubleStar = args.State.EnumerateAllArtifacts().Where(x => x is DoubleStar).Cast<DoubleStar>().FirstOrDefault();
+        var doubleStar = args.State.GetArtifact<DoubleStar>();
         if (doubleStar is null || doubleStar.binaryStarDetected)
         {
             return false;
@@ -17,7 +17,7 @@ internal class DoubleStarAction : IEvadeAction
 
     public IReadOnlyList<CardAction> ProvideEvadeActions(IEvadeAction.IProvideEvadeActionsArgs args)
     {
-        var doubleStar = args.State.EnumerateAllArtifacts().Where(x => x is DoubleStar).Cast<DoubleStar>().FirstOrDefault();
+        var doubleStar = args.State.GetArtifact<DoubleStar>();
         if (doubleStar is null || doubleStar.binaryStarDetected)
         {
             return [];

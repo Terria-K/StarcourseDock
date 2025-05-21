@@ -28,16 +28,15 @@ internal sealed class AlphergShip : IRegisterable
         var chassisSprite = helper.Content.Sprites.RegisterDynamicSprite("AlphergDynamicChassis", () => 
         {
             var state = MG.inst.g.state;
-            if (!ModEntry.Instance.Helper.ModData.TryGetModData(state, "alpherg_chassis.activation", out bool leftActive))
+
+            if (state.route is not Combat c
+                || !ModEntry.Instance.Helper.ModData.TryGetModData(c, "alpherg_chassis.activation", out bool leftActive)
+                || !leftActive)
             {
                 return SpriteLoader.Get(Sprites.alpherg_chassis.Sprite)!;
             }
-            if (leftActive)
-            {
-                return SpriteLoader.Get(Sprites.alpherg_chassis_left.Sprite)!;
-            }
 
-            return SpriteLoader.Get(Sprites.alpherg_chassis.Sprite)!;
+            return SpriteLoader.Get(Sprites.alpherg_chassis_left.Sprite)!;
         });
 
 
@@ -117,32 +116,6 @@ internal sealed class AlphergShip : IRegisterable
             original: AccessTools.DeclaredMethod(typeof(StoryNode), nameof(StoryNode.Filter)),
             prefix: new HarmonyMethod(StoryNode_Filter_Prefix)
         );
-
-        ModEntry.Instance.Harmony.Patch(
-            original: AccessTools.DeclaredMethod(typeof(State), nameof(State.MakeRunWinRoute)),
-            postfix: new HarmonyMethod(State_MakeRunWinRoute_Postfix)
-        );
-
-        ModEntry.Instance.Harmony.Patch(
-            original: AccessTools.DeclaredMethod(typeof(State), nameof(State.EndRun)),
-            postfix: new HarmonyMethod(State_EndRun)
-        );
-    }
-
-    internal static void State_EndRun(State __instance)
-    {
-        if (__instance.ship != null && __instance.ship.key == AlphergEntry.UniqueName)
-        {
-            ModEntry.Instance.Helper.ModData.SetModData(__instance, "alpherg_chassis.activation", false);
-        }
-    }
-
-    internal static void State_MakeRunWinRoute_Postfix(State __instance)
-    {
-        if (__instance.ship != null && __instance.ship.key == AlphergEntry.UniqueName)
-        {
-            ModEntry.Instance.Helper.ModData.SetModData(__instance, "alpherg_chassis.activation", false);
-        }
     }
 
     internal static bool StoryNode_Filter_Prefix(string key, State s, ref bool __result)

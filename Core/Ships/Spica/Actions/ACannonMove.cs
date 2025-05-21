@@ -39,21 +39,9 @@ internal class ACannonMove : CardAction
             return;
         }
 
-        var list = new List<Part>();
-        int cannonIndex = 0;
-        int i = 0;
-        foreach (var p in s.ship.parts)
-        {
-            if (p.key == "closeToScaffold") 
-            {
-                cannonIndex = i;
-            }
-            else 
-            {
-                list.Add(p);
-            }
-            i += 1;
-        }
+        int cannonIndex = s.ship.FindPartIndex("closeToScaffold");
+        var list = s.ship.RetainParts(p => p.key != "closeToScaffold");
+
 
         int index = 0;
 

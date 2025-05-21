@@ -3,24 +3,54 @@ namespace Teuria.StarcourseDock;
 internal class AMerge : CardAction
 {
     public bool flipped;
+    public Part? part;
 
     public override void Begin(G g, State s, Combat c)
     {
-        if (flipped)
+        var artifact = s.GetArtifact<ShrinkMechanismV2>();
+        if (artifact == null)
         {
-            s.ship.xLerped = s.ship.x + 1;
-            s.ship.x += 1;
-        }
-        var list = new List<Part>();
-        foreach (var p in s.ship.parts)
-        {
-            if (p.key != "toRemove") 
-            {
-                list.Add(p);
-            }
+            return;
         }
 
-        s.ship.parts.Clear();
-        s.ship.parts = list;
+        artifact.leftParts ??= new List<Part>();
+        artifact.rightParts ??= new List<Part>();
+
+        part ??= flipped ? s.ship.GetPartAtLocalX(0) : s.ship.GetPartAtLocalX(s.ship.parts.Count - 1);
+
+        if (part == null)
+        {
+            return;
+        }
+
+        switch (part.key)
+        {
+            case "rightwing":
+                int? rx = s.ship.GetLocalXOfPart("rightwing");
+                if (rx != null)
+                {
+                    int v = rx.Value;
+                    Part? p = s.ship.GetPartAtLocalX(v - 1);
+                    if (p != null && p.type != PType.wing)
+                    {
+                        artifact.rightParts.Add(p);
+                        s.ship.RemoveParts("leftwing", [p.key]);
+                    }
+                }
+                break;
+            case "leftwing":
+                int? lx = s.ship.GetLocalXOfPart("leftwing");
+                if (lx != null)
+                {
+                    int v = lx.Value;
+                    Part? p = s.ship.GetPartAtLocalX(v + 1);
+                    if (p != null && p.type != PType.wing)
+                    {
+                        artifact.leftParts.Add(p);
+                        s.ship.RemoveParts("rightwing", [p.key]);
+                    }
+                }
+                break;
+        }
     }
 }

@@ -45,7 +45,7 @@ internal sealed class FrostCannon : Artifact, IRegisterable
 
     private static void AStunPart_Begin_Prefix(AStunPart __instance, State s, Combat c)
     {
-        FrostCannon? frostCannon = s.EnumerateAllArtifacts().OfType<FrostCannon>().FirstOrDefault();
+        FrostCannon? frostCannon = s.GetArtifact<FrostCannon>();
         if (frostCannon is null)
         {
             return;

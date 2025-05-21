@@ -43,21 +43,23 @@ internal sealed class SpicaShip : IRegisterable
                     x = 3,
                     hull = 13,
                     hullMax = 13,
-                    shieldMaxBase = 7,
+                    shieldMaxBase = 6,
                     parts = [
                         new Part()
                         {
                             type = PType.wing,
                             damageModifier = PDamMod.armor,
-                            skin = helper.Content.Ships.RegisterPart("SpicaWingLeft", new () 
+                            skin = helper.Content.Ships.RegisterPart("SpicaWingLeft", new ()
                             {
                                 Sprite = Sprites.spica_wing_left.Sprite
-                            }).UniqueName
+                            }).UniqueName,
+                            key = "leftwing"
                         },
                         new Part()
                         {
                             type = PType.cockpit,
-                            skin = SpicaCockpit.UniqueName
+                            skin = SpicaCockpit.UniqueName,
+                            key = "cockpit"
                         },
                         new Part()
                         {
@@ -74,23 +76,25 @@ internal sealed class SpicaShip : IRegisterable
                         new Part()
                         {
                             type = PType.missiles,
-                            skin = helper.Content.Ships.RegisterPart("SpicaMissileBay", new () 
+                            skin = helper.Content.Ships.RegisterPart("SpicaMissileBay", new ()
                             {
                                 Sprite = Sprites.spica_missilebay.Sprite
                             }).UniqueName,
+                            key = "missiles"
                         },
                         new Part()
                         {
                             type = PType.wing,
                             damageModifier = PDamMod.armor,
-                            skin = helper.Content.Ships.RegisterPart("SpicaWingRight", new () 
+                            skin = helper.Content.Ships.RegisterPart("SpicaWingRight", new ()
                             {
                                 Sprite = Sprites.spica_wing_right.Sprite
                             }).UniqueName,
+                            key = "rightwing"
                         },
                     ]
                 },
-                artifacts = [new ShieldPrep(), new FixedStar(), new SaveState()],
+                artifacts = [new ShieldPrep(), new ShrinkMechanism(), new FixedStar()],
                 cards = [
                     new ShieldOrShot(),
                     new DodgeOrShift()
@@ -106,9 +110,9 @@ internal sealed class SpicaShip : IRegisterable
 
     internal static void ArtifactReward_GetBlockedArtifacts_Postfix(HashSet<Type> __result, State s) 
     {
-        if (s.ship.key == SpicaEntry.UniqueName)
+        if (s.ship.key != SpicaEntry.UniqueName)
         {
-            __result.Add(typeof(AdaptivePlating));
+            __result.Add(typeof(ShrinkMechanismV2));
         }
     }
 }

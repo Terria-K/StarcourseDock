@@ -116,7 +116,7 @@ internal class RoutedCannon : Artifact, IRegisterable
             return true;
         }
         
-        var routedCannon = state.EnumerateAllArtifacts().Where(x => x is RoutedCannon).Cast<RoutedCannon>().FirstOrDefault();
+        var routedCannon = state.GetArtifact<RoutedCannon>();
 
         if (routedCannon is not null && !routedCannon.disabled)
         {
@@ -135,7 +135,7 @@ internal class RoutedCannon : Artifact, IRegisterable
 
     internal static void AAttack_GetTooltips_Prefix(State s)
     {
-        var routedCannon = s.EnumerateAllArtifacts().Where(x => x is RoutedCannon).Cast<RoutedCannon>().FirstOrDefault();
+        var routedCannon = s.GetArtifact<RoutedCannon>();
         if (routedCannon is null || routedCannon.disabled)
         {
             return;
@@ -158,7 +158,7 @@ internal class RoutedCannon : Artifact, IRegisterable
 
     internal static void AVolleyAttackFromAllCannons_Begin_Postfix(AVolleyAttackFromAllCannons __instance, State s, Combat c) 
     {
-        var routedCannon = s.EnumerateAllArtifacts().Where(x => x is RoutedCannon).Cast<RoutedCannon>().FirstOrDefault();
+        var routedCannon = s.GetArtifact<RoutedCannon>();
         if (routedCannon is null || routedCannon.disabled)
         {
             return;
@@ -194,7 +194,7 @@ internal class RoutedCannon : Artifact, IRegisterable
             {
                 return x;
             }
-            var routedCannon = s.EnumerateAllArtifacts().Where(x => x is RoutedCannon).Cast<RoutedCannon>().FirstOrDefault();
+            var routedCannon = s.GetArtifact<RoutedCannon>();
             if (routedCannon is null || routedCannon.disabled)
             {
                 return x;

@@ -56,19 +56,39 @@
                 },
                 "Shrink": {
                     "name": "Shrink",
-                    "description": "Remove scaffold and merge rightmost part to the left."
+                    "description": "<c=downside>Remove red scaffold</c> and <c=action>merge</c> rightmost part to the left.",
+                    "A": {
+                        "description": "<c=downside>Remove 2nd rightmost part</c> and <c=action>merge</c> parts to the left."
+                    }
                 },
                 "Shrink_Flipped": {
                     "name": "Shrink",
-                    "description": "Remove scaffold and merge leftmost part to the right."
+                    "description": "<c=downside>Remove red scaffold</c> and <c=action>merge</c> leftmost part to the right.",
+                    "A": {
+                        "description": "<c=downside>Remove 2nd leftmost part</c> and <c=action>merge</c> parts to the right."
+                    }
                 }
             },
             "artifact": {
                 "FixedStar": {
                     "name": "FIXED STAR",
                     "description": [
-                        "At the start of your turn, add <c=card>Shrink</c> to your hand.",
-                        "Using <c=status>EVADE</c> will <c=action>move</c> the <c=downside>cannon instead of the ship.</c>"
+                        "Every <c=status>EVADE</c> cost will <c=action>move</c> the <c=downside>cannon instead of the ship.</c>"
+                    ]
+                },
+                "ShrinkMechanism": {
+                    "name": "SHRINK MECHANISM",
+                    "description": [
+                        "At the start of your turn, if you don't have a <c=card>Shrink</c> in your hand, gain one, and add a red scaffold next to your cannon if you don't have one.",
+                        "<c=downside>(Reset parts after combat)</c>"
+                    ]
+                },
+                "ShrinkMechanismV2": {
+                    "name": "SHRINK MECHANISM V2",
+                    "description": [
+                        "At the start of your turn, if you don't have a <c=card>Shrink A</c> in your hand, gain one.",
+                        "Everytime a wing get hit, <c=action>shrink</c> a next or previous part if its not a wing.",
+                        "<c=downside>(Reset parts after turn or combat)</c>"
                     ]
                 }
             }
@@ -149,7 +169,7 @@
                 "DeliveryNote": {
                     "name": "DELIVERY NOTE",
                     "description": [
-                        "Deliver extra missiles to your <c=part>empty</c> space at the start of your turn."
+                        "Deliver extra missiles to your empty space at the start of your turn."
                     ]
                 }
             }

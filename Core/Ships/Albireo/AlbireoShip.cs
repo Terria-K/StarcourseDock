@@ -111,7 +111,7 @@ internal sealed class AlbireoShip
 
     internal static void Combat_RenderWalls_Postfix(Combat __instance, G g) 
     {
-        if (!g.state.EnumerateAllArtifacts().Any(x => x is DoubleStar))
+        if (!g.state.HasArtifact<DoubleStar>())
         {
             return;
         }
@@ -187,7 +187,7 @@ internal sealed class AlbireoShip
             return;
         }
 
-        if (!g.state.EnumerateAllArtifacts().Any(x => x is DoubleStar))
+        if (!g.state.HasArtifact<DoubleStar>())
         {
             return;
         }
