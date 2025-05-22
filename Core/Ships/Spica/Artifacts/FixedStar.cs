@@ -55,7 +55,7 @@ internal class FixedStar : Artifact, IRegisterable
         {
             var state = args.State;
 
-            if (!state.HasArtifact<FixedStar>() || state.HasArtifact<TinyWormhole>())
+            if (!state.HasArtifact<FixedStar>())
             {
                 return true;
             }
@@ -63,6 +63,11 @@ internal class FixedStar : Artifact, IRegisterable
             if (!state.ship.HasPartType(PType.cannon))
             {
                 return false;
+            }
+
+            if (state.HasArtifact<TinyWormhole>())
+            {
+                return true;
             }
 
             int dir = (int)args.Direction;
