@@ -16,6 +16,12 @@ internal static class Registerables
         Teuria.StarcourseDock.FrostCannon.Register(package, helper);
         Teuria.StarcourseDock.AbsoluteZero.Register(package, helper);
         Teuria.StarcourseDock.GlieseShip.Register(package, helper);
+        Teuria.StarcourseDock.SiriusMissileBay.Register(package, helper);
+        Teuria.StarcourseDock.SiriusSubwoofer.Register(package, helper);
+        Teuria.StarcourseDock.SiriusBusiness.Register(package, helper);
+        Teuria.StarcourseDock.ToggleMissileBay.Register(package, helper);
+        Teuria.StarcourseDock.SiriusShip.Register(package, helper);
+        Teuria.StarcourseDock.BayPowerDownStatus.Register(package, helper);
         Teuria.StarcourseDock.FixedStar.Register(package, helper);
         Teuria.StarcourseDock.ShrinkMechanism.Register(package, helper);
         Teuria.StarcourseDock.ShrinkMechanismV2.Register(package, helper);

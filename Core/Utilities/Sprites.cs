@@ -20,6 +20,8 @@ public static partial class Sprites
     public static ISpriteEntry SaveState = null!;
     public static ISpriteEntry ShrinkMechanism = null!;
     public static ISpriteEntry ShrinkMechanismV2 = null!;
+    public static ISpriteEntry SiriusMissileBay = null!;
+    public static ISpriteEntry SiriusSubwoofer = null!;
     public static ISpriteEntry TinyWormhole = null!;
     public static ISpriteEntry VolcanicShield = null!;
     public static ISpriteEntry DodgeOrShift_Bottom = null!;
@@ -27,11 +29,18 @@ public static partial class Sprites
     public static ISpriteEntry ShieldOrShot_Bottom = null!;
     public static ISpriteEntry ShieldOrShot_Top = null!;
     public static ISpriteEntry border_alpherg = null!;
+    public static ISpriteEntry border_sirius = null!;
     public static ISpriteEntry border_spica = null!;
+    public static ISpriteEntry siriusDrone = null!;
+    public static ISpriteEntry siriusDroneMKII = null!;
     public static ISpriteEntry blue_zone = null!;
     public static ISpriteEntry cold = null!;
     public static ISpriteEntry freeze = null!;
+    public static ISpriteEntry icons_siriusDrone = null!;
+    public static ISpriteEntry icons_siriusDroneMkII = null!;
     public static ISpriteEntry orange_zone = null!;
+    public static ISpriteEntry power_down = null!;
+    public static ISpriteEntry sirius_toggle = null!;
     public static ISpriteEntry albireo_cannon_left = null!;
     public static ISpriteEntry albireo_cannon_left_inactive = null!;
     public static ISpriteEntry albireo_cannon_right = null!;
@@ -62,8 +71,12 @@ public static partial class Sprites
     public static ISpriteEntry gliese_wings_1 = null!;
     public static ISpriteEntry gliese_wings_2 = null!;
     public static ISpriteEntry gliese_wings_3 = null!;
+    public static ISpriteEntry sirius_chassis = null!;
+    public static ISpriteEntry sirius_cockpit = null!;
+    public static ISpriteEntry sirius_comms = null!;
+    public static ISpriteEntry sirius_missilebay = null!;
+    public static ISpriteEntry sirius_missilebay_inactive = null!;
     public static ISpriteEntry spica_cannon = null!;
-    public static ISpriteEntry spica_chassis = null!;
     public static ISpriteEntry spica_cockpit = null!;
     public static ISpriteEntry spica_missilebay = null!;
     public static ISpriteEntry spica_scaffolding = null!;
@@ -124,6 +137,12 @@ public static partial class Sprites
         ShrinkMechanismV2 = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/ShrinkMechanismV2.png")
         );
+        SiriusMissileBay = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/SiriusMissileBay.png")
+        );
+        SiriusSubwoofer = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/SiriusSubwoofer.png")
+        );
         TinyWormhole = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/TinyWormhole.png")
         );
@@ -145,8 +164,17 @@ public static partial class Sprites
         border_alpherg = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/cardShared/border_alpherg.png")
         );
+        border_sirius = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/cardShared/border_sirius.png")
+        );
         border_spica = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/cardShared/border_spica.png")
+        );
+        siriusDrone = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/drones/siriusDrone.png")
+        );
+        siriusDroneMKII = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/drones/siriusDroneMKII.png")
         );
         blue_zone = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/blue_zone.png")
@@ -157,8 +185,20 @@ public static partial class Sprites
         freeze = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/freeze.png")
         );
+        icons_siriusDrone = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/icons_siriusDrone.png")
+        );
+        icons_siriusDroneMkII = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/icons_siriusDroneMkII.png")
+        );
         orange_zone = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/orange_zone.png")
+        );
+        power_down = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/power_down.png")
+        );
+        sirius_toggle = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/sirius_toggle.png")
         );
         albireo_cannon_left = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/albireo_cannon_left.png")
@@ -250,11 +290,23 @@ public static partial class Sprites
         gliese_wings_3 = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/gliese_wings_3.png")
         );
+        sirius_chassis = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/sirius_chassis.png")
+        );
+        sirius_cockpit = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/sirius_cockpit.png")
+        );
+        sirius_comms = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/sirius_comms.png")
+        );
+        sirius_missilebay = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/sirius_missilebay.png")
+        );
+        sirius_missilebay_inactive = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/sirius_missilebay_inactive.png")
+        );
         spica_cannon = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/spica_cannon.png")
-        );
-        spica_chassis = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/parts/spica_chassis.png")
         );
         spica_cockpit = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/spica_cockpit.png")

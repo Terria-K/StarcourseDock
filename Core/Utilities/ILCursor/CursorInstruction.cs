@@ -35,4 +35,15 @@ internal record struct CursorInstruction(CodeInstruction Instruction)
         operand = null;
         return false;
     }
+
+    public bool MatchContainsAndExtract(string contains, out object? operand)
+    {
+        if (MatchContains(contains)) 
+        {
+            operand = Instruction.operand;
+            return true;
+        }
+        operand = null;
+        return false;
+    }
 }
