@@ -86,7 +86,7 @@ internal sealed class SiriusMissileBay : Artifact, IRegisterable
         {
             if (data)
             {
-                __result.Add(PowerDownTooltip());
+                __result.Add(BayPowerDownStatus.PowerDownTooltip());
             }
         }
     }
@@ -110,22 +110,10 @@ internal sealed class SiriusMissileBay : Artifact, IRegisterable
         }
     }
 
-    private static Tooltip PowerDownTooltip()
-    {
-        return new GlossaryTooltip($"{ModEntry.Instance.Package.Manifest.UniqueName}::powerDown")
-        {
-            Title = ModEntry.Instance.Localizations.Localize(["ship", "Sirius", "icon", "powerDown", "name"]),
-            TitleColor = Colors.midrow,
-            Description = ModEntry.Instance.Localizations.Localize(["ship", "Sirius", "icon", "powerDown", "description"]),
-            Icon = Sprites.power_down.Sprite
-        };
-    }
-
     public override List<Tooltip>? GetExtraTooltips()
     {
         return [
-            new TTCard() { card = new ToggleMissileBay() },
-            PowerDownTooltip()
+            new TTCard() { card = new ToggleMissileBay() }
         ];
     }
 }

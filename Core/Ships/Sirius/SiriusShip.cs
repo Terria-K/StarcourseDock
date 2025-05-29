@@ -93,6 +93,8 @@ internal sealed class SiriusShip : IRegisterable
         if (s.ship.key != SiriusEntry.UniqueName)
         {
             __result.Add(typeof(SiriusSubwoofer));
+            __result.Add(typeof(SiriusMissileBayV2));
+            __result.Add(typeof(SiriusInquisitor));
         }
     }
 }

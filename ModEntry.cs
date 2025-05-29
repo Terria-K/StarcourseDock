@@ -29,6 +29,7 @@ public sealed class ModEntry : SimpleMod
 			new CurrentLocaleOrEnglishLocalizationProvider<IReadOnlyList<string>>(this.AnyLocalizations)
 		);
 
+        Animation.InitPatch();
         KokoroAPI = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!;
         Sprites.Register(package, helper);
         Registerables.Register(package, helper);

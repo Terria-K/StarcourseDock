@@ -144,12 +144,24 @@ ship:
       SiriusMissileBay:
         name: "SIRIUS MISSILE BAY"
         description: 
+          - "Your inactive bay is <c=parttrait>armored</c>."
           - "At the start of a combat, add a <c=card>Toggle Missile Bay</c> to your hand."
+      SiriusMissileBayV2:
+        name: "SIRIUS MISSILE BAY V2"
+        description: 
+          - "Replaces <c=artifact>SIRIUS MISSILE BAY</c>."
+          - "Your inactive bay is <c=parttrait>armored</c>."
+          - "At the start of a combat, add a <c=card>BARRAGE MODE</c> to your hand."
       SiriusSubwoofer:
         name: "SIRIUS SUBWOOFER"
         description:
           - "(Sirius-exclusive artifact!)"
           - "<c=midrow>Sirius drones</c> do 1 more damage when directly in front of your <c=part>comms</c>."
+      SiriusInquisitor:
+        name: "SIRIUS INQUISITOR"
+        description:
+          - "(Sirius-exclusive artifact!)"
+          - "Replaces <c=card>Sirius Business</c> with <c=card>Sirius Question</c> from your deck."
     
     status:
       BayPowerDown:
@@ -161,8 +173,13 @@ ship:
     card:
       SiriusBusiness:
         name: "Sirius Business"
+      SiriusQuestion:
+        name: "Sirius Question"
       ToggleMissileBay:
         name: "Toggle Sirius Bay"
+      BarrageMode:
+        name: "Barrage Mode"
+        description: "Both bays are active until next turn. <c=keyword>Flip to toggle.</c>"
 
     icon:
       toggleMissileBay:
@@ -184,6 +201,18 @@ ship:
         description: 
           - "Every time you <c=action>ATTACK</c>, this drone copies your attack with additional <boldPink>1</c> dmg."
           - "When not in front of your comms, <c=downside>then it will also <c=action>ATTACK</c> back at you."
+
+      SiriusSemiDualDrone:
+        name: "Sirius Semi Dual Drone"
+        description: 
+          - "Every time you <c=action>ATTACK</c>, this drone copies your attack."
+          - "When this drone is hit, <c=downside>it targets to the opposite side.</c>"
+
+      SiriusSemiDualDroneMKII:
+        name: "Sirius Semi Dual Drone MKII"
+        description: 
+          - "Every time you <c=action>ATTACK</c>, this drone copies your attack with additional <boldPink>1</c> dmg."
+          - "When this drone is hit, <c=downside>it targets to the opposite side.</c>"
 
   Albireo: 
     name: Albireo

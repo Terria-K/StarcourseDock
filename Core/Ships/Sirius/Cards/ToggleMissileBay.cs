@@ -15,7 +15,7 @@ internal class ToggleMissileBay : Card, IRegisterable
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new()
             {
-                deck = SiriusBusiness.SiriusDeck.Deck,
+                deck = SiriusKit.SiriusDeck.Deck,
                 rarity = Rarity.common,
                 dontOffer = true
             },

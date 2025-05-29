@@ -3,7 +3,7 @@ using Nanoray.PluginManager;
 
 namespace Teuria.StarcourseDock;
 
-public static partial class Sprites 
+public static partial class Sprites
 {
     public static ISpriteEntry CrystalCore = null!;
     public static ISpriteEntry CrystalCoreV2 = null!;
@@ -20,7 +20,13 @@ public static partial class Sprites
     public static ISpriteEntry SaveState = null!;
     public static ISpriteEntry ShrinkMechanism = null!;
     public static ISpriteEntry ShrinkMechanismV2 = null!;
+    public static ISpriteEntry SiriusInquisitor = null!;
+    public static ISpriteEntry SiriusInquisitor1 = null!;
+    public static ISpriteEntry SiriusInquisitor2 = null!;
+    public static ISpriteEntry SiriusInquisitor3 = null!;
+    public static ISpriteEntry SiriusInquisitor4 = null!;
     public static ISpriteEntry SiriusMissileBay = null!;
+    public static ISpriteEntry SiriusMissileBayV2 = null!;
     public static ISpriteEntry SiriusSubwoofer = null!;
     public static ISpriteEntry TinyWormhole = null!;
     public static ISpriteEntry VolcanicShield = null!;
@@ -33,11 +39,15 @@ public static partial class Sprites
     public static ISpriteEntry border_spica = null!;
     public static ISpriteEntry siriusDrone = null!;
     public static ISpriteEntry siriusDroneMKII = null!;
+    public static ISpriteEntry siriusSemiDualDrone = null!;
+    public static ISpriteEntry siriusSemiDualDroneMKII = null!;
     public static ISpriteEntry blue_zone = null!;
     public static ISpriteEntry cold = null!;
     public static ISpriteEntry freeze = null!;
     public static ISpriteEntry icons_siriusDrone = null!;
     public static ISpriteEntry icons_siriusDroneMkII = null!;
+    public static ISpriteEntry icons_siriusSemiDualDrone = null!;
+    public static ISpriteEntry icons_siriusSemiDualDroneMkII = null!;
     public static ISpriteEntry orange_zone = null!;
     public static ISpriteEntry power_down = null!;
     public static ISpriteEntry sirius_toggle = null!;
@@ -137,8 +147,26 @@ public static partial class Sprites
         ShrinkMechanismV2 = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/ShrinkMechanismV2.png")
         );
+        SiriusInquisitor = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/SiriusInquisitor.png")
+        );
+        SiriusInquisitor1 = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/SiriusInquisitor1.png")
+        );
+        SiriusInquisitor2 = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/SiriusInquisitor2.png")
+        );
+        SiriusInquisitor3 = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/SiriusInquisitor3.png")
+        );
+        SiriusInquisitor4 = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/SiriusInquisitor4.png")
+        );
         SiriusMissileBay = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/SiriusMissileBay.png")
+        );
+        SiriusMissileBayV2 = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/SiriusMissileBayV2.png")
         );
         SiriusSubwoofer = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/SiriusSubwoofer.png")
@@ -176,6 +204,12 @@ public static partial class Sprites
         siriusDroneMKII = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/drones/siriusDroneMKII.png")
         );
+        siriusSemiDualDrone = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/drones/siriusSemiDualDrone.png")
+        );
+        siriusSemiDualDroneMKII = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/drones/siriusSemiDualDroneMKII.png")
+        );
         blue_zone = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/blue_zone.png")
         );
@@ -190,6 +224,12 @@ public static partial class Sprites
         );
         icons_siriusDroneMkII = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/icons_siriusDroneMkII.png")
+        );
+        icons_siriusSemiDualDrone = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/icons_siriusSemiDualDrone.png")
+        );
+        icons_siriusSemiDualDroneMkII = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/icons_siriusSemiDualDroneMkII.png")
         );
         orange_zone = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/orange_zone.png")

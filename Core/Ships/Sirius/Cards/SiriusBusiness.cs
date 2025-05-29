@@ -8,28 +8,15 @@ namespace Teuria.StarcourseDock;
 
 internal class SiriusBusiness : Card, IRegisterable
 {
-    internal static IDeckEntry SiriusDeck { get; private set; } = null!;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        SiriusDeck = helper.Content.Decks.RegisterDeck("Sirius", new() 
-        {
-            Definition = new() 
-            {
-                color = new Color("6c9ebd"),
-                titleColor = Colors.black
-            },
-            DefaultCardArt = StableSpr.cards_colorless,
-            BorderSprite = Sprites.border_sirius.Sprite,
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Sirius", "name"]).Localize
-        });
-
         helper.Content.Cards.RegisterCard(MethodBase.GetCurrentMethod()!.DeclaringType!.Name, new()
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new()
             {
-                deck = SiriusDeck.Deck,
+                deck = SiriusKit.SiriusDeck.Deck,
                 rarity = Rarity.common,
                 upgradesTo = [Upgrade.A, Upgrade.B],
                 dontOffer = true
@@ -47,7 +34,6 @@ internal class SiriusBusiness : Card, IRegisterable
     private static void AJupiterShoot_Begin_Prefix(AJupiterShoot __instance, State s, Combat c)
     {
         bool damageUpgraded = false;
-        bool damageUpgradedAgain = false;
         SortedList<int, CardAction> siriusAttacks = [];
         foreach ((int x, StuffBase midRow) in c.stuff)
         {
@@ -65,11 +51,6 @@ internal class SiriusBusiness : Card, IRegisterable
             int partX = s.ship.parts.FindIndex(p => p.type == PType.comms);
             if (partX >= 0 && midRow.x == partX + s.ship.x)
             {
-                if (sirius.upgrade == Upgrade.A && !damageUpgradedAgain)
-                {
-                    __instance.attackCopy.damage += 1;
-                    damageUpgradedAgain = true;
-                }
                 continue;
             }
 
