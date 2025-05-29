@@ -1,4 +1,6 @@
 using System.Linq;
+using Nickel;
+using Teuria.StarcourseDock;
 using ZLinq;
 
 namespace Teuria.Utilities;
@@ -83,6 +85,22 @@ internal static class ShipExtensions
     public static List<Part> RetainParts(this Ship ship, Func<Part, bool> predicate)
     {
         return ship.parts.AsValueEnumerable().Where(predicate).ToList();
+    }
+}
+
+internal static class IModSpritesExtensions
+{
+    public static ISpriteEntry RegisterAnimation(this IModSprites sprites, Animation animation)
+    {
+        var spr = sprites.RegisterDynamicSprite(() =>
+        {
+            var g = MG.inst.g;
+            var state = g.state;
+            
+            return animation.Update(g, state);
+        });
+        Animation.AddAnimation(animation);
+        return spr;
     }
 }
 
