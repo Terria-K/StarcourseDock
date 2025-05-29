@@ -59,10 +59,11 @@ internal sealed class SiriusMissileBay : Artifact, IRegisterable
 
     private static void ASpawn_Begin_Prefix(ASpawn __instance, State s, Combat c)
     {
-        if (s.ship.Get(BayPowerDownStatus.BayPowerDownEntry.Status) > 0)
+        Ship target = (__instance.fromPlayer ? s.ship : c.otherShip);
+        if (target.Get(BayPowerDownStatus.BayPowerDownEntry.Status) > 0)
         {
             ModEntry.Instance.Helper.ModData.SetModData(__instance.thing, "powerdown", true);
-            s.ship.Add(BayPowerDownStatus.BayPowerDownEntry.Status, -1);
+            target.Add(BayPowerDownStatus.BayPowerDownEntry.Status, -1);
         }
     }
 
