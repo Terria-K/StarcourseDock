@@ -123,7 +123,20 @@ internal sealed class WolfRayetShip : IRegisterable
             prefix: new HarmonyMethod(TTGlossary_BuildIconAndText_Prefix)
         );
 
+        ModEntry.Instance.Harmony.Patch(
+            original: AccessTools.DeclaredMethod(typeof(ArtifactReward), nameof(ArtifactReward.GetBlockedArtifacts)),
+            postfix: new HarmonyMethod(ArtifactReward_GetBlockedArtifacts_Postfix)
+        );
+
         EnumExtensions.partStrs[MissilePartType] = MissilePartTypeID;
+    }
+
+    internal static void ArtifactReward_GetBlockedArtifacts_Postfix(HashSet<Type> __result, State s) 
+    {
+        if (s.ship.key != WolfRayetEntry.UniqueName)
+        {
+            __result.Add(typeof(HeatShieldV2));
+        }
     }
 
     private static void Ship_OnAfterTurn_Postfix(Ship __instance, Combat c)
