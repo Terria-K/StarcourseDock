@@ -21,7 +21,7 @@ internal sealed class CrystalCoreV2 : Artifact, IRegisterable
                     pools = [ArtifactPool.Boss],
                     unremovable = true,
                 },
-                Sprite = Sprites.CrystalCoreV2.Sprite,
+                Sprite = Sprites.artifacts_CrystalCoreV2.Sprite,
                 Name = ModEntry
                     .Instance.AnyLocalizations.Bind(
                         ["ship", "Gliese", "artifact", "CrystalCoreV2", "name"]

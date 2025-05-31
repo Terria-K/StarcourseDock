@@ -69,10 +69,10 @@ internal sealed class SiriusInquisitor : Artifact, IRegisterable
     {
         private Spr[] frames =
         [
-            Sprites.SiriusInquisitor1.Sprite,
-            Sprites.SiriusInquisitor2.Sprite,
-            Sprites.SiriusInquisitor3.Sprite,
-            Sprites.SiriusInquisitor4.Sprite,
+            Sprites.artifacts_SiriusInquisitor1.Sprite,
+            Sprites.artifacts_SiriusInquisitor2.Sprite,
+            Sprites.artifacts_SiriusInquisitor3.Sprite,
+            Sprites.artifacts_SiriusInquisitor4.Sprite,
         ];
 
         public override int MaxFrameLength => 4;

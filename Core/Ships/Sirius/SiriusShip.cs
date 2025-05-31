@@ -16,8 +16,8 @@ internal sealed class SiriusShip : IRegisterable
             "SiriusMissileBay",
             new()
             {
-                Sprite = Sprites.sirius_missilebay.Sprite,
-                DisabledSprite = Sprites.sirius_missilebay_inactive.Sprite,
+                Sprite = Sprites.parts_sirius_missilebay.Sprite,
+                DisabledSprite = Sprites.parts_sirius_missilebay_inactive.Sprite,
             }
         );
 
@@ -29,7 +29,7 @@ internal sealed class SiriusShip : IRegisterable
                 Description = ModEntry
                     .Instance.AnyLocalizations.Bind(["ship", "Sirius", "description"])
                     .Localize,
-                UnderChassisSprite = Sprites.sirius_chassis.Sprite,
+                UnderChassisSprite = Sprites.parts_sirius_chassis.Sprite,
                 Ship = new()
                 {
                     ship = new()
@@ -54,7 +54,7 @@ internal sealed class SiriusShip : IRegisterable
                                 skin = helper
                                     .Content.Ships.RegisterPart(
                                         "SiriusCockpit",
-                                        new() { Sprite = Sprites.sirius_cockpit.Sprite }
+                                        new() { Sprite = Sprites.parts_sirius_cockpit.Sprite }
                                     )
                                     .UniqueName,
                                 key = "cockpit",
@@ -65,7 +65,7 @@ internal sealed class SiriusShip : IRegisterable
                                 skin = helper
                                     .Content.Ships.RegisterPart(
                                         "SiriusComms",
-                                        new() { Sprite = Sprites.sirius_comms.Sprite }
+                                        new() { Sprite = Sprites.parts_sirius_comms.Sprite }
                                     )
                                     .UniqueName,
                                 key = "closeToScaffold",

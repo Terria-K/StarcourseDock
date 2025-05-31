@@ -34,8 +34,8 @@ internal sealed class SiriusSemiDualDrone : StuffBase
             g,
             upgrade switch
             {
-                Upgrade.A => Sprites.siriusSemiDualDroneMKII.Sprite,
-                _ => Sprites.siriusSemiDualDrone.Sprite,
+                Upgrade.A => Sprites.drones_siriusSemiDualDroneMKII.Sprite,
+                _ => Sprites.drones_siriusSemiDualDrone.Sprite,
             },
             offset,
             flipY: targetPlayer
@@ -103,7 +103,7 @@ internal sealed class SiriusSemiDualDrone : StuffBase
     )
     {
         hitByEnemy = !wasPlayer;
-        return Actions();
+        return [new AChangeTeam() { target = this, targetPlayer = !wasPlayer }];
     }
 
     public override List<CardAction>? GetActionsOnShotWhileInvincible(
@@ -114,11 +114,6 @@ internal sealed class SiriusSemiDualDrone : StuffBase
     )
     {
         hitByEnemy = !wasPlayer;
-        return Actions();
-    }
-
-    private List<CardAction> Actions()
-    {
-        return [new AChangeTeam() { target = this }];
+        return [new AChangeTeam() { target = this, targetPlayer = !wasPlayer }];
     }
 }

@@ -3,8 +3,8 @@
 <#@ import namespace="System.IO"#>
 <#@ import namespace="System.Linq"#>
 <#@ import namespace="System.Collections.Generic"#>
-using Nickel;
 using Nanoray.PluginManager;
+using Nickel;
 <#
     string[] allowedExtension = ["png"];
     List<(string, string)> sprites = new List<(string, string)>();
@@ -18,7 +18,9 @@ using Nanoray.PluginManager;
         {
             if (allowedExtension.Where(x => file.Contains(x)).Any() && !file.Contains(".dyn"))
             {
-                sprites.Add((Path.GetFileNameWithoutExtension(file), file.Replace('\\', '/')));
+                string dirNamePlus = Path.GetFileName(Path.GetDirectoryName(file));
+                
+                sprites.Add((dirNamePlus + "_" + Path.GetFileNameWithoutExtension(file), file.Replace('\\', '/')));
             }
         }
 
@@ -33,7 +35,7 @@ using Nanoray.PluginManager;
 
 namespace Teuria.StarcourseDock;
 
-public static partial class Sprites 
+public static partial class Sprites
 {
 <# foreach (var sprite in sprites) {#>
     public static ISpriteEntry <#= sprite.Item1 #> = null!;

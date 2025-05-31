@@ -21,37 +21,37 @@ internal sealed class GlieseShip : IRegisterable
     {
         GlieseCrystal1 = helper.Content.Ships.RegisterPart(
             "Gliesecrystal1",
-            new() { Sprite = Sprites.gliese_wings_0.Sprite }
+            new() { Sprite = Sprites.parts_gliese_wings_0.Sprite }
         );
 
         GlieseCrystal2 = helper.Content.Ships.RegisterPart(
             "Gliesecrystal2",
-            new() { Sprite = Sprites.gliese_wings_1.Sprite }
+            new() { Sprite = Sprites.parts_gliese_wings_1.Sprite }
         );
 
         GlieseCrystal3 = helper.Content.Ships.RegisterPart(
             "Gliesecrystal3",
-            new() { Sprite = Sprites.gliese_wings_2.Sprite }
+            new() { Sprite = Sprites.parts_gliese_wings_2.Sprite }
         );
 
         GlieseScaffolding1 = helper.Content.Ships.RegisterPart(
             "GlieseScaffolding_crystal0",
-            new() { Sprite = Sprites.gliese_scaffolding_0.Sprite }
+            new() { Sprite = Sprites.parts_gliese_scaffolding_0.Sprite }
         );
 
         GlieseScaffolding2 = helper.Content.Ships.RegisterPart(
             "GlieseScaffolding_crystal1",
-            new() { Sprite = Sprites.gliese_scaffolding_1.Sprite }
+            new() { Sprite = Sprites.parts_gliese_scaffolding_1.Sprite }
         );
 
         GliesePortal = helper.Content.Ships.RegisterPart(
             "GliesePortal",
-            new() { Sprite = Sprites.gliese_wings_3.Sprite }
+            new() { Sprite = Sprites.parts_gliese_wings_3.Sprite }
         );
 
         GlieseCannonTemp = helper.Content.Ships.RegisterPart(
             "GliesecrystalCannon",
-            new() { Sprite = Sprites.gliese_cannon_temp.Sprite }
+            new() { Sprite = Sprites.parts_gliese_cannon_temp.Sprite }
         );
 
         GlieseEntry = helper.Content.Ships.RegisterShip(
@@ -62,7 +62,7 @@ internal sealed class GlieseShip : IRegisterable
                 Description = ModEntry
                     .Instance.AnyLocalizations.Bind(["ship", "Gliese", "description"])
                     .Localize,
-                UnderChassisSprite = Sprites.gliese_chassis.Sprite,
+                UnderChassisSprite = Sprites.parts_gliese_chassis.Sprite,
                 Ship = new()
                 {
                     ship = new()
@@ -93,7 +93,7 @@ internal sealed class GlieseShip : IRegisterable
                                 skin = helper
                                     .Content.Ships.RegisterPart(
                                         "GlieseCannon_crystal",
-                                        new() { Sprite = Sprites.gliese_cannon.Sprite }
+                                        new() { Sprite = Sprites.parts_gliese_cannon.Sprite }
                                     )
                                     .UniqueName,
                             },
@@ -103,7 +103,7 @@ internal sealed class GlieseShip : IRegisterable
                                 skin = helper
                                     .Content.Ships.RegisterPart(
                                         "GlieseCockpit_crystal",
-                                        new() { Sprite = Sprites.gliese_cockpit.Sprite }
+                                        new() { Sprite = Sprites.parts_gliese_cockpit.Sprite }
                                     )
                                     .UniqueName,
                             },
@@ -121,7 +121,7 @@ internal sealed class GlieseShip : IRegisterable
                                 skin = helper
                                     .Content.Ships.RegisterPart(
                                         "GlieseMissileBay_crystal",
-                                        new() { Sprite = Sprites.gliese_missilebay.Sprite }
+                                        new() { Sprite = Sprites.parts_gliese_missilebay.Sprite }
                                     )
                                     .UniqueName,
                             },

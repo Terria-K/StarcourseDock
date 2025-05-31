@@ -24,7 +24,7 @@ internal class ShrinkMechanismV2 : Artifact, IRegisterable
                     pools = [ArtifactPool.Boss],
                     unremovable = true,
                 },
-                Sprite = Sprites.ShrinkMechanismV2.Sprite,
+                Sprite = Sprites.artifacts_ShrinkMechanismV2.Sprite,
                 Name = ModEntry
                     .Instance.AnyLocalizations.Bind(
                         ["ship", "Spica", "artifact", "ShrinkMechanismV2", "name"]

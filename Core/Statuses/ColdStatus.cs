@@ -27,7 +27,7 @@ internal sealed class ColdStatus
                     isGood = false,
                     color = new Color("70b2ff"),
                     border = new Color("7fe2ff"),
-                    icon = Sprites.cold.Sprite,
+                    icon = Sprites.icons_cold.Sprite,
                     affectedByTimestop = true,
                 },
                 ShouldFlash = (State s, Combat c, Ship ship, Status status) =>

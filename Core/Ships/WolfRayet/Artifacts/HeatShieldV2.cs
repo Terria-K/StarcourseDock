@@ -23,7 +23,7 @@ internal sealed class HeatShieldV2 : Artifact, IRegisterable
                     pools = [ArtifactPool.Boss],
                     unremovable = true,
                 },
-                Sprite = Sprites.VolcanicShield.Sprite,
+                Sprite = Sprites.artifacts_VolcanicShield.Sprite,
                 Name = ModEntry
                     .Instance.AnyLocalizations.Bind(
                         ["ship", "WolfRayet", "artifact", "HeatShieldV2", "name"]

@@ -20,7 +20,7 @@ internal sealed class SiriusSubwoofer : Artifact, IRegisterable
                     pools = [ArtifactPool.Common],
                     unremovable = true,
                 },
-                Sprite = Sprites.SiriusSubwoofer.Sprite,
+                Sprite = Sprites.artifacts_SiriusSubwoofer.Sprite,
                 Name = ModEntry
                     .Instance.AnyLocalizations.Bind(
                         ["ship", "Sirius", "artifact", "SiriusSubwoofer", "name"]

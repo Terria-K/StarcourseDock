@@ -38,8 +38,8 @@ internal class DodgeOrShift : Card, IRegisterable
             _ => new() { cost = 1, floppable = true },
         };
         result.art = this.flipped
-            ? Sprites.DodgeOrShift_Bottom.Sprite
-            : Sprites.DodgeOrShift_Top.Sprite;
+            ? Sprites.cards_DodgeOrShift_Bottom.Sprite
+            : Sprites.cards_DodgeOrShift_Top.Sprite;
         return result;
     }
 

@@ -17,17 +17,17 @@ internal sealed class SpicaShip : IRegisterable
     {
         SpicaScaffold = helper.Content.Ships.RegisterPart(
             "SpicaScaffolding",
-            new() { Sprite = Sprites.spica_scaffolding.Sprite }
+            new() { Sprite = Sprites.parts_spica_scaffolding.Sprite }
         );
 
         SpicaCannon = helper.Content.Ships.RegisterPart(
             "SpicaCannon",
-            new() { Sprite = Sprites.spica_cannon.Sprite }
+            new() { Sprite = Sprites.parts_spica_cannon.Sprite }
         );
 
         SpicaCockpit = helper.Content.Ships.RegisterPart(
             "SpicaCockpit",
-            new() { Sprite = Sprites.spica_cockpit.Sprite }
+            new() { Sprite = Sprites.parts_spica_cockpit.Sprite }
         );
 
         SpicaEntry = helper.Content.Ships.RegisterShip(
@@ -38,7 +38,7 @@ internal sealed class SpicaShip : IRegisterable
                 Description = ModEntry
                     .Instance.AnyLocalizations.Bind(["ship", "Spica", "description"])
                     .Localize,
-                UnderChassisSprite = Sprites.gliese_chassis.Sprite,
+                UnderChassisSprite = Sprites.parts_gliese_chassis.Sprite,
                 Ship = new()
                 {
                     ship = new()
@@ -56,7 +56,7 @@ internal sealed class SpicaShip : IRegisterable
                                 skin = helper
                                     .Content.Ships.RegisterPart(
                                         "SpicaWingLeft",
-                                        new() { Sprite = Sprites.spica_wing_left.Sprite }
+                                        new() { Sprite = Sprites.parts_spica_wing_left.Sprite }
                                     )
                                     .UniqueName,
                                 key = "leftwing",
@@ -85,7 +85,7 @@ internal sealed class SpicaShip : IRegisterable
                                 skin = helper
                                     .Content.Ships.RegisterPart(
                                         "SpicaMissileBay",
-                                        new() { Sprite = Sprites.spica_missilebay.Sprite }
+                                        new() { Sprite = Sprites.parts_spica_missilebay.Sprite }
                                     )
                                     .UniqueName,
                                 key = "missiles",
@@ -97,7 +97,7 @@ internal sealed class SpicaShip : IRegisterable
                                 skin = helper
                                     .Content.Ships.RegisterPart(
                                         "SpicaWingRight",
-                                        new() { Sprite = Sprites.spica_wing_right.Sprite }
+                                        new() { Sprite = Sprites.parts_spica_wing_right.Sprite }
                                     )
                                     .UniqueName,
                                 key = "rightwing",

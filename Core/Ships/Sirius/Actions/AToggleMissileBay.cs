@@ -96,13 +96,13 @@ internal sealed class AToggleMissileBay : CardAction
                 ),
                 TitleColor = Colors.action,
                 IsWideIcon = true,
-                Icon = Sprites.sirius_toggle.Sprite,
+                Icon = Sprites.icons_sirius_toggle.Sprite,
             },
         ];
     }
 
     public override Icon? GetIcon(State s) =>
-        new Icon(Sprites.sirius_toggle.Sprite, null, Colors.white);
+        new Icon(Sprites.icons_sirius_toggle.Sprite, null, Colors.white);
 
     private class Res
     {

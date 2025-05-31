@@ -14,7 +14,7 @@ internal class TinyWormhole : Artifact, IRegisterable
             {
                 ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
                 Meta = new() { owner = Deck.colorless, pools = [ArtifactPool.Common] },
-                Sprite = Sprites.TinyWormhole.Sprite,
+                Sprite = Sprites.artifacts_TinyWormhole.Sprite,
                 Name = ModEntry
                     .Instance.AnyLocalizations.Bind(
                         ["ship", "Spica", "artifact", "TinyWormhole", "name"]

@@ -24,7 +24,7 @@ internal class RoutedCannon : Artifact, IRegisterable
                     pools = [ArtifactPool.EventOnly],
                     unremovable = true,
                 },
-                Sprite = Sprites.RoutedCannon.Sprite,
+                Sprite = Sprites.artifacts_RoutedCannon.Sprite,
                 Name = ModEntry
                     .Instance.AnyLocalizations.Bind(
                         ["ship", "Alpherg", "artifact", "RoutedCannon", "name"]
@@ -92,9 +92,9 @@ internal class RoutedCannon : Artifact, IRegisterable
     {
         if (disabled)
         {
-            return Sprites.RoutedCannonInactive.Sprite;
+            return Sprites.artifacts_RoutedCannonInactive.Sprite;
         }
-        return Sprites.RoutedCannon.Sprite;
+        return Sprites.artifacts_RoutedCannon.Sprite;
     }
 
     public override void OnTurnStart(State state, Combat combat)

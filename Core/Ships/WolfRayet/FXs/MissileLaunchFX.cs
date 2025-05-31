@@ -16,7 +16,7 @@ internal sealed class MissileLaunchFX : FX
             return;
         }
 
-        Spr? spr = Sprites.wolf_rayet_missiles.Sprite;
+        Spr? spr = Sprites.parts_wolf_rayet_missiles.Sprite;
 
         double y = v.y - Ease.BackOut(age) * 300 + 32 + 60;
 

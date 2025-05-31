@@ -25,8 +25,8 @@ internal sealed class WolfRayetShip : IRegisterable
             "WolfRayetMissilesSlot",
             new()
             {
-                Sprite = Sprites.wolf_rayet_missiles.Sprite,
-                DisabledSprite = Sprites.wolf_rayet_missiles_inactive.Sprite,
+                Sprite = Sprites.parts_wolf_rayet_missiles.Sprite,
+                DisabledSprite = Sprites.parts_wolf_rayet_missiles_inactive.Sprite,
             }
         );
 
@@ -34,8 +34,8 @@ internal sealed class WolfRayetShip : IRegisterable
             "WolfRayetMissilesEmptySlot",
             new()
             {
-                Sprite = Sprites.wolf_rayet_scaffolding.Sprite,
-                DisabledSprite = Sprites.wolf_rayet_scaffolding.Sprite,
+                Sprite = Sprites.parts_wolf_rayet_scaffolding.Sprite,
+                DisabledSprite = Sprites.parts_wolf_rayet_scaffolding.Sprite,
             }
         );
 
@@ -49,7 +49,7 @@ internal sealed class WolfRayetShip : IRegisterable
                 Description = ModEntry
                     .Instance.AnyLocalizations.Bind(["ship", "WolfRayet", "description"])
                     .Localize,
-                UnderChassisSprite = Sprites.wolf_rayet_chassis.Sprite,
+                UnderChassisSprite = Sprites.parts_wolf_rayet_chassis.Sprite,
                 Ship = new()
                 {
                     ship = new()
@@ -65,7 +65,7 @@ internal sealed class WolfRayetShip : IRegisterable
                                 skin = helper
                                     .Content.Ships.RegisterPart(
                                         "WolfRayetMissileBay",
-                                        new() { Sprite = Sprites.wolf_rayet_misslebay.Sprite }
+                                        new() { Sprite = Sprites.parts_wolf_rayet_misslebay.Sprite }
                                     )
                                     .UniqueName,
                             },
@@ -75,7 +75,7 @@ internal sealed class WolfRayetShip : IRegisterable
                                 skin = helper
                                     .Content.Ships.RegisterPart(
                                         "WolfRayetCockpit",
-                                        new() { Sprite = Sprites.wolf_rayet_cockpit.Sprite }
+                                        new() { Sprite = Sprites.parts_wolf_rayet_cockpit.Sprite }
                                     )
                                     .UniqueName,
                             },
@@ -106,7 +106,7 @@ internal sealed class WolfRayetShip : IRegisterable
                                 skin = helper
                                     .Content.Ships.RegisterPart(
                                         "WolfRayetCannon",
-                                        new() { Sprite = Sprites.wolf_rayet_cannon.Sprite }
+                                        new() { Sprite = Sprites.parts_wolf_rayet_cannon.Sprite }
                                     )
                                     .UniqueName,
                             },

@@ -20,7 +20,7 @@ internal sealed class DeliveryNote : Artifact, IRegisterable
                     pools = [ArtifactPool.EventOnly],
                     unremovable = true,
                 },
-                Sprite = Sprites.DeliveryNote.Sprite,
+                Sprite = Sprites.artifacts_DeliveryNote.Sprite,
                 Name = ModEntry
                     .Instance.AnyLocalizations.Bind(
                         ["ship", "WolfRayet", "artifact", "DeliveryNote", "name"]

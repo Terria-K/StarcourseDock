@@ -17,12 +17,12 @@ internal sealed class AlphergShip : IRegisterable
     {
         AlphergScaffoldOrange = helper.Content.Ships.RegisterPart(
             "AlphergScaffoldOrange",
-            new() { Sprite = Sprites.alpherg_scaffold_orange.Sprite }
+            new() { Sprite = Sprites.parts_alpherg_scaffold_orange.Sprite }
         );
 
         AlphergScaffoldBlue = helper.Content.Ships.RegisterPart(
             "AlphergScaffoldBlue",
-            new() { Sprite = Sprites.alpherg_scaffold_blue.Sprite }
+            new() { Sprite = Sprites.parts_alpherg_scaffold_blue.Sprite }
         );
 
         var chassisSprite = helper.Content.Sprites.RegisterDynamicSprite(
@@ -41,10 +41,10 @@ internal sealed class AlphergShip : IRegisterable
                     || !leftActive
                 )
                 {
-                    return SpriteLoader.Get(Sprites.alpherg_chassis.Sprite)!;
+                    return SpriteLoader.Get(Sprites.parts_alpherg_chassis.Sprite)!;
                 }
 
-                return SpriteLoader.Get(Sprites.alpherg_chassis_left.Sprite)!;
+                return SpriteLoader.Get(Sprites.parts_alpherg_chassis_left.Sprite)!;
             }
         );
 
@@ -74,7 +74,7 @@ internal sealed class AlphergShip : IRegisterable
                                 skin = helper
                                     .Content.Ships.RegisterPart(
                                         "AlphergWingLeft",
-                                        new() { Sprite = Sprites.alpherg_wing_left.Sprite }
+                                        new() { Sprite = Sprites.parts_alpherg_wing_left.Sprite }
                                     )
                                     .UniqueName,
                             },
@@ -91,8 +91,10 @@ internal sealed class AlphergShip : IRegisterable
                                         "AlphergCannon",
                                         new()
                                         {
-                                            Sprite = Sprites.alpherg_cannon.Sprite,
-                                            DisabledSprite = Sprites.alpherg_cannon_inactive.Sprite,
+                                            Sprite = Sprites.parts_alpherg_cannon.Sprite,
+                                            DisabledSprite = Sprites
+                                                .parts_alpherg_cannon_inactive
+                                                .Sprite,
                                         }
                                     )
                                     .UniqueName,
@@ -104,7 +106,7 @@ internal sealed class AlphergShip : IRegisterable
                                 skin = helper
                                     .Content.Ships.RegisterPart(
                                         "AlphergCockpit",
-                                        new() { Sprite = Sprites.alpherg_cockpit.Sprite }
+                                        new() { Sprite = Sprites.parts_alpherg_cockpit.Sprite }
                                     )
                                     .UniqueName,
                             },
@@ -114,7 +116,7 @@ internal sealed class AlphergShip : IRegisterable
                                 skin = helper
                                     .Content.Ships.RegisterPart(
                                         "AlphergBay",
-                                        new() { Sprite = Sprites.alpherg_missilebay.Sprite }
+                                        new() { Sprite = Sprites.parts_alpherg_missilebay.Sprite }
                                     )
                                     .UniqueName,
                             },
@@ -124,7 +126,7 @@ internal sealed class AlphergShip : IRegisterable
                                 skin = helper
                                     .Content.Ships.RegisterPart(
                                         "AlphergWingRight",
-                                        new() { Sprite = Sprites.alpherg_wing_right.Sprite }
+                                        new() { Sprite = Sprites.parts_alpherg_wing_right.Sprite }
                                     )
                                     .UniqueName,
                             },

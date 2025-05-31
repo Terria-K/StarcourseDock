@@ -32,8 +32,8 @@ internal sealed class SiriusDrone : JupiterDrone
             g,
             upgrade switch
             {
-                Upgrade.A => Sprites.siriusDroneMKII.Sprite,
-                _ => Sprites.siriusDrone.Sprite,
+                Upgrade.A => Sprites.drones_siriusDroneMKII.Sprite,
+                _ => Sprites.drones_siriusDrone.Sprite,
             },
             offset
         );

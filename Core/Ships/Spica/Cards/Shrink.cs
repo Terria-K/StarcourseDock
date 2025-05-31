@@ -14,7 +14,7 @@ internal class Shrink : Card, IRegisterable
             {
                 Definition = new() { color = new Color("5a7752"), titleColor = Colors.white },
                 DefaultCardArt = StableSpr.cards_colorless,
-                BorderSprite = Sprites.border_spica.Sprite,
+                BorderSprite = Sprites.cardShared_border_spica.Sprite,
                 Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "name"]).Localize,
             }
         );

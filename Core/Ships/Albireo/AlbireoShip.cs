@@ -20,8 +20,8 @@ internal sealed class AlbireoShip
             "AlbireoCannonLeft",
             new()
             {
-                Sprite = Sprites.albireo_cannon_left.Sprite,
-                DisabledSprite = Sprites.albireo_cannon_left_inactive.Sprite,
+                Sprite = Sprites.parts_albireo_cannon_left.Sprite,
+                DisabledSprite = Sprites.parts_albireo_cannon_left_inactive.Sprite,
             }
         );
 
@@ -29,8 +29,8 @@ internal sealed class AlbireoShip
             "AlbireoCannonRight",
             new()
             {
-                Sprite = Sprites.albireo_cannon_right.Sprite,
-                DisabledSprite = Sprites.albireo_cannon_right_inactive.Sprite,
+                Sprite = Sprites.parts_albireo_cannon_right.Sprite,
+                DisabledSprite = Sprites.parts_albireo_cannon_right_inactive.Sprite,
             }
         );
 
@@ -38,8 +38,8 @@ internal sealed class AlbireoShip
             "AlbireoMissileBayLeft",
             new()
             {
-                Sprite = Sprites.albireo_missilebay_left.Sprite,
-                DisabledSprite = Sprites.albireo_missilebay_inactive.Sprite,
+                Sprite = Sprites.parts_albireo_missilebay_left.Sprite,
+                DisabledSprite = Sprites.parts_albireo_missilebay_inactive.Sprite,
             }
         );
 
@@ -47,8 +47,8 @@ internal sealed class AlbireoShip
             "AlbireoMissileBayRight",
             new()
             {
-                Sprite = Sprites.albireo_missilebay_right.Sprite,
-                DisabledSprite = Sprites.albireo_missilebay_inactive.Sprite,
+                Sprite = Sprites.parts_albireo_missilebay_right.Sprite,
+                DisabledSprite = Sprites.parts_albireo_missilebay_inactive.Sprite,
             }
         );
 
@@ -62,7 +62,7 @@ internal sealed class AlbireoShip
                 Description = ModEntry
                     .Instance.AnyLocalizations.Bind(["ship", "Albireo", "description"])
                     .Localize,
-                UnderChassisSprite = Sprites.albireo_chassis.Sprite,
+                UnderChassisSprite = Sprites.parts_albireo_chassis.Sprite,
                 Ship = new()
                 {
                     ship = new()
@@ -90,7 +90,7 @@ internal sealed class AlbireoShip
                                 skin = helper
                                     .Content.Ships.RegisterPart(
                                         "AlbireoCockpit",
-                                        new() { Sprite = Sprites.albireo_cockpit.Sprite }
+                                        new() { Sprite = Sprites.parts_albireo_cockpit.Sprite }
                                     )
                                     .UniqueName,
                             },
@@ -174,7 +174,12 @@ internal sealed class AlbireoShip
             {
                 Color? color = box.IsHover() ? null : new Color(1.0, 1.0, 1.0, 0.3);
 
-                Draw.Sprite(Sprites.blue_zone.Sprite, boxPos.x, boxPos.y + 17.0, color: color);
+                Draw.Sprite(
+                    Sprites.icons_blue_zone.Sprite,
+                    boxPos.x,
+                    boxPos.y + 17.0,
+                    color: color
+                );
             }
             g.Pop();
         }
@@ -213,7 +218,12 @@ internal sealed class AlbireoShip
             {
                 Color? color = box.IsHover() ? null : new Color(1.0, 1.0, 1.0, 0.3);
 
-                Draw.Sprite(Sprites.orange_zone.Sprite, boxPos.x, boxPos.y + 17.0, color: color);
+                Draw.Sprite(
+                    Sprites.icons_orange_zone.Sprite,
+                    boxPos.x,
+                    boxPos.y + 17.0,
+                    color: color
+                );
             }
             g.Pop();
         }

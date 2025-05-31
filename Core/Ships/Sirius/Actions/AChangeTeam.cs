@@ -3,6 +3,7 @@ namespace Teuria.StarcourseDock;
 internal sealed class AChangeTeam : CardAction
 {
     public SiriusSemiDualDrone? target;
+    public bool targetPlayer;
 
     public override void Begin(G g, State s, Combat c)
     {
@@ -11,6 +12,6 @@ internal sealed class AChangeTeam : CardAction
             return;
         }
 
-        target.targetPlayer = !target.targetPlayer;
+        target.targetPlayer = targetPlayer;
     }
 }

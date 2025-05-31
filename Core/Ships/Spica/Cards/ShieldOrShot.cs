@@ -38,8 +38,8 @@ internal class ShieldOrShot : Card, IRegisterable
             _ => new() { cost = 1, floppable = true },
         };
         result.art = this.flipped
-            ? Sprites.ShieldOrShot_Bottom.Sprite
-            : Sprites.ShieldOrShot_Top.Sprite;
+            ? Sprites.cards_ShieldOrShot_Bottom.Sprite
+            : Sprites.cards_ShieldOrShot_Top.Sprite;
         return result;
     }
 

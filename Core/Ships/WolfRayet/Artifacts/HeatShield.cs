@@ -24,7 +24,7 @@ internal sealed class HeatShield : Artifact, IRegisterable
                     pools = [ArtifactPool.EventOnly],
                     unremovable = true,
                 },
-                Sprite = Sprites.HeatShield.Sprite,
+                Sprite = Sprites.artifacts_HeatShield.Sprite,
                 Name = ModEntry
                     .Instance.AnyLocalizations.Bind(
                         ["ship", "WolfRayet", "artifact", "HeatShield", "name"]
@@ -116,9 +116,9 @@ internal sealed class HeatShield : Artifact, IRegisterable
     {
         if (goalAchieved)
         {
-            return Sprites.HeatShieldInactive.Sprite;
+            return Sprites.artifacts_HeatShieldInactive.Sprite;
         }
 
-        return Sprites.HeatShield.Sprite;
+        return Sprites.artifacts_HeatShield.Sprite;
     }
 }

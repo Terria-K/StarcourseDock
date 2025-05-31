@@ -21,7 +21,7 @@ internal class FixedStar : Artifact, IRegisterable
                     pools = [ArtifactPool.EventOnly],
                     unremovable = true,
                 },
-                Sprite = Sprites.FixedStar.Sprite,
+                Sprite = Sprites.artifacts_FixedStar.Sprite,
                 Name = ModEntry
                     .Instance.AnyLocalizations.Bind(
                         ["ship", "Spica", "artifact", "FixedStar", "name"]

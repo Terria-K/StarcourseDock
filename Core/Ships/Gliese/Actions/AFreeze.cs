@@ -30,7 +30,7 @@ internal class AFreeze : CardAction
 
     public override Icon? GetIcon(State s)
     {
-        return new Icon(Sprites.freeze.Sprite, null, Colors.textMain);
+        return new Icon(Sprites.icons_freeze.Sprite, null, Colors.textMain);
     }
 
     public override List<Tooltip> GetTooltips(State s)
@@ -49,7 +49,7 @@ internal class AFreeze : CardAction
                     ["action", "Freeze", "description"]
                 ),
                 TitleColor = Colors.action,
-                Icon = Sprites.freeze.Sprite,
+                Icon = Sprites.icons_freeze.Sprite,
             },
             new TTGlossary("status.lockdown"),
             new TTGlossary("action.stunShip"),

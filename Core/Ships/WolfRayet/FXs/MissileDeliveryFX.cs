@@ -29,7 +29,7 @@ internal sealed class MissileDeliveryFX : FX
             return;
         }
 
-        Spr? spr = Sprites.wolf_rayet_missiles_inactive.Sprite;
+        Spr? spr = Sprites.parts_wolf_rayet_missiles_inactive.Sprite;
 
         double y = v.y + Ease.SineIn(1 - age) * 300 + 32 + 80;
 

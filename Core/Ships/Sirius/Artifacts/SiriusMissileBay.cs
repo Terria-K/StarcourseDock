@@ -21,7 +21,7 @@ internal sealed class SiriusMissileBay : Artifact, IRegisterable
                     pools = [ArtifactPool.EventOnly],
                     unremovable = true,
                 },
-                Sprite = Sprites.SiriusMissileBay.Sprite,
+                Sprite = Sprites.artifacts_SiriusMissileBay.Sprite,
                 Name = ModEntry
                     .Instance.AnyLocalizations.Bind(
                         ["ship", "Sirius", "artifact", "SiriusMissileBay", "name"]
@@ -84,7 +84,12 @@ internal sealed class SiriusMissileBay : Artifact, IRegisterable
             {
                 var color = new Color(1, 1, 1, 0.8 + Math.Sin(g.state.time * 4.0) * 0.3);
                 Vec offset = v + __instance.GetOffset(g);
-                Draw.Sprite(Sprites.power_down.Sprite, offset.x + 7, offset.y + 16, color: color);
+                Draw.Sprite(
+                    Sprites.icons_power_down.Sprite,
+                    offset.x + 7,
+                    offset.y + 16,
+                    color: color
+                );
             }
         }
     }

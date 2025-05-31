@@ -20,7 +20,7 @@ internal sealed class FrostCannon : Artifact, IRegisterable
                     pools = [ArtifactPool.EventOnly],
                     unremovable = true,
                 },
-                Sprite = Sprites.FrostCannon.Sprite,
+                Sprite = Sprites.artifacts_FrostCannon.Sprite,
                 Name = ModEntry
                     .Instance.AnyLocalizations.Bind(
                         ["ship", "Gliese", "artifact", "FrostCannon", "name"]

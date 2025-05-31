@@ -20,7 +20,7 @@ internal sealed class SiriusMissileBayV2 : Artifact, IRegisterable
                     pools = [ArtifactPool.Boss],
                     unremovable = true,
                 },
-                Sprite = Sprites.SiriusMissileBay.Sprite,
+                Sprite = Sprites.artifacts_SiriusMissileBay.Sprite,
                 Name = ModEntry
                     .Instance.AnyLocalizations.Bind(
                         ["ship", "Sirius", "artifact", "SiriusMissileBayV2", "name"]

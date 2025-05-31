@@ -24,7 +24,7 @@ internal class Piscium : Artifact, IRegisterable
                     pools = [ArtifactPool.EventOnly],
                     unremovable = true,
                 },
-                Sprite = Sprites.Piscium.Sprite,
+                Sprite = Sprites.artifacts_Piscium.Sprite,
                 Name = ModEntry
                     .Instance.AnyLocalizations.Bind(
                         ["ship", "Alpherg", "artifact", "Piscium", "name"]

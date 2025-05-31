@@ -21,7 +21,7 @@ internal sealed class CrystalCore : Artifact, IRegisterable
                     pools = [ArtifactPool.EventOnly],
                     unremovable = true,
                 },
-                Sprite = Sprites.CrystalCore.Sprite,
+                Sprite = Sprites.artifacts_CrystalCore.Sprite,
                 Name = ModEntry
                     .Instance.AnyLocalizations.Bind(
                         ["ship", "Gliese", "artifact", "CrystalCore", "name"]

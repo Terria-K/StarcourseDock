@@ -21,7 +21,7 @@ internal class DoubleStar : Artifact
                     pools = [ArtifactPool.EventOnly],
                     unremovable = true,
                 },
-                Sprite = Sprites.DoubleStar.Sprite,
+                Sprite = Sprites.artifacts_DoubleStar.Sprite,
                 Name = ModEntry
                     .Instance.AnyLocalizations.Bind(
                         ["ship", "Albireo", "artifact", "DoubleStar", "name"]
@@ -51,9 +51,9 @@ internal class DoubleStar : Artifact
     {
         if (binaryStarDetected)
         {
-            return Sprites.DoubleStarInactive.Sprite;
+            return Sprites.artifacts_DoubleStarInactive.Sprite;
         }
-        return Sprites.DoubleStar.Sprite;
+        return Sprites.artifacts_DoubleStar.Sprite;
     }
 
     public override void OnCombatStart(State state, Combat combat)

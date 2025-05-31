@@ -33,7 +33,7 @@ internal sealed class BayPowerDownStatus
                     isGood = false,
                     color = new Color("ff6f6f"),
                     border = new Color("ff6f6f"),
-                    icon = Sprites.power_down.Sprite,
+                    icon = Sprites.icons_power_down.Sprite,
                     affectedByTimestop = true,
                 },
             }
@@ -71,7 +71,7 @@ internal sealed class BayPowerDownStatus
             Description = ModEntry.Instance.Localizations.Localize(
                 ["ship", "Sirius", "icon", "powerDown", "description"]
             ),
-            Icon = Sprites.power_down.Sprite,
+            Icon = Sprites.icons_power_down.Sprite,
         };
     }
 
