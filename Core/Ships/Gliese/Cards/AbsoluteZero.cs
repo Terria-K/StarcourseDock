@@ -20,7 +20,7 @@ internal class AbsoluteZero : Card, IRegisterable
                     rarity = Rarity.rare,
                     dontOffer = true,
                 },
-                Art = StableSpr.cards_ScootLeft,
+                Art = StableSpr.cards_FreezeDry,
                 Name = ModEntry
                     .Instance.AnyLocalizations.Bind(
                         ["ship", "Gliese", "card", "AbsoluteZero", "name"]
@@ -44,7 +44,6 @@ internal class AbsoluteZero : Card, IRegisterable
             description = ModEntry.Instance.Localizations.Localize(
                 ["ship", "Gliese", "card", "AbsoluteZero", "description"]
             ),
-            art = StableSpr.cards_FreezeDry,
         };
         return result;
     }

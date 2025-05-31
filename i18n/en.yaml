@@ -114,6 +114,14 @@ ship:
       AbsoluteZero: 
         name: Absolute Zero
         description: "<c=action>Shuffles</c> your parts. While in your hand, all <c=action>attacks</c> <c=downside>deal 0 dmg.</c>"
+      Unfreeze: 
+        name: Unfreeze
+        description: "Removes <c=trait>FROZEN</c> trait to all cards in your hand."
+    
+    trait:
+      Frozen:
+        name: "Frozen"
+        description: "This card cannot be played."
 
   WolfRayet: 
     name: Wolf Rayet

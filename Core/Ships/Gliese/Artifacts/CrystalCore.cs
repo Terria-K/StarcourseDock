@@ -7,6 +7,7 @@ namespace Teuria.StarcourseDock;
 internal sealed class CrystalCore : Artifact, IRegisterable
 {
     public List<Part>? tempParts;
+    internal static ICardTraitEntry FrozenTrait { get; set; } = null!;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
@@ -34,6 +35,17 @@ internal sealed class CrystalCore : Artifact, IRegisterable
                     .Localize,
             }
         );
+
+        FrozenTrait = helper.Content.Cards.RegisterTrait(
+            "Frozen",
+            new()
+            {
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(["ship", "Gliese", "trait", "Frozen", "name"])
+                    .Localize,
+                Icon = (State s, Card? c) => Sprites.icons_frozen.Sprite,
+            }
+        );
     }
 
     public override void OnTurnStart(State state, Combat combat)
@@ -45,13 +57,37 @@ internal sealed class CrystalCore : Artifact, IRegisterable
         }
 
         combat.Queue(new ARemoveAllBrokenPart());
-        combat.Queue(new AShuffleShip() { targetPlayer = true });
     }
 
     public override void OnCombatEnd(State state)
     {
         state.rewardsQueue.QueueImmediate(new ARepairAllBrokenPart());
         state.rewardsQueue.QueueImmediate(new AResetShip { parts = tempParts });
+    }
+
+    public override void OnPlayerPlayCard(
+        int energyCost,
+        Deck deck,
+        Card card,
+        State state,
+        Combat combat,
+        int handPosition,
+        int handCount
+    )
+    {
+        if (card is Unfreeze)
+        {
+            return;
+        }
+
+        card.unplayableOverride = true;
+        ModEntry.Instance.Helper.Content.Cards.SetCardTraitOverride(
+            state,
+            card,
+            FrozenTrait,
+            true,
+            false
+        );
     }
 
     public override void OnPlayerTakeNormalDamage(

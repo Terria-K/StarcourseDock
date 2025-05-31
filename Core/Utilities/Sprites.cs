@@ -44,6 +44,7 @@ public static partial class Sprites
     public static ISpriteEntry icons_blue_zone = null!;
     public static ISpriteEntry icons_cold = null!;
     public static ISpriteEntry icons_freeze = null!;
+    public static ISpriteEntry icons_frozen = null!;
     public static ISpriteEntry icons_orange_zone = null!;
     public static ISpriteEntry icons_power_down = null!;
     public static ISpriteEntry icons_siriusDrone = null!;
@@ -219,6 +220,9 @@ public static partial class Sprites
         icons_freeze = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/freeze.png")
         );
+        icons_frozen = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/frozen.png")
+        );
         icons_orange_zone = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/orange_zone.png")
         );
@@ -385,4 +389,5 @@ public static partial class Sprites
             package.PackageRoot.GetRelativeFile("assets/parts/wolf_rayet_scaffolding.png")
         );
     }
+
 }

@@ -148,6 +148,7 @@ internal sealed class GlieseShip : IRegisterable
                         new BasicShieldColorless(),
                         new DodgeColorless(),
                         new CannonColorless(),
+                        new Unfreeze(),
                     ],
                 },
             }

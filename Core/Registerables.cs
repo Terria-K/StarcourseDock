@@ -1,5 +1,5 @@
-using Nanoray.PluginManager;
 using Nickel;
+using Nanoray.PluginManager;
 
 namespace Teuria.StarcourseDock;
 
@@ -15,6 +15,7 @@ internal static class Registerables
         Teuria.StarcourseDock.CrystalCoreV2.Register(package, helper);
         Teuria.StarcourseDock.FrostCannon.Register(package, helper);
         Teuria.StarcourseDock.AbsoluteZero.Register(package, helper);
+        Teuria.StarcourseDock.Unfreeze.Register(package, helper);
         Teuria.StarcourseDock.GlieseShip.Register(package, helper);
         Teuria.StarcourseDock.SiriusKit.Register(package, helper);
         Teuria.StarcourseDock.SiriusInquisitor.Register(package, helper);
