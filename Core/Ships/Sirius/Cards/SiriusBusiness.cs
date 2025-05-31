@@ -8,22 +8,28 @@ namespace Teuria.StarcourseDock;
 
 internal class SiriusBusiness : Card, IRegisterable
 {
-
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        helper.Content.Cards.RegisterCard(MethodBase.GetCurrentMethod()!.DeclaringType!.Name, new()
-        {
-            CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new()
+        helper.Content.Cards.RegisterCard(
+            MethodBase.GetCurrentMethod()!.DeclaringType!.Name,
+            new()
             {
-                deck = SiriusKit.SiriusDeck.Deck,
-                rarity = Rarity.common,
-                upgradesTo = [Upgrade.A, Upgrade.B],
-                dontOffer = true
-            },
-            Art = StableSpr.cards_GoatDrone,
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Sirius", "card", "SiriusBusiness", "name"]).Localize,
-        });
+                CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
+                Meta = new()
+                {
+                    deck = SiriusKit.SiriusDeck.Deck,
+                    rarity = Rarity.common,
+                    upgradesTo = [Upgrade.A, Upgrade.B],
+                    dontOffer = true,
+                },
+                Art = StableSpr.cards_GoatDrone,
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Sirius", "card", "SiriusBusiness", "name"]
+                    )
+                    .Localize,
+            }
+        );
 
         ModEntry.Instance.Harmony.Patch(
             AccessTools.DeclaredMethod(typeof(AJupiterShoot), nameof(AJupiterShoot.Begin)),
@@ -83,7 +89,7 @@ internal class SiriusBusiness : Card, IRegisterable
             cost = 1,
             retain = true,
             buoyant = true,
-            unremovableAtShops = true
+            unremovableAtShops = true,
         };
     }
 
@@ -91,19 +97,8 @@ internal class SiriusBusiness : Card, IRegisterable
     {
         return upgrade switch
         {
-            Upgrade.B => [
-                new ASpawn
-                {
-                    thing = new SiriusDrone() { bubbleShield = true }
-                }
-            ],
-            _ => [
-                new ASpawn
-                {
-                    thing = new SiriusDrone() { upgrade = this.upgrade }
-                }
-            ],
+            Upgrade.B => [new ASpawn { thing = new SiriusDrone() { bubbleShield = true } }],
+            _ => [new ASpawn { thing = new SiriusDrone() { upgrade = this.upgrade } }],
         };
-
     }
 }

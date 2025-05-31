@@ -1,28 +1,39 @@
-using static Shockah.Kokoro.IKokoroApi.IV2.IEvadeHookApi;
 using System.Reflection;
 using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
+using static Shockah.Kokoro.IKokoroApi.IV2.IEvadeHookApi;
 
 namespace Teuria.StarcourseDock;
 
 internal class FixedStar : Artifact, IRegisterable
 {
-	public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
-	{
-		helper.Content.Artifacts.RegisterArtifact("FixedStar", new()
-		{
-			ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-			Meta = new()
-			{
-				owner = Deck.colorless,
-				pools = [ArtifactPool.EventOnly],
-				unremovable = true,
-			},
-			Sprite = Sprites.FixedStar.Sprite,
-			Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "artifact", "FixedStar", "name"]).Localize,
-			Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "artifact", "FixedStar", "description"]).Localize
-		});
+    public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
+    {
+        helper.Content.Artifacts.RegisterArtifact(
+            "FixedStar",
+            new()
+            {
+                ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
+                Meta = new()
+                {
+                    owner = Deck.colorless,
+                    pools = [ArtifactPool.EventOnly],
+                    unremovable = true,
+                },
+                Sprite = Sprites.FixedStar.Sprite,
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Spica", "artifact", "FixedStar", "name"]
+                    )
+                    .Localize,
+                Description = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Spica", "artifact", "FixedStar", "description"]
+                    )
+                    .Localize,
+            }
+        );
 
         ModEntry.Instance.KokoroAPI.V2.EvadeHook.RegisterHook(new FixedStarHook(), 10);
 
@@ -37,7 +48,14 @@ internal class FixedStar : Artifact, IRegisterable
         if (s.HasArtifact<FixedStar>() && __instance.targetPlayer && __instance.fromEvade)
         {
             __instance.timer = 0f;
-            c.QueueImmediate(new ACannonMove() { dir = __instance.dir, ignoreHermes = __instance.ignoreHermes, preferRightWhenZero = __instance.preferRightWhenZero });
+            c.QueueImmediate(
+                new ACannonMove()
+                {
+                    dir = __instance.dir,
+                    ignoreHermes = __instance.ignoreHermes,
+                    preferRightWhenZero = __instance.preferRightWhenZero,
+                }
+            );
             return false;
         }
 
@@ -51,7 +69,7 @@ internal class FixedStar : Artifact, IRegisterable
 
     private class FixedStarHook : IHook
     {
-        public bool IsEvadeActionEnabled(IHook.IIsEvadeActionEnabledArgs args) 
+        public bool IsEvadeActionEnabled(IHook.IIsEvadeActionEnabledArgs args)
         {
             var state = args.State;
 
@@ -73,7 +91,7 @@ internal class FixedStar : Artifact, IRegisterable
             int dir = (int)args.Direction;
             int cannonIndex = state.ship.FindPartIndex(PType.cannon);
             int length = state.ship.parts.Count;
-            
+
             if (dir <= -1 && cannonIndex <= 1)
             {
                 return false;

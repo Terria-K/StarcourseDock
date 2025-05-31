@@ -14,12 +14,12 @@ internal class ATempToBreakable : CardAction
                 continue;
             }
 
-            s.ship.parts[i] = new Part() 
+            s.ship.parts[i] = new Part()
             {
                 type = PType.special,
                 skin = GlieseShip.GlieseCrystal2.UniqueName,
                 stunModifier = PStunMod.breakable,
-                key = "crystal2::StarcourseDock"
+                key = "crystal2::StarcourseDock",
             };
         }
 

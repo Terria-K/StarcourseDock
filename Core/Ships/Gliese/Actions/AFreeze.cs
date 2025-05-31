@@ -6,17 +6,18 @@ namespace Teuria.StarcourseDock;
 internal class AFreeze : CardAction
 {
     public bool targetPlayer;
+
     public override void Begin(G g, State s, Combat c)
     {
-		Ship target = (this.targetPlayer ? s.ship : c.otherShip);
-		if (target == null)
-		{
-			return;
-		}
+        Ship target = (this.targetPlayer ? s.ship : c.otherShip);
+        if (target == null)
+        {
+            return;
+        }
 
         c.QueueImmediate(new AStunShip() { targetPlayer = target.isPlayerShip });
 
-		this.timer = 1.0;
+        this.timer = 1.0;
         target.Set(ColdStatus.ColdEntry.Status, 0);
         if (targetPlayer)
         {
@@ -39,16 +40,19 @@ internal class AFreeze : CardAction
 
     public static List<Tooltip> GetTooltipsGlobal()
     {
-        return [
-            new GlossaryTooltip($"{ModEntry.Instance.Package.Manifest.UniqueName}::freeze") 
+        return
+        [
+            new GlossaryTooltip($"{ModEntry.Instance.Package.Manifest.UniqueName}::freeze")
             {
                 Title = ModEntry.Instance.Localizations.Localize(["action", "Freeze", "name"]),
-                Description = ModEntry.Instance.Localizations.Localize(["action", "Freeze", "description"]),
+                Description = ModEntry.Instance.Localizations.Localize(
+                    ["action", "Freeze", "description"]
+                ),
                 TitleColor = Colors.action,
-                Icon = Sprites.freeze.Sprite
+                Icon = Sprites.freeze.Sprite,
             },
-			new TTGlossary("status.lockdown"),
-			new TTGlossary("action.stunShip")
+            new TTGlossary("status.lockdown"),
+            new TTGlossary("action.stunShip"),
         ];
     }
 }

@@ -18,14 +18,8 @@ internal sealed class ADoubler : CardAction
         bool isSpawning = toAdd.Where(x => x is ASpawn).Any();
         if (isSpawning)
         {
-            toAdd.Add(new ADroneMove
-            {
-                dir = 1
-            });
-            c.Queue(new ADroneMove
-            {
-                dir = -1
-            });
+            toAdd.Add(new ADroneMove { dir = 1 });
+            c.Queue(new ADroneMove { dir = -1 });
         }
         actions.InsertRange(0, toAdd);
         foreach (CardAction action in actions)

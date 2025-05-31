@@ -9,19 +9,30 @@ internal sealed class FrostCannon : Artifact, IRegisterable
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-		helper.Content.Artifacts.RegisterArtifact("FrostCannon", new()
-		{
-			ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-			Meta = new()
-			{
-				owner = Deck.colorless,
-				pools = [ArtifactPool.EventOnly],
-				unremovable = true,
-			},
-			Sprite = Sprites.FrostCannon.Sprite,
-			Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Gliese", "artifact", "FrostCannon", "name"]).Localize,
-			Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Gliese", "artifact", "FrostCannon", "description"]).Localize
-		});
+        helper.Content.Artifacts.RegisterArtifact(
+            "FrostCannon",
+            new()
+            {
+                ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
+                Meta = new()
+                {
+                    owner = Deck.colorless,
+                    pools = [ArtifactPool.EventOnly],
+                    unremovable = true,
+                },
+                Sprite = Sprites.FrostCannon.Sprite,
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Gliese", "artifact", "FrostCannon", "name"]
+                    )
+                    .Localize,
+                Description = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Gliese", "artifact", "FrostCannon", "description"]
+                    )
+                    .Localize,
+            }
+        );
 
         ModEntry.Instance.Harmony.Patch(
             AccessTools.DeclaredMethod(typeof(AStunPart), nameof(AStunPart.Begin)),
@@ -36,10 +47,11 @@ internal sealed class FrostCannon : Artifact, IRegisterable
 
     public override List<Tooltip>? GetExtraTooltips()
     {
-        return [
-			new TTGlossary("status.stunCharge", ["3"]),
-			new TTGlossary("action.stun", Array.Empty<object>()),
-            ..StatusMeta.GetTooltips(ColdStatus.ColdEntry.Status, 1)
+        return
+        [
+            new TTGlossary("status.stunCharge", ["3"]),
+            new TTGlossary("action.stun", Array.Empty<object>()),
+            .. StatusMeta.GetTooltips(ColdStatus.ColdEntry.Status, 1),
         ];
     }
 
@@ -56,12 +68,14 @@ internal sealed class FrostCannon : Artifact, IRegisterable
         {
             if (part.intent != null)
             {
-                c.Queue(new AStatus() 
-                {
-                    targetPlayer = false,
-                    status = ColdStatus.ColdEntry.Status,
-                    statusAmount = 1,
-                });
+                c.Queue(
+                    new AStatus()
+                    {
+                        targetPlayer = false,
+                        status = ColdStatus.ColdEntry.Status,
+                        statusAmount = 1,
+                    }
+                );
 
                 frostCannon.Pulse();
             }

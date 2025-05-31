@@ -13,7 +13,9 @@ internal class DoubleStarPaymentOption : IEvadePaymentOption
         return args.State.ship.Get(Status.evade) > 0;
     }
 
-    public IReadOnlyList<CardAction> ProvideEvadePaymentActions(IEvadePaymentOption.IProvideEvadePaymentActionsArgs args)
+    public IReadOnlyList<CardAction> ProvideEvadePaymentActions(
+        IEvadePaymentOption.IProvideEvadePaymentActionsArgs args
+    )
     {
         if (!args.State.HasArtifact<DoubleStar>())
         {

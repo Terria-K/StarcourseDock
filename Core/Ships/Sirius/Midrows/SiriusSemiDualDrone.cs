@@ -35,34 +35,48 @@ internal sealed class SiriusSemiDualDrone : StuffBase
             upgrade switch
             {
                 Upgrade.A => Sprites.siriusSemiDualDroneMKII.Sprite,
-                _ => Sprites.siriusSemiDualDrone.Sprite
+                _ => Sprites.siriusSemiDualDrone.Sprite,
             },
             offset,
-            flipY: targetPlayer);
+            flipY: targetPlayer
+        );
     }
 
     public override List<Tooltip> GetTooltips()
     {
-        List<Tooltip> ttItems = [
+        List<Tooltip> ttItems =
+        [
             upgrade switch
             {
-                Upgrade.A => new GlossaryTooltip($"{ModEntry.Instance.Package.Manifest.UniqueName}::siriusSemiDualDrone")
+                Upgrade.A => new GlossaryTooltip(
+                    $"{ModEntry.Instance.Package.Manifest.UniqueName}::siriusSemiDualDrone"
+                )
                 {
-                    Title = ModEntry.Instance.Localizations.Localize(["ship", "Sirius", "midrow", "SiriusSemiDualDroneMKII", "name"]),
+                    Title = ModEntry.Instance.Localizations.Localize(
+                        ["ship", "Sirius", "midrow", "SiriusSemiDualDroneMKII", "name"]
+                    ),
                     TitleColor = Colors.midrow,
-                    Description = ModEntry.Instance.Localizations.Localize(["ship", "Sirius", "midrow", "SiriusSemiDualDroneMKII", "description"]),
+                    Description = ModEntry.Instance.Localizations.Localize(
+                        ["ship", "Sirius", "midrow", "SiriusSemiDualDroneMKII", "description"]
+                    ),
                     Icon = Sprites.icons_siriusDroneMkII.Sprite,
                     flipIconY = targetPlayer,
                 },
-                _ => new GlossaryTooltip($"{ModEntry.Instance.Package.Manifest.UniqueName}::siriusDrone")
+                _ => new GlossaryTooltip(
+                    $"{ModEntry.Instance.Package.Manifest.UniqueName}::siriusDrone"
+                )
                 {
-                    Title = ModEntry.Instance.Localizations.Localize(["ship", "Sirius", "midrow", "SiriusSemiDualDrone", "name"]),
+                    Title = ModEntry.Instance.Localizations.Localize(
+                        ["ship", "Sirius", "midrow", "SiriusSemiDualDrone", "name"]
+                    ),
                     TitleColor = Colors.midrow,
-                    Description = ModEntry.Instance.Localizations.Localize(["ship", "Sirius", "midrow", "SiriusSemiDualDrone", "description"]),
+                    Description = ModEntry.Instance.Localizations.Localize(
+                        ["ship", "Sirius", "midrow", "SiriusSemiDualDrone", "description"]
+                    ),
                     Icon = Sprites.icons_siriusDrone.Sprite,
                     flipIconY = targetPlayer,
-                }
-            }
+                },
+            },
         ];
 
         if (bubbleShield)
@@ -77,17 +91,27 @@ internal sealed class SiriusSemiDualDrone : StuffBase
         return upgrade switch
         {
             Upgrade.A => Sprites.icons_siriusSemiDualDroneMkII.Sprite,
-            _ => Sprites.icons_siriusSemiDualDrone.Sprite
+            _ => Sprites.icons_siriusSemiDualDrone.Sprite,
         };
     }
 
-    public override List<CardAction>? GetActionsOnBonkedWhileInvincible(State s, Combat c, bool wasPlayer, StuffBase thing)
+    public override List<CardAction>? GetActionsOnBonkedWhileInvincible(
+        State s,
+        Combat c,
+        bool wasPlayer,
+        StuffBase thing
+    )
     {
         hitByEnemy = !wasPlayer;
         return Actions();
     }
 
-    public override List<CardAction>? GetActionsOnShotWhileInvincible(State s, Combat c, bool wasPlayer, int damage)
+    public override List<CardAction>? GetActionsOnShotWhileInvincible(
+        State s,
+        Combat c,
+        bool wasPlayer,
+        int damage
+    )
     {
         hitByEnemy = !wasPlayer;
         return Actions();
@@ -95,8 +119,6 @@ internal sealed class SiriusSemiDualDrone : StuffBase
 
     private List<CardAction> Actions()
     {
-        return [
-            new AChangeTeam() { target = this }
-        ];
+        return [new AChangeTeam() { target = this }];
     }
 }

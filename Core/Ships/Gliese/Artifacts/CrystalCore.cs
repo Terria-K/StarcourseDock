@@ -8,21 +8,32 @@ internal sealed class CrystalCore : Artifact, IRegisterable
 {
     public List<Part>? tempParts;
 
-	public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
-	{
-		helper.Content.Artifacts.RegisterArtifact("CrystalCore", new()
-		{
-			ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-			Meta = new()
-			{
-				owner = Deck.colorless,
-				pools = [ArtifactPool.EventOnly],
-				unremovable = true,
-			},
-			Sprite = Sprites.CrystalCore.Sprite,
-			Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Gliese", "artifact", "CrystalCore", "name"]).Localize,
-			Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Gliese", "artifact", "CrystalCore", "description"]).Localize
-		});
+    public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
+    {
+        helper.Content.Artifacts.RegisterArtifact(
+            "CrystalCore",
+            new()
+            {
+                ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
+                Meta = new()
+                {
+                    owner = Deck.colorless,
+                    pools = [ArtifactPool.EventOnly],
+                    unremovable = true,
+                },
+                Sprite = Sprites.CrystalCore.Sprite,
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Gliese", "artifact", "CrystalCore", "name"]
+                    )
+                    .Localize,
+                Description = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Gliese", "artifact", "CrystalCore", "description"]
+                    )
+                    .Localize,
+            }
+        );
     }
 
     public override void OnTurnStart(State state, Combat combat)
@@ -40,23 +51,31 @@ internal sealed class CrystalCore : Artifact, IRegisterable
     public override void OnCombatEnd(State state)
     {
         state.rewardsQueue.QueueImmediate(new ARepairAllBrokenPart());
-        state.rewardsQueue.QueueImmediate(new AResetShip
-        {
-            parts = tempParts
-        });
+        state.rewardsQueue.QueueImmediate(new AResetShip { parts = tempParts });
     }
 
-    public override void OnPlayerTakeNormalDamage(State state, Combat combat, int rawAmount, Part? part)
+    public override void OnPlayerTakeNormalDamage(
+        State state,
+        Combat combat,
+        int rawAmount,
+        Part? part
+    )
     {
         if (part != null && part.key == "portal")
         {
-            state.ship.InsertPart(state, "portal", "portal", false, new Part() 
-            {
-                type = PType.special,
-                skin = GlieseShip.GlieseCrystal2.UniqueName,
-                stunModifier = PStunMod.breakable,
-                key = "crystal2::StarcourseDock"
-            });
+            state.ship.InsertPart(
+                state,
+                "portal",
+                "portal",
+                false,
+                new Part()
+                {
+                    type = PType.special,
+                    skin = GlieseShip.GlieseCrystal2.UniqueName,
+                    stunModifier = PStunMod.breakable,
+                    key = "crystal2::StarcourseDock",
+                }
+            );
         }
     }
 }

@@ -33,10 +33,6 @@ internal sealed class MissileDeliveryFX : FX
 
         double y = v.y + Ease.SineIn(1 - age) * 300 + 32 + 80;
 
-        Draw.Sprite(
-            spr,
-            v.x + worldX + 7, y,
-            originPx: new Vec(8, 32)
-        );
+        Draw.Sprite(spr, v.x + worldX + 7, y, originPx: new Vec(8, 32));
     }
 }

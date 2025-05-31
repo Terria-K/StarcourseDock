@@ -13,11 +13,7 @@ internal sealed class AAddMissile : CardAction
 
         if (part != null)
         {
-            c.fx.Add(new MissileDeliveryFX()
-            {
-                part = part,
-                worldX = (x + s.ship.x) * 16
-            });
+            c.fx.Add(new MissileDeliveryFX() { part = part, worldX = (x + s.ship.x) * 16 });
         }
     }
 }

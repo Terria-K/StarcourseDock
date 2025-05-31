@@ -10,35 +10,53 @@ internal class ShrinkMechanismV2 : Artifact, IRegisterable
     public List<Part>? tempParts;
     public List<Part>? leftParts;
     public List<Part>? rightParts;
-	public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
+
+    public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        helper.Content.Artifacts.RegisterArtifact("ShrinkMechanismV2", new()
-        {
-            ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new()
+        helper.Content.Artifacts.RegisterArtifact(
+            "ShrinkMechanismV2",
+            new()
             {
-                owner = Deck.colorless,
-                pools = [ArtifactPool.Boss],
-                unremovable = true,
-            },
-            Sprite = Sprites.ShrinkMechanismV2.Sprite,
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "artifact", "ShrinkMechanismV2", "name"]).Localize,
-            Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "artifact", "ShrinkMechanismV2", "description"]).Localize
-        });
+                ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
+                Meta = new()
+                {
+                    owner = Deck.colorless,
+                    pools = [ArtifactPool.Boss],
+                    unremovable = true,
+                },
+                Sprite = Sprites.ShrinkMechanismV2.Sprite,
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Spica", "artifact", "ShrinkMechanismV2", "name"]
+                    )
+                    .Localize,
+                Description = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Spica", "artifact", "ShrinkMechanismV2", "description"]
+                    )
+                    .Localize,
+            }
+        );
     }
 
     public override void OnReceiveArtifact(State state)
     {
-        state.GetCurrentQueue().QueueImmediate(new ALoseArtifact { artifactType = new ShrinkMechanism().Key() });
+        state
+            .GetCurrentQueue()
+            .QueueImmediate(new ALoseArtifact { artifactType = new ShrinkMechanism().Key() });
     }
 
     public override List<Tooltip>? GetExtraTooltips()
     {
-        return [
-            new TTCard { card = new Shrink() { upgrade = Upgrade.A } }];
+        return [new TTCard { card = new Shrink() { upgrade = Upgrade.A } }];
     }
 
-    public override void OnPlayerTakeNormalDamage(State state, Combat combat, int rawAmount, Part? part)
+    public override void OnPlayerTakeNormalDamage(
+        State state,
+        Combat combat,
+        int rawAmount,
+        Part? part
+    )
     {
         if (part == null || part.type != PType.wing)
         {
@@ -82,11 +100,13 @@ internal class ShrinkMechanismV2 : Artifact, IRegisterable
     {
         if (!combat.HasCardOnHand<Shrink>())
         {
-            combat.Queue(new AAddCard
-            {
-                card = new Shrink() { upgrade = Upgrade.A },
-                destination = CardDestination.Hand
-            });
+            combat.Queue(
+                new AAddCard
+                {
+                    card = new Shrink() { upgrade = Upgrade.A },
+                    destination = CardDestination.Hand,
+                }
+            );
         }
 
         if (combat.turn == 1)
@@ -110,16 +130,19 @@ internal class ShrinkMechanismV2 : Artifact, IRegisterable
         if (rightParts != null)
         {
             int index = state.ship.FindPartIndex("rightwing");
-            state.ship.InsertParts(state, index, index, false, rightParts.AsValueEnumerable().Reverse().ToList());
+            state.ship.InsertParts(
+                state,
+                index,
+                index,
+                false,
+                rightParts.AsValueEnumerable().Reverse().ToList()
+            );
             rightParts.Clear();
         }
     }
 
     public override void OnCombatEnd(State state)
     {
-        state.rewardsQueue.Queue(new AResetShip
-        {
-            parts = tempParts
-        });
+        state.rewardsQueue.Queue(new AResetShip { parts = tempParts });
     }
 }

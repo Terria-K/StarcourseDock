@@ -10,21 +10,34 @@ internal sealed class SiriusInquisitor : Artifact, IRegisterable
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        var inquisitorSprite = helper.Content.Sprites.RegisterAnimation(new SiriusInquisitorSpriteAnimation());
+        var inquisitorSprite = helper.Content.Sprites.RegisterAnimation(
+            new SiriusInquisitorSpriteAnimation()
+        );
 
-        helper.Content.Artifacts.RegisterArtifact("SiriusInquisitor", new()
-        {
-            ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new()
+        helper.Content.Artifacts.RegisterArtifact(
+            "SiriusInquisitor",
+            new()
             {
-                owner = Deck.colorless,
-                pools = [ArtifactPool.Common],
-                unremovable = true,
-            },
-            Sprite = inquisitorSprite.Sprite,
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Sirius", "artifact", "SiriusInquisitor", "name"]).Localize,
-            Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Sirius", "artifact", "SiriusInquisitor", "description"]).Localize
-        });
+                ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
+                Meta = new()
+                {
+                    owner = Deck.colorless,
+                    pools = [ArtifactPool.Common],
+                    unremovable = true,
+                },
+                Sprite = inquisitorSprite.Sprite,
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Sirius", "artifact", "SiriusInquisitor", "name"]
+                    )
+                    .Localize,
+                Description = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Sirius", "artifact", "SiriusInquisitor", "description"]
+                    )
+                    .Localize,
+            }
+        );
     }
 
     public override void OnReceiveArtifact(State state)
@@ -33,9 +46,15 @@ internal sealed class SiriusInquisitor : Artifact, IRegisterable
 
         foreach (var business in businesses)
         {
-            state.GetCurrentQueue().QueueImmediate(
-                new AAddCard() { card = new SiriusQuestion() { upgrade = business.upgrade }, destination = CardDestination.Deck }
-            );
+            state
+                .GetCurrentQueue()
+                .QueueImmediate(
+                    new AAddCard()
+                    {
+                        card = new SiriusQuestion() { upgrade = business.upgrade },
+                        destination = CardDestination.Deck,
+                    }
+                );
         }
 
         state.deck = state.deck.Where(x => x is not SiriusBusiness).ToList();
@@ -43,14 +62,13 @@ internal sealed class SiriusInquisitor : Artifact, IRegisterable
 
     public override List<Tooltip>? GetExtraTooltips()
     {
-        return [
-            new TTCard() { card = new SiriusQuestion() }
-        ];
+        return [new TTCard() { card = new SiriusQuestion() }];
     }
 
     internal class SiriusInquisitorSpriteAnimation : Animation
     {
-        private Spr[] frames = [
+        private Spr[] frames =
+        [
             Sprites.SiriusInquisitor1.Sprite,
             Sprites.SiriusInquisitor2.Sprite,
             Sprites.SiriusInquisitor3.Sprite,

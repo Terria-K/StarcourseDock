@@ -12,20 +12,31 @@ internal class Piscium : Artifact, IRegisterable
     public bool isRight;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
-	{
-		helper.Content.Artifacts.RegisterArtifact("Piscium", new()
-		{
-			ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-			Meta = new()
-			{
-				owner = Deck.colorless,
-				pools = [ArtifactPool.EventOnly],
-				unremovable = true,
-			},
-			Sprite = Sprites.Piscium.Sprite,
-			Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Alpherg", "artifact", "Piscium", "name"]).Localize,
-			Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Alpherg", "artifact", "Piscium", "description"]).Localize
-		});
+    {
+        helper.Content.Artifacts.RegisterArtifact(
+            "Piscium",
+            new()
+            {
+                ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
+                Meta = new()
+                {
+                    owner = Deck.colorless,
+                    pools = [ArtifactPool.EventOnly],
+                    unremovable = true,
+                },
+                Sprite = Sprites.Piscium.Sprite,
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Alpherg", "artifact", "Piscium", "name"]
+                    )
+                    .Localize,
+                Description = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Alpherg", "artifact", "Piscium", "description"]
+                    )
+                    .Localize,
+            }
+        );
 
         ModEntry.Instance.Harmony.Patch(
             AccessTools.DeclaredMethod(typeof(AAttack), nameof(AAttack.Begin)),
@@ -53,29 +64,43 @@ internal class Piscium : Artifact, IRegisterable
 
     private static AAttack? aAttack;
 
-    internal static IEnumerable<CodeInstruction> AAttack_Begin_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator) 
+    internal static IEnumerable<CodeInstruction> AAttack_Begin_Transpiler(
+        IEnumerable<CodeInstruction> instructions,
+        ILGenerator generator
+    )
     {
         var cursor = new ILCursor(generator, instructions);
 
-        cursor.GotoNext(
-            instr => instr.MatchContains("AVolleyAttackFromAllCannons")
-        );
+        cursor.GotoNext(instr => instr.MatchContains("AVolleyAttackFromAllCannons"));
 
         cursor.GotoPrev();
 
         cursor.Emit(OpCodes.Ldarg_0);
         cursor.Emit(OpCodes.Ldarg_2);
-        cursor.EmitDelegate((AAttack __instance, State s) => {
-            ModEntry.Instance.Helper.ModData.SetModData(__instance, "piscium.volley", true);
-            aAttack = __instance;
-        });
+        cursor.EmitDelegate(
+            (AAttack __instance, State s) =>
+            {
+                ModEntry.Instance.Helper.ModData.SetModData(__instance, "piscium.volley", true);
+                aAttack = __instance;
+            }
+        );
 
         return cursor.Generate();
     }
 
-    public static void AVolleyAttackFromAllCannons_Begin_Prefix(AVolleyAttackFromAllCannons __instance, State s, Combat c)
+    public static void AVolleyAttackFromAllCannons_Begin_Prefix(
+        AVolleyAttackFromAllCannons __instance,
+        State s,
+        Combat c
+    )
     {
-        if (ModEntry.Instance.Helper.ModData.TryGetModData(__instance.attack, "piscium.volley", out bool data))
+        if (
+            ModEntry.Instance.Helper.ModData.TryGetModData(
+                __instance.attack,
+                "piscium.volley",
+                out bool data
+            )
+        )
         {
             if (data)
             {

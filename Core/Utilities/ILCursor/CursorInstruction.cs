@@ -3,7 +3,7 @@ using HarmonyLib;
 
 namespace Teuria.Utilities;
 
-internal record struct CursorInstruction(CodeInstruction Instruction) 
+internal record struct CursorInstruction(CodeInstruction Instruction)
 {
     public bool Match(OpCode opcode)
     {
@@ -27,7 +27,7 @@ internal record struct CursorInstruction(CodeInstruction Instruction)
 
     public bool MatchExtract(OpCode opcode, out object? operand)
     {
-        if (Instruction.opcode == opcode) 
+        if (Instruction.opcode == opcode)
         {
             operand = Instruction.operand;
             return true;
@@ -38,7 +38,7 @@ internal record struct CursorInstruction(CodeInstruction Instruction)
 
     public bool MatchContainsAndExtract(string contains, out object? operand)
     {
-        if (MatchContains(contains)) 
+        if (MatchContains(contains))
         {
             operand = Instruction.operand;
             return true;

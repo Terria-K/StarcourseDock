@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <LangVersion>13</LangVersion>
@@ -19,8 +18,12 @@
   <ItemGroup>
     <PackageReference Include="ZLinq" Version="1.4.6" />
     <PackageReference Include="YamlDotNet" Version="16.3.0" />
-		<PackageReference Include="Nickel.ModBuildConfig" Version="2.0.2" />
-    <PackageReference Include="EnumByNameSourceGenerator" Version="1.1.2" PrivateAssets="All" ExcludeAssets="runtime" />
-	</ItemGroup>
-
+    <PackageReference Include="Nickel.ModBuildConfig" Version="2.0.2" />
+    <PackageReference
+      Include="EnumByNameSourceGenerator"
+      Version="1.1.2"
+      PrivateAssets="All"
+      ExcludeAssets="runtime"
+    />
+  </ItemGroup>
 </Project>

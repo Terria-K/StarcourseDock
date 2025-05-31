@@ -3,6 +3,7 @@ namespace Teuria.StarcourseDock;
 internal sealed class ALaunchMissiles : CardAction
 {
     public bool targetPlayer;
+
     public override void Begin(G g, State s, Combat c)
     {
         timer = 1;
@@ -18,12 +19,14 @@ internal sealed class ALaunchMissiles : CardAction
 
             if (part.type == WolfRayetShip.MissilePartType && part.active)
             {
-                c.Queue(new ALaunchMissile()
-                {
-                    part = part,
-                    localX = i,
-                    targetPlayer = targetPlayer
-                });
+                c.Queue(
+                    new ALaunchMissile()
+                    {
+                        part = part,
+                        localX = i,
+                        targetPlayer = targetPlayer,
+                    }
+                );
             }
         }
         timer = 0;
@@ -43,13 +46,15 @@ internal sealed class ALaunchMissile : CardAction
 
         if (part != null)
         {
-            c.fx.Add(new MissileLaunchFX()
-            {
-                part = part,
-                hitShip = ray.hitShip,
-                hitDrone = ray.hitDrone,
-                worldX = (localX + s.ship.x) * 16
-            });
+            c.fx.Add(
+                new MissileLaunchFX()
+                {
+                    part = part,
+                    hitShip = ray.hitShip,
+                    hitDrone = ray.hitDrone,
+                    worldX = (localX + s.ship.x) * 16,
+                }
+            );
 
             part.skin = WolfRayetShip.MissileEmptySlot.UniqueName;
             part.type = PType.empty;
@@ -78,7 +83,9 @@ internal sealed class ALaunchMissile : CardAction
             }
             else if (invincible)
             {
-                c.QueueImmediate(c.stuff[ray.worldX].GetActionsOnShotWhileInvincible(s, c, true, 4));
+                c.QueueImmediate(
+                    c.stuff[ray.worldX].GetActionsOnShotWhileInvincible(s, c, true, 4)
+                );
             }
             else
             {
@@ -107,22 +114,28 @@ internal sealed class ALaunchMissile : CardAction
                     new AAttack()
                     {
                         paybackCounter = 1,
-                        damage = Card.GetActualDamage(s, target.Get(Status.payback) + target.Get(Status.tempPayback), true),
+                        damage = Card.GetActualDamage(
+                            s,
+                            target.Get(Status.payback) + target.Get(Status.tempPayback),
+                            true
+                        ),
                         targetPlayer = targetPlayer,
                         fast = true,
-                        storyFromPayback = targetPlayer
+                        storyFromPayback = targetPlayer,
                     }
                 );
             }
 
             if (target.Get(Status.reflexiveCoating) >= 1)
             {
-                c.QueueImmediate(new AArmor()
-                {
-                    worldX = ray.worldX,
-                    targetPlayer = !targetPlayer,
-                    justTheActiveOverride = true
-                });
+                c.QueueImmediate(
+                    new AArmor()
+                    {
+                        worldX = ray.worldX,
+                        targetPlayer = !targetPlayer,
+                        justTheActiveOverride = true,
+                    }
+                );
             }
 
             EffectSpawner.NonCannonHit(g, false, ray, dmg);

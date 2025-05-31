@@ -18,7 +18,7 @@ internal class ACannonMove : CardAction
             {
                 dir += hermes;
             }
-            else 
+            else
             {
                 dir += ((dir > 0) ? hermes : hermes * -1);
             }
@@ -42,7 +42,6 @@ internal class ACannonMove : CardAction
         int cannonIndex = s.ship.FindPartIndex("closeToScaffold");
         var list = s.ship.RetainParts(p => p.key != "closeToScaffold");
 
-
         int index = 0;
 
         if (!s.HasArtifact<TinyWormhole>())
@@ -54,27 +53,31 @@ internal class ACannonMove : CardAction
             index = MathUtils.Wrap(cannonIndex + dir, 1, s.ship.parts.Count - 1);
         }
 
-
         s.ship.parts.Clear();
         s.ship.parts = list;
-        s.ship.parts.Insert(index, new Part() 
-        {
-            type = PType.cannon,
-            skin = SpicaShip.SpicaCannon.UniqueName,
-            key = "closeToScaffold"
-        });
+        s.ship.parts.Insert(
+            index,
+            new Part()
+            {
+                type = PType.cannon,
+                skin = SpicaShip.SpicaCannon.UniqueName,
+                key = "closeToScaffold",
+            }
+        );
 
         int strafe = s.ship.Get(Status.strafe);
 
         if (strafe > 0)
         {
-            c.QueueImmediate(new AAttack
-			{
-				damage = Card.GetActualDamage(s, strafe, false, null),
-				targetPlayer = false,
-				fast = true,
-				storyFromStrafe = true
-			});
+            c.QueueImmediate(
+                new AAttack
+                {
+                    damage = Card.GetActualDamage(s, strafe, false, null),
+                    targetPlayer = false,
+                    fast = true,
+                    storyFromStrafe = true,
+                }
+            );
         }
     }
 }

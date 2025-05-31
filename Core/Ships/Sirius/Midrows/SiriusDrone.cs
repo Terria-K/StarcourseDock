@@ -2,10 +2,17 @@ using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-
 internal sealed class SiriusDrone : JupiterDrone
 {
-    public static new List<string> droneNames = new List<string> { "sirius", "spica", "eta", "tinylittlegoblin", "brightjr", "isaacjr" };
+    public static new List<string> droneNames = new List<string>
+    {
+        "sirius",
+        "spica",
+        "eta",
+        "tinylittlegoblin",
+        "brightjr",
+        "isaacjr",
+    };
     public Upgrade upgrade;
 
     public override bool IsHostile()
@@ -24,35 +31,49 @@ internal sealed class SiriusDrone : JupiterDrone
         DrawWithHilight(
             g,
             upgrade switch
-            { 
+            {
                 Upgrade.A => Sprites.siriusDroneMKII.Sprite,
-                _ => Sprites.siriusDrone.Sprite
+                _ => Sprites.siriusDrone.Sprite,
             },
-            offset);
+            offset
+        );
     }
 
     public override List<Tooltip> GetTooltips()
     {
-        List<Tooltip> ttItems = [
+        List<Tooltip> ttItems =
+        [
             upgrade switch
             {
-                Upgrade.A => new GlossaryTooltip($"{ModEntry.Instance.Package.Manifest.UniqueName}::siriusDrone")
+                Upgrade.A => new GlossaryTooltip(
+                    $"{ModEntry.Instance.Package.Manifest.UniqueName}::siriusDrone"
+                )
                 {
-                    Title = ModEntry.Instance.Localizations.Localize(["ship", "Sirius", "midrow", "SiriusDroneMKII", "name"]),
+                    Title = ModEntry.Instance.Localizations.Localize(
+                        ["ship", "Sirius", "midrow", "SiriusDroneMKII", "name"]
+                    ),
                     TitleColor = Colors.midrow,
-                    Description = ModEntry.Instance.Localizations.Localize(["ship", "Sirius", "midrow", "SiriusDroneMKII", "description"]),
+                    Description = ModEntry.Instance.Localizations.Localize(
+                        ["ship", "Sirius", "midrow", "SiriusDroneMKII", "description"]
+                    ),
                     Icon = Sprites.icons_siriusDroneMkII.Sprite,
                     flipIconY = targetPlayer,
                 },
-                _ => new GlossaryTooltip($"{ModEntry.Instance.Package.Manifest.UniqueName}::siriusDrone")
+                _ => new GlossaryTooltip(
+                    $"{ModEntry.Instance.Package.Manifest.UniqueName}::siriusDrone"
+                )
                 {
-                    Title = ModEntry.Instance.Localizations.Localize(["ship", "Sirius", "midrow", "SiriusDrone", "name"]),
+                    Title = ModEntry.Instance.Localizations.Localize(
+                        ["ship", "Sirius", "midrow", "SiriusDrone", "name"]
+                    ),
                     TitleColor = Colors.midrow,
-                    Description = ModEntry.Instance.Localizations.Localize(["ship", "Sirius", "midrow", "SiriusDrone", "description"]),
+                    Description = ModEntry.Instance.Localizations.Localize(
+                        ["ship", "Sirius", "midrow", "SiriusDrone", "description"]
+                    ),
                     Icon = Sprites.icons_siriusDrone.Sprite,
                     flipIconY = targetPlayer,
-                }
-            } 
+                },
+            },
         ];
 
         if (bubbleShield)
@@ -67,7 +88,7 @@ internal sealed class SiriusDrone : JupiterDrone
         return upgrade switch
         {
             Upgrade.A => Sprites.icons_siriusDroneMkII.Sprite,
-            _ => Sprites.icons_siriusDrone.Sprite
+            _ => Sprites.icons_siriusDrone.Sprite,
         };
     }
 }

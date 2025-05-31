@@ -9,19 +9,30 @@ internal sealed class DeliveryNote : Artifact, IRegisterable
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        helper.Content.Artifacts.RegisterArtifact("DeliveryNote", new()
-        {
-            ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new()
+        helper.Content.Artifacts.RegisterArtifact(
+            "DeliveryNote",
+            new()
             {
-                owner = Deck.colorless,
-                pools = [ArtifactPool.EventOnly],
-                unremovable = true,
-            },
-            Sprite = Sprites.DeliveryNote.Sprite,
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "WolfRayet", "artifact", "DeliveryNote", "name"]).Localize,
-            Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "WolfRayet", "artifact", "DeliveryNote", "description"]).Localize
-        });
+                ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
+                Meta = new()
+                {
+                    owner = Deck.colorless,
+                    pools = [ArtifactPool.EventOnly],
+                    unremovable = true,
+                },
+                Sprite = Sprites.DeliveryNote.Sprite,
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "WolfRayet", "artifact", "DeliveryNote", "name"]
+                    )
+                    .Localize,
+                Description = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "WolfRayet", "artifact", "DeliveryNote", "description"]
+                    )
+                    .Localize,
+            }
+        );
     }
 
     public override void OnTurnStart(State state, Combat combat)

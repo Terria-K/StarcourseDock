@@ -1,5 +1,5 @@
-using Nickel;
 using Nanoray.PluginManager;
+using Nickel;
 
 namespace Teuria.StarcourseDock;
 

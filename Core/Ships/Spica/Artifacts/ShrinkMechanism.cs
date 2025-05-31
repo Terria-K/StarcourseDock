@@ -7,39 +7,45 @@ namespace Teuria.StarcourseDock;
 internal class ShrinkMechanism : Artifact, IRegisterable
 {
     public List<Part>? tempParts;
+
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        helper.Content.Artifacts.RegisterArtifact("ShrinkMechanism", new()
-        {
-            ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new()
+        helper.Content.Artifacts.RegisterArtifact(
+            "ShrinkMechanism",
+            new()
             {
-                owner = Deck.colorless,
-                pools = [ArtifactPool.EventOnly],
-                unremovable = true,
-            },
-            Sprite = Sprites.ShrinkMechanism.Sprite,
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "artifact", "ShrinkMechanism", "name"]).Localize,
-            Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "artifact", "ShrinkMechanism", "description"]).Localize
-        });
+                ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
+                Meta = new()
+                {
+                    owner = Deck.colorless,
+                    pools = [ArtifactPool.EventOnly],
+                    unremovable = true,
+                },
+                Sprite = Sprites.ShrinkMechanism.Sprite,
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Spica", "artifact", "ShrinkMechanism", "name"]
+                    )
+                    .Localize,
+                Description = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Spica", "artifact", "ShrinkMechanism", "description"]
+                    )
+                    .Localize,
+            }
+        );
     }
 
     public override List<Tooltip>? GetExtraTooltips()
     {
-        return [
-            new TTCard { card = new Shrink()
-        }];
+        return [new TTCard { card = new Shrink() }];
     }
 
     public override void OnTurnStart(State state, Combat combat)
     {
         if (!combat.HasCardOnHand<Shrink>())
         {
-            combat.Queue(new AAddCard
-            {
-                card = new Shrink(),
-                destination = CardDestination.Hand
-            });
+            combat.Queue(new AAddCard { card = new Shrink(), destination = CardDestination.Hand });
         }
 
         if (combat.turn == 1)
@@ -60,12 +66,15 @@ internal class ShrinkMechanism : Artifact, IRegisterable
 
         int cannonIndex = state.ship.FindPartIndex("closeToScaffold");
 
-        state.ship.parts.Insert(cannonIndex + 1, new Part()
-        {
-            type = PType.empty,
-            skin = SpicaShip.SpicaScaffold.UniqueName,
-            key = "toRemove"
-        });
+        state.ship.parts.Insert(
+            cannonIndex + 1,
+            new Part()
+            {
+                type = PType.empty,
+                skin = SpicaShip.SpicaScaffold.UniqueName,
+                key = "toRemove",
+            }
+        );
 
         if (state.ship.IsTouchingRightWall(state))
         {
@@ -76,9 +85,6 @@ internal class ShrinkMechanism : Artifact, IRegisterable
 
     public override void OnCombatEnd(State state)
     {
-        state.rewardsQueue.Queue(new AResetShip
-        {
-            parts = tempParts
-        });
+        state.rewardsQueue.Queue(new AResetShip { parts = tempParts });
     }
 }

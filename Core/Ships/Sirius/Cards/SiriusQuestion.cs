@@ -11,19 +11,26 @@ internal class SiriusQuestion : Card, IRegisterable
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        helper.Content.Cards.RegisterCard(MethodBase.GetCurrentMethod()!.DeclaringType!.Name, new()
-        {
-            CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new()
+        helper.Content.Cards.RegisterCard(
+            MethodBase.GetCurrentMethod()!.DeclaringType!.Name,
+            new()
             {
-                deck = SiriusKit.SiriusDeck.Deck,
-                rarity = Rarity.common,
-                upgradesTo = [Upgrade.A, Upgrade.B],
-                dontOffer = true
-            },
-            Art = StableSpr.cards_GoatDrone,
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Sirius", "card", "SiriusQuestion", "name"]).Localize,
-        });
+                CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
+                Meta = new()
+                {
+                    deck = SiriusKit.SiriusDeck.Deck,
+                    rarity = Rarity.common,
+                    upgradesTo = [Upgrade.A, Upgrade.B],
+                    dontOffer = true,
+                },
+                Art = StableSpr.cards_GoatDrone,
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Sirius", "card", "SiriusQuestion", "name"]
+                    )
+                    .Localize,
+            }
+        );
 
         ModEntry.Instance.Harmony.Patch(
             AccessTools.DeclaredMethod(typeof(AAttack), nameof(AAttack.Begin)),
@@ -76,7 +83,7 @@ internal class SiriusQuestion : Card, IRegisterable
                 return false;
             }
         }
-        
+
         return true;
     }
 
@@ -84,14 +91,20 @@ internal class SiriusQuestion : Card, IRegisterable
     {
         if (__instance.fromDroneX != null)
         {
-            if (c.stuff.TryGetValue(__instance.fromDroneX.Value, out var drone) && drone is SiriusSemiDualDrone)
+            if (
+                c.stuff.TryGetValue(__instance.fromDroneX.Value, out var drone)
+                && drone is SiriusSemiDualDrone
+            )
             {
                 drone.pulse = 1.0;
             }
         }
     }
 
-    private static IEnumerable<CodeInstruction> AAttack_Begin_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+    private static IEnumerable<CodeInstruction> AAttack_Begin_Transpiler(
+        IEnumerable<CodeInstruction> instructions,
+        ILGenerator generator
+    )
     {
         var cursor = new ILCursor(generator, instructions);
 
@@ -104,10 +117,17 @@ internal class SiriusQuestion : Card, IRegisterable
 
         cursor.Emit(OpCodes.Ldarg_0);
         cursor.Emit(OpCodes.Ldarg_3);
-        cursor.EmitDelegate((AAttack __instance, Combat combat) =>
-        {
-            combat.QueueImmediate(new ASiriusInquisitorShoot() { attackCopy = Mutil.DeepCopy<AAttack>(__instance) });
-        });
+        cursor.EmitDelegate(
+            (AAttack __instance, Combat combat) =>
+            {
+                combat.QueueImmediate(
+                    new ASiriusInquisitorShoot()
+                    {
+                        attackCopy = Mutil.DeepCopy<AAttack>(__instance),
+                    }
+                );
+            }
+        );
 
         return cursor.Generate();
     }
@@ -120,7 +140,7 @@ internal class SiriusQuestion : Card, IRegisterable
             cost = 1,
             retain = true,
             buoyant = true,
-            unremovableAtShops = true
+            unremovableAtShops = true,
         };
     }
 
@@ -128,17 +148,19 @@ internal class SiriusQuestion : Card, IRegisterable
     {
         return upgrade switch
         {
-            Upgrade.B => [
+            Upgrade.B =>
+            [
                 new ASpawn
                 {
-                    thing = new SiriusSemiDualDrone() { bubbleShield = true, hitByEnemy = true }
-                }
+                    thing = new SiriusSemiDualDrone() { bubbleShield = true, hitByEnemy = true },
+                },
             ],
-            _ => [
+            _ =>
+            [
                 new ASpawn
                 {
-                    thing = new SiriusSemiDualDrone() { upgrade = this.upgrade, hitByEnemy = true }
-                }
+                    thing = new SiriusSemiDualDrone() { upgrade = this.upgrade, hitByEnemy = true },
+                },
             ],
         };
     }

@@ -12,18 +12,18 @@ internal class ARepairAllBrokenPart : CardAction
             }
             switch (part.key)
             {
-            case "crystal1::StarcourseDock":
-                part.skin = GlieseShip.GlieseCrystal1.UniqueName;
-                break;
-            case "crystal2::StarcourseDock":
-                part.skin = GlieseShip.GlieseCrystal2.UniqueName;
-                break;
-            case "crystal3::StarcourseDock":
-                part.skin = GlieseShip.GlieseCrystal3.UniqueName;
-                break;
-            case "crystal4::StarcourseDock":
-                part.skin = GlieseShip.GlieseCrystal2.UniqueName;
-                break;
+                case "crystal1::StarcourseDock":
+                    part.skin = GlieseShip.GlieseCrystal1.UniqueName;
+                    break;
+                case "crystal2::StarcourseDock":
+                    part.skin = GlieseShip.GlieseCrystal2.UniqueName;
+                    break;
+                case "crystal3::StarcourseDock":
+                    part.skin = GlieseShip.GlieseCrystal3.UniqueName;
+                    break;
+                case "crystal4::StarcourseDock":
+                    part.skin = GlieseShip.GlieseCrystal2.UniqueName;
+                    break;
             }
 
             part.stunModifier = PStunMod.breakable;

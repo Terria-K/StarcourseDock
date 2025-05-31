@@ -9,19 +9,30 @@ internal sealed class SiriusSubwoofer : Artifact, IRegisterable
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        helper.Content.Artifacts.RegisterArtifact("SiriusSubwoofer", new()
-        {
-            ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new()
+        helper.Content.Artifacts.RegisterArtifact(
+            "SiriusSubwoofer",
+            new()
             {
-                owner = Deck.colorless,
-                pools = [ArtifactPool.Common],
-                unremovable = true,
-            },
-            Sprite = Sprites.SiriusSubwoofer.Sprite,
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Sirius", "artifact", "SiriusSubwoofer", "name"]).Localize,
-            Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Sirius", "artifact", "SiriusSubwoofer", "description"]).Localize
-        });
+                ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
+                Meta = new()
+                {
+                    owner = Deck.colorless,
+                    pools = [ArtifactPool.Common],
+                    unremovable = true,
+                },
+                Sprite = Sprites.SiriusSubwoofer.Sprite,
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Sirius", "artifact", "SiriusSubwoofer", "name"]
+                    )
+                    .Localize,
+                Description = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Sirius", "artifact", "SiriusSubwoofer", "description"]
+                    )
+                    .Localize,
+            }
+        );
     }
 
     public override int ModifyBaseJupiterDroneDamage(State state, Combat? combat, StuffBase midrow)

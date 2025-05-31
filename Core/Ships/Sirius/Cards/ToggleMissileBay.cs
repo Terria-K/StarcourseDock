@@ -10,18 +10,25 @@ internal class ToggleMissileBay : Card, IRegisterable
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        helper.Content.Cards.RegisterCard(MethodBase.GetCurrentMethod()!.DeclaringType!.Name, new()
-        {
-            CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new()
+        helper.Content.Cards.RegisterCard(
+            MethodBase.GetCurrentMethod()!.DeclaringType!.Name,
+            new()
             {
-                deck = SiriusKit.SiriusDeck.Deck,
-                rarity = Rarity.common,
-                dontOffer = true
-            },
-            Art = StableSpr.cards_GoatDrone,
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Sirius", "card", "ToggleMissileBay", "name"]).Localize,
-        });
+                CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
+                Meta = new()
+                {
+                    deck = SiriusKit.SiriusDeck.Deck,
+                    rarity = Rarity.common,
+                    dontOffer = true,
+                },
+                Art = StableSpr.cards_GoatDrone,
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Sirius", "card", "ToggleMissileBay", "name"]
+                    )
+                    .Localize,
+            }
+        );
 
         ModEntry.Instance.Harmony.Patch(
             AccessTools.DeclaredMethod(typeof(Card), nameof(Card.RenderAction)),
@@ -42,13 +49,22 @@ internal class ToggleMissileBay : Card, IRegisterable
 
     public override List<CardAction> GetActions(State s, Combat c)
     {
-        return [
+        return
+        [
             new AToggleMissileBay(),
-            new AStatus() { status = BayPowerDownStatus.BayPowerDownEntry.Status, statusAmount = 1, targetPlayer = true }
+            new AStatus()
+            {
+                status = BayPowerDownStatus.BayPowerDownEntry.Status,
+                statusAmount = 1,
+                targetPlayer = true,
+            },
         ];
     }
 
-    private static IEnumerable<CodeInstruction> Card_RenderAction_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+    private static IEnumerable<CodeInstruction> Card_RenderAction_Transpiler(
+        IEnumerable<CodeInstruction> instructions,
+        ILGenerator generator
+    )
     {
         var cursor = new ILCursor(generator, instructions);
 

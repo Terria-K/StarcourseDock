@@ -5,68 +5,79 @@ using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-
 internal class RerouteCannon : Card, IRegisterable
 {
-	public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
+    public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        var alphergDeck = helper.Content.Decks.RegisterDeck("Alpherg", new() 
-        {
-            Definition = new() 
+        var alphergDeck = helper.Content.Decks.RegisterDeck(
+            "Alpherg",
+            new()
             {
-                color = new Color("6bc6d3"),
-                titleColor = Colors.white
-            },
-            DefaultCardArt = StableSpr.cards_colorless,
-            BorderSprite = Sprites.border_alpherg.Sprite,
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Alpherg", "name"]).Localize
-        });
+                Definition = new() { color = new Color("6bc6d3"), titleColor = Colors.white },
+                DefaultCardArt = StableSpr.cards_colorless,
+                BorderSprite = Sprites.border_alpherg.Sprite,
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(["ship", "Alpherg", "name"])
+                    .Localize,
+            }
+        );
 
-        helper.Content.Cards.RegisterCard(MethodBase.GetCurrentMethod()!.DeclaringType!.Name, new() 
-        {
-            CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new() 
+        helper.Content.Cards.RegisterCard(
+            MethodBase.GetCurrentMethod()!.DeclaringType!.Name,
+            new()
             {
-                deck = alphergDeck.Deck,
-                rarity = Rarity.common,
-                upgradesTo = [Upgrade.A, Upgrade.B],
-                dontOffer = true
-            },
-            Art = StableSpr.cards_BlockerBurnout,
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Alpherg", "card", "RerouteCannon", "name"]).Localize
-        });
+                CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
+                Meta = new()
+                {
+                    deck = alphergDeck.Deck,
+                    rarity = Rarity.common,
+                    upgradesTo = [Upgrade.A, Upgrade.B],
+                    dontOffer = true,
+                },
+                Art = StableSpr.cards_BlockerBurnout,
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Alpherg", "card", "RerouteCannon", "name"]
+                    )
+                    .Localize,
+            }
+        );
     }
 
     public override CardData GetData(State state)
     {
-        return upgrade switch 
+        return upgrade switch
         {
             Upgrade.A => new()
             {
                 recycle = true,
                 cost = 0,
-                description = ModEntry.Instance.Localizations.Localize(["ship", "Alpherg", "card", "RerouteCannon", "description"]),
-                unremovableAtShops = true
+                description = ModEntry.Instance.Localizations.Localize(
+                    ["ship", "Alpherg", "card", "RerouteCannon", "description"]
+                ),
+                unremovableAtShops = true,
             },
-            Upgrade.B => new() 
+            Upgrade.B => new()
             {
-                description = ModEntry.Instance.Localizations.Localize(["ship", "Alpherg", "card", "RerouteCannon", "B", "description"]),
+                description = ModEntry.Instance.Localizations.Localize(
+                    ["ship", "Alpherg", "card", "RerouteCannon", "B", "description"]
+                ),
                 cost = 1,
-                unremovableAtShops = true
+                unremovableAtShops = true,
             },
             _ => new()
             {
-                description = ModEntry.Instance.Localizations.Localize(["ship", "Alpherg", "card", "RerouteCannon", "description"]),
+                description = ModEntry.Instance.Localizations.Localize(
+                    ["ship", "Alpherg", "card", "RerouteCannon", "description"]
+                ),
                 cost = 1,
-                unremovableAtShops = true
+                unremovableAtShops = true,
             },
         };
     }
 
     public override List<CardAction> GetActions(State s, Combat c)
     {
-        return [
-            new AModifyCannon() { active = true }
-        ];
+        return [new AModifyCannon() { active = true }];
     }
 }

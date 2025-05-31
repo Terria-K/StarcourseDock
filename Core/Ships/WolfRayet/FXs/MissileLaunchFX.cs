@@ -24,31 +24,19 @@ internal sealed class MissileLaunchFX : FX
         {
             if (y > 80)
             {
-                Draw.Sprite(
-                    spr,
-                    v.x + worldX + 7, y,
-                    originPx: new Vec(8, 32)
-                );
+                Draw.Sprite(spr, v.x + worldX + 7, y, originPx: new Vec(8, 32));
             }
         }
         else if (hitDrone)
         {
             if (y > 90)
             {
-                Draw.Sprite(
-                    spr,
-                    v.x + worldX + 7, y,
-                    originPx: new Vec(8, 32)
-                );
+                Draw.Sprite(spr, v.x + worldX + 7, y, originPx: new Vec(8, 32));
             }
         }
         else
         {
-            Draw.Sprite(
-                spr,
-                v.x + worldX + 7, y,
-                originPx: new Vec(8, 32)
-            );
+            Draw.Sprite(spr, v.x + worldX + 7, y, originPx: new Vec(8, 32));
         }
     }
 }

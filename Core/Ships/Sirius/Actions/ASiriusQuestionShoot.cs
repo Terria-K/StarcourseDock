@@ -1,15 +1,15 @@
- namespace Teuria.StarcourseDock;
- 
+namespace Teuria.StarcourseDock;
+
 internal sealed class ASiriusInquisitorShoot : CardAction
 {
-	public AAttack attackCopy = null!;
+    public AAttack attackCopy = null!;
 
-	public override void Begin(G g, State s, Combat c)
+    public override void Begin(G g, State s, Combat c)
     {
         this.timer = 0.0;
         bool damageUpgraded = false;
         var attacks = new SortedList<int, CardAction>();
-        foreach ((int x, StuffBase midRow)  in c.stuff)
+        foreach ((int x, StuffBase midRow) in c.stuff)
         {
             if (midRow is not SiriusSemiDualDrone sirius)
             {
@@ -40,19 +40,5 @@ internal sealed class ASiriusInquisitorShoot : CardAction
             attacks.Add(x, copy);
         }
         c.QueueImmediate(attacks.Values);
-    }
-}
-
-internal sealed class AChangeTeam : CardAction
-{
-    public SiriusSemiDualDrone? target;
-    public override void Begin(G g, State s, Combat c)
-    {
-        if (target is null)
-        {
-            return;
-        }
-
-        target.targetPlayer = !target.targetPlayer;
     }
 }

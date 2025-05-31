@@ -8,18 +8,25 @@ internal class BarrageMode : Card, IRegisterable
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        helper.Content.Cards.RegisterCard(MethodBase.GetCurrentMethod()!.DeclaringType!.Name, new()
-        {
-            CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new()
+        helper.Content.Cards.RegisterCard(
+            MethodBase.GetCurrentMethod()!.DeclaringType!.Name,
+            new()
             {
-                deck = SiriusKit.SiriusDeck.Deck,
-                rarity = Rarity.rare,
-                dontOffer = true
-            },
-            Art = StableSpr.cards_Terminal,
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Sirius", "card", "BarrageMode", "name"]).Localize,
-        });
+                CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
+                Meta = new()
+                {
+                    deck = SiriusKit.SiriusDeck.Deck,
+                    rarity = Rarity.rare,
+                    dontOffer = true,
+                },
+                Art = StableSpr.cards_Terminal,
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Sirius", "card", "BarrageMode", "name"]
+                    )
+                    .Localize,
+            }
+        );
     }
 
     public override CardData GetData(State state)
@@ -31,23 +38,23 @@ internal class BarrageMode : Card, IRegisterable
             singleUse = true,
             flippable = true,
             cost = 1,
-            description = ModEntry.Instance.Localizations.Localize(["ship", "Sirius", "card", "BarrageMode", "description"])
+            description = ModEntry.Instance.Localizations.Localize(
+                ["ship", "Sirius", "card", "BarrageMode", "description"]
+            ),
         };
     }
 
     public override List<CardAction> GetActions(State s, Combat c)
     {
-        return [
-            new AActivateAllParts() { partType = PType.missiles }
-        ];
+        return [new AActivateAllParts() { partType = PType.missiles }];
     }
 
     public override void OnFlip(G g)
     {
-		Combat? c = g.state.route as Combat;
-		if (c != null)
-		{
-			c.QueueImmediate(new AToggleMissileBay());
-		}
+        Combat? c = g.state.route as Combat;
+        if (c != null)
+        {
+            c.QueueImmediate(new AToggleMissileBay());
+        }
     }
 }

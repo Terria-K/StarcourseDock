@@ -8,87 +8,103 @@ namespace Teuria.StarcourseDock;
 
 internal sealed class SiriusShip : IRegisterable
 {
-	internal static IShipEntry SiriusEntry { get; private set; } = null!;
+    internal static IShipEntry SiriusEntry { get; private set; } = null!;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        var bay = helper.Content.Ships.RegisterPart("SiriusMissileBay", new()
-        {
-            Sprite = Sprites.sirius_missilebay.Sprite,
-            DisabledSprite = Sprites.sirius_missilebay_inactive.Sprite
-        });
-
-
-        SiriusEntry = helper.Content.Ships.RegisterShip("Sirius", new()
-        {
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Sirius", "name"]).Localize,
-            Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Sirius", "description"]).Localize,
-            UnderChassisSprite = Sprites.sirius_chassis.Sprite,
-            Ship = new()
+        var bay = helper.Content.Ships.RegisterPart(
+            "SiriusMissileBay",
+            new()
             {
-                ship = new()
+                Sprite = Sprites.sirius_missilebay.Sprite,
+                DisabledSprite = Sprites.sirius_missilebay_inactive.Sprite,
+            }
+        );
+
+        SiriusEntry = helper.Content.Ships.RegisterShip(
+            "Sirius",
+            new()
+            {
+                Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Sirius", "name"]).Localize,
+                Description = ModEntry
+                    .Instance.AnyLocalizations.Bind(["ship", "Sirius", "description"])
+                    .Localize,
+                UnderChassisSprite = Sprites.sirius_chassis.Sprite,
+                Ship = new()
                 {
-                    x = 1,
-                    hull = 9,
-                    hullMax = 9,
-                    shieldMaxBase = 5,
-                    parts = [
-                        new Part()
-                        {
-                            type = PType.missiles,
-                            skin = bay.UniqueName,
-                            damageModifier = PDamMod.armor,
-                            damageModifierOverrideWhileActive = PDamMod.none,
-                            key = "firstBay"
-                        },
-                        new Part()
-                        {
-                            type = PType.cockpit,
-                            skin = helper.Content.Ships.RegisterPart("SiriusCockpit", new()
+                    ship = new()
+                    {
+                        x = 1,
+                        hull = 9,
+                        hullMax = 9,
+                        shieldMaxBase = 5,
+                        parts =
+                        [
+                            new Part()
                             {
-                                Sprite = Sprites.sirius_cockpit.Sprite
-                            }).UniqueName,
-                            key = "cockpit"
-                        },
-                        new Part()
-                        {
-                            type = PType.comms,
-                            skin = helper.Content.Ships.RegisterPart("SiriusComms", new()
+                                type = PType.missiles,
+                                skin = bay.UniqueName,
+                                damageModifier = PDamMod.armor,
+                                damageModifierOverrideWhileActive = PDamMod.none,
+                                key = "firstBay",
+                            },
+                            new Part()
                             {
-                                Sprite = Sprites.sirius_comms.Sprite
-                            }).UniqueName,
-                            key = "closeToScaffold",
-                            damageModifier = PDamMod.weak
-                        },
-                        new Part()
-                        {
-                            type = PType.missiles,
-                            skin = bay.UniqueName,
-                            key = "weak",
-                            damageModifier = PDamMod.armor,
-                            damageModifierOverrideWhileActive = PDamMod.none,
-                            active = false
-                        }
-                    ]
+                                type = PType.cockpit,
+                                skin = helper
+                                    .Content.Ships.RegisterPart(
+                                        "SiriusCockpit",
+                                        new() { Sprite = Sprites.sirius_cockpit.Sprite }
+                                    )
+                                    .UniqueName,
+                                key = "cockpit",
+                            },
+                            new Part()
+                            {
+                                type = PType.comms,
+                                skin = helper
+                                    .Content.Ships.RegisterPart(
+                                        "SiriusComms",
+                                        new() { Sprite = Sprites.sirius_comms.Sprite }
+                                    )
+                                    .UniqueName,
+                                key = "closeToScaffold",
+                                damageModifier = PDamMod.weak,
+                            },
+                            new Part()
+                            {
+                                type = PType.missiles,
+                                skin = bay.UniqueName,
+                                key = "weak",
+                                damageModifier = PDamMod.armor,
+                                damageModifierOverrideWhileActive = PDamMod.none,
+                                active = false,
+                            },
+                        ],
+                    },
+                    artifacts = [new ShieldPrep(), new SiriusMissileBay()],
+                    cards =
+                    [
+                        new SiriusBusiness(),
+                        new DodgeColorless(),
+                        new BasicShieldColorless(),
+                        new DroneshiftColorless(),
+                        new CannonColorless(),
+                    ],
                 },
-                artifacts = [new ShieldPrep(), new SiriusMissileBay()],
-                cards = [
-                    new SiriusBusiness(),
-                    new DodgeColorless(),
-                    new BasicShieldColorless(),
-                    new DroneshiftColorless(),
-                    new CannonColorless()
-                ]
-            },
-        });
+            }
+        );
 
         ModEntry.Instance.Harmony.Patch(
-            original: AccessTools.DeclaredMethod(typeof(ArtifactReward), nameof(ArtifactReward.GetBlockedArtifacts)),
+            original: AccessTools.DeclaredMethod(
+                typeof(ArtifactReward),
+                nameof(ArtifactReward.GetBlockedArtifacts)
+            ),
             postfix: new HarmonyMethod(ArtifactReward_GetBlockedArtifacts_Postfix)
         );
     }
 
-    internal static void ArtifactReward_GetBlockedArtifacts_Postfix(HashSet<Type> __result, State s) 
+    internal static void ArtifactReward_GetBlockedArtifacts_Postfix(HashSet<Type> __result, State s)
     {
         if (s.ship.key != SiriusEntry.UniqueName)
         {

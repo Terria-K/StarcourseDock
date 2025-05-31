@@ -4,7 +4,8 @@ using YamlDotNet.Serialization;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class YamlLocalizationProvider : ILocalizationProvider<IReadOnlyList<string>>
+internal sealed partial class YamlLocalizationProvider
+    : ILocalizationProvider<IReadOnlyList<string>>
 {
     private ILocalizationTokenExtractor<string> tokenExtractor;
     private Func<string, Stream?> localeStreamFunction;
@@ -14,7 +15,10 @@ internal sealed partial class YamlLocalizationProvider : ILocalizationProvider<I
     [GeneratedRegex("{{([ \\w\\.\\-_]+)}}")]
     private static partial Regex TokenRegex();
 
-    public YamlLocalizationProvider(ILocalizationTokenExtractor<string> tokenExtractor, Func<string, Stream?> localeStreamFunction)
+    public YamlLocalizationProvider(
+        ILocalizationTokenExtractor<string> tokenExtractor,
+        Func<string, Stream?> localeStreamFunction
+    )
     {
         this.tokenExtractor = tokenExtractor;
         this.localeStreamFunction = localeStreamFunction;
@@ -33,7 +37,12 @@ internal sealed partial class YamlLocalizationProvider : ILocalizationProvider<I
         return Localize(localization, key, 0, tokens);
     }
 
-    private string? Localize(object localization, IReadOnlyList<string> key, int keyIndex, object? tokens)
+    private string? Localize(
+        object localization,
+        IReadOnlyList<string> key,
+        int keyIndex,
+        object? tokens
+    )
     {
         if (keyIndex >= key.Count)
         {
@@ -63,7 +72,12 @@ internal sealed partial class YamlLocalizationProvider : ILocalizationProvider<I
         return null;
     }
 
-    private string? Localize(Dictionary<object, object> localization, IReadOnlyList<string> key, int keyIndex, object? tokens)
+    private string? Localize(
+        Dictionary<object, object> localization,
+        IReadOnlyList<string> key,
+        int keyIndex,
+        object? tokens
+    )
     {
         object value = localization[key[keyIndex]];
         if (value == null)
@@ -74,7 +88,12 @@ internal sealed partial class YamlLocalizationProvider : ILocalizationProvider<I
         return Localize(value, key, keyIndex + 1, tokens);
     }
 
-    private string? Localize(List<object> localization, IReadOnlyList<string> key, int keyIndex, object? tokens)
+    private string? Localize(
+        List<object> localization,
+        IReadOnlyList<string> key,
+        int keyIndex,
+        object? tokens
+    )
     {
         if (!int.TryParse(key[keyIndex], out var result) || localization.Count < result)
         {
@@ -87,12 +106,16 @@ internal sealed partial class YamlLocalizationProvider : ILocalizationProvider<I
     private string Localize(string localizationString, object? tokens)
     {
         IReadOnlyDictionary<string, string> tokenLookup = tokenExtractor.ExtractTokens(tokens);
-        return TokenRegex().Replace(localizationString, (match) =>
-        {
-            string key = match.Groups[1].Value.Trim();
-            string? value;
-            return (!tokenLookup.TryGetValue(key, out value)) ? match.Value : value;
-        });
+        return TokenRegex()
+            .Replace(
+                localizationString,
+                (match) =>
+                {
+                    string key = match.Groups[1].Value.Trim();
+                    string? value;
+                    return (!tokenLookup.TryGetValue(key, out value)) ? match.Value : value;
+                }
+            );
     }
 
     private object? GetLocalization(string locale)

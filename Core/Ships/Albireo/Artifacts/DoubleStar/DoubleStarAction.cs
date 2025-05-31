@@ -23,13 +23,10 @@ internal class DoubleStarAction : IEvadeAction
             return [];
         }
 
-        return [
-            new AMove() 
-            {
-                dir = args.Direction == Direction.Left ? -1 : 1,
-                targetPlayer = true
-            },
-            new ACheckParts()
+        return
+        [
+            new AMove() { dir = args.Direction == Direction.Left ? -1 : 1, targetPlayer = true },
+            new ACheckParts(),
         ];
     }
 }

@@ -9,24 +9,37 @@ internal sealed class SiriusMissileBayV2 : Artifact, IRegisterable
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        helper.Content.Artifacts.RegisterArtifact("SiriusMissileBayV2", new()
-        {
-            ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new()
+        helper.Content.Artifacts.RegisterArtifact(
+            "SiriusMissileBayV2",
+            new()
             {
-                owner = Deck.colorless,
-                pools = [ArtifactPool.Boss],
-                unremovable = true,
-            },
-            Sprite = Sprites.SiriusMissileBay.Sprite,
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Sirius", "artifact", "SiriusMissileBayV2", "name"]).Localize,
-            Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Sirius", "artifact", "SiriusMissileBayV2", "description"]).Localize
-        });
+                ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
+                Meta = new()
+                {
+                    owner = Deck.colorless,
+                    pools = [ArtifactPool.Boss],
+                    unremovable = true,
+                },
+                Sprite = Sprites.SiriusMissileBay.Sprite,
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Sirius", "artifact", "SiriusMissileBayV2", "name"]
+                    )
+                    .Localize,
+                Description = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Sirius", "artifact", "SiriusMissileBayV2", "description"]
+                    )
+                    .Localize,
+            }
+        );
     }
 
     public override void OnReceiveArtifact(State state)
     {
-        state.GetCurrentQueue().QueueImmediate(new ALoseArtifact { artifactType = new SiriusMissileBay().Key() });
+        state
+            .GetCurrentQueue()
+            .QueueImmediate(new ALoseArtifact { artifactType = new SiriusMissileBay().Key() });
     }
 
     public override void OnTurnStart(State state, Combat combat)
@@ -51,18 +64,14 @@ internal sealed class SiriusMissileBayV2 : Artifact, IRegisterable
 
         if (!combat.HasCardOnHand<BarrageMode>())
         {
-            combat.Queue(new AAddCard
-            {
-                card = new BarrageMode(),
-                destination = CardDestination.Hand
-            });
+            combat.Queue(
+                new AAddCard { card = new BarrageMode(), destination = CardDestination.Hand }
+            );
         }
     }
 
     public override List<Tooltip>? GetExtraTooltips()
     {
-        return [
-            new TTCard() { card = new BarrageMode() },
-        ];
+        return [new TTCard() { card = new BarrageMode() }];
     }
 }

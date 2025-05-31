@@ -12,31 +12,51 @@ internal sealed class HeatShieldV2 : Artifact, IRegisterable
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        helper.Content.Artifacts.RegisterArtifact("HeatShieldV2", new()
-        {
-            ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new()
+        helper.Content.Artifacts.RegisterArtifact(
+            "HeatShieldV2",
+            new()
             {
-                owner = Deck.colorless,
-                pools = [ArtifactPool.Boss],
-                unremovable = true,
-            },
-            Sprite = Sprites.VolcanicShield.Sprite,
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "WolfRayet", "artifact", "HeatShieldV2", "name"]).Localize,
-            Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "WolfRayet", "artifact", "HeatShieldV2", "description"]).Localize
-        });
+                ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
+                Meta = new()
+                {
+                    owner = Deck.colorless,
+                    pools = [ArtifactPool.Boss],
+                    unremovable = true,
+                },
+                Sprite = Sprites.VolcanicShield.Sprite,
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "WolfRayet", "artifact", "HeatShieldV2", "name"]
+                    )
+                    .Localize,
+                Description = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "WolfRayet", "artifact", "HeatShieldV2", "description"]
+                    )
+                    .Localize,
+            }
+        );
     }
 
     public override void OnReceiveArtifact(State state)
     {
-        state.GetCurrentQueue().QueueImmediate(new ALoseArtifact { artifactType = new HeatShield().Key() });
+        state
+            .GetCurrentQueue()
+            .QueueImmediate(new ALoseArtifact { artifactType = new HeatShield().Key() });
     }
 
     public override void OnTurnStart(State state, Combat combat)
     {
         if (combat.turn == 1)
         {
-            combat.Queue(new AStatus() { statusAmount = 3, status = Status.shield, targetPlayer = true });
+            combat.Queue(
+                new AStatus()
+                {
+                    statusAmount = 3,
+                    status = Status.shield,
+                    targetPlayer = true,
+                }
+            );
             Pulse();
         }
         currentHeatCounter = 0;
@@ -49,13 +69,15 @@ internal sealed class HeatShieldV2 : Artifact, IRegisterable
 
     public override List<Tooltip>? GetExtraTooltips()
     {
-        return [
-            new TTGlossary("status.shield", ["3"]),
-            new TTGlossary("status.heat", ["3"])
-        ];
+        return [new TTGlossary("status.shield", ["3"]), new TTGlossary("status.heat", ["3"])];
     }
 
-    public override void OnPlayerTakeNormalDamage(State state, Combat combat, int rawAmount, Part? part)
+    public override void OnPlayerTakeNormalDamage(
+        State state,
+        Combat combat,
+        int rawAmount,
+        Part? part
+    )
     {
         hit = true;
     }

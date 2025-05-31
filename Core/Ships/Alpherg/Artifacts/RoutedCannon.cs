@@ -13,19 +13,30 @@ internal class RoutedCannon : Artifact, IRegisterable
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-		helper.Content.Artifacts.RegisterArtifact("RoutedCannon", new()
-		{
-			ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-			Meta = new()
-			{
-				owner = Deck.colorless,
-				pools = [ArtifactPool.EventOnly],
-				unremovable = true,
-			},
-			Sprite = Sprites.RoutedCannon.Sprite,
-			Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Alpherg", "artifact", "RoutedCannon", "name"]).Localize,
-			Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Alpherg", "artifact", "RoutedCannon", "description"]).Localize
-		});
+        helper.Content.Artifacts.RegisterArtifact(
+            "RoutedCannon",
+            new()
+            {
+                ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
+                Meta = new()
+                {
+                    owner = Deck.colorless,
+                    pools = [ArtifactPool.EventOnly],
+                    unremovable = true,
+                },
+                Sprite = Sprites.RoutedCannon.Sprite,
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Alpherg", "artifact", "RoutedCannon", "name"]
+                    )
+                    .Localize,
+                Description = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Alpherg", "artifact", "RoutedCannon", "description"]
+                    )
+                    .Localize,
+            }
+        );
 
         ModEntry.Instance.Harmony.Patch(
             AccessTools.DeclaredMethod(typeof(AAttack), nameof(AAttack.Begin)),
@@ -38,7 +49,10 @@ internal class RoutedCannon : Artifact, IRegisterable
         );
 
         ModEntry.Instance.Harmony.Patch(
-            AccessTools.DeclaredMethod(typeof(AVolleyAttackFromAllCannons), nameof(AVolleyAttackFromAllCannons.Begin)),
+            AccessTools.DeclaredMethod(
+                typeof(AVolleyAttackFromAllCannons),
+                nameof(AVolleyAttackFromAllCannons.Begin)
+            ),
             postfix: new HarmonyMethod(AVolleyAttackFromAllCannons_Begin_Postfix)
         );
 
@@ -64,7 +78,6 @@ internal class RoutedCannon : Artifact, IRegisterable
                             info = method;
                         }
                     }
-
                 }
             }
         }
@@ -94,7 +107,15 @@ internal class RoutedCannon : Artifact, IRegisterable
         combat.Queue(new AModifyCannon() { active = false });
     }
 
-    public override void OnPlayerPlayCard(int energyCost, Deck deck, Card card, State state, Combat combat, int handPosition, int handCount)
+    public override void OnPlayerPlayCard(
+        int energyCost,
+        Deck deck,
+        Card card,
+        State state,
+        Combat combat,
+        int handPosition,
+        int handCount
+    )
     {
         if (card is RerouteCannon rerouteCannon)
         {
@@ -115,7 +136,7 @@ internal class RoutedCannon : Artifact, IRegisterable
         {
             return true;
         }
-        
+
         var routedCannon = state.GetArtifact<RoutedCannon>();
 
         if (routedCannon is not null && !routedCannon.disabled)
@@ -127,7 +148,7 @@ internal class RoutedCannon : Artifact, IRegisterable
         return true;
     }
 
-    internal static void AAttack_Begin_Prefix(AAttack __instance, State s) 
+    internal static void AAttack_Begin_Prefix(AAttack __instance, State s)
     {
         state = s;
         aAttack = __instance;
@@ -145,7 +166,10 @@ internal class RoutedCannon : Artifact, IRegisterable
         {
             if (p.type == PType.empty && p.active)
             {
-                if (s.route is Combat combat && combat.stuff.TryGetValue(partX, out StuffBase? value))
+                if (
+                    s.route is Combat combat
+                    && combat.stuff.TryGetValue(partX, out StuffBase? value)
+                )
                 {
                     value.hilight = 2;
                 }
@@ -155,8 +179,11 @@ internal class RoutedCannon : Artifact, IRegisterable
         }
     }
 
-
-    internal static void AVolleyAttackFromAllCannons_Begin_Postfix(AVolleyAttackFromAllCannons __instance, State s, Combat c) 
+    internal static void AVolleyAttackFromAllCannons_Begin_Postfix(
+        AVolleyAttackFromAllCannons __instance,
+        State s,
+        Combat c
+    )
     {
         var routedCannon = s.GetArtifact<RoutedCannon>();
         if (routedCannon is null || routedCannon.disabled)
@@ -178,33 +205,36 @@ internal class RoutedCannon : Artifact, IRegisterable
         c.QueueImmediate(listOfAttacks);
     }
 
-    internal static IEnumerable<CodeInstruction> AAttack_Begin_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator) 
+    internal static IEnumerable<CodeInstruction> AAttack_Begin_Transpiler(
+        IEnumerable<CodeInstruction> instructions,
+        ILGenerator generator
+    )
     {
         var cursor = new ILCursor(generator, instructions);
 
-        cursor.GotoNext(
-            MoveType.After,
-            instr => instr.MatchContains("GetPartTypeCount")
-        );
+        cursor.GotoNext(MoveType.After, instr => instr.MatchContains("GetPartTypeCount"));
 
         cursor.Emit(OpCodes.Ldarg_0);
         cursor.Emit(OpCodes.Ldarg_2);
-        cursor.EmitDelegate((int x, AAttack aAttack, State s) => {
-            if (aAttack.targetPlayer)
+        cursor.EmitDelegate(
+            (int x, AAttack aAttack, State s) =>
             {
-                return x;
-            }
-            var routedCannon = s.GetArtifact<RoutedCannon>();
-            if (routedCannon is null || routedCannon.disabled)
-            {
-                return x;
-            }
+                if (aAttack.targetPlayer)
+                {
+                    return x;
+                }
+                var routedCannon = s.GetArtifact<RoutedCannon>();
+                if (routedCannon is null || routedCannon.disabled)
+                {
+                    return x;
+                }
 
-            int cannon = s.ship.GetPartTypeCount(PType.cannon, false);
-            int empty = s.ship.GetPartTypeCount(PType.empty, false);
-            
-            return cannon + empty;
-        });
+                int cannon = s.ship.GetPartTypeCount(PType.cannon, false);
+                int empty = s.ship.GetPartTypeCount(PType.empty, false);
+
+                return cannon + empty;
+            }
+        );
 
         return cursor.Generate();
     }

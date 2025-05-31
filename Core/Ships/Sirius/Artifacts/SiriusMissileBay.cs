@@ -10,19 +10,30 @@ internal sealed class SiriusMissileBay : Artifact, IRegisterable
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        helper.Content.Artifacts.RegisterArtifact("SiriusMissileBay", new()
-        {
-            ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new()
+        helper.Content.Artifacts.RegisterArtifact(
+            "SiriusMissileBay",
+            new()
             {
-                owner = Deck.colorless,
-                pools = [ArtifactPool.EventOnly],
-                unremovable = true,
-            },
-            Sprite = Sprites.SiriusMissileBay.Sprite,
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Sirius", "artifact", "SiriusMissileBay", "name"]).Localize,
-            Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Sirius", "artifact", "SiriusMissileBay", "description"]).Localize
-        });
+                ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
+                Meta = new()
+                {
+                    owner = Deck.colorless,
+                    pools = [ArtifactPool.EventOnly],
+                    unremovable = true,
+                },
+                Sprite = Sprites.SiriusMissileBay.Sprite,
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Sirius", "artifact", "SiriusMissileBay", "name"]
+                    )
+                    .Localize,
+                Description = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Sirius", "artifact", "SiriusMissileBay", "description"]
+                    )
+                    .Localize,
+            }
+        );
 
         ModEntry.Instance.Harmony.Patch(
             AccessTools.DeclaredMethod(typeof(AAttack), nameof(AAttack.Begin)),
@@ -49,11 +60,9 @@ internal sealed class SiriusMissileBay : Artifact, IRegisterable
     {
         if (!combat.HasCardOnHand<ToggleMissileBay>())
         {
-            combat.Queue(new AAddCard
-            {
-                card = new ToggleMissileBay(),
-                destination = CardDestination.Hand
-            });
+            combat.Queue(
+                new AAddCard { card = new ToggleMissileBay(), destination = CardDestination.Hand }
+            );
         }
     }
 
@@ -80,7 +89,10 @@ internal sealed class SiriusMissileBay : Artifact, IRegisterable
         }
     }
 
-    private static void StuffBase_GetTooltips_Postfix(StuffBase __instance, ref List<Tooltip> __result)
+    private static void StuffBase_GetTooltips_Postfix(
+        StuffBase __instance,
+        ref List<Tooltip> __result
+    )
     {
         if (ModEntry.Instance.Helper.ModData.TryGetModData(__instance, "powerdown", out bool data))
         {
@@ -112,8 +124,6 @@ internal sealed class SiriusMissileBay : Artifact, IRegisterable
 
     public override List<Tooltip>? GetExtraTooltips()
     {
-        return [
-            new TTCard() { card = new ToggleMissileBay() }
-        ];
+        return [new TTCard() { card = new ToggleMissileBay() }];
     }
 }

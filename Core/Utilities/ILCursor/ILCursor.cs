@@ -153,7 +153,7 @@ internal sealed class ILCursor
     }
 
     public void EmitDelegate<T>(T del)
-    where T : Delegate
+        where T : Delegate
     {
         instructions.Insert(Index, CodeInstruction.CallClosure(del));
         Index += 1;

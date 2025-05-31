@@ -12,95 +12,116 @@ internal sealed class WolfRayetShip : IRegisterable
     internal static PType MissilePartType { get; private set; }
     internal static IPartEntry MissileSlot { get; private set; } = null!;
     internal static IPartEntry MissileEmptySlot { get; private set; } = null!;
-	internal static IShipEntry WolfRayetEntry { get; private set; } = null!;
-    private static string MissilePartTypeID = $"{ModEntry.Instance.Package.Manifest.UniqueName}::MissilePartType";
+    internal static IShipEntry WolfRayetEntry { get; private set; } = null!;
+    private static string MissilePartTypeID =
+        $"{ModEntry.Instance.Package.Manifest.UniqueName}::MissilePartType";
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
         HotStunModifier = helper.Utilities.ObtainEnumCase<PStunMod>();
         MissilePartType = helper.Utilities.ObtainEnumCase<PType>();
 
-        MissileSlot = helper.Content.Ships.RegisterPart("WolfRayetMissilesSlot", new()
-        {
-            Sprite = Sprites.wolf_rayet_missiles.Sprite,
-            DisabledSprite = Sprites.wolf_rayet_missiles_inactive.Sprite
-        });
-
-        MissileEmptySlot = helper.Content.Ships.RegisterPart("WolfRayetMissilesEmptySlot", new()
-        {
-            Sprite = Sprites.wolf_rayet_scaffolding.Sprite,
-            DisabledSprite = Sprites.wolf_rayet_scaffolding.Sprite
-        });
-
-
-        WolfRayetEntry = helper.Content.Ships.RegisterShip("WolfRayet", new()
-        {
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "WolfRayet", "name"]).Localize,
-            Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "WolfRayet", "description"]).Localize,
-            UnderChassisSprite = Sprites.wolf_rayet_chassis.Sprite,
-            Ship = new()
+        MissileSlot = helper.Content.Ships.RegisterPart(
+            "WolfRayetMissilesSlot",
+            new()
             {
-                ship = new()
+                Sprite = Sprites.wolf_rayet_missiles.Sprite,
+                DisabledSprite = Sprites.wolf_rayet_missiles_inactive.Sprite,
+            }
+        );
+
+        MissileEmptySlot = helper.Content.Ships.RegisterPart(
+            "WolfRayetMissilesEmptySlot",
+            new()
+            {
+                Sprite = Sprites.wolf_rayet_scaffolding.Sprite,
+                DisabledSprite = Sprites.wolf_rayet_scaffolding.Sprite,
+            }
+        );
+
+        WolfRayetEntry = helper.Content.Ships.RegisterShip(
+            "WolfRayet",
+            new()
+            {
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(["ship", "WolfRayet", "name"])
+                    .Localize,
+                Description = ModEntry
+                    .Instance.AnyLocalizations.Bind(["ship", "WolfRayet", "description"])
+                    .Localize,
+                UnderChassisSprite = Sprites.wolf_rayet_chassis.Sprite,
+                Ship = new()
                 {
-                    hull = 15,
-                    hullMax = 15,
-                    shieldMaxBase = 8,
-                    parts = [
-                        new Part()
-                        {
-                            type = PType.missiles,
-                            skin = helper.Content.Ships.RegisterPart("WolfRayetMissileBay", new ()
+                    ship = new()
+                    {
+                        hull = 15,
+                        hullMax = 15,
+                        shieldMaxBase = 8,
+                        parts =
+                        [
+                            new Part()
                             {
-                                Sprite = Sprites.wolf_rayet_misslebay.Sprite
-                            }).UniqueName,
-                        },
-                        new Part()
-                        {
-                            type = PType.cockpit,
-                            skin = helper.Content.Ships.RegisterPart("WolfRayetCockpit", new ()
+                                type = PType.missiles,
+                                skin = helper
+                                    .Content.Ships.RegisterPart(
+                                        "WolfRayetMissileBay",
+                                        new() { Sprite = Sprites.wolf_rayet_misslebay.Sprite }
+                                    )
+                                    .UniqueName,
+                            },
+                            new Part()
                             {
-                                Sprite = Sprites.wolf_rayet_cockpit.Sprite
-                            }).UniqueName
-                        },
-                        new Part()
-                        {
-                            type = MissilePartType,
-                            stunModifier = HotStunModifier,
-                            skin = MissileSlot.UniqueName,
-                            active = false
-                        },
-                        new Part()
-                        {
-                            type = MissilePartType,
-                            stunModifier = HotStunModifier,
-                            skin = MissileSlot.UniqueName,
-                            active = false
-                        },
-                        new Part()
-                        {
-                            type = MissilePartType,
-                            stunModifier = HotStunModifier,
-                            skin = MissileSlot.UniqueName,
-                            active = false
-                        },
-                        new Part()
-                        {
-                            type = PType.cannon,
-                            skin = helper.Content.Ships.RegisterPart("WolfRayetCannon", new ()
+                                type = PType.cockpit,
+                                skin = helper
+                                    .Content.Ships.RegisterPart(
+                                        "WolfRayetCockpit",
+                                        new() { Sprite = Sprites.wolf_rayet_cockpit.Sprite }
+                                    )
+                                    .UniqueName,
+                            },
+                            new Part()
                             {
-                                Sprite = Sprites.wolf_rayet_cannon.Sprite
-                            }).UniqueName,
-                        },
-                    ]
+                                type = MissilePartType,
+                                stunModifier = HotStunModifier,
+                                skin = MissileSlot.UniqueName,
+                                active = false,
+                            },
+                            new Part()
+                            {
+                                type = MissilePartType,
+                                stunModifier = HotStunModifier,
+                                skin = MissileSlot.UniqueName,
+                                active = false,
+                            },
+                            new Part()
+                            {
+                                type = MissilePartType,
+                                stunModifier = HotStunModifier,
+                                skin = MissileSlot.UniqueName,
+                                active = false,
+                            },
+                            new Part()
+                            {
+                                type = PType.cannon,
+                                skin = helper
+                                    .Content.Ships.RegisterPart(
+                                        "WolfRayetCannon",
+                                        new() { Sprite = Sprites.wolf_rayet_cannon.Sprite }
+                                    )
+                                    .UniqueName,
+                            },
+                        ],
+                    },
+                    artifacts = [new ShieldPrep(), new HeatShield(), new DeliveryNote()],
+                    cards =
+                    [
+                        new CannonColorless(),
+                        new DodgeColorless(),
+                        new BasicShieldColorless(),
+                    ],
                 },
-                artifacts = [new ShieldPrep(), new HeatShield(), new DeliveryNote()],
-                cards = [
-                    new CannonColorless(),
-                    new DodgeColorless(),
-                    new BasicShieldColorless(),
-                ]
-            },
-        });
+            }
+        );
 
         ModEntry.Instance.Harmony.Patch(
             AccessTools.DeclaredMethod(typeof(Ship), nameof(Ship.RenderPartUI)),
@@ -124,14 +145,17 @@ internal sealed class WolfRayetShip : IRegisterable
         );
 
         ModEntry.Instance.Harmony.Patch(
-            original: AccessTools.DeclaredMethod(typeof(ArtifactReward), nameof(ArtifactReward.GetBlockedArtifacts)),
+            original: AccessTools.DeclaredMethod(
+                typeof(ArtifactReward),
+                nameof(ArtifactReward.GetBlockedArtifacts)
+            ),
             postfix: new HarmonyMethod(ArtifactReward_GetBlockedArtifacts_Postfix)
         );
 
         EnumExtensions.partStrs[MissilePartType] = MissilePartTypeID;
     }
 
-    internal static void ArtifactReward_GetBlockedArtifacts_Postfix(HashSet<Type> __result, State s) 
+    internal static void ArtifactReward_GetBlockedArtifacts_Postfix(HashSet<Type> __result, State s)
     {
         if (s.ship.key != WolfRayetEntry.UniqueName)
         {
@@ -152,11 +176,17 @@ internal sealed class WolfRayetShip : IRegisterable
         }
     }
 
-    private static bool TTGlossary_BuildIconAndText_Prefix(TTGlossary __instance, ref ValueTuple<Spr?, string> __result)
+    private static bool TTGlossary_BuildIconAndText_Prefix(
+        TTGlossary __instance,
+        ref ValueTuple<Spr?, string> __result
+    )
     {
         if (__instance.key == "part." + MissilePartTypeID)
         {
-            __result = (null, ModEntry.Instance.Localizations.Localize(["parttype", "Missile", "name"]));
+            __result = (
+                null,
+                ModEntry.Instance.Localizations.Localize(["parttype", "Missile", "name"])
+            );
             return false;
         }
 
@@ -188,14 +218,24 @@ internal sealed class WolfRayetShip : IRegisterable
         }
     }
 
-    private static void Ship_RenderPartUI_Postfix(Ship __instance, G g, Part part, int localX, string keyPrefix, bool isPreview)
+    private static void Ship_RenderPartUI_Postfix(
+        Ship __instance,
+        G g,
+        Part part,
+        int localX,
+        string keyPrefix,
+        bool isPreview
+    )
     {
         if (part.invincible || part.stunModifier != HotStunModifier)
         {
             return;
         }
 
-        if (g.boxes.FirstOrDefault(b => b.key == new UIKey(StableUK.part, localX, keyPrefix)) is not { } box)
+        if (
+            g.boxes.FirstOrDefault(b => b.key == new UIKey(StableUK.part, localX, keyPrefix))
+            is not { } box
+        )
         {
             return;
         }
@@ -207,7 +247,10 @@ internal sealed class WolfRayetShip : IRegisterable
         Draw.Sprite(StableSpr.icons_heat, v.x + 9, v.y, color: color);
     }
 
-    private static IEnumerable<CodeInstruction> Ship_RenderPartUI_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+    private static IEnumerable<CodeInstruction> Ship_RenderPartUI_Transpiler(
+        IEnumerable<CodeInstruction> instructions,
+        ILGenerator generator
+    )
     {
         var cursor = new ILCursor(generator, instructions);
 
@@ -233,36 +276,54 @@ internal sealed class WolfRayetShip : IRegisterable
         cursor.Emit(OpCodes.Ldarg_1);
         cursor.Emit(OpCodes.Ldarg_3);
         cursor.Emit(OpCodes.Ldloc_S, bb);
-        cursor.EmitDelegate((G g, Part part, Box bb) =>
-        {
-            if (!bb.IsHover())
+        cursor.EmitDelegate(
+            (G g, Part part, Box bb) =>
             {
-                return;
-            }
-
-            Vec ttPos = bb.rect.xy + new Vec(16.0, 0.0);
-
-            if (part.type == MissilePartType)
-            {
-                g.tooltips.Add(ttPos, new GlossaryTooltip($"{ModEntry.Instance.Package.Manifest.UniqueName}::MissilePartType")
+                if (!bb.IsHover())
                 {
-                    Description = ModEntry.Instance.Localizations.Localize(["parttype", "Missile", "description"])
-                });
-            }
+                    return;
+                }
 
-            if (part.stunModifier == HotStunModifier)
-            {
-                g.tooltips.Add(ttPos, new GlossaryTooltip($"{ModEntry.Instance.Package.Manifest.UniqueName}::HotStunModifier")
+                Vec ttPos = bb.rect.xy + new Vec(16.0, 0.0);
+
+                if (part.type == MissilePartType)
                 {
-                    Title = ModEntry.Instance.Localizations.Localize(["parttrait", "Hot", "name"]),
-                    TitleColor = Colors.parttrait,
-                    Description = ModEntry.Instance.Localizations.Localize(["parttrait", "Hot", "description"]),
-                    Icon = StableSpr.icons_heat
-                });
+                    g.tooltips.Add(
+                        ttPos,
+                        new GlossaryTooltip(
+                            $"{ModEntry.Instance.Package.Manifest.UniqueName}::MissilePartType"
+                        )
+                        {
+                            Description = ModEntry.Instance.Localizations.Localize(
+                                ["parttype", "Missile", "description"]
+                            ),
+                        }
+                    );
+                }
 
-                g.tooltips.Add(ttPos, new TTGlossary("status.heat", $"<c=boldPink>{3}</c>"));
+                if (part.stunModifier == HotStunModifier)
+                {
+                    g.tooltips.Add(
+                        ttPos,
+                        new GlossaryTooltip(
+                            $"{ModEntry.Instance.Package.Manifest.UniqueName}::HotStunModifier"
+                        )
+                        {
+                            Title = ModEntry.Instance.Localizations.Localize(
+                                ["parttrait", "Hot", "name"]
+                            ),
+                            TitleColor = Colors.parttrait,
+                            Description = ModEntry.Instance.Localizations.Localize(
+                                ["parttrait", "Hot", "description"]
+                            ),
+                            Icon = StableSpr.icons_heat,
+                        }
+                    );
+
+                    g.tooltips.Add(ttPos, new TTGlossary("status.heat", $"<c=boldPink>{3}</c>"));
+                }
             }
-        });
+        );
 
         return cursor.Generate();
     }

@@ -6,56 +6,55 @@ namespace Teuria.StarcourseDock;
 
 internal class DodgeOrShift : Card, IRegisterable
 {
-	public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
+    public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        helper.Content.Cards.RegisterCard(MethodBase.GetCurrentMethod()!.DeclaringType!.Name, new() 
-        {
-            CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new() 
+        helper.Content.Cards.RegisterCard(
+            MethodBase.GetCurrentMethod()!.DeclaringType!.Name,
+            new()
             {
-                deck = Deck.colorless,
-                rarity = Rarity.common,
-                upgradesTo = [Upgrade.A, Upgrade.B],
-                dontOffer = true
-            },
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "card", "DodgeOrShift", "name"]).Localize
-        });
+                CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
+                Meta = new()
+                {
+                    deck = Deck.colorless,
+                    rarity = Rarity.common,
+                    upgradesTo = [Upgrade.A, Upgrade.B],
+                    dontOffer = true,
+                },
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Spica", "card", "DodgeOrShift", "name"]
+                    )
+                    .Localize,
+            }
+        );
     }
 
     public override CardData GetData(State state)
     {
-        CardData result = upgrade switch 
+        CardData result = upgrade switch
         {
-            Upgrade.A => new()
-            {
-                cost = 0,
-                floppable = true
-            },
-            Upgrade.B => new()
-            {
-                cost = 1,
-                floppable = true
-            },
-            _ => new()
-            {
-                cost = 1,
-                floppable = true
-            },
+            Upgrade.A => new() { cost = 0, floppable = true },
+            Upgrade.B => new() { cost = 1, floppable = true },
+            _ => new() { cost = 1, floppable = true },
         };
-        result.art = this.flipped ? Sprites.DodgeOrShift_Bottom.Sprite : Sprites.DodgeOrShift_Top.Sprite;
+        result.art = this.flipped
+            ? Sprites.DodgeOrShift_Bottom.Sprite
+            : Sprites.DodgeOrShift_Top.Sprite;
         return result;
     }
 
     public override List<CardAction> GetActions(State s, Combat c)
     {
-        return upgrade switch {
-            Upgrade.A => [
+        return upgrade switch
+        {
+            Upgrade.A =>
+            [
                 new AStatus()
                 {
                     status = Status.evade,
                     statusAmount = 1,
                     targetPlayer = true,
-                    disabled = flipped
+                    disabled = flipped,
                 },
                 new ADummyAction(),
                 new AStatus()
@@ -63,16 +62,17 @@ internal class DodgeOrShift : Card, IRegisterable
                     status = Status.droneShift,
                     statusAmount = 1,
                     targetPlayer = true,
-                    disabled = !flipped
+                    disabled = !flipped,
                 },
             ],
-            Upgrade.B => [
+            Upgrade.B =>
+            [
                 new AStatus()
                 {
                     status = Status.evade,
                     statusAmount = 2,
                     targetPlayer = true,
-                    disabled = flipped
+                    disabled = flipped,
                 },
                 new ADummyAction(),
                 new AStatus()
@@ -80,16 +80,17 @@ internal class DodgeOrShift : Card, IRegisterable
                     status = Status.droneShift,
                     statusAmount = 2,
                     targetPlayer = true,
-                    disabled = !flipped
+                    disabled = !flipped,
                 },
             ],
-            _ => [
+            _ =>
+            [
                 new AStatus()
                 {
                     status = Status.evade,
                     statusAmount = 1,
                     targetPlayer = true,
-                    disabled = flipped
+                    disabled = flipped,
                 },
                 new ADummyAction(),
                 new AStatus()
@@ -97,7 +98,7 @@ internal class DodgeOrShift : Card, IRegisterable
                     status = Status.droneShift,
                     statusAmount = 1,
                     targetPlayer = true,
-                    disabled = !flipped
+                    disabled = !flipped,
                 },
             ],
         };

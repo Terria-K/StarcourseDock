@@ -8,31 +8,35 @@ internal class Shrink : Card, IRegisterable
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        var spicaDeck = helper.Content.Decks.RegisterDeck("Spica", new()
-        {
-            Definition = new()
+        var spicaDeck = helper.Content.Decks.RegisterDeck(
+            "Spica",
+            new()
             {
-                color = new Color("5a7752"),
-                titleColor = Colors.white
-            },
-            DefaultCardArt = StableSpr.cards_colorless,
-            BorderSprite = Sprites.border_spica.Sprite,
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "name"]).Localize
-        });
+                Definition = new() { color = new Color("5a7752"), titleColor = Colors.white },
+                DefaultCardArt = StableSpr.cards_colorless,
+                BorderSprite = Sprites.border_spica.Sprite,
+                Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "name"]).Localize,
+            }
+        );
 
-        helper.Content.Cards.RegisterCard(MethodBase.GetCurrentMethod()!.DeclaringType!.Name, new()
-        {
-            CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new()
+        helper.Content.Cards.RegisterCard(
+            MethodBase.GetCurrentMethod()!.DeclaringType!.Name,
+            new()
             {
-                deck = spicaDeck.Deck,
-                rarity = Rarity.common,
-                upgradesTo = [Upgrade.A],
-                dontOffer = true
-            },
-            Art = StableSpr.cards_ScootLeft,
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "card", "Shrink", "name"]).Localize,
-        });
+                CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
+                Meta = new()
+                {
+                    deck = spicaDeck.Deck,
+                    rarity = Rarity.common,
+                    upgradesTo = [Upgrade.A],
+                    dontOffer = true,
+                },
+                Art = StableSpr.cards_ScootLeft,
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(["ship", "Spica", "card", "Shrink", "name"])
+                    .Localize,
+            }
+        );
     }
 
     public override CardData GetData(State state)
@@ -44,22 +48,30 @@ internal class Shrink : Card, IRegisterable
             temporary = true,
             flippable = true,
             cost = 1,
-            art = flipped ? StableSpr.cards_ScootRight : StableSpr.cards_ScootLeft
+            art = flipped ? StableSpr.cards_ScootRight : StableSpr.cards_ScootLeft,
         };
         return upgrade switch
         {
             Upgrade.A => cardData with
             {
                 description = flipped
-                    ? ModEntry.Instance.Localizations.Localize(["ship", "Spica", "card", "Shrink_Flipped", "A", "description"])
-                    : ModEntry.Instance.Localizations.Localize(["ship", "Spica", "card", "Shrink", "A", "description"])
+                    ? ModEntry.Instance.Localizations.Localize(
+                        ["ship", "Spica", "card", "Shrink_Flipped", "A", "description"]
+                    )
+                    : ModEntry.Instance.Localizations.Localize(
+                        ["ship", "Spica", "card", "Shrink", "A", "description"]
+                    ),
             },
             _ => cardData with
             {
                 description = flipped
-                    ? ModEntry.Instance.Localizations.Localize(["ship", "Spica", "card", "Shrink_Flipped", "description"])
-                    : ModEntry.Instance.Localizations.Localize(["ship", "Spica", "card", "Shrink", "description"])
-            }
+                    ? ModEntry.Instance.Localizations.Localize(
+                        ["ship", "Spica", "card", "Shrink_Flipped", "description"]
+                    )
+                    : ModEntry.Instance.Localizations.Localize(
+                        ["ship", "Spica", "card", "Shrink", "description"]
+                    ),
+            },
         };
     }
 
@@ -68,7 +80,7 @@ internal class Shrink : Card, IRegisterable
         return upgrade switch
         {
             Upgrade.A => [new AMerge() { flipped = flipped }],
-            _ => [new AMergeScaffold() { flipped = flipped }]
+            _ => [new AMergeScaffold() { flipped = flipped }],
         };
     }
 }

@@ -8,26 +8,39 @@ internal sealed class CrystalCoreV2 : Artifact, IRegisterable
 {
     public List<Part>? tempParts;
 
-	public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
-	{
-		helper.Content.Artifacts.RegisterArtifact("CrystalCoreV2", new()
-		{
-			ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-			Meta = new()
-			{
-				owner = Deck.colorless,
-				pools = [ArtifactPool.Boss],
-				unremovable = true,
-			},
-			Sprite = Sprites.CrystalCoreV2.Sprite,
-			Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Gliese", "artifact", "CrystalCoreV2", "name"]).Localize,
-			Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Gliese", "artifact", "CrystalCoreV2", "description"]).Localize
-		});
+    public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
+    {
+        helper.Content.Artifacts.RegisterArtifact(
+            "CrystalCoreV2",
+            new()
+            {
+                ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
+                Meta = new()
+                {
+                    owner = Deck.colorless,
+                    pools = [ArtifactPool.Boss],
+                    unremovable = true,
+                },
+                Sprite = Sprites.CrystalCoreV2.Sprite,
+                Name = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Gliese", "artifact", "CrystalCoreV2", "name"]
+                    )
+                    .Localize,
+                Description = ModEntry
+                    .Instance.AnyLocalizations.Bind(
+                        ["ship", "Gliese", "artifact", "CrystalCoreV2", "description"]
+                    )
+                    .Localize,
+            }
+        );
     }
 
     public override void OnReceiveArtifact(State state)
     {
-        state.GetCurrentQueue().QueueImmediate(new ALoseArtifact { artifactType = new CrystalCore().Key() });
+        state
+            .GetCurrentQueue()
+            .QueueImmediate(new ALoseArtifact { artifactType = new CrystalCore().Key() });
     }
 
     public override void OnTurnStart(State state, Combat combat)
@@ -35,7 +48,9 @@ internal sealed class CrystalCoreV2 : Artifact, IRegisterable
         if (combat.turn == 1)
         {
             tempParts = [.. state.ship.parts];
-            combat.Queue(new AAddCard() { card = new AbsoluteZero(), destination = CardDestination.Deck });
+            combat.Queue(
+                new AAddCard() { card = new AbsoluteZero(), destination = CardDestination.Deck }
+            );
             return;
         }
 
@@ -50,23 +65,31 @@ internal sealed class CrystalCoreV2 : Artifact, IRegisterable
     public override void OnCombatEnd(State state)
     {
         state.rewardsQueue.QueueImmediate(new ARepairAllBrokenPart());
-        state.rewardsQueue.QueueImmediate(new AResetShip
-        {
-            parts = tempParts
-        });
+        state.rewardsQueue.QueueImmediate(new AResetShip { parts = tempParts });
     }
 
-    public override void OnPlayerTakeNormalDamage(State state, Combat combat, int rawAmount, Part? part)
+    public override void OnPlayerTakeNormalDamage(
+        State state,
+        Combat combat,
+        int rawAmount,
+        Part? part
+    )
     {
         if (part != null && part.key == "portal")
         {
-            state.ship.InsertPart(state, "portal", "portal", false, new Part() 
-            {
-                type = PType.cannon,
-                skin = GlieseShip.GlieseCannonTemp.UniqueName,
-                stunModifier = PStunMod.breakable,
-                key = "crystal_tempcannon::StarcourseDock"
-            });
+            state.ship.InsertPart(
+                state,
+                "portal",
+                "portal",
+                false,
+                new Part()
+                {
+                    type = PType.cannon,
+                    skin = GlieseShip.GlieseCannonTemp.UniqueName,
+                    stunModifier = PStunMod.breakable,
+                    key = "crystal_tempcannon::StarcourseDock",
+                }
+            );
         }
     }
 

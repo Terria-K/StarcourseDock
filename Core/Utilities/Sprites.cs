@@ -1,5 +1,5 @@
-using Nickel;
 using Nanoray.PluginManager;
+using Nickel;
 
 namespace Teuria.StarcourseDock;
 
@@ -385,5 +385,4 @@ public static partial class Sprites
             package.PackageRoot.GetRelativeFile("assets/parts/wolf_rayet_scaffolding.png")
         );
     }
-
 }
