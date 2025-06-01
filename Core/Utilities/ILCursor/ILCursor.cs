@@ -166,13 +166,13 @@ internal sealed class ILCursor
 
     public void MarkLabel(in Label label)
     {
-        MarkLabel(label, Instruction);
+        MarkLabel(label, Next);
     }
 
     public Label MarkLabel()
     {
         var label = CreateLabel();
-        MarkLabel(label, Instruction);
+        MarkLabel(label, Next);
         return label;
     }
 

@@ -110,9 +110,9 @@ internal class SiriusQuestion : Card, IRegisterable
 
         cursor.GotoNext(
             MoveType.After,
-            instr => instr.MatchContains("DeepCopy"),
-            instr => instr.MatchContains("attackCopy"),
-            instr => instr.MatchContains("QueueImmediate")
+            instr => instr.MatchCall("DeepCopy"),
+            instr => instr.MatchStfld("attackCopy"),
+            instr => instr.MatchCallvirt("QueueImmediate")
         );
 
         cursor.Emit(OpCodes.Ldarg_0);
