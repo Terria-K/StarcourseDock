@@ -212,7 +212,7 @@ internal class RoutedCannon : Artifact, IRegisterable
     {
         var cursor = new ILCursor(generator, instructions);
 
-        cursor.GotoNext(MoveType.After, instr => instr.MatchContains("GetPartTypeCount"));
+        cursor.GotoNext(MoveType.After, instr => instr.MatchCallvirt("GetPartTypeCount"));
 
         cursor.Emit(OpCodes.Ldarg_0);
         cursor.Emit(OpCodes.Ldarg_2);

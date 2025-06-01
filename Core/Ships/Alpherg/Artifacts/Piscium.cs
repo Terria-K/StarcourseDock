@@ -71,7 +71,7 @@ internal class Piscium : Artifact, IRegisterable
     {
         var cursor = new ILCursor(generator, instructions);
 
-        cursor.GotoNext(instr => instr.MatchContains("AVolleyAttackFromAllCannons"));
+        cursor.GotoNext(instr => instr.MatchNewobj<AVolleyAttackFromAllCannons>());
 
         cursor.GotoPrev();
 

@@ -265,7 +265,7 @@ internal sealed class WolfRayetShip : IRegisterable
         cursor.GotoNext(
             MoveType.After,
             instr => instr.Match(OpCodes.Ldarg_1),
-            instr => instr.MatchContains("tutorial"),
+            instr => instr.MatchLdfld("tutorial"),
             instr => instr.Match(OpCodes.Ldarg_1),
             instr => instr.Match(OpCodes.Ldarg_0),
             instr => instr.Match(OpCodes.Ldarg_3),
