@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Reflection.Emit;
+using CutebaltCore;
 using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
@@ -37,16 +38,6 @@ internal class Piscium : Artifact, IRegisterable
                     .Localize,
             }
         );
-
-        ModEntry.Instance.Harmony.Patch(
-            AccessTools.DeclaredMethod(typeof(AAttack), nameof(AAttack.Begin)),
-            transpiler: new HarmonyMethod(AAttack_Begin_Transpiler)
-        );
-
-        ModEntry.Instance.Harmony.Patch(
-            AccessTools.DeclaredMethod(typeof(AVolleyAttackFromAllCannons), nameof(AAttack.Begin)),
-            prefix: new HarmonyMethod(AVolleyAttackFromAllCannons_Begin_Prefix)
-        );
     }
 
     public override void OnTurnStart(State state, Combat combat)
@@ -57,63 +48,16 @@ internal class Piscium : Artifact, IRegisterable
         }
     }
 
+    public override void OnCombatEnd(State state)
+    {
+        state.rewardsQueue.QueueImmediate(new ASwapScaffold() { isRight = isRight });
+    }
+
+    public static AAttack? aAttack;
+
     public override void OnTurnEnd(State state, Combat combat)
     {
         aAttack = null;
-    }
-
-    private static AAttack? aAttack;
-
-    internal static IEnumerable<CodeInstruction> AAttack_Begin_Transpiler(
-        IEnumerable<CodeInstruction> instructions,
-        ILGenerator generator
-    )
-    {
-        var cursor = new ILCursor(generator, instructions);
-
-        cursor.GotoNext(instr => instr.MatchNewobj<AVolleyAttackFromAllCannons>());
-
-        cursor.GotoPrev();
-
-        cursor.Emit(OpCodes.Ldarg_0);
-        cursor.Emit(OpCodes.Ldarg_2);
-        cursor.EmitDelegate(
-            (AAttack __instance, State s) =>
-            {
-                ModEntry.Instance.Helper.ModData.SetModData(__instance, "piscium.volley", true);
-                aAttack = __instance;
-            }
-        );
-
-        return cursor.Generate();
-    }
-
-    public static void AVolleyAttackFromAllCannons_Begin_Prefix(
-        AVolleyAttackFromAllCannons __instance,
-        State s,
-        Combat c
-    )
-    {
-        if (
-            ModEntry.Instance.Helper.ModData.TryGetModData(
-                __instance.attack,
-                "piscium.volley",
-                out bool data
-            )
-        )
-        {
-            if (data)
-            {
-                var piscium = s.GetArtifact<Piscium>();
-                if (piscium is null)
-                {
-                    return;
-                }
-
-                piscium.isRight = !piscium.isRight;
-                c.QueueImmediate(new ASwapScaffold() { isRight = piscium.isRight });
-            }
-        }
     }
 
     public override void OnPlayerAttack(State state, Combat combat)

@@ -9,7 +9,7 @@ internal class AFreeze : CardAction
 
     public override void Begin(G g, State s, Combat c)
     {
-        Ship target = (this.targetPlayer ? s.ship : c.otherShip);
+        global::Ship target = (this.targetPlayer ? s.ship : c.otherShip);
         if (target == null)
         {
             return;

@@ -7,7 +7,7 @@ internal sealed class AAddMissile : CardAction
 
     public override void Begin(G g, State s, Combat c)
     {
-        Ship target = (targetPlayer ? s.ship : c.otherShip);
+        global::Ship target = (targetPlayer ? s.ship : c.otherShip);
 
         Part? part = target.GetPartAtLocalX(x);
 

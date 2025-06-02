@@ -5,9 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Version>1.6.0</Version>
-    <GameExePath>../../../CobaltCore.exe</GameExePath>
-    <GameDllPath>../../../CobaltCore.dll</GameDllPath>
-    <ModLoaderPath>../../</ModLoaderPath>
+    <GameExePath>../../../../CobaltCore.exe</GameExePath>
+    <GameDllPath>../../../../CobaltCore.dll</GameDllPath>
+    <ModLoaderPath>../../../</ModLoaderPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +24,13 @@
       Version="1.1.2"
       PrivateAssets="All"
       ExcludeAssets="runtime"
+    />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../CutebaltCore/CutebaltCore.csproj"
+      OutputItemType="Analyzer"  
+      ReferenceOutputAssembly="false"
     />
   </ItemGroup>
 </Project>

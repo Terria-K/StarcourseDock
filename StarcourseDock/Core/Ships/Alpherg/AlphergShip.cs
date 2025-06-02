@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Reflection.Emit;
+using CutebaltCore;
 using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
@@ -143,21 +144,5 @@ internal sealed class AlphergShip : IRegisterable
                 },
             }
         );
-
-        ModEntry.Instance.Harmony.Patch(
-            original: AccessTools.DeclaredMethod(typeof(StoryNode), nameof(StoryNode.Filter)),
-            prefix: new HarmonyMethod(StoryNode_Filter_Prefix)
-        );
-    }
-
-    internal static bool StoryNode_Filter_Prefix(string key, State s, ref bool __result)
-    {
-        if (s.ship.key == AlphergEntry.UniqueName && key == "AddScaffold")
-        {
-            __result = false;
-            return false;
-        }
-
-        return true;
     }
 }

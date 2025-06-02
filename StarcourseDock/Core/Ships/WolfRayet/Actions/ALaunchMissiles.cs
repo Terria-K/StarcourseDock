@@ -7,7 +7,7 @@ internal sealed class ALaunchMissiles : CardAction
     public override void Begin(G g, State s, Combat c)
     {
         timer = 1;
-        Ship target = (targetPlayer ? s.ship : c.otherShip);
+        global::Ship target = (targetPlayer ? s.ship : c.otherShip);
 
         for (int i = 0; i < target.parts.Count; i++)
         {

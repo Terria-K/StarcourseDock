@@ -43,7 +43,7 @@ internal sealed class AToggleMissileBay : CardAction
 
     private AToggleMissileBay.Res? GetNextEnabledPartX(State s, Combat c)
     {
-        Ship target = s.ship;
+        global::Ship target = s.ship;
         if (target == null)
         {
             return null;
@@ -106,7 +106,7 @@ internal sealed class AToggleMissileBay : CardAction
 
     private class Res
     {
-        public Ship? target;
+        public global::Ship? target;
         public int currentPartX;
         public int nextPartX;
     }

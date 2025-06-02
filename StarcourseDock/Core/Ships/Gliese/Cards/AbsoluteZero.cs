@@ -1,4 +1,5 @@
 using System.Reflection;
+using CutebaltCore;
 using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
@@ -28,11 +29,6 @@ internal class AbsoluteZero : Card, IRegisterable
                     .Localize,
             }
         );
-
-        ModEntry.Instance.Harmony.Patch(
-            AccessTools.DeclaredMethod(typeof(Card), nameof(Card.GetActualDamage)),
-            postfix: new HarmonyMethod(Card_GetActualDamage_Postfix)
-        );
     }
 
     public override CardData GetData(State state)
@@ -52,25 +48,5 @@ internal class AbsoluteZero : Card, IRegisterable
     public override List<CardAction> GetActions(State s, Combat c)
     {
         return [new AShuffleShip() { targetPlayer = true }];
-    }
-
-    private static void Card_GetActualDamage_Postfix(State s, bool targetPlayer, ref int __result)
-    {
-        if (targetPlayer)
-        {
-            return;
-        }
-
-        Combat? combat = s.route as Combat;
-
-        if (combat == null)
-        {
-            return;
-        }
-
-        if (combat.hand.OfType<AbsoluteZero>().Any())
-        {
-            __result = 0;
-        }
     }
 }

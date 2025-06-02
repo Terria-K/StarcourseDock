@@ -1,4 +1,5 @@
 using System.Reflection;
+using CutebaltCore;
 using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
@@ -34,26 +35,6 @@ internal sealed class SiriusMissileBay : Artifact, IRegisterable
                     .Localize,
             }
         );
-
-        ModEntry.Instance.Harmony.Patch(
-            AccessTools.DeclaredMethod(typeof(AAttack), nameof(AAttack.Begin)),
-            new HarmonyMethod(AAttack_Begin_Prefix)
-        );
-
-        ModEntry.Instance.Harmony.Patch(
-            AccessTools.DeclaredMethod(typeof(ASpawn), nameof(ASpawn.Begin)),
-            new HarmonyMethod(ASpawn_Begin_Prefix)
-        );
-
-        ModEntry.Instance.Harmony.PatchVirtual(
-            AccessTools.DeclaredMethod(typeof(StuffBase), nameof(StuffBase.GetTooltips)),
-            postfix: new HarmonyMethod(StuffBase_GetTooltips_Postfix)
-        );
-
-        ModEntry.Instance.Harmony.PatchVirtual(
-            AccessTools.DeclaredMethod(typeof(StuffBase), nameof(StuffBase.Render)),
-            postfix: new HarmonyMethod(StuffBase_Render_Postfix)
-        );
     }
 
     public override void OnTurnStart(State state, Combat combat)
@@ -63,67 +44,6 @@ internal sealed class SiriusMissileBay : Artifact, IRegisterable
             combat.Queue(
                 new AAddCard { card = new ToggleMissileBay(), destination = CardDestination.Hand }
             );
-        }
-    }
-
-    private static void ASpawn_Begin_Prefix(ASpawn __instance, State s, Combat c)
-    {
-        Ship target = (__instance.fromPlayer ? s.ship : c.otherShip);
-        if (target.Get(BayPowerDownStatus.BayPowerDownEntry.Status) > 0)
-        {
-            ModEntry.Instance.Helper.ModData.SetModData(__instance.thing, "powerdown", true);
-            target.Add(BayPowerDownStatus.BayPowerDownEntry.Status, -1);
-        }
-    }
-
-    private static void StuffBase_Render_Postfix(StuffBase __instance, G g, Vec v)
-    {
-        if (ModEntry.Instance.Helper.ModData.TryGetModData(__instance, "powerdown", out bool data))
-        {
-            if (data)
-            {
-                var color = new Color(1, 1, 1, 0.8 + Math.Sin(g.state.time * 4.0) * 0.3);
-                Vec offset = v + __instance.GetOffset(g);
-                Draw.Sprite(
-                    Sprites.icons_power_down.Sprite,
-                    offset.x + 7,
-                    offset.y + 16,
-                    color: color
-                );
-            }
-        }
-    }
-
-    private static void StuffBase_GetTooltips_Postfix(
-        StuffBase __instance,
-        ref List<Tooltip> __result
-    )
-    {
-        if (ModEntry.Instance.Helper.ModData.TryGetModData(__instance, "powerdown", out bool data))
-        {
-            if (data)
-            {
-                __result.Add(BayPowerDownStatus.PowerDownTooltip());
-            }
-        }
-    }
-
-    private static void AAttack_Begin_Prefix(AAttack __instance, State s, Combat c)
-    {
-        if (__instance.fromDroneX != null)
-        {
-            if (!c.stuff.TryGetValue(__instance.fromDroneX.Value, out StuffBase? midrow))
-            {
-                return;
-            }
-
-            if (ModEntry.Instance.Helper.ModData.TryGetModData(midrow, "powerdown", out bool data))
-            {
-                if (data)
-                {
-                    __instance.damage -= 1;
-                }
-            }
         }
     }
 
