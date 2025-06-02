@@ -1,4 +1,5 @@
 using System.Reflection.Emit;
+using CutebaltCore;
 using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
@@ -94,23 +95,5 @@ internal sealed class SiriusShip : IRegisterable
                 },
             }
         );
-
-        ModEntry.Instance.Harmony.Patch(
-            original: AccessTools.DeclaredMethod(
-                typeof(ArtifactReward),
-                nameof(ArtifactReward.GetBlockedArtifacts)
-            ),
-            postfix: new HarmonyMethod(ArtifactReward_GetBlockedArtifacts_Postfix)
-        );
-    }
-
-    internal static void ArtifactReward_GetBlockedArtifacts_Postfix(HashSet<Type> __result, State s)
-    {
-        if (s.ship.key != SiriusEntry.UniqueName)
-        {
-            __result.Add(typeof(SiriusSubwoofer));
-            __result.Add(typeof(SiriusMissileBayV2));
-            __result.Add(typeof(SiriusInquisitor));
-        }
     }
 }

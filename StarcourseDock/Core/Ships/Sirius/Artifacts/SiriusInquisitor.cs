@@ -1,4 +1,5 @@
 using System.Reflection;
+using CutebaltCore;
 using Microsoft.Xna.Framework.Graphics;
 using Nanoray.PluginManager;
 using Nickel;

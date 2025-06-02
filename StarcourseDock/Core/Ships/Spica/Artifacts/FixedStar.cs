@@ -1,4 +1,5 @@
 using System.Reflection;
+using CutebaltCore;
 using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
@@ -36,30 +37,6 @@ internal class FixedStar : Artifact, IRegisterable
         );
 
         ModEntry.Instance.KokoroAPI.V2.EvadeHook.RegisterHook(new FixedStarHook(), 10);
-
-        ModEntry.Instance.Harmony.Patch(
-            AccessTools.DeclaredMethod(typeof(AMove), nameof(AMove.Begin)),
-            prefix: new HarmonyMethod(AMove_Begin_Prefix)
-        );
-    }
-
-    public static bool AMove_Begin_Prefix(AMove __instance, State s, Combat c)
-    {
-        if (s.HasArtifact<FixedStar>() && __instance.targetPlayer && __instance.fromEvade)
-        {
-            __instance.timer = 0f;
-            c.QueueImmediate(
-                new ACannonMove()
-                {
-                    dir = __instance.dir,
-                    ignoreHermes = __instance.ignoreHermes,
-                    preferRightWhenZero = __instance.preferRightWhenZero,
-                }
-            );
-            return false;
-        }
-
-        return true;
     }
 
     public override List<Tooltip>? GetExtraTooltips()

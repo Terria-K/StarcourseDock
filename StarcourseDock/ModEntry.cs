@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using CutebaltCore;
 using Microsoft.Extensions.Logging;
 using Nanoray.PluginManager;
 using Nickel;
@@ -36,7 +37,9 @@ public sealed partial class ModEntry : SimpleMod
         Animation.InitPatch();
         KokoroAPI = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!;
         Sprites.Register(package, helper);
+
         Registerables.Register(package, helper);
+        Patchables.Patch(Harmony);
 
         Patch(Harmony);
     }

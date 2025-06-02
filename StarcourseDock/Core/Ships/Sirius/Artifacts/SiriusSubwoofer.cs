@@ -1,4 +1,5 @@
 using System.Reflection;
+using CutebaltCore;
 using Nanoray.PluginManager;
 using Nickel;
 using ZLinq;

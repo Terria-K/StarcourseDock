@@ -1,3 +1,4 @@
+using CutebaltCore;
 using Nanoray.PluginManager;
 using Nickel;
 

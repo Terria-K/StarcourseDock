@@ -1,4 +1,5 @@
 using System.Reflection.Emit;
+using CutebaltCore;
 using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
@@ -153,49 +154,5 @@ internal sealed class GlieseShip : IRegisterable
                 },
             }
         );
-
-        ModEntry.Instance.Harmony.Patch(
-            AccessTools.DeclaredMethod(
-                typeof(ArtifactReward),
-                nameof(ArtifactReward.GetBlockedArtifacts)
-            ),
-            postfix: new HarmonyMethod(ArtifactReward_GetBlockedArtifacts)
-        );
-
-        ModEntry.Instance.Harmony.Patch(
-            AccessTools.DeclaredMethod(typeof(Part), nameof(Part.GetBrokenPartSkin)),
-            postfix: new HarmonyMethod(Part_GetBrokenPartSkin_Postfix)
-        );
-    }
-
-    private static void ArtifactReward_GetBlockedArtifacts(HashSet<Type> __result, State s)
-    {
-        if (s.ship.key != GlieseEntry.UniqueName)
-        {
-            __result.Add(typeof(CrystalCoreV2));
-        }
-        if (s.ship.key == GlieseEntry.UniqueName)
-        {
-            __result.Add(typeof(StunCalibrator));
-        }
-    }
-
-    private static void Part_GetBrokenPartSkin_Postfix(Part __instance, ref string __result)
-    {
-        switch (__instance.key)
-        {
-            case "crystal1::StarcourseDock":
-                __result = GlieseScaffolding1.UniqueName;
-                break;
-            case "crystal2::StarcourseDock":
-                __result = GlieseScaffolding2.UniqueName;
-                break;
-            case "crystal3::StarcourseDock":
-                __result = GlieseScaffolding2.UniqueName;
-                break;
-            case "crystal4::StarcourseDock":
-                __result = GlieseScaffolding1.UniqueName;
-                break;
-        }
     }
 }

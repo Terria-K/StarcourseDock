@@ -1,3 +1,4 @@
+using CutebaltCore;
 using FSPRO;
 using Nanoray.PluginManager;
 using Nickel;
@@ -30,7 +31,7 @@ internal sealed class ColdStatus
                     icon = Sprites.icons_cold.Sprite,
                     affectedByTimestop = true,
                 },
-                ShouldFlash = (State s, Combat c, Ship ship, Status status) =>
+                ShouldFlash = (State s, Combat c, global::Ship ship, Status status) =>
                     ship.Get(status) >= 3,
             }
         );

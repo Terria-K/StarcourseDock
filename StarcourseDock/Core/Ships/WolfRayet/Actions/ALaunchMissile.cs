@@ -8,7 +8,7 @@ internal sealed class ALaunchMissile : CardAction
 
     public override void Begin(G g, State s, Combat c)
     {
-        Ship target = (!targetPlayer ? s.ship : c.otherShip);
+        global::Ship target = (!targetPlayer ? s.ship : c.otherShip);
         RaycastResult ray = CombatUtils.RaycastFromShipLocal(s, c, localX, !targetPlayer);
 
         if (part != null)
