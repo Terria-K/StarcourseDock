@@ -44,11 +44,6 @@ internal class RoutedCannon : Artifact, IRegisterable
         );
 
         ModEntry.Instance.Harmony.Patch(
-            AccessTools.DeclaredMethod(typeof(AAttack), nameof(AAttack.Begin)),
-            prefix: new HarmonyMethod(AAttack_Begin_Prefix)
-        );
-
-        ModEntry.Instance.Harmony.Patch(
             AccessTools.DeclaredMethod(
                 typeof(AVolleyAttackFromAllCannons),
                 nameof(AVolleyAttackFromAllCannons.Begin)
@@ -127,11 +122,10 @@ internal class RoutedCannon : Artifact, IRegisterable
         }
     }
 
-    private static State? state;
-    private static AAttack? aAttack;
-
     internal static bool AAttack_GetFromX_b__23_0_Prefix(Part p, ref bool __result)
     {
+        var state = AAttack_Global_Patches.Global_State;
+        var aAttack = AAttack_Global_Patches.Global_AAttack;
         if (state is null || aAttack is null || aAttack.targetPlayer)
         {
             return true;
@@ -146,12 +140,6 @@ internal class RoutedCannon : Artifact, IRegisterable
         }
 
         return true;
-    }
-
-    internal static void AAttack_Begin_Prefix(AAttack __instance, State s)
-    {
-        state = s;
-        aAttack = __instance;
     }
 
     internal static void AAttack_GetTooltips_Prefix(State s)

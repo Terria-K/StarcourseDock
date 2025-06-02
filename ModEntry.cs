@@ -8,7 +8,7 @@ using Shockah.Kokoro;
 
 namespace Teuria.StarcourseDock;
 
-public sealed class ModEntry : SimpleMod
+public sealed partial class ModEntry : SimpleMod
 {
     internal readonly ILocalizationProvider<IReadOnlyList<string>> AnyLocalizations;
     internal readonly ILocaleBoundNonNullLocalizationProvider<IReadOnlyList<string>> Localizations;
@@ -37,5 +37,7 @@ public sealed class ModEntry : SimpleMod
         KokoroAPI = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!;
         Sprites.Register(package, helper);
         Registerables.Register(package, helper);
+
+        Patch(Harmony);
     }
 }
