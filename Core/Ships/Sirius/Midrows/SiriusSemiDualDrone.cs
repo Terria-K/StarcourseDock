@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Nickel;
 
 namespace Teuria.StarcourseDock;
@@ -15,11 +16,34 @@ internal sealed class SiriusSemiDualDrone : StuffBase
 
     public override bool Invincible()
     {
-        if (hitByEnemy)
+        if (
+            AAttack_Global_Patches.Global_AAttack == null
+            || !AAttack_Global_Patches.Global_AAttack.targetPlayer
+        )
         {
-            return !targetPlayer;
+            return CheckForOtherPossibleCauses();
         }
-        return targetPlayer;
+
+        return !targetPlayer;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private bool CheckForOtherPossibleCauses()
+    {
+        var state = MG.inst.g.state;
+
+        var combat = state.route as Combat;
+        if (combat is null)
+        {
+            return false;
+        }
+
+        if (combat.isPlayerTurn)
+        {
+            return targetPlayer;
+        }
+
+        return !targetPlayer;
     }
 
     public override List<string> PossibleDroneNames()
