@@ -40,7 +40,5 @@ public sealed partial class ModEntry : SimpleMod
 
         Registerables.Register(package, helper);
         Patchables.Patch(Harmony);
-
-        Patch(Harmony);
     }
 }

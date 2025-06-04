@@ -83,80 +83,80 @@ internal partial class WolfRayetMissilesPatches : IPatchable
         ILGenerator generator
     )
     {
-        var cursor = new ILCursor(generator, instructions);
-
-        object? bb = null;
-
-        cursor.GotoNext(
-            instr => instr.Match(OpCodes.Ldc_I4_0),
-            instr => instr.Match(OpCodes.Callvirt),
-            instr => instr.MatchExtract(OpCodes.Stloc_S, out bb)
-        );
-
-        cursor.GotoNext(
-            MoveType.After,
-            instr => instr.Match(OpCodes.Ldarg_1),
-            instr => instr.MatchLdfld("tutorial"),
-            instr => instr.Match(OpCodes.Ldarg_1),
-            instr => instr.Match(OpCodes.Ldarg_0),
-            instr => instr.Match(OpCodes.Ldarg_3),
-            instr => instr.Match(OpCodes.Ldloc_S),
-            instr => instr.Match(OpCodes.Callvirt)
-        );
-
-        cursor.Emit(OpCodes.Ldarg_1);
-        cursor.Emit(OpCodes.Ldarg_3);
-        cursor.Emit(OpCodes.Ldloc_S, bb);
-        cursor.EmitDelegate(
-            (G g, Part part, Box bb) =>
-            {
-                if (!bb.IsHover())
+        return new ILCursor(generator, instructions)
+            .GotoNext(MoveType.Before, [ILMatch.LdcI4(0), ILMatch.Callvirt(), ILMatch.Stloc()])
+            .ExtractOperand(2, out object? bb)
+            .GotoNext(
+                MoveType.After,
+                [
+                    ILMatch.Ldarg(1),
+                    ILMatch.Ldfld("tutorial"),
+                    ILMatch.Ldarg(1),
+                    ILMatch.Ldarg(0),
+                    ILMatch.Ldarg(3),
+                    ILMatch.LdlocS(),
+                    ILMatch.Callvirt(),
+                ]
+            )
+            .Emits(
+                [
+                    new CodeInstruction(OpCodes.Ldarg_1),
+                    new CodeInstruction(OpCodes.Ldarg_3),
+                    new CodeInstruction(OpCodes.Ldloc_S, bb),
+                ]
+            )
+            .EmitDelegate(
+                (G g, Part part, Box bb) =>
                 {
-                    return;
+                    if (!bb.IsHover())
+                    {
+                        return;
+                    }
+
+                    Vec ttPos = bb.rect.xy + new Vec(16.0, 0.0);
+
+                    if (part.type == WolfRayetShip.MissilePartType)
+                    {
+                        g.tooltips.Add(
+                            ttPos,
+                            new GlossaryTooltip(
+                                $"{ModEntry.Instance.Package.Manifest.UniqueName}::MissilePartType"
+                            )
+                            {
+                                Description = ModEntry.Instance.Localizations.Localize(
+                                    ["parttype", "Missile", "description"]
+                                ),
+                            }
+                        );
+                    }
+
+                    if (part.stunModifier == WolfRayetShip.HotStunModifier)
+                    {
+                        g.tooltips.Add(
+                            ttPos,
+                            new GlossaryTooltip(
+                                $"{ModEntry.Instance.Package.Manifest.UniqueName}::HotStunModifier"
+                            )
+                            {
+                                Title = ModEntry.Instance.Localizations.Localize(
+                                    ["parttrait", "Hot", "name"]
+                                ),
+                                TitleColor = Colors.parttrait,
+                                Description = ModEntry.Instance.Localizations.Localize(
+                                    ["parttrait", "Hot", "description"]
+                                ),
+                                Icon = StableSpr.icons_heat,
+                            }
+                        );
+
+                        g.tooltips.Add(
+                            ttPos,
+                            new TTGlossary("status.heat", $"<c=boldPink>{3}</c>")
+                        );
+                    }
                 }
-
-                Vec ttPos = bb.rect.xy + new Vec(16.0, 0.0);
-
-                if (part.type == WolfRayetShip.MissilePartType)
-                {
-                    g.tooltips.Add(
-                        ttPos,
-                        new GlossaryTooltip(
-                            $"{ModEntry.Instance.Package.Manifest.UniqueName}::MissilePartType"
-                        )
-                        {
-                            Description = ModEntry.Instance.Localizations.Localize(
-                                ["parttype", "Missile", "description"]
-                            ),
-                        }
-                    );
-                }
-
-                if (part.stunModifier == WolfRayetShip.HotStunModifier)
-                {
-                    g.tooltips.Add(
-                        ttPos,
-                        new GlossaryTooltip(
-                            $"{ModEntry.Instance.Package.Manifest.UniqueName}::HotStunModifier"
-                        )
-                        {
-                            Title = ModEntry.Instance.Localizations.Localize(
-                                ["parttrait", "Hot", "name"]
-                            ),
-                            TitleColor = Colors.parttrait,
-                            Description = ModEntry.Instance.Localizations.Localize(
-                                ["parttrait", "Hot", "description"]
-                            ),
-                            Icon = StableSpr.icons_heat,
-                        }
-                    );
-
-                    g.tooltips.Add(ttPos, new TTGlossary("status.heat", $"<c=boldPink>{3}</c>"));
-                }
-            }
-        );
-
-        return cursor.Generate();
+            )
+            .Generate();
     }
 
     [OnPrefix<TTGlossary>(nameof(TTGlossary.BuildIconAndText))]

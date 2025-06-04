@@ -12,23 +12,18 @@ internal sealed partial class AlphergPisciumPatches : IPatchable
         ILGenerator generator
     )
     {
-        var cursor = new ILCursor(generator, instructions);
-
-        cursor.GotoNext(instr => instr.MatchNewobj<AVolleyAttackFromAllCannons>());
-
-        cursor.GotoPrev();
-
-        cursor.Emit(OpCodes.Ldarg_0);
-        cursor.Emit(OpCodes.Ldarg_2);
-        cursor.EmitDelegate(
-            (AAttack __instance, State s) =>
-            {
-                ModEntry.Instance.Helper.ModData.SetModData(__instance, "piscium.volley", true);
-                Piscium.aAttack = __instance;
-            }
-        );
-
-        return cursor.Generate();
+        return new ILCursor(generator, instructions)
+            .GotoNext([ILMatch.Newobj<AVolleyAttackFromAllCannons>()])
+            .GotoPrev()
+            .Emits([new CodeInstruction(OpCodes.Ldarg_0), new CodeInstruction(OpCodes.Ldarg_2)])
+            .EmitDelegate(
+                (AAttack __instance, State s) =>
+                {
+                    ModEntry.Instance.Helper.ModData.SetModData(__instance, "piscium.volley", true);
+                    Piscium.aAttack = __instance;
+                }
+            )
+            .Generate();
     }
 
     [OnPrefix<AVolleyAttackFromAllCannons>(nameof(AVolleyAttackFromAllCannons.Begin))]
