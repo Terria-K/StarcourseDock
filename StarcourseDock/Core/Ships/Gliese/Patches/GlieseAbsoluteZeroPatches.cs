@@ -1,4 +1,5 @@
 using CutebaltCore;
+using ZLinq;
 
 namespace Teuria.StarcourseDock;
 
@@ -19,7 +20,7 @@ internal sealed partial class GlieseAbsoluteZeroPatches : IPatchable
             return;
         }
 
-        if (combat.hand.OfType<AbsoluteZero>().Any())
+        if (combat.hand.AsValueEnumerable().OfType<AbsoluteZero>().Any())
         {
             __result = 0;
         }
