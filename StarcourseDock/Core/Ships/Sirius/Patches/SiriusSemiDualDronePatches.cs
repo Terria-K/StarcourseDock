@@ -27,30 +27,28 @@ internal sealed partial class SiriusSemiDualDronePatches : IPatchable
         ILGenerator generator
     )
     {
-        var cursor = new ILCursor(generator, instructions);
-
-        cursor.GotoNext(
-            MoveType.After,
-            instr => instr.MatchCall("DeepCopy"),
-            instr => instr.MatchStfld("attackCopy"),
-            instr => instr.MatchCallvirt("QueueImmediate")
-        );
-
-        cursor.Emit(OpCodes.Ldarg_0);
-        cursor.Emit(OpCodes.Ldarg_3);
-        cursor.EmitDelegate(
-            (AAttack __instance, Combat combat) =>
-            {
-                combat.QueueImmediate(
-                    new ASiriusInquisitorShoot()
-                    {
-                        attackCopy = Mutil.DeepCopy<AAttack>(__instance),
-                    }
-                );
-            }
-        );
-
-        return cursor.Generate();
+        return new ILCursor(generator, instructions)
+            .GotoNext(
+                MoveType.After,
+                [
+                    ILMatch.Call("DeepCopy"),
+                    ILMatch.Stfld("attackCopy"),
+                    ILMatch.Callvirt("QueueImmediate"),
+                ]
+            )
+            .Emits([new CodeInstruction(OpCodes.Ldarg_0), new CodeInstruction(OpCodes.Ldarg_3)])
+            .EmitDelegate(
+                (AAttack __instance, Combat combat) =>
+                {
+                    combat.QueueImmediate(
+                        new ASiriusInquisitorShoot()
+                        {
+                            attackCopy = Mutil.DeepCopy<AAttack>(__instance),
+                        }
+                    );
+                }
+            )
+            .Generate();
     }
 
     [OnPrefix<AAttack>(nameof(AAttack.GetTooltips))]

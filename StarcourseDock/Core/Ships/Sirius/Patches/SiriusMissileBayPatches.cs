@@ -77,44 +77,25 @@ internal sealed partial class SiriusMissileBayPatches : IPatchable
         ILGenerator generator
     )
     {
-        var cursor = new ILCursor(generator, instructions);
-
-        object? unknownType = null;
-
-        cursor.TryGotoNext(
-            instr => instr.MatchExtract(OpCodes.Ldloca_S, out unknownType),
-            instr => instr.Match(OpCodes.Ldarg_3)
-        );
-
-        object? fld = null;
-
-        cursor.TryGotoNext(
-            instr => instr.Match(OpCodes.Ldloc_0),
-            instr => instr.MatchContainsAndExtract("w", out fld)
-        );
-
-        cursor.Index = 0;
-
-        object? action = null;
-
-        cursor.TryGotoNext(
-            instr => instr.Match(OpCodes.Ldloc_0),
-            instr => instr.MatchContainsAndExtract("action", out action)
-        );
-
-        cursor.TryGotoNext(
-            MoveType.After,
-            instr => instr.Match(OpCodes.Isinst),
-            instr => instr.Match(OpCodes.Stloc_3)
-        );
-
-        cursor.Emit(OpCodes.Ldloca, unknownType);
-        cursor.Emit(OpCodes.Ldfld, action);
-        cursor.Emit(OpCodes.Ldloca, unknownType);
-        cursor.Emit(OpCodes.Ldflda, fld);
-        cursor.EmitDelegate(RenderAction_Lambda);
-
-        return cursor.Generate();
+        return new ILCursor(generator, instructions)
+            .GotoNext([ILMatch.LdlocaS(), ILMatch.Ldarg(3)])
+            .ExtractOperand(0, out object? unknownType)
+            .GotoNext([ILMatch.Ldloc(0), ILMatch.Ldfld("w")])
+            .ExtractOperand(1, out object? fld)
+            .Reset()
+            .GotoNext([ILMatch.Ldloc(0), ILMatch.Ldfld("action")])
+            .ExtractOperand(1, out object? action)
+            .GotoNext(MoveType.After, [ILMatch.Isinst(), ILMatch.Stloc(3)])
+            .Emits(
+                [
+                    new CodeInstruction(OpCodes.Ldloca, unknownType),
+                    new CodeInstruction(OpCodes.Ldfld, action),
+                    new CodeInstruction(OpCodes.Ldloca, unknownType),
+                    new CodeInstruction(OpCodes.Ldflda, fld),
+                ]
+            )
+            .EmitDelegate(RenderAction_Lambda)
+            .Generate();
     }
 
     private static void RenderAction_Lambda(CardAction action, ref int e)

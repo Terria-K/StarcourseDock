@@ -65,32 +65,28 @@ internal sealed partial class AlphergRoutedCannonPatches : IPatchable
         ILGenerator generator
     )
     {
-        var cursor = new ILCursor(generator, instructions);
-
-        cursor.GotoNext(MoveType.After, instr => instr.MatchCallvirt("GetPartTypeCount"));
-
-        cursor.Emit(OpCodes.Ldarg_0);
-        cursor.Emit(OpCodes.Ldarg_2);
-        cursor.EmitDelegate(
-            (int x, AAttack aAttack, State s) =>
-            {
-                if (aAttack.targetPlayer)
+        return new ILCursor(generator, instructions)
+            .GotoNext(MoveType.After, [ILMatch.Callvirt("GetPartTypeCount")])
+            .Emits([new CodeInstruction(OpCodes.Ldarg_0), new CodeInstruction(OpCodes.Ldarg_2)])
+            .EmitDelegate(
+                (int x, AAttack aAttack, State s) =>
                 {
-                    return x;
+                    if (aAttack.targetPlayer)
+                    {
+                        return x;
+                    }
+                    var routedCannon = s.GetArtifact<RoutedCannon>();
+                    if (routedCannon is null || routedCannon.disabled)
+                    {
+                        return x;
+                    }
+
+                    int cannon = s.ship.GetPartTypeCount(PType.cannon, false);
+                    int empty = s.ship.GetPartTypeCount(PType.empty, false);
+
+                    return cannon + empty;
                 }
-                var routedCannon = s.GetArtifact<RoutedCannon>();
-                if (routedCannon is null || routedCannon.disabled)
-                {
-                    return x;
-                }
-
-                int cannon = s.ship.GetPartTypeCount(PType.cannon, false);
-                int empty = s.ship.GetPartTypeCount(PType.empty, false);
-
-                return cannon + empty;
-            }
-        );
-
-        return cursor.Generate();
+            )
+            .Generate();
     }
 }
