@@ -14,21 +14,18 @@ internal sealed partial class GlieseStunPatches : IPatchable
         }
 
         Part? part = c.otherShip.GetPartAtWorldX(__instance.worldX);
-        if (part != null && part.stunModifier != PStunMod.unstunnable)
+        if (part != null && part.stunModifier != PStunMod.unstunnable && part.intent != null)
         {
-            if (part.intent != null)
-            {
-                c.Queue(
-                    new AStatus()
-                    {
-                        targetPlayer = false,
-                        status = ColdStatus.ColdEntry.Status,
-                        statusAmount = 1,
-                    }
-                );
+            c.Queue(
+                new AStatus()
+                {
+                    targetPlayer = false,
+                    status = ColdStatus.ColdEntry.Status,
+                    statusAmount = 1,
+                }
+            );
 
-                frostCannon.Pulse();
-            }
+            frostCannon.Pulse();
         }
     }
 }

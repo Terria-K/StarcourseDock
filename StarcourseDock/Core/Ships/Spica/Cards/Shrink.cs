@@ -9,17 +9,6 @@ internal class Shrink : Card, IRegisterable
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        var spicaDeck = helper.Content.Decks.RegisterDeck(
-            "Spica",
-            new()
-            {
-                Definition = new() { color = new Color("5a7752"), titleColor = Colors.white },
-                DefaultCardArt = StableSpr.cards_colorless,
-                BorderSprite = Sprites.cardShared_border_spica.Sprite,
-                Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "name"]).Localize,
-            }
-        );
-
         helper.Content.Cards.RegisterCard(
             MethodBase.GetCurrentMethod()!.DeclaringType!.Name,
             new()
@@ -27,7 +16,7 @@ internal class Shrink : Card, IRegisterable
                 CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
                 Meta = new()
                 {
-                    deck = spicaDeck.Deck,
+                    deck = SpicaKit.SpicaDeck.Deck,
                     rarity = Rarity.common,
                     upgradesTo = [Upgrade.A],
                     dontOffer = true,
