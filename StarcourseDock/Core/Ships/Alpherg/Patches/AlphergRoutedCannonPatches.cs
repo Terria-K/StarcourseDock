@@ -9,7 +9,7 @@ internal sealed partial class AlphergRoutedCannonPatches : IPatchable
     [OnPrefix<AAttack>(nameof(AAttack.GetTooltips))]
     internal static void AAttack_GetTooltips_Prefix(State s)
     {
-        var routedCannon = s.GetArtifact<RoutedCannon>();
+        var routedCannon = s.GetArtifactFromColorless<RoutedCannon>();
         if (routedCannon is null || routedCannon.disabled)
         {
             return;
@@ -39,7 +39,7 @@ internal sealed partial class AlphergRoutedCannonPatches : IPatchable
         Combat c
     )
     {
-        var routedCannon = s.GetArtifact<RoutedCannon>();
+        var routedCannon = s.GetArtifactFromColorless<RoutedCannon>();
         if (routedCannon is null || routedCannon.disabled)
         {
             return;
@@ -75,7 +75,7 @@ internal sealed partial class AlphergRoutedCannonPatches : IPatchable
                     {
                         return x;
                     }
-                    var routedCannon = s.GetArtifact<RoutedCannon>();
+                    var routedCannon = s.GetArtifactFromColorless<RoutedCannon>();
                     if (routedCannon is null || routedCannon.disabled)
                     {
                         return x;

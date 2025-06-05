@@ -21,10 +21,6 @@ public static partial class Sprites
     public static ISpriteEntry artifacts_ShrinkMechanism = null!;
     public static ISpriteEntry artifacts_ShrinkMechanismV2 = null!;
     public static ISpriteEntry artifacts_SiriusInquisitor = null!;
-    public static ISpriteEntry artifacts_SiriusInquisitor1 = null!;
-    public static ISpriteEntry artifacts_SiriusInquisitor2 = null!;
-    public static ISpriteEntry artifacts_SiriusInquisitor3 = null!;
-    public static ISpriteEntry artifacts_SiriusInquisitor4 = null!;
     public static ISpriteEntry artifacts_SiriusMissileBay = null!;
     public static ISpriteEntry artifacts_SiriusMissileBayV2 = null!;
     public static ISpriteEntry artifacts_SiriusSubwoofer = null!;
@@ -150,18 +146,6 @@ public static partial class Sprites
         );
         artifacts_SiriusInquisitor = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/SiriusInquisitor.png")
-        );
-        artifacts_SiriusInquisitor1 = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/artifacts/SiriusInquisitor1.png")
-        );
-        artifacts_SiriusInquisitor2 = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/artifacts/SiriusInquisitor2.png")
-        );
-        artifacts_SiriusInquisitor3 = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/artifacts/SiriusInquisitor3.png")
-        );
-        artifacts_SiriusInquisitor4 = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/artifacts/SiriusInquisitor4.png")
         );
         artifacts_SiriusMissileBay = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/SiriusMissileBay.png")

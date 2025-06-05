@@ -114,7 +114,7 @@ internal class RoutedCannon : Artifact, IRegisterable
             return true;
         }
 
-        var routedCannon = state.GetArtifact<RoutedCannon>();
+        var routedCannon = state.GetArtifactFromColorless<RoutedCannon>();
 
         if (routedCannon is not null && !routedCannon.disabled)
         {

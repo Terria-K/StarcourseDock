@@ -1,8 +1,7 @@
-using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using Nickel;
 using Teuria.StarcourseDock;
-using ZLinq;
 
 namespace Teuria.Utilities;
 
@@ -12,14 +11,66 @@ internal static class ArtifactExtensions
     public static T? GetArtifact<T>(this State s)
         where T : Artifact
     {
-        return s.EnumerateAllArtifacts().AsValueEnumerable().OfType<T>().FirstOrDefault();
+        var spanArtifacts = CollectionsMarshal.AsSpan(s.EnumerateAllArtifacts());
+        for (int i = 0; i < spanArtifacts.Length; i++)
+        {
+            var artifact = spanArtifacts[i];
+            if (artifact is T art)
+            {
+                return art;
+            }
+        }
+
+        return null;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool HasArtifact<T>(this State s)
         where T : Artifact
     {
-        return s.EnumerateAllArtifacts().AsValueEnumerable().Any(x => x is T);
+        var spanArtifacts = CollectionsMarshal.AsSpan(s.EnumerateAllArtifacts());
+        for (int i = 0; i < spanArtifacts.Length; i++)
+        {
+            if (spanArtifacts[i] is T)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T? GetArtifactFromColorless<T>(this State s)
+        where T : Artifact
+    {
+        var spanArtifacts = CollectionsMarshal.AsSpan(s.artifacts);
+        for (int i = 0; i < spanArtifacts.Length; i++)
+        {
+            var artifact = spanArtifacts[i];
+            if (artifact is T art)
+            {
+                return art;
+            }
+        }
+
+        return null;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool HasArtifactFromColorless<T>(this State s)
+        where T : Artifact
+    {
+        var spanArtifacts = CollectionsMarshal.AsSpan(s.artifacts);
+        for (int i = 0; i < spanArtifacts.Length; i++)
+        {
+            if (spanArtifacts[i] is T)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
 
@@ -28,7 +79,15 @@ internal static class CardExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool HasCardOnHand<T>(this Combat combat)
     {
-        return combat.hand.AsValueEnumerable().OfType<T>().Any();
+        var spanHand = CollectionsMarshal.AsSpan(combat.hand);
+        for (int i = 0; i < spanHand.Length; i++)
+        {
+            if (spanHand[i] is T)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
 
@@ -37,13 +96,29 @@ internal static class ShipExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsPartExists(this Ship ship, string key)
     {
-        return ship.parts.AsValueEnumerable().Where(x => x.key == key).Any();
+        var spanParts = CollectionsMarshal.AsSpan(ship.parts);
+        for (int i = 0; i < spanParts.Length; i++)
+        {
+            if (spanParts[i].key == key)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsPartExists(this Ship ship, PType type)
     {
-        return ship.parts.AsValueEnumerable().Where(x => x.type == type).Any();
+        var spanParts = CollectionsMarshal.AsSpan(ship.parts);
+        for (int i = 0; i < spanParts.Length; i++)
+        {
+            if (spanParts[i].type == type)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -61,47 +136,46 @@ internal static class ShipExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int FindPartIndex(this Ship ship, Func<Part, bool> predicate)
     {
-        return ship
-            .parts.AsValueEnumerable()
-            .Index()
-            .Where(x => predicate(x.Item))
-            .Select(x => x.Index)
-            .FirstOrDefault();
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool HasPartType(this Ship ship, PType type)
-    {
-        return ship.parts.AsValueEnumerable().Where(x => x.type == type).Any();
+        var spanParts = CollectionsMarshal.AsSpan(ship.parts);
+        for (int i = 0; i < spanParts.Length; i++)
+        {
+            if (predicate(spanParts[i]))
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Part? GetPartByKey(this Ship ship, string key)
     {
-        return ship.parts.AsValueEnumerable().Where(x => x.key == key).FirstOrDefault();
+        var spanParts = CollectionsMarshal.AsSpan(ship.parts);
+        for (int i = 0; i < spanParts.Length; i++)
+        {
+            var part = spanParts[i];
+            if (part.key == key)
+            {
+                return part;
+            }
+        }
+        return null;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static List<Part> RetainParts(this Ship ship, Func<Part, bool> predicate)
     {
-        return ship.parts.AsValueEnumerable().Where(predicate).ToList();
-    }
-}
-
-internal static class IModSpritesExtensions
-{
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ISpriteEntry RegisterAnimation(this IModSprites sprites, Animation animation)
-    {
-        var spr = sprites.RegisterDynamicSprite(() =>
+        var retainedParts = new List<Part>();
+        var spanParts = CollectionsMarshal.AsSpan(ship.parts);
+        for (int i = 0; i < spanParts.Length; i++)
         {
-            var g = MG.inst.g;
-            var state = g.state;
-
-            return animation.Update(g, state);
-        });
-        Animation.AddAnimation(animation);
-        return spr;
+            var part = spanParts[i];
+            if (predicate(part))
+            {
+                retainedParts.Add(part);
+            }
+        }
+        return retainedParts;
     }
 }
 

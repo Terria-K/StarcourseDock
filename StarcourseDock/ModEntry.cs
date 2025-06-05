@@ -34,7 +34,6 @@ public sealed partial class ModEntry : SimpleMod
             )
         );
 
-        Animation.InitPatch();
         KokoroAPI = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!;
         Sprites.Register(package, helper);
 

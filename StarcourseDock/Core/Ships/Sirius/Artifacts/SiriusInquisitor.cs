@@ -1,9 +1,9 @@
 using System.Reflection;
+using System.Runtime.InteropServices;
 using CutebaltCore;
 using Microsoft.Xna.Framework.Graphics;
 using Nanoray.PluginManager;
 using Nickel;
-using ZLinq;
 
 namespace Teuria.StarcourseDock;
 
@@ -11,10 +11,6 @@ internal sealed class SiriusInquisitor : Artifact, IRegisterable
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        var inquisitorSprite = helper.Content.Sprites.RegisterAnimation(
-            new SiriusInquisitorSpriteAnimation()
-        );
-
         helper.Content.Artifacts.RegisterArtifact(
             "SiriusInquisitor",
             new()
@@ -23,10 +19,10 @@ internal sealed class SiriusInquisitor : Artifact, IRegisterable
                 Meta = new()
                 {
                     owner = Deck.colorless,
-                    pools = [ArtifactPool.Common],
+                    pools = [ArtifactPool.Boss],
                     unremovable = true,
                 },
-                Sprite = inquisitorSprite.Sprite,
+                Sprite = Sprites.artifacts_SiriusInquisitor.Sprite,
                 Name = ModEntry
                     .Instance.AnyLocalizations.Bind(
                         ["ship", "Sirius", "artifact", "SiriusInquisitor", "name"]
@@ -43,48 +39,34 @@ internal sealed class SiriusInquisitor : Artifact, IRegisterable
 
     public override void OnReceiveArtifact(State state)
     {
-        var businesses = state.deck.Where(x => x is SiriusBusiness).ToList();
+        List<Card> newDeck = new List<Card>(state.deck.Count);
 
-        foreach (var business in businesses)
+        var deckSpan = CollectionsMarshal.AsSpan(state.deck);
+        for (int i = 0; i < deckSpan.Length; i++)
         {
-            state
-                .GetCurrentQueue()
-                .QueueImmediate(
-                    new AAddCard()
-                    {
-                        card = new SiriusQuestion() { upgrade = business.upgrade },
-                        destination = CardDestination.Deck,
-                    }
-                );
+            var card = deckSpan[i];
+            if (card is SiriusBusiness)
+            {
+                state
+                    .GetCurrentQueue()
+                    .QueueImmediate(
+                        new AAddCard()
+                        {
+                            card = new SiriusQuestion() { upgrade = card.upgrade },
+                            destination = CardDestination.Deck,
+                        }
+                    );
+
+                continue;
+            }
+            newDeck.Add(card);
         }
 
-        state.deck = state.deck.Where(x => x is not SiriusBusiness).ToList();
+        state.deck = newDeck;
     }
 
     public override List<Tooltip>? GetExtraTooltips()
     {
         return [new TTCard() { card = new SiriusQuestion() }];
-    }
-
-    internal class SiriusInquisitorSpriteAnimation : Animation
-    {
-        private Spr[] frames =
-        [
-            Sprites.artifacts_SiriusInquisitor1.Sprite,
-            Sprites.artifacts_SiriusInquisitor2.Sprite,
-            Sprites.artifacts_SiriusInquisitor3.Sprite,
-            Sprites.artifacts_SiriusInquisitor4.Sprite,
-        ];
-
-        public override int MaxFrameLength => 4;
-
-        public override Texture2D Update(G g, State? s)
-        {
-            if (s == null)
-            {
-                return SpriteLoader.Get(frames[0])!;
-            }
-            return SpriteLoader.Get(frames[CurrentFrame])!;
-        }
     }
 }
