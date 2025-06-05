@@ -139,6 +139,7 @@ ship:
         - "Replaces <c=artifact>HEAT SHIELD</c>."
         - "At the start of a combat, gain <c=boldPink>3</c> <c=status>SHIELD</c>."
         - "Everytime you get <c=boldPink>2</c> <c=status>HEAT</c> in one enemy turn, gain <c=boldPink>3</c> <c=status>SHIELD</c>."
+        - "<c=downside>Lose your max hull by 5 on pickup.</c>"
       DeliveryNote: 
         name: DELIVERY NOTE
         description: 

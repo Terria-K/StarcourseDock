@@ -44,6 +44,12 @@ internal sealed class HeatShieldV2 : Artifact, IRegisterable
         state
             .GetCurrentQueue()
             .QueueImmediate(new ALoseArtifact { artifactType = new HeatShield().Key() });
+
+        state.ship.hullMax = Math.Max(1, state.ship.hullMax - 5);
+        if (state.ship.hull > state.ship.hullMax)
+        {
+            state.ship.hull = state.ship.hullMax;
+        }
     }
 
     public override void OnTurnStart(State state, Combat combat)
