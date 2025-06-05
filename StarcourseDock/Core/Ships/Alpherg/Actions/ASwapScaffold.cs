@@ -12,7 +12,7 @@ internal class ASwapScaffold : CardAction
             int x = s.ship.FindPartIndex(x =>
                 x.skin == AlphergShip.AlphergScaffoldOrange.UniqueName
             );
-            if (x == 0)
+            if (x == -1)
             {
                 return;
             }
@@ -33,7 +33,7 @@ internal class ASwapScaffold : CardAction
         else
         {
             int x = s.ship.FindPartIndex(x => x.skin == AlphergShip.AlphergScaffoldBlue.UniqueName);
-            if (x == 0)
+            if (x == -1)
             {
                 return;
             }

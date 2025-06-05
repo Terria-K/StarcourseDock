@@ -7,7 +7,7 @@ internal sealed partial class GlieseStunPatches : IPatchable
     [OnPrefix<AStunPart>(nameof(AStunPart.Begin))]
     private static void AStunPart_Begin_Prefix(AStunPart __instance, State s, Combat c)
     {
-        FrostCannon? frostCannon = s.GetArtifact<FrostCannon>();
+        FrostCannon? frostCannon = s.GetArtifactFromColorless<FrostCannon>();
         if (frostCannon is null)
         {
             return;

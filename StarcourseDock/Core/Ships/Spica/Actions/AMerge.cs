@@ -7,7 +7,7 @@ internal class AMerge : CardAction
 
     public override void Begin(G g, State s, Combat c)
     {
-        var artifact = s.GetArtifact<ShrinkMechanismV2>();
+        var artifact = s.GetArtifactFromColorless<ShrinkMechanismV2>();
         if (artifact == null)
         {
             return;

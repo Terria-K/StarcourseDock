@@ -43,7 +43,7 @@ internal sealed partial class AlphergPisciumPatches : IPatchable
         {
             if (data)
             {
-                var piscium = s.GetArtifact<Piscium>();
+                var piscium = s.GetArtifactFromColorless<Piscium>();
                 if (piscium is null)
                 {
                     return;

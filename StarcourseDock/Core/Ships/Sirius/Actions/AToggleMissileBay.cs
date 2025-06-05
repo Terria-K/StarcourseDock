@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using FSPRO;
 using Nickel;
 using ZLinq;
@@ -48,18 +49,24 @@ internal sealed class AToggleMissileBay : CardAction
         {
             return null;
         }
-        List<int> partSlots = target
-            .parts.AsValueEnumerable()
-            .Select((Part p, int i) => new { part = p, x = i })
-            .Where(x => x.part.type == PType.cannon)
-            .Select(x => x.x)
-            .ToList();
+        List<int> partSlots = [];
+
+        var partSpan = CollectionsMarshal.AsSpan(target.parts);
+
+        for (int i = 0; i < partSpan.Length; i++)
+        {
+            var part = partSpan[i];
+            if (part.type == PType.missiles)
+            {
+                partSlots.Add(i);
+            }
+        }
 
         if (partSlots.Count == 0)
         {
             return null;
         }
-        int currentPartX = target.parts.FindIndex(p => p.type == PType.cannon && p.active);
+        int currentPartX = target.parts.FindIndex(p => p.type == PType.missiles && p.active);
         int nextEnabledPartSlot =
             (partSlots.FindIndex(x => x == currentPartX) + 1) % partSlots.Count;
         return new AToggleMissileBay.Res

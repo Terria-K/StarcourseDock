@@ -44,7 +44,7 @@ internal class ACannonMove : CardAction
 
         int index = 0;
 
-        if (!s.HasArtifact<TinyWormhole>())
+        if (!s.HasArtifactFromColorless<TinyWormhole>())
         {
             index = Mutil.Clamp(cannonIndex + dir, 1, s.ship.parts.Count - 2);
         }

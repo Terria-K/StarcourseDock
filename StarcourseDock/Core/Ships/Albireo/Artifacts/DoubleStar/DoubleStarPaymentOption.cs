@@ -6,7 +6,7 @@ internal class DoubleStarPaymentOption : IEvadePaymentOption
 {
     public bool CanPayForEvade(IEvadePaymentOption.ICanPayForEvadeArgs args)
     {
-        if (!args.State.HasArtifact<DoubleStar>())
+        if (!args.State.HasArtifactFromColorless<DoubleStar>())
         {
             return false;
         }
@@ -17,7 +17,7 @@ internal class DoubleStarPaymentOption : IEvadePaymentOption
         IEvadePaymentOption.IProvideEvadePaymentActionsArgs args
     )
     {
-        if (!args.State.HasArtifact<DoubleStar>())
+        if (!args.State.HasArtifactFromColorless<DoubleStar>())
         {
             return [];
         }
