@@ -33,10 +33,9 @@ internal class Shrink : Card, IRegisterable
     {
         var cardData = new CardData()
         {
-            singleUse = true,
-            retain = true,
             temporary = true,
             flippable = true,
+            retain = true,
             cost = 1,
             art = flipped ? StableSpr.cards_ScootRight : StableSpr.cards_ScootLeft,
         };
@@ -44,6 +43,7 @@ internal class Shrink : Card, IRegisterable
         {
             Upgrade.A => cardData with
             {
+                infinite = true,
                 description = flipped
                     ? ModEntry.Instance.Localizations.Localize(
                         ["ship", "Spica", "card", "Shrink_Flipped", "A", "description"]
@@ -54,6 +54,7 @@ internal class Shrink : Card, IRegisterable
             },
             _ => cardData with
             {
+                singleUse = true,
                 description = flipped
                     ? ModEntry.Instance.Localizations.Localize(
                         ["ship", "Spica", "card", "Shrink_Flipped", "description"]

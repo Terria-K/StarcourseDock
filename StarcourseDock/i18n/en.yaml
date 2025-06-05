@@ -37,12 +37,12 @@ ship:
         name: Shrink
         description: "<c=downside>Remove red scaffold</c> and <c=action>merge</c> rightmost part to the left."
         A: 
-          description: "<c=downside>Remove right wing's previous part.</c>"
+          description: "<c=downside>Remove right wing's part to its left.</c>"
       Shrink_Flipped: 
         name: Shrink
         description: "<c=downside>Remove red scaffold</c> and <c=action>merge</c> leftmost part to the right."
         A:
-          description: "<c=downside>Remove left wing's next part.</c>"
+          description: "<c=downside>Remove left wing's part to its right.</c>"
 
     artifact: 
       FixedStar: 
