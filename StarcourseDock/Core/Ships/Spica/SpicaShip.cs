@@ -10,6 +10,7 @@ namespace Teuria.StarcourseDock;
 internal sealed class SpicaShip : IRegisterable
 {
     internal static IPartEntry SpicaScaffold { get; private set; } = null!;
+    internal static IPartEntry SpicaTriScaffold { get; private set; } = null!;
     internal static IPartEntry SpicaCannon { get; private set; } = null!;
     internal static IPartEntry SpicaCockpit { get; private set; } = null!;
     internal static IShipEntry SpicaEntry { get; private set; } = null!;
@@ -19,6 +20,11 @@ internal sealed class SpicaShip : IRegisterable
         SpicaScaffold = helper.Content.Ships.RegisterPart(
             "SpicaScaffolding",
             new() { Sprite = Sprites.parts_spica_scaffolding.Sprite }
+        );
+
+        SpicaTriScaffold = helper.Content.Ships.RegisterPart(
+            "SpicaTriScaffolding",
+            new() { Sprite = Sprites.parts_spica_tri_scaffolding.Sprite }
         );
 
         SpicaCannon = helper.Content.Ships.RegisterPart(

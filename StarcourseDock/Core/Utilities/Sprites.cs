@@ -87,6 +87,7 @@ public static partial class Sprites
     public static ISpriteEntry parts_spica_cockpit = null!;
     public static ISpriteEntry parts_spica_missilebay = null!;
     public static ISpriteEntry parts_spica_scaffolding = null!;
+    public static ISpriteEntry parts_spica_tri_scaffolding = null!;
     public static ISpriteEntry parts_spica_wing_left = null!;
     public static ISpriteEntry parts_spica_wing_right = null!;
     public static ISpriteEntry parts_wolf_rayet_cannon = null!;
@@ -345,6 +346,9 @@ public static partial class Sprites
         parts_spica_scaffolding = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/spica_scaffolding.png")
         );
+        parts_spica_tri_scaffolding = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/spica_tri_scaffolding.png")
+        );
         parts_spica_wing_left = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/spica_wing_left.png")
         );
@@ -373,4 +377,5 @@ public static partial class Sprites
             package.PackageRoot.GetRelativeFile("assets/parts/wolf_rayet_scaffolding.png")
         );
     }
+
 }
