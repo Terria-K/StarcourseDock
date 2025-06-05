@@ -38,7 +38,8 @@ internal sealed class DeliveryNote : Artifact, IRegisterable
 
     public override void OnTurnStart(State state, Combat combat)
     {
-        for (int i = 0; i < state.ship.parts.Count; i++)
+        int lastIndex = state.ship.parts.Count - 1;
+        for (int i = lastIndex; i >= 0; i--)
         {
             var part = state.ship.parts[i];
             if (part.type == PType.empty)

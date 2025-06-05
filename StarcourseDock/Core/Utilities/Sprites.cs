@@ -369,5 +369,4 @@ public static partial class Sprites
             package.PackageRoot.GetRelativeFile("assets/parts/wolf_rayet_scaffolding.png")
         );
     }
-
 }
