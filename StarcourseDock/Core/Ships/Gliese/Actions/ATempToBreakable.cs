@@ -17,7 +17,7 @@ internal class ATempToBreakable : CardAction
             s.ship.parts[i] = new Part()
             {
                 type = PType.special,
-                skin = GlieseShip.GlieseCrystal2.UniqueName,
+                skin = "crystal_2",
                 stunModifier = PStunMod.breakable,
                 key = "crystal2::StarcourseDock",
             };

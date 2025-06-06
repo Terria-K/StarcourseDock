@@ -1,8 +1,11 @@
+using System.Reflection.Emit;
+using System.Security.Cryptography.X509Certificates;
 using CutebaltCore;
+using HarmonyLib;
 
 namespace Teuria.StarcourseDock;
 
-internal partial class GlieseExclusiveArtifactPatches : IPatchable
+internal sealed partial class GlieseExclusiveArtifactPatches : IPatchable
 {
     [OnPostfix<ArtifactReward>(nameof(ArtifactReward.GetBlockedArtifacts))]
     private static void GetBlockedArtifacts_Postfix(HashSet<Type> __result, State s)
@@ -10,10 +13,59 @@ internal partial class GlieseExclusiveArtifactPatches : IPatchable
         if (s.ship.key != GlieseShip.GlieseEntry.UniqueName)
         {
             __result.Add(typeof(CrystalCoreV2));
+            __result.Add(typeof(ColdHand));
         }
         if (s.ship.key == GlieseShip.GlieseEntry.UniqueName)
         {
             __result.Add(typeof(StunCalibrator));
         }
+    }
+}
+
+internal sealed partial class GlieseGlowPatches : IPatchable
+{
+    [OnTranspiler<Ship>(nameof(Ship.DrawTopLayer))]
+    private static IEnumerable<CodeInstruction> Ship_DrawTopLayer_Transpiler(
+        IEnumerable<CodeInstruction> instructions,
+        ILGenerator generator
+    )
+    {
+        return new ILCursor(generator, instructions)
+            .GotoNext(
+                [
+                    ILMatch.Stloc(),
+                    ILMatch.LdlocS(),
+                    ILMatch.Ldfld("skin"),
+                    ILMatch.Ldstr("cockpit_cicada"),
+                ]
+            )
+            .ExtractOperand(0, out object? glowPos)
+            .ExtractOperand(1, out object? part)
+            .ExtractOperand(2, out object? skin)
+            .GotoNext()
+            .Emits(
+                [
+                    new CodeInstruction(OpCodes.Ldloc, glowPos),
+                    new CodeInstruction(OpCodes.Ldloc, part),
+                    new CodeInstruction(OpCodes.Ldfld, skin),
+                    new CodeInstruction(OpCodes.Ldarg_1),
+                ]
+            )
+            .EmitDelegate(
+                (Vec glowPos, string skin, G g) =>
+                {
+                    if (skin == GlieseShip.GlieseCockpit.UniqueName)
+                    {
+                        Glow.Draw(
+                            glowPos + new Vec(2.0, 24.0),
+                            80.0,
+                            new Color(0.0, 0.5, 1.0, 1.0).gain(
+                                0.9 + Math.Sin(g.state.time * 8.0) * 0.1
+                            )
+                        );
+                    }
+                }
+            )
+            .Generate();
     }
 }

@@ -45,7 +45,7 @@ internal sealed class SpicaShip : IRegisterable
                 Description = ModEntry
                     .Instance.AnyLocalizations.Bind(["ship", "Spica", "description"])
                     .Localize,
-                UnderChassisSprite = Sprites.parts_gliese_chassis.Sprite,
+                UnderChassisSprite = Sprites.parts_empty_chassis.Sprite,
                 Ship = new()
                 {
                     ship = new()

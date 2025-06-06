@@ -26,7 +26,7 @@ action:
 ship: 
   Spica: 
     name: Spica
-    description: "A fixed ship that <c=downside>cannot move on its own.</c>"
+    description: "Shrinking ship that <c=downside>cannot move on its own.</c>"
 
     card: 
       ShieldOrShot: 
@@ -88,15 +88,14 @@ ship:
 
   Gliese: 
     name: Gliese
-    description: "Chaotic crystalline entity that has a freezing ability, <c=downside>but constantly shuffles its part.</c>"
+    description: "Crystallized ship with an ability to stun attacks, <c=downside>and freeze its deck overtime.</c>"
 
     artifact: 
       CrystalCore: 
         name: CRYSTAL CORE
         description: 
-        - "At the end of enemy's turn, your ship's parts will <c=downside>shuffle.</c>"
-        - "If a wing gets <c=action>hit</c>, <c=downside>add a breakable part.</c>"
-        - "<c=downside>(Reset parts after combat)</c>"
+        - "If you play a card, <c=downside>if it does not have <c=cardtrait>FROZEN</c>, add it.</c>"
+        - "If your wing gets <c=action>hit</c>, <c=downside>add a breakable part.</c>"
       CrystalCoreV2: 
         name: CRYSTAL HEART
         description: 
@@ -109,6 +108,11 @@ ship:
         description: 
         - "At the start of each turn, gain 3 <c=status>STUN CHARGE</c>."
         - "<c=action>Stun</c> will inflict 1 <c=status>COLD</c> to the enemy."
+      ColdHand: 
+        name: COLD HAND
+        description: 
+        - "(Gliese-exclusive artifact!)"
+        - "Allows you to <c=status>REDRAW</c> a card for free if fully <c=cardtrait>FROZEN</c>."
 
     card: 
       AbsoluteZero: 
@@ -116,12 +120,20 @@ ship:
         description: "<c=action>Shuffles</c> your parts. While in your hand, all <c=action>attacks</c> <c=downside>deal 0 dmg.</c>"
       Unfreeze: 
         name: Unfreeze
-        description: "Removes <c=trait>FROZEN</c> trait to all cards in your hand."
+        description: "Choose 3 cards from <c=keyword>discard pile</c> to remove <c=cardtrait>FROZEN</c>."
+        A:
+          description: 
+          - "Choose 3 cards from <c=keyword>discard pile</c> to remove <c=cardtrait>FROZEN</c> and draw it."
+        B:
+          description: 
+          - "Choose 3 cards from <c=keyword>draw and discard pile</c> to remove <c=cardtrait>FROZEN</c>."
     
     trait:
       Frozen:
         name: "Frozen"
-        description: "This card cannot be played."
+        description: 
+        - "Everytime this card is <c=keyword>played</c>, increment the counter by 1."
+        - "If the counter is on 3 and played, <c=downside>this card becomes unplayable.</c>"
 
   WolfRayet: 
     name: Wolf Rayet

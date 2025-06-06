@@ -15,12 +15,7 @@ internal sealed class SiriusSubwoofer : Artifact, IRegisterable
             new()
             {
                 ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-                Meta = new()
-                {
-                    owner = Deck.colorless,
-                    pools = [ArtifactPool.Common],
-                    unremovable = true,
-                },
+                Meta = new() { owner = Deck.colorless, pools = [ArtifactPool.Common] },
                 Sprite = Sprites.artifacts_SiriusSubwoofer.Sprite,
                 Name = ModEntry
                     .Instance.AnyLocalizations.Bind(

@@ -5,6 +5,7 @@ namespace Teuria.StarcourseDock;
 
 public static partial class Sprites
 {
+    public static ISpriteEntry artifacts_ColdHand = null!;
     public static ISpriteEntry artifacts_CrystalCore = null!;
     public static ISpriteEntry artifacts_CrystalCoreV2 = null!;
     public static ISpriteEntry artifacts_DeliveryNote = null!;
@@ -41,6 +42,9 @@ public static partial class Sprites
     public static ISpriteEntry icons_cold = null!;
     public static ISpriteEntry icons_freeze = null!;
     public static ISpriteEntry icons_frozen = null!;
+    public static ISpriteEntry icons_frozen_1 = null!;
+    public static ISpriteEntry icons_frozen_2 = null!;
+    public static ISpriteEntry icons_frozen_3 = null!;
     public static ISpriteEntry icons_orange_zone = null!;
     public static ISpriteEntry icons_power_down = null!;
     public static ISpriteEntry icons_siriusDrone = null!;
@@ -67,6 +71,7 @@ public static partial class Sprites
     public static ISpriteEntry parts_alpherg_scaffold_orange = null!;
     public static ISpriteEntry parts_alpherg_wing_left = null!;
     public static ISpriteEntry parts_alpherg_wing_right = null!;
+    public static ISpriteEntry parts_empty_chassis = null!;
     public static ISpriteEntry parts_gliese_cannon = null!;
     public static ISpriteEntry parts_gliese_cannon_temp = null!;
     public static ISpriteEntry parts_gliese_chassis = null!;
@@ -100,6 +105,9 @@ public static partial class Sprites
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
+        artifacts_ColdHand = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/ColdHand.png")
+        );
         artifacts_CrystalCore = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/CrystalCore.png")
         );
@@ -208,6 +216,15 @@ public static partial class Sprites
         icons_frozen = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/frozen.png")
         );
+        icons_frozen_1 = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/frozen_1.png")
+        );
+        icons_frozen_2 = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/frozen_2.png")
+        );
+        icons_frozen_3 = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/frozen_3.png")
+        );
         icons_orange_zone = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/orange_zone.png")
         );
@@ -285,6 +302,9 @@ public static partial class Sprites
         );
         parts_alpherg_wing_right = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/alpherg_wing_right.png")
+        );
+        parts_empty_chassis = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/empty_chassis.png")
         );
         parts_gliese_cannon = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/gliese_cannon.png")

@@ -8,7 +8,6 @@ namespace Teuria.StarcourseDock;
 internal sealed class CrystalCore : Artifact, IRegisterable
 {
     public List<Part>? tempParts;
-    internal static ICardTraitEntry FrozenTrait { get; set; } = null!;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
@@ -36,17 +35,11 @@ internal sealed class CrystalCore : Artifact, IRegisterable
                     .Localize,
             }
         );
+    }
 
-        FrozenTrait = helper.Content.Cards.RegisterTrait(
-            "Frozen",
-            new()
-            {
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(["ship", "Gliese", "trait", "Frozen", "name"])
-                    .Localize,
-                Icon = (State s, Card? c) => Sprites.icons_frozen.Sprite,
-            }
-        );
+    public override List<Tooltip>? GetExtraTooltips()
+    {
+        return [GlieseKit.GetFrozenTraitTooltip()];
     }
 
     public override void OnTurnStart(State state, Combat combat)
@@ -81,14 +74,38 @@ internal sealed class CrystalCore : Artifact, IRegisterable
             return;
         }
 
-        card.unplayableOverride = true;
+        if (
+            !ModEntry.Instance.Helper.Content.Cards.IsCardTraitActive(
+                state,
+                card,
+                GlieseKit.FrozenTrait
+            )
+        )
+        {
+            ModEntry.Instance.Helper.ModData.SetModData(card, "FrozenCount", 0);
+        }
+
+        var frozenCount = ModEntry.Instance.Helper.ModData.GetModDataOrDefault<int>(
+            card,
+            "FrozenCount"
+        );
+
+        if (frozenCount >= 3)
+        {
+            card.unplayableOverride = true;
+            ModEntry.Instance.Helper.ModData.SetModData(card, "FrozenCount", frozenCount + 1);
+            return;
+        }
+
         ModEntry.Instance.Helper.Content.Cards.SetCardTraitOverride(
             state,
             card,
-            FrozenTrait,
+            GlieseKit.FrozenTrait,
             true,
             false
         );
+
+        ModEntry.Instance.Helper.ModData.SetModData(card, "FrozenCount", frozenCount + 1);
     }
 
     public override void OnPlayerTakeNormalDamage(
@@ -108,7 +125,7 @@ internal sealed class CrystalCore : Artifact, IRegisterable
                 new Part()
                 {
                     type = PType.special,
-                    skin = GlieseShip.GlieseCrystal2.UniqueName,
+                    skin = "crystal_2",
                     stunModifier = PStunMod.breakable,
                     key = "crystal2::StarcourseDock",
                 }

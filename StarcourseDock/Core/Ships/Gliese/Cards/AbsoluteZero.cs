@@ -6,7 +6,7 @@ using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal class AbsoluteZero : Card, IRegisterable
+internal sealed class AbsoluteZero : Card, IRegisterable
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
