@@ -33,13 +33,11 @@ internal sealed class AlphergShip : IRegisterable
                 var state = MG.inst.g.state;
 
                 if (
-                    state.route is not Combat c
-                    || !ModEntry.Instance.Helper.ModData.TryGetModData(
-                        c,
+                    !ModEntry.Instance.Helper.ModData.TryGetModData(
+                        state.ship,
                         "alpherg_chassis.activation",
                         out bool leftActive
-                    )
-                    || !leftActive
+                    ) || !leftActive
                 )
                 {
                     return SpriteLoader.Get(Sprites.parts_alpherg_chassis.Sprite)!;

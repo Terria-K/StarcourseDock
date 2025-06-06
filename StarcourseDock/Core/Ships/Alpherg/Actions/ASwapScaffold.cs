@@ -6,7 +6,7 @@ internal class ASwapScaffold : CardAction
 
     public override void Begin(G g, State s, Combat c)
     {
-        ModEntry.Instance.Helper.ModData.SetModData(c, "alpherg_chassis.activation", isRight);
+        ModEntry.Instance.Helper.ModData.SetModData(s.ship, "alpherg_chassis.activation", isRight);
         if (isRight)
         {
             int x = s.ship.FindPartIndex(x =>
