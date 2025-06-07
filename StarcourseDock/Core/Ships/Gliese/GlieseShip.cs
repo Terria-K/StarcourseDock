@@ -63,7 +63,7 @@ internal sealed class GlieseShip : IRegisterable
                 Description = ModEntry
                     .Instance.AnyLocalizations.Bind(["ship", "Gliese", "description"])
                     .Localize,
-                UnderChassisSprite = Sprites.parts_gliese_chassis.Sprite,
+                UnderChassisSprite = Sprites.parts_empty_chassis.Sprite,
                 Ship = new()
                 {
                     ship = new()

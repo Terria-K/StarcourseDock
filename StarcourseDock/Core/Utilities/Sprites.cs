@@ -36,6 +36,7 @@ public static partial class Sprites
     public static ISpriteEntry cardShared_border_gliese = null!;
     public static ISpriteEntry cardShared_border_sirius = null!;
     public static ISpriteEntry cardShared_border_spica = null!;
+    public static ISpriteEntry cardShared_layer_border_frozen_card = null!;
     public static ISpriteEntry drones_siriusDrone = null!;
     public static ISpriteEntry drones_siriusDroneMKII = null!;
     public static ISpriteEntry drones_siriusSemiDualDrone = null!;
@@ -80,7 +81,6 @@ public static partial class Sprites
     public static ISpriteEntry parts_empty_chassis = null!;
     public static ISpriteEntry parts_gliese_cannon = null!;
     public static ISpriteEntry parts_gliese_cannon_temp = null!;
-    public static ISpriteEntry parts_gliese_chassis = null!;
     public static ISpriteEntry parts_gliese_cockpit = null!;
     public static ISpriteEntry parts_gliese_missilebay = null!;
     public static ISpriteEntry parts_gliese_scaffolding_0 = null!;
@@ -203,6 +203,9 @@ public static partial class Sprites
         );
         cardShared_border_spica = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/cardShared/border_spica.png")
+        );
+        cardShared_layer_border_frozen_card = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/cardShared/layer_border_frozen_card.png")
         );
         drones_siriusDrone = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/drones/siriusDrone.png")
@@ -336,9 +339,6 @@ public static partial class Sprites
         parts_gliese_cannon_temp = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/gliese_cannon_temp.png")
         );
-        parts_gliese_chassis = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/parts/gliese_chassis.png")
-        );
         parts_gliese_cockpit = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/gliese_cockpit.png")
         );
@@ -421,4 +421,5 @@ public static partial class Sprites
             package.PackageRoot.GetRelativeFile("assets/parts/wolf_rayet_scaffolding.png")
         );
     }
+
 }

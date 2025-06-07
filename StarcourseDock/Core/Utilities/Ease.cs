@@ -1,3 +1,4 @@
+#pragma warning disable CA1416
 using Microsoft.Xna.Framework;
 
 namespace Teuria.Utilities;
