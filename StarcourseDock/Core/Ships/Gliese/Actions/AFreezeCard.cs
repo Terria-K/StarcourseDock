@@ -64,7 +64,7 @@ internal sealed class AFreezeCard : CardAction
 
     public override Icon? GetIcon(State s)
     {
-        return new Icon(Sprites.icons_frozen_2.Sprite, null, Colors.white);
+        return new Icon(Sprites.icons_frozen_3.Sprite, null, Colors.white);
     }
 
     public override List<Tooltip> GetTooltips(State s)

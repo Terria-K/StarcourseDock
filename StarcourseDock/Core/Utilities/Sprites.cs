@@ -33,6 +33,7 @@ public static partial class Sprites
     public static ISpriteEntry cards_ShieldOrShot_Bottom = null!;
     public static ISpriteEntry cards_ShieldOrShot_Top = null!;
     public static ISpriteEntry cardShared_border_alpherg = null!;
+    public static ISpriteEntry cardShared_border_gliese = null!;
     public static ISpriteEntry cardShared_border_sirius = null!;
     public static ISpriteEntry cardShared_border_spica = null!;
     public static ISpriteEntry drones_siriusDrone = null!;
@@ -193,6 +194,9 @@ public static partial class Sprites
         );
         cardShared_border_alpherg = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/cardShared/border_alpherg.png")
+        );
+        cardShared_border_gliese = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/cardShared/border_gliese.png")
         );
         cardShared_border_sirius = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/cardShared/border_sirius.png")
@@ -417,5 +421,4 @@ public static partial class Sprites
             package.PackageRoot.GetRelativeFile("assets/parts/wolf_rayet_scaffolding.png")
         );
     }
-
 }

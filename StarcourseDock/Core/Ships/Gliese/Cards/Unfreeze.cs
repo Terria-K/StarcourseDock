@@ -16,7 +16,7 @@ internal sealed class Unfreeze : Card, IRegisterable, IHasCustomCardTraits
                 CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
                 Meta = new()
                 {
-                    deck = Deck.colorless,
+                    deck = GlieseKit.GlieseDeck.Deck,
                     rarity = Rarity.uncommon,
                     dontOffer = true,
                     upgradesTo = [Upgrade.A, Upgrade.B],

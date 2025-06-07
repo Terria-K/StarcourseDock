@@ -49,7 +49,7 @@ internal sealed class AbsoluteFreeze : Card, IRegisterable, IHasCustomCardTraits
                         action = new AFreezeCard()
                         {
                             selectedCard = GetLeftCardOnHand(c),
-                            increment = 2,
+                            increment = 3,
                         },
                     }
                 )
@@ -64,7 +64,7 @@ internal sealed class AbsoluteFreeze : Card, IRegisterable, IHasCustomCardTraits
                         action = new AFreezeCard()
                         {
                             selectedCard = GetRightCardOnHand(c),
-                            increment = 2,
+                            increment = 3,
                         },
                     }
                 )

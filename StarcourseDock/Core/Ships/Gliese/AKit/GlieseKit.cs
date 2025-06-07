@@ -7,13 +7,24 @@ namespace Teuria.StarcourseDock;
 
 internal sealed class GlieseKit : IRegisterable
 {
-    internal static ICardTraitEntry FrozenTrait { get; set; } = null!;
-    internal static ICardTraitEntry CantBeFrozenTrait { get; set; } = null!;
-    internal static ICardTraitEntry TurnEndTriggerTrait { get; set; } = null!;
-    private static Dictionary<int, Spr> frozenSpritesCache = new Dictionary<int, Spr>();
+    internal static ICardTraitEntry FrozenTrait { get; private set; } = null!;
+    internal static ICardTraitEntry CantBeFrozenTrait { get; private set; } = null!;
+    internal static ICardTraitEntry TurnEndTriggerTrait { get; private set; } = null!;
+    internal static IDeckEntry GlieseDeck { get; private set; } = null!;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
+        GlieseDeck = helper.Content.Decks.RegisterDeck(
+            "Gliese",
+            new()
+            {
+                Definition = new() { color = new Color("acdfff"), titleColor = Colors.black },
+                DefaultCardArt = StableSpr.cards_colorless,
+                BorderSprite = Sprites.cardShared_border_gliese.Sprite,
+                Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Gliese", "name"]).Localize,
+            }
+        );
+
         FrozenTrait = helper.Content.Cards.RegisterTrait(
             "Frozen",
             new()
