@@ -70,7 +70,12 @@ internal sealed class ColdHand : Artifact, IRegisterable, IKokoroApi.IV2.IRedraw
             }
 
             if (
-                ModEntry.Instance.Helper.ModData.TryGetModData(
+                ModEntry.Instance.Helper.Content.Cards.IsCardTraitActive(
+                    args.State,
+                    args.Card,
+                    GlieseKit.FrozenTrait
+                )
+                && ModEntry.Instance.Helper.ModData.TryGetModData(
                     args.Card,
                     "FrozenCount",
                     out int frozenCount

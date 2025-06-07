@@ -100,9 +100,8 @@ ship:
         name: CRYSTAL HEART
         description: 
         - "Replaces <c=artifact>CRYSTAL CORE</c>."
-        - "At the start of a combat, add an <c=card>Absolute Zero</c> in your draw pile."
+        - "At the start of a combat, add an <c=card>Absolute Freeze</c> in your draw pile."
         - "If a wing gets <c=action>hit</c>, <c=downside>add a temporary cannon that last after your turn.</c>"
-        - "<c=downside>(Reset parts after combat)</c>"
       FrostCannon: 
         name: FROST CANNON
         description: 
@@ -115,9 +114,8 @@ ship:
         - "Allows you to <c=status>REDRAW</c> a card for free if fully <c=cardtrait>FROZEN</c>."
 
     card: 
-      AbsoluteZero: 
-        name: Absolute Zero
-        description: "<c=action>Shuffles</c> your parts. While in your hand, all <c=action>attacks</c> <c=downside>deal 0 dmg.</c>"
+      AbsoluteFreeze: 
+        name: Absolute Freeze
       Unfreeze: 
         name: Unfreeze
         description: "Choose 3 cards from <c=keyword>discard pile</c> to remove <c=cardtrait>FROZEN</c>."
@@ -130,10 +128,26 @@ ship:
     
     trait:
       Frozen:
-        name: "Frozen"
+        name: Frozen
         description: 
         - "Everytime this card is <c=keyword>played</c>, increment the counter by 1."
-        - "If the counter is on 3 and played, <c=downside>this card becomes unplayable.</c>"
+        - "If the counter is more than 3, <c=downside>this card becomes unplayable.</c>"
+      CantBeFrozen:
+        name: Cannot Be Frozen 
+        description: 
+        - "This card cannot obtain <c=cardtrait>FROZEN</c>."
+      TurnEndTrigger:
+        name: TURN END TRIGGER
+        description: "If this card is in your hand at the end of your turn, trigger the actions below the line."
+    
+    action:
+      RightFreeze:
+        name: RIGHT TRAIT MODIFIER
+        description: Add the following trait to the card to the right.
+      LeftFreeze:
+        name: LEFT TRAIT MODIFIER
+        description: Add the following trait to the card to the left.
+    
 
   WolfRayet: 
     name: Wolf Rayet

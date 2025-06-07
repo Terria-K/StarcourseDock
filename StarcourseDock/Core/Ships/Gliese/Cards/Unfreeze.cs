@@ -5,7 +5,7 @@ using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed class Unfreeze : Card, IRegisterable
+internal sealed class Unfreeze : Card, IRegisterable, IHasCustomCardTraits
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
@@ -112,5 +112,10 @@ internal sealed class Unfreeze : Card, IRegisterable
                 },
             ],
         };
+    }
+
+    public IReadOnlySet<ICardTraitEntry> GetInnateTraits(State state)
+    {
+        return new HashSet<ICardTraitEntry>() { GlieseKit.CantBeFrozenTrait };
     }
 }

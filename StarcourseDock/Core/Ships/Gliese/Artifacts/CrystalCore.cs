@@ -73,39 +73,8 @@ internal sealed class CrystalCore : Artifact, IRegisterable
         {
             return;
         }
-
-        if (
-            !ModEntry.Instance.Helper.Content.Cards.IsCardTraitActive(
-                state,
-                card,
-                GlieseKit.FrozenTrait
-            )
-        )
-        {
-            ModEntry.Instance.Helper.ModData.SetModData(card, "FrozenCount", 0);
-        }
-
-        var frozenCount = ModEntry.Instance.Helper.ModData.GetModDataOrDefault<int>(
-            card,
-            "FrozenCount"
-        );
-
-        if (frozenCount >= 3)
-        {
-            card.unplayableOverride = true;
-            ModEntry.Instance.Helper.ModData.SetModData(card, "FrozenCount", frozenCount + 1);
-            return;
-        }
-
-        ModEntry.Instance.Helper.Content.Cards.SetCardTraitOverride(
-            state,
-            card,
-            GlieseKit.FrozenTrait,
-            true,
-            false
-        );
-
-        ModEntry.Instance.Helper.ModData.SetModData(card, "FrozenCount", frozenCount + 1);
+        combat.QueueImmediate(new AFreezeCard() { selectedCard = card, increment = 1 });
+        Pulse();
     }
 
     public override void OnPlayerTakeNormalDamage(
@@ -125,11 +94,12 @@ internal sealed class CrystalCore : Artifact, IRegisterable
                 new Part()
                 {
                     type = PType.special,
-                    skin = "crystal_2",
+                    skin = GlieseShip.GlieseCrystal2.UniqueName,
                     stunModifier = PStunMod.breakable,
                     key = "crystal2::StarcourseDock",
                 }
             );
+            Pulse();
         }
     }
 }

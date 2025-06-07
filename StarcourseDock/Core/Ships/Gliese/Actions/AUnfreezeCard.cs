@@ -6,6 +6,7 @@ internal class AUnfreezeCard : CardAction
 
     public override void Begin(G g, State s, Combat c)
     {
+        timer = 0.0;
         var card = this.selectedCard;
 
         if (card is null)
@@ -31,7 +32,7 @@ internal class AUnfreezeCard : CardAction
 
         if (shouldDraw)
         {
-            c.QueueImmediate(new ChooseCardToPutInHand() { selectedCard = card });
+            c.QueueImmediate(new ChooseCardToPutInHand() { selectedCard = card, timer = 0.0 });
         }
     }
 }

@@ -27,6 +27,7 @@ public static partial class Sprites
     public static ISpriteEntry artifacts_SiriusSubwoofer = null!;
     public static ISpriteEntry artifacts_TinyWormhole = null!;
     public static ISpriteEntry artifacts_VolcanicShield = null!;
+    public static ISpriteEntry cards_AbsoluteFreeze = null!;
     public static ISpriteEntry cards_DodgeOrShift_Bottom = null!;
     public static ISpriteEntry cards_DodgeOrShift_Top = null!;
     public static ISpriteEntry cards_ShieldOrShot_Bottom = null!;
@@ -39,19 +40,23 @@ public static partial class Sprites
     public static ISpriteEntry drones_siriusSemiDualDrone = null!;
     public static ISpriteEntry drones_siriusSemiDualDroneMKII = null!;
     public static ISpriteEntry icons_blue_zone = null!;
+    public static ISpriteEntry icons_cant_frozen = null!;
     public static ISpriteEntry icons_cold = null!;
     public static ISpriteEntry icons_freeze = null!;
     public static ISpriteEntry icons_frozen = null!;
     public static ISpriteEntry icons_frozen_1 = null!;
     public static ISpriteEntry icons_frozen_2 = null!;
     public static ISpriteEntry icons_frozen_3 = null!;
+    public static ISpriteEntry icons_left_freeze = null!;
     public static ISpriteEntry icons_orange_zone = null!;
     public static ISpriteEntry icons_power_down = null!;
+    public static ISpriteEntry icons_right_freeze = null!;
     public static ISpriteEntry icons_siriusDrone = null!;
     public static ISpriteEntry icons_siriusDroneMkII = null!;
     public static ISpriteEntry icons_siriusSemiDualDrone = null!;
     public static ISpriteEntry icons_siriusSemiDualDroneMkII = null!;
     public static ISpriteEntry icons_sirius_toggle = null!;
+    public static ISpriteEntry icons_turn_end_trigger = null!;
     public static ISpriteEntry parts_albireo_cannon_left = null!;
     public static ISpriteEntry parts_albireo_cannon_left_inactive = null!;
     public static ISpriteEntry parts_albireo_cannon_right = null!;
@@ -171,6 +176,9 @@ public static partial class Sprites
         artifacts_VolcanicShield = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/VolcanicShield.png")
         );
+        cards_AbsoluteFreeze = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/cards/AbsoluteFreeze.png")
+        );
         cards_DodgeOrShift_Bottom = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/cards/DodgeOrShift_Bottom.png")
         );
@@ -207,6 +215,9 @@ public static partial class Sprites
         icons_blue_zone = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/blue_zone.png")
         );
+        icons_cant_frozen = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/cant_frozen.png")
+        );
         icons_cold = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/cold.png")
         );
@@ -225,11 +236,17 @@ public static partial class Sprites
         icons_frozen_3 = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/frozen_3.png")
         );
+        icons_left_freeze = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/left_freeze.png")
+        );
         icons_orange_zone = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/orange_zone.png")
         );
         icons_power_down = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/power_down.png")
+        );
+        icons_right_freeze = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/right_freeze.png")
         );
         icons_siriusDrone = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/siriusDrone.png")
@@ -245,6 +262,9 @@ public static partial class Sprites
         );
         icons_sirius_toggle = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/sirius_toggle.png")
+        );
+        icons_turn_end_trigger = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/turn_end_trigger.png")
         );
         parts_albireo_cannon_left = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/albireo_cannon_left.png")

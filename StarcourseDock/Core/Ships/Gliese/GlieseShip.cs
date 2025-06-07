@@ -13,9 +13,23 @@ internal sealed class GlieseShip : IRegisterable
     internal static IPartEntry GlieseCannonTemp { get; private set; } = null!;
     internal static IPartEntry GliesePortal { get; private set; } = null!;
     internal static IPartEntry GlieseCockpit { get; private set; } = null!;
+    internal static IPartEntry GlieseScaffolding1 { get; private set; } = null!;
+    internal static IPartEntry GlieseScaffolding2 { get; private set; } = null!;
+    internal static IPartEntry GlieseCrystal1 { get; private set; } = null!;
+    internal static IPartEntry GlieseCrystal2 { get; private set; } = null!;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
+        GlieseScaffolding1 = helper.Content.Ships.RegisterPart(
+            "GlieseScaffolding_crystal0",
+            new() { Sprite = Sprites.parts_gliese_scaffolding_0.Sprite }
+        );
+
+        GlieseScaffolding2 = helper.Content.Ships.RegisterPart(
+            "GlieseScaffolding_crystal1",
+            new() { Sprite = Sprites.parts_gliese_scaffolding_1.Sprite }
+        );
+
         GliesePortal = helper.Content.Ships.RegisterPart(
             "GliesePortal",
             new() { Sprite = Sprites.parts_gliese_wings_3.Sprite }
@@ -27,8 +41,18 @@ internal sealed class GlieseShip : IRegisterable
         );
 
         GlieseCockpit = helper.Content.Ships.RegisterPart(
-            "GlieseMissileBay",
+            "GlieseCockpit",
             new() { Sprite = Sprites.parts_gliese_cockpit.Sprite }
+        );
+
+        GlieseCrystal1 = helper.Content.Ships.RegisterPart(
+            "Gliesecrystal1",
+            new() { Sprite = Sprites.parts_gliese_wings_0.Sprite }
+        );
+
+        GlieseCrystal2 = helper.Content.Ships.RegisterPart(
+            "Gliesecrystal2",
+            new() { Sprite = Sprites.parts_gliese_wings_1.Sprite }
         );
 
         GlieseEntry = helper.Content.Ships.RegisterShip(
@@ -53,7 +77,7 @@ internal sealed class GlieseShip : IRegisterable
                             new Part()
                             {
                                 type = PType.special,
-                                skin = "crystal_1",
+                                skin = GlieseCrystal1.UniqueName,
                                 stunModifier = PStunMod.breakable,
                                 key = "crystal1::StarcourseDock",
                             },
@@ -62,7 +86,7 @@ internal sealed class GlieseShip : IRegisterable
                                 type = PType.missiles,
                                 skin = helper
                                     .Content.Ships.RegisterPart(
-                                        "GlieseCockpit",
+                                        "GlieseMissileBay",
                                         new() { Sprite = Sprites.parts_gliese_missilebay.Sprite }
                                     )
                                     .UniqueName,
@@ -78,7 +102,7 @@ internal sealed class GlieseShip : IRegisterable
                                     .UniqueName,
                             },
                             new Part() { type = PType.cockpit, skin = GlieseCockpit.UniqueName },
-                            new Part() { type = PType.empty, skin = "empty_crystal_2" },
+                            new Part() { type = PType.empty, skin = GlieseScaffolding2.UniqueName },
                             new Part()
                             {
                                 type = PType.wing,
