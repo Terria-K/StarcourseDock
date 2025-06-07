@@ -83,7 +83,7 @@ internal sealed class SiriusSemiDualDrone : StuffBase
                     Description = ModEntry.Instance.Localizations.Localize(
                         ["ship", "Sirius", "midrow", "SiriusSemiDualDroneMKII", "description"]
                     ),
-                    Icon = Sprites.icons_siriusDroneMkII.Sprite,
+                    Icon = Sprites.icons_siriusSemiDualDroneMkII.Sprite,
                     flipIconY = targetPlayer,
                 },
                 _ => new GlossaryTooltip(
@@ -97,7 +97,7 @@ internal sealed class SiriusSemiDualDrone : StuffBase
                     Description = ModEntry.Instance.Localizations.Localize(
                         ["ship", "Sirius", "midrow", "SiriusSemiDualDrone", "description"]
                     ),
-                    Icon = Sprites.icons_siriusDrone.Sprite,
+                    Icon = Sprites.icons_siriusSemiDualDrone.Sprite,
                     flipIconY = targetPlayer,
                 },
             },
