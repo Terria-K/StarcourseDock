@@ -151,7 +151,7 @@ ship:
 
   WolfRayet: 
     name: Wolf Rayet
-    description: "Heavy ship loaded with heat-powered missiles."
+    description: "Heavy ship loaded with <c=status>HEAT</c>-powered missiles."
 
     artifact: 
       HeatShield: 
