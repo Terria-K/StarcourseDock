@@ -35,5 +35,9 @@ internal static class SourceGenerationHelper
         internal sealed class OnPostfix<T>(string methodName) : Attribute;
         internal sealed class OnFinalizer<T>(string methodName) : Attribute;
         internal sealed class OnTranspiler<T>(string methodName) : Attribute;
+        internal sealed class OnVirtualPrefix<T>(string methodName) : Attribute;
+        internal sealed class OnVirtualPostfix<T>(string methodName) : Attribute;
+        internal sealed class OnVirtualFinalizer<T>(string methodName) : Attribute;
+        internal sealed class OnVirtualTranspiler<T>(string methodName) : Attribute;
         """;
 }

@@ -17,7 +17,7 @@ internal sealed partial class SiriusMissileBayPatches : IPatchable
         }
     }
 
-    [OnPostfix<StuffBase>(nameof(StuffBase.Render))]
+    [OnVirtualPostfix<StuffBase>(nameof(StuffBase.Render))]
     private static void StuffBase_Render_Postfix(StuffBase __instance, G g, Vec v)
     {
         if (ModEntry.Instance.Helper.ModData.TryGetModData(__instance, "powerdown", out bool data))

@@ -168,7 +168,8 @@ internal class CuteGenerator : IIncrementalGenerator
 
     private static void WritePatches(INamedTypeSymbol symbol, StringBuilder builder)
     {
-        HashSet<(string typeSym, string)> symbols = new HashSet<(string typeSym, string)>();
+        HashSet<(string typeSym, string, bool)> symbols =
+            new HashSet<(string typeSym, string, bool)>();
 
         Dictionary<string, List<string>> prefixBatches = new Dictionary<string, List<string>>();
 
@@ -194,7 +195,13 @@ internal class CuteGenerator : IIncrementalGenerator
                     var type = attribute.AttributeClass!.TypeArguments[0].ToFullDisplayString();
                     var methodName = attribute.ConstructorArguments[0];
 
-                    symbols.Add((type, methodName.ToCSharpString()));
+                    symbols.Add(
+                        (
+                            type,
+                            methodName.ToCSharpString(),
+                            attribute.AttributeClass.Name.Contains("Virtual")
+                        )
+                    );
 
                     switch (attribute.AttributeClass.Name)
                     {
@@ -220,6 +227,34 @@ internal class CuteGenerator : IIncrementalGenerator
                             );
                             break;
                         case "OnFinalizer":
+                            AddToBatch(
+                                finalizerBatches,
+                                $"{type}+{methodName.ToCSharpString()}",
+                                name
+                            );
+                            break;
+                        case "OnVirtualPrefix":
+                            AddToBatch(
+                                prefixBatches,
+                                $"{type}+{methodName.ToCSharpString()}",
+                                name
+                            );
+                            break;
+                        case "OnVirtualPostfix":
+                            AddToBatch(
+                                postfixBatches,
+                                $"{type}+{methodName.ToCSharpString()}",
+                                name
+                            );
+                            break;
+                        case "OnVirtualTranspiler":
+                            AddToBatch(
+                                transpilerBatches,
+                                $"{type}+{methodName.ToCSharpString()}",
+                                name
+                            );
+                            break;
+                        case "OnVirtualFinalizer":
                             AddToBatch(
                                 finalizerBatches,
                                 $"{type}+{methodName.ToCSharpString()}",
@@ -303,7 +338,7 @@ internal class CuteGenerator : IIncrementalGenerator
             }
 
             string harmonyPatch = $"""
-                        harmony.Patch(
+                        harmony.{(sym.Item3 ? "PatchVirtual" : "Patch")}(
                             AccessTools.DeclaredMethod(typeof({sym.Item1}), {sym.Item2}),
                         /* prefix */    {TryAddTrailingCommas(
                     prefix,
