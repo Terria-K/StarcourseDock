@@ -1,11 +1,9 @@
-using System.Runtime.InteropServices;
-using CutebaltCore;
 using Nanoray.PluginManager;
 using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed class GlieseKit : IRegisterable
+internal sealed class GlieseKit 
 {
     internal static ICardTraitEntry FrozenTrait { get; private set; } = null!;
     internal static ICardTraitEntry CantBeFrozenTrait { get; private set; } = null!;

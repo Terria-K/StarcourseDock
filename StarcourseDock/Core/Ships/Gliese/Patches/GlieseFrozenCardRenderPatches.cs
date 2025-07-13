@@ -4,7 +4,7 @@ using HarmonyLib;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class GlieseFrozenCardRenderPatches : IPatchable
+internal sealed partial class GlieseFrozenCardRenderPatches 
 {
     [OnTranspiler<Card>(nameof(Card.Render))]
     private static IEnumerable<CodeInstruction> Render(

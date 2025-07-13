@@ -5,7 +5,7 @@ using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed class Unfreeze : Card, IRegisterable, IHasCustomCardTraits
+internal sealed class Unfreeze : Card, IHasCustomCardTraits
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {

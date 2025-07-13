@@ -2,7 +2,7 @@ using CutebaltCore;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class GliesePartsPatches : IPatchable
+internal sealed partial class GliesePartsPatches
 {
     [OnPostfix<Part>(nameof(Part.GetBrokenPartSkin))]
     private static void Part_GetBrokenPartSkin_Postfix(Part __instance, ref string __result)

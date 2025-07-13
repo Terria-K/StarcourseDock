@@ -5,7 +5,7 @@ using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed class CrystalCoreV2 : Artifact, IRegisterable
+internal sealed class CrystalCoreV2 : Artifact
 {
     public List<Part>? tempParts;
 

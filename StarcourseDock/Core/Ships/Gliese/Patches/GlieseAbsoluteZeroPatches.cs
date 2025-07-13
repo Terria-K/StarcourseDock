@@ -3,7 +3,7 @@ using ZLinq;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class GlieseAbsoluteFreezePatches : IPatchable
+internal sealed partial class GlieseAbsoluteFreezePatches 
 {
     [OnPrefix<Card>(nameof(Card.RenderAction))]
     private static bool Card_RenderAction_Prefix(

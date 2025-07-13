@@ -4,7 +4,7 @@ using HarmonyLib;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class GlieseGlowPatches : IPatchable
+internal sealed partial class GlieseGlowPatches
 {
     [OnTranspiler<Ship>(nameof(Ship.DrawTopLayer))]
     private static IEnumerable<CodeInstruction> Ship_DrawTopLayer_Transpiler(

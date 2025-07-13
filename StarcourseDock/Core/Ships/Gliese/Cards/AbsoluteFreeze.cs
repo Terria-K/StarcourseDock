@@ -7,7 +7,7 @@ using Shockah.Kokoro;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed class AbsoluteFreeze : Card, IRegisterable, IHasCustomCardTraits
+internal sealed class AbsoluteFreeze : Card, IHasCustomCardTraits
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {

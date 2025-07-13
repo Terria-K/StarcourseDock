@@ -6,7 +6,7 @@ using Shockah.Kokoro;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed class ColdHand : Artifact, IRegisterable, IKokoroApi.IV2.IRedrawStatusApi.IHook
+internal sealed class ColdHand : Artifact, IKokoroApi.IV2.IRedrawStatusApi.IHook
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {

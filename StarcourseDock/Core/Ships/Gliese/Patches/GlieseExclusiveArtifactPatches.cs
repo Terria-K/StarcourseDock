@@ -2,7 +2,7 @@ using CutebaltCore;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class GlieseExclusiveArtifactPatches : IPatchable
+internal sealed partial class GlieseExclusiveArtifactPatches 
 {
     [OnPostfix<ArtifactReward>(nameof(ArtifactReward.GetBlockedArtifacts))]
     private static void GetBlockedArtifacts_Postfix(HashSet<Type> __result, State s)

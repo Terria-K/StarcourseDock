@@ -1,13 +1,10 @@
-using System.Reflection.Emit;
 using CutebaltCore;
-using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
-using Teuria.Utilities;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed class GlieseShip : IRegisterable
+internal sealed class GlieseShip 
 {
     internal static IShipEntry GlieseEntry { get; private set; } = null!;
     internal static IPartEntry GlieseCannonTemp { get; private set; } = null!;

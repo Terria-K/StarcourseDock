@@ -1,12 +1,10 @@
 using System.Reflection;
-using CutebaltCore;
-using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed class FrostCannon : Artifact, IRegisterable
+internal sealed class FrostCannon : Artifact
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
