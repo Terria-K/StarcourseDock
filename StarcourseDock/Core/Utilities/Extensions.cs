@@ -1,7 +1,5 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using Nickel;
-using Teuria.StarcourseDock;
 
 namespace Teuria.Utilities;
 

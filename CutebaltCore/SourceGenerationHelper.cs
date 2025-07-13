@@ -25,6 +25,17 @@ internal static class SourceGenerationHelper
         }
         """;
 
+    public const string IReversePatchable = """
+        using Nickel;
+
+        namespace CutebaltCore;
+
+        internal interface IManualPatchable
+        {
+            static abstract void ManualPatch(IHarmony harmony);
+        }
+        """;
+
     public const string Attributes = """
         #pragma warning disable CS9113
         using Nickel;

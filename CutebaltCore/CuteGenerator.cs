@@ -25,6 +25,11 @@ internal class CuteGenerator : IIncrementalGenerator
             );
 
             ctx.AddSource(
+                "IReversePatchable.g.cs",
+                SourceText.From(SourceGenerationHelper.IReversePatchable, Encoding.UTF8)
+            );
+
+            ctx.AddSource(
                 "Attributes.g.cs",
                 SourceText.From(SourceGenerationHelper.Attributes, Encoding.UTF8)
             );
@@ -129,6 +134,37 @@ internal class CuteGenerator : IIncrementalGenerator
             );
         }
 
+        string justAnotherBody = "";
+
+        foreach (var symbol in GetSerializableSymbols(comp, syn, "IManualPatchable"))
+        {
+            var className = QuoteWriter.AddExpression(symbol.ToFullDisplayString);
+
+            var bodyLine = QuoteWriter.AddStatement(sb =>
+            {
+                sb.AppendLine($"        {className}.ManualPatch(harmony);");
+
+                return sb.ToString();
+            });
+
+            justAnotherBody += bodyLine;
+        }
+
+        var reversePatchableQuotes = $$"""
+            // Source Generated Code by CutebaltCore  :>>>>
+            using Nickel;
+
+            namespace CutebaltCore;
+
+            public static class ManualPatchables
+            {
+                public static void Patch(IHarmony harmony)
+                {
+            {{justAnotherBody}}                
+                } 
+            }
+            """;
+
         var registerableQuote = $$"""
             // Source Generated Code by CutebaltCore  :>>>>
             using Nanoray.PluginManager;
@@ -145,6 +181,7 @@ internal class CuteGenerator : IIncrementalGenerator
             }
             """;
 
+        ctx.AddSource("CutebaltCore.ReversePatchables.g.cs", reversePatchableQuotes);
         ctx.AddSource("CutebaltCore.Registeration.g.cs", registerableQuote);
         ctx.AddSource(
             "CutebaltCore.Patchables.g.cs",

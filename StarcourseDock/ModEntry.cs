@@ -3,6 +3,7 @@ using CutebaltCore;
 using Microsoft.Extensions.Logging;
 using Nanoray.PluginManager;
 using Nickel;
+using Nickel.Essentials;
 using Shockah.Kokoro;
 
 [assembly: InternalsVisibleTo("GeneratedTextTransformation")]
@@ -16,6 +17,7 @@ public sealed partial class ModEntry : SimpleMod
     internal static ModEntry Instance { get; private set; } = null!;
     internal IHarmony Harmony { get; }
     internal IKokoroApi KokoroAPI { get; }
+    internal IEssentialsApi EssentialAPI { get; }
 
     public ModEntry(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger)
         : base(package, helper, logger)
@@ -35,9 +37,11 @@ public sealed partial class ModEntry : SimpleMod
         );
 
         KokoroAPI = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!;
+        EssentialAPI = helper.ModRegistry.GetApi<IEssentialsApi>("Nickel.Essentials")!;
         Sprites.Register(package, helper);
 
         Registerables.Register(package, helper);
         Patchables.Patch(Harmony);
+        ManualPatchables.Patch(Harmony);
     }
 }

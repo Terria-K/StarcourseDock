@@ -5,12 +5,9 @@ namespace Teuria.StarcourseDock;
 
 public static partial class Sprites
 {
-    public static ISpriteEntry artifacts_ColdHand = null!;
     public static ISpriteEntry artifacts_CrystalCore = null!;
     public static ISpriteEntry artifacts_CrystalCoreV2 = null!;
     public static ISpriteEntry artifacts_DeliveryNote = null!;
-    public static ISpriteEntry artifacts_DoubleStar = null!;
-    public static ISpriteEntry artifacts_DoubleStarInactive = null!;
     public static ISpriteEntry artifacts_FixedStar = null!;
     public static ISpriteEntry artifacts_FrostCannon = null!;
     public static ISpriteEntry artifacts_HeatShield = null!;
@@ -18,7 +15,6 @@ public static partial class Sprites
     public static ISpriteEntry artifacts_Piscium = null!;
     public static ISpriteEntry artifacts_RoutedCannon = null!;
     public static ISpriteEntry artifacts_RoutedCannonInactive = null!;
-    public static ISpriteEntry artifacts_SaveState = null!;
     public static ISpriteEntry artifacts_ShrinkMechanism = null!;
     public static ISpriteEntry artifacts_ShrinkMechanismV2 = null!;
     public static ISpriteEntry artifacts_SiriusInquisitor = null!;
@@ -27,47 +23,50 @@ public static partial class Sprites
     public static ISpriteEntry artifacts_SiriusSubwoofer = null!;
     public static ISpriteEntry artifacts_TinyWormhole = null!;
     public static ISpriteEntry artifacts_VolcanicShield = null!;
-    public static ISpriteEntry cards_AbsoluteFreeze = null!;
+    public static ISpriteEntry artifacts_ColdHand = null!;
+    public static ISpriteEntry artifacts_DoubleDeck = null!;
+    public static ISpriteEntry artifacts_DoubleDeck_Orange = null!;
+    public static ISpriteEntry artifacts_PolarityWings = null!;
+    public static ISpriteEntry artifacts_PolarityWings_Orange = null!;
+    public static ISpriteEntry cardShared_border_alpherg = null!;
+    public static ISpriteEntry cardShared_border_sirius = null!;
+    public static ISpriteEntry cardShared_border_spica = null!;
+    public static ISpriteEntry cardShared_border_gliese = null!;
+    public static ISpriteEntry cardShared_layer_border_frozen_card = null!;
     public static ISpriteEntry cards_DodgeOrShift_Bottom = null!;
     public static ISpriteEntry cards_DodgeOrShift_Top = null!;
     public static ISpriteEntry cards_ShieldOrShot_Bottom = null!;
     public static ISpriteEntry cards_ShieldOrShot_Top = null!;
-    public static ISpriteEntry cardShared_border_alpherg = null!;
-    public static ISpriteEntry cardShared_border_gliese = null!;
-    public static ISpriteEntry cardShared_border_sirius = null!;
-    public static ISpriteEntry cardShared_border_spica = null!;
-    public static ISpriteEntry cardShared_layer_border_frozen_card = null!;
+    public static ISpriteEntry cards_AbsoluteFreeze = null!;
     public static ISpriteEntry drones_siriusDrone = null!;
     public static ISpriteEntry drones_siriusDroneMKII = null!;
     public static ISpriteEntry drones_siriusSemiDualDrone = null!;
     public static ISpriteEntry drones_siriusSemiDualDroneMKII = null!;
     public static ISpriteEntry icons_blue_zone = null!;
-    public static ISpriteEntry icons_cant_frozen = null!;
     public static ISpriteEntry icons_cold = null!;
     public static ISpriteEntry icons_freeze = null!;
-    public static ISpriteEntry icons_frozen = null!;
-    public static ISpriteEntry icons_frozen_1 = null!;
-    public static ISpriteEntry icons_frozen_2 = null!;
-    public static ISpriteEntry icons_frozen_3 = null!;
-    public static ISpriteEntry icons_left_freeze = null!;
     public static ISpriteEntry icons_orange_zone = null!;
     public static ISpriteEntry icons_power_down = null!;
-    public static ISpriteEntry icons_right_freeze = null!;
     public static ISpriteEntry icons_siriusDrone = null!;
     public static ISpriteEntry icons_siriusDroneMkII = null!;
     public static ISpriteEntry icons_siriusSemiDualDrone = null!;
     public static ISpriteEntry icons_siriusSemiDualDroneMkII = null!;
     public static ISpriteEntry icons_sirius_toggle = null!;
+    public static ISpriteEntry icons_cant_frozen = null!;
+    public static ISpriteEntry icons_frozen = null!;
+    public static ISpriteEntry icons_frozen_1 = null!;
+    public static ISpriteEntry icons_frozen_2 = null!;
+    public static ISpriteEntry icons_frozen_3 = null!;
+    public static ISpriteEntry icons_left_freeze = null!;
+    public static ISpriteEntry icons_right_freeze = null!;
     public static ISpriteEntry icons_turn_end_trigger = null!;
-    public static ISpriteEntry parts_albireo_cannon_left = null!;
-    public static ISpriteEntry parts_albireo_cannon_left_inactive = null!;
-    public static ISpriteEntry parts_albireo_cannon_right = null!;
-    public static ISpriteEntry parts_albireo_cannon_right_inactive = null!;
+    public static ISpriteEntry icons_polarity = null!;
+    public static ISpriteEntry icons_polarity_orange = null!;
+    public static ISpriteEntry icons_polarity_blue = null!;
+    public static ISpriteEntry icons_status_polarity = null!;
+    public static ISpriteEntry icons_status_polarity_blue = null!;
+    public static ISpriteEntry icons_status_polarity_orange = null!;
     public static ISpriteEntry parts_albireo_chassis = null!;
-    public static ISpriteEntry parts_albireo_cockpit = null!;
-    public static ISpriteEntry parts_albireo_missilebay_inactive = null!;
-    public static ISpriteEntry parts_albireo_missilebay_left = null!;
-    public static ISpriteEntry parts_albireo_missilebay_right = null!;
     public static ISpriteEntry parts_alpherg_cannon = null!;
     public static ISpriteEntry parts_alpherg_cannon_inactive = null!;
     public static ISpriteEntry parts_alpherg_chassis = null!;
@@ -78,17 +77,12 @@ public static partial class Sprites
     public static ISpriteEntry parts_alpherg_scaffold_orange = null!;
     public static ISpriteEntry parts_alpherg_wing_left = null!;
     public static ISpriteEntry parts_alpherg_wing_right = null!;
-    public static ISpriteEntry parts_empty_chassis = null!;
-    public static ISpriteEntry parts_gliese_cannon = null!;
     public static ISpriteEntry parts_gliese_cannon_temp = null!;
-    public static ISpriteEntry parts_gliese_cockpit = null!;
-    public static ISpriteEntry parts_gliese_missilebay = null!;
     public static ISpriteEntry parts_gliese_scaffolding_0 = null!;
     public static ISpriteEntry parts_gliese_scaffolding_1 = null!;
     public static ISpriteEntry parts_gliese_wings_0 = null!;
     public static ISpriteEntry parts_gliese_wings_1 = null!;
     public static ISpriteEntry parts_gliese_wings_2 = null!;
-    public static ISpriteEntry parts_gliese_wings_3 = null!;
     public static ISpriteEntry parts_sirius_chassis = null!;
     public static ISpriteEntry parts_sirius_cockpit = null!;
     public static ISpriteEntry parts_sirius_comms = null!;
@@ -108,12 +102,21 @@ public static partial class Sprites
     public static ISpriteEntry parts_wolf_rayet_missiles_inactive = null!;
     public static ISpriteEntry parts_wolf_rayet_misslebay = null!;
     public static ISpriteEntry parts_wolf_rayet_scaffolding = null!;
+    public static ISpriteEntry parts_empty_chassis = null!;
+    public static ISpriteEntry parts_gliese_cannon = null!;
+    public static ISpriteEntry parts_gliese_cockpit = null!;
+    public static ISpriteEntry parts_gliese_missilebay = null!;
+    public static ISpriteEntry parts_gliese_wings_3 = null!;
+    public static ISpriteEntry parts_albireo_missilebay = null!;
+    public static ISpriteEntry parts_albireo_cannon = null!;
+    public static ISpriteEntry parts_albireo_cockpit = null!;
+    public static ISpriteEntry parts_albireo_wings_orange = null!;
+    public static ISpriteEntry parts_albireo_empty_orange = null!;
+    public static ISpriteEntry parts_albireo_empty_blue = null!;
+    public static ISpriteEntry parts_albireo_wings_blue = null!;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        artifacts_ColdHand = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/artifacts/ColdHand.png")
-        );
         artifacts_CrystalCore = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/CrystalCore.png")
         );
@@ -122,12 +125,6 @@ public static partial class Sprites
         );
         artifacts_DeliveryNote = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/DeliveryNote.png")
-        );
-        artifacts_DoubleStar = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/artifacts/DoubleStar.png")
-        );
-        artifacts_DoubleStarInactive = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/artifacts/DoubleStarInactive.png")
         );
         artifacts_FixedStar = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/FixedStar.png")
@@ -149,9 +146,6 @@ public static partial class Sprites
         );
         artifacts_RoutedCannonInactive = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/RoutedCannonInactive.png")
-        );
-        artifacts_SaveState = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/artifacts/SaveState.png")
         );
         artifacts_ShrinkMechanism = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/ShrinkMechanism.png")
@@ -177,8 +171,35 @@ public static partial class Sprites
         artifacts_VolcanicShield = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/artifacts/VolcanicShield.png")
         );
-        cards_AbsoluteFreeze = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/cards/AbsoluteFreeze.png")
+        artifacts_ColdHand = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/ColdHand.png")
+        );
+        artifacts_DoubleDeck = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/DoubleDeck.png")
+        );
+        artifacts_DoubleDeck_Orange = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/DoubleDeck_Orange.png")
+        );
+        artifacts_PolarityWings = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/PolarityWings.png")
+        );
+        artifacts_PolarityWings_Orange = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/artifacts/PolarityWings_Orange.png")
+        );
+        cardShared_border_alpherg = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/cardShared/border_alpherg.png")
+        );
+        cardShared_border_sirius = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/cardShared/border_sirius.png")
+        );
+        cardShared_border_spica = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/cardShared/border_spica.png")
+        );
+        cardShared_border_gliese = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/cardShared/border_gliese.png")
+        );
+        cardShared_layer_border_frozen_card = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/cardShared/layer_border_frozen_card.png")
         );
         cards_DodgeOrShift_Bottom = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/cards/DodgeOrShift_Bottom.png")
@@ -192,20 +213,8 @@ public static partial class Sprites
         cards_ShieldOrShot_Top = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/cards/ShieldOrShot_Top.png")
         );
-        cardShared_border_alpherg = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/cardShared/border_alpherg.png")
-        );
-        cardShared_border_gliese = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/cardShared/border_gliese.png")
-        );
-        cardShared_border_sirius = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/cardShared/border_sirius.png")
-        );
-        cardShared_border_spica = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/cardShared/border_spica.png")
-        );
-        cardShared_layer_border_frozen_card = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/cardShared/layer_border_frozen_card.png")
+        cards_AbsoluteFreeze = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/cards/AbsoluteFreeze.png")
         );
         drones_siriusDrone = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/drones/siriusDrone.png")
@@ -222,38 +231,17 @@ public static partial class Sprites
         icons_blue_zone = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/blue_zone.png")
         );
-        icons_cant_frozen = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/icons/cant_frozen.png")
-        );
         icons_cold = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/cold.png")
         );
         icons_freeze = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/freeze.png")
         );
-        icons_frozen = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/icons/frozen.png")
-        );
-        icons_frozen_1 = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/icons/frozen_1.png")
-        );
-        icons_frozen_2 = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/icons/frozen_2.png")
-        );
-        icons_frozen_3 = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/icons/frozen_3.png")
-        );
-        icons_left_freeze = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/icons/left_freeze.png")
-        );
         icons_orange_zone = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/orange_zone.png")
         );
         icons_power_down = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/power_down.png")
-        );
-        icons_right_freeze = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/icons/right_freeze.png")
         );
         icons_siriusDrone = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/siriusDrone.png")
@@ -270,35 +258,50 @@ public static partial class Sprites
         icons_sirius_toggle = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/sirius_toggle.png")
         );
+        icons_cant_frozen = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/cant_frozen.png")
+        );
+        icons_frozen = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/frozen.png")
+        );
+        icons_frozen_1 = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/frozen_1.png")
+        );
+        icons_frozen_2 = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/frozen_2.png")
+        );
+        icons_frozen_3 = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/frozen_3.png")
+        );
+        icons_left_freeze = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/left_freeze.png")
+        );
+        icons_right_freeze = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/right_freeze.png")
+        );
         icons_turn_end_trigger = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/icons/turn_end_trigger.png")
         );
-        parts_albireo_cannon_left = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/parts/albireo_cannon_left.png")
+        icons_polarity = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/polarity.png")
         );
-        parts_albireo_cannon_left_inactive = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/parts/albireo_cannon_left_inactive.png")
+        icons_polarity_orange = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/polarity_orange.png")
         );
-        parts_albireo_cannon_right = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/parts/albireo_cannon_right.png")
+        icons_polarity_blue = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/polarity_blue.png")
         );
-        parts_albireo_cannon_right_inactive = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/parts/albireo_cannon_right_inactive.png")
+        icons_status_polarity = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/status_polarity.png")
+        );
+        icons_status_polarity_blue = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/status_polarity_blue.png")
+        );
+        icons_status_polarity_orange = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/icons/status_polarity_orange.png")
         );
         parts_albireo_chassis = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/albireo_chassis.png")
-        );
-        parts_albireo_cockpit = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/parts/albireo_cockpit.png")
-        );
-        parts_albireo_missilebay_inactive = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/parts/albireo_missilebay_inactive.png")
-        );
-        parts_albireo_missilebay_left = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/parts/albireo_missilebay_left.png")
-        );
-        parts_albireo_missilebay_right = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/parts/albireo_missilebay_right.png")
         );
         parts_alpherg_cannon = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/alpherg_cannon.png")
@@ -330,20 +333,8 @@ public static partial class Sprites
         parts_alpherg_wing_right = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/alpherg_wing_right.png")
         );
-        parts_empty_chassis = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/parts/empty_chassis.png")
-        );
-        parts_gliese_cannon = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/parts/gliese_cannon.png")
-        );
         parts_gliese_cannon_temp = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/gliese_cannon_temp.png")
-        );
-        parts_gliese_cockpit = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/parts/gliese_cockpit.png")
-        );
-        parts_gliese_missilebay = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/parts/gliese_missilebay.png")
         );
         parts_gliese_scaffolding_0 = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/gliese_scaffolding_0.png")
@@ -359,9 +350,6 @@ public static partial class Sprites
         );
         parts_gliese_wings_2 = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/gliese_wings_2.png")
-        );
-        parts_gliese_wings_3 = helper.Content.Sprites.RegisterSprite(
-            package.PackageRoot.GetRelativeFile("assets/parts/gliese_wings_3.png")
         );
         parts_sirius_chassis = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/sirius_chassis.png")
@@ -419,6 +407,42 @@ public static partial class Sprites
         );
         parts_wolf_rayet_scaffolding = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/wolf_rayet_scaffolding.png")
+        );
+        parts_empty_chassis = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/empty_chassis.png")
+        );
+        parts_gliese_cannon = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/gliese_cannon.png")
+        );
+        parts_gliese_cockpit = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/gliese_cockpit.png")
+        );
+        parts_gliese_missilebay = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/gliese_missilebay.png")
+        );
+        parts_gliese_wings_3 = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/gliese_wings_3.png")
+        );
+        parts_albireo_missilebay = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/albireo_missilebay.png")
+        );
+        parts_albireo_cannon = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/albireo_cannon.png")
+        );
+        parts_albireo_cockpit = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/albireo_cockpit.png")
+        );
+        parts_albireo_wings_orange = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/albireo_wings_orange.png")
+        );
+        parts_albireo_empty_orange = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/albireo_empty_orange.png")
+        );
+        parts_albireo_empty_blue = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/albireo_empty_blue.png")
+        );
+        parts_albireo_wings_blue = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/albireo_wings_blue.png")
         );
     }
 
