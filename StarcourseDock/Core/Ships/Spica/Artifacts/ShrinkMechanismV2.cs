@@ -26,16 +26,8 @@ internal class ShrinkMechanismV2 : Artifact, IRegisterable
                     unremovable = true,
                 },
                 Sprite = Sprites.artifacts_ShrinkMechanismV2.Sprite,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Spica", "artifact", "ShrinkMechanismV2", "name"]
-                    )
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Spica", "artifact", "ShrinkMechanismV2", "description"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Spica_artifact_ShrinkMechanismV2_name(),
+                Description = Localization.ship_Spica_artifact_ShrinkMechanismV2_description(),
             }
         );
     }
@@ -77,7 +69,7 @@ internal class ShrinkMechanismV2 : Artifact, IRegisterable
                     if (p != null && p.type != PType.wing)
                     {
                         rightParts.Add(p);
-                        state.ship.RemoveParts("leftwing", [p.key]);
+                        state.ship.RemoveParts("leftwing", [p.key!]);
                     }
                 }
                 break;
@@ -90,7 +82,7 @@ internal class ShrinkMechanismV2 : Artifact, IRegisterable
                     if (p != null && p.type != PType.wing)
                     {
                         leftParts.Add(p);
-                        state.ship.RemoveParts("rightwing", [p.key]);
+                        state.ship.RemoveParts("rightwing", [p.key!]);
                     }
                 }
                 break;

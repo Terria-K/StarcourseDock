@@ -76,13 +76,9 @@ internal sealed class SiriusSemiDualDrone : StuffBase
                     $"{ModEntry.Instance.Package.Manifest.UniqueName}::siriusSemiDualDrone"
                 )
                 {
-                    Title = ModEntry.Instance.Localizations.Localize(
-                        ["ship", "Sirius", "midrow", "SiriusSemiDualDroneMKII", "name"]
-                    ),
+                    Title = Localization.Str_ship_Sirius_midrow_SiriusSemiDualDroneMKII_name(), 
+                    Description = Localization.Str_ship_Sirius_midrow_SiriusSemiDualDroneMKII_description(), 
                     TitleColor = Colors.midrow,
-                    Description = ModEntry.Instance.Localizations.Localize(
-                        ["ship", "Sirius", "midrow", "SiriusSemiDualDroneMKII", "description"]
-                    ),
                     Icon = Sprites.icons_siriusSemiDualDroneMkII.Sprite,
                     flipIconY = targetPlayer,
                 },
@@ -90,13 +86,9 @@ internal sealed class SiriusSemiDualDrone : StuffBase
                     $"{ModEntry.Instance.Package.Manifest.UniqueName}::siriusDrone"
                 )
                 {
-                    Title = ModEntry.Instance.Localizations.Localize(
-                        ["ship", "Sirius", "midrow", "SiriusSemiDualDrone", "name"]
-                    ),
+                    Title = Localization.Str_ship_Sirius_midrow_SiriusSemiDualDrone_name(), 
+                    Description = Localization.Str_ship_Sirius_midrow_SiriusSemiDualDrone_description(), 
                     TitleColor = Colors.midrow,
-                    Description = ModEntry.Instance.Localizations.Localize(
-                        ["ship", "Sirius", "midrow", "SiriusSemiDualDrone", "description"]
-                    ),
                     Icon = Sprites.icons_siriusSemiDualDrone.Sprite,
                     flipIconY = targetPlayer,
                 },

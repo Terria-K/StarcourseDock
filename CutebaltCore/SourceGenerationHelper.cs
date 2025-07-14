@@ -36,19 +36,27 @@ internal static class SourceGenerationHelper
         }
         """;
 
+    public const string ILocalProvider = """
+        using Nickel;
+
+        namespace CutebaltCore;
+
+        internal interface ILocalProvider;
+        """;
+
     public const string Attributes = """
         #pragma warning disable CS9113
         using Nickel;
 
         namespace CutebaltCore;
 
-        internal sealed class OnPrefix<T>(string methodName) : Attribute;
-        internal sealed class OnPostfix<T>(string methodName) : Attribute;
-        internal sealed class OnFinalizer<T>(string methodName) : Attribute;
-        internal sealed class OnTranspiler<T>(string methodName) : Attribute;
-        internal sealed class OnVirtualPrefix<T>(string methodName) : Attribute;
-        internal sealed class OnVirtualPostfix<T>(string methodName) : Attribute;
-        internal sealed class OnVirtualFinalizer<T>(string methodName) : Attribute;
-        internal sealed class OnVirtualTranspiler<T>(string methodName) : Attribute;
+        internal sealed class OnPrefix<T>(string methodName, int priority = -1) : Attribute;
+        internal sealed class OnPostfix<T>(string methodName, int priority = -1) : Attribute;
+        internal sealed class OnFinalizer<T>(string methodName, int priority = -1) : Attribute;
+        internal sealed class OnTranspiler<T>(string methodName, int priority = -1) : Attribute;
+        internal sealed class OnVirtualPrefix<T>(string methodName, int priority = -1) : Attribute;
+        internal sealed class OnVirtualPostfix<T>(string methodName, int priority = -1) : Attribute;
+        internal sealed class OnVirtualFinalizer<T>(string methodName, int priority = -1) : Attribute;
+        internal sealed class OnVirtualTranspiler<T>(string methodName, int priority = -1) : Attribute;
         """;
 }

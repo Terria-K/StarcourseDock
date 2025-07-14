@@ -32,34 +32,35 @@ ship:
       DoubleDeck: 
         name: DOUBLE DECK
         description: 
-          - "All non-Trash cards have <c=cardtrait>POLARITY LINK</c>."
+          - "You start with <c=status>POLARITY</c>."
+          - "All non-<c=deck>Trash</c> starter cards, and EXEs and Post-battle card offering are <c=cardtrait>polarity linked</c> to another card."
           - "<c=downside>You are offered 1 less card in post-battle card rewards.</c>"
       PolarityWings: 
         name: POLARITY WINGS
         description: 
           - "(Albireo-exclusive artifact!)"
-          - "Ending your turn will, if in orange polarity, your orange <c=part>wings</c> will retract and become <c=part>empty</c>, else if in blue polarity, your blue <c=part>wings</c> instead. Both if you have more than 0 <c=energy>ENERGY</c>."
+          - "Ending your turn will, if with orange <c=status>POLARITY</c>, your orange <c=part>wings</c> will retract and become <c=part>empty</c>, else if with blue <c=status>POLARITY</c>, your blue <c=part>wings</c> instead. Both if you have more than 0 <c=energy>ENERGY</c>."
           - "<c=downside>(Lasts until your next turn starts.)</c>"
 
     status:
       Polarity: 
         name: POLARITY
         description: 
-          - "Indicates the current polarity of your deck."
+          - "Switches when deck <c=action>shuffles</c>."
         blue:
           description: 
-            - "Indicates the current polarity of your deck."
+            - "Switches when deck <c=action>shuffles</c>."
             - "Blue linked cards appears in front of your hand."
         orange:
           description: 
-            - "Indicates the current polarity of your deck."
+            - "Switches when deck <c=action>shuffles</c>."
             - "Orange linked cards appears in front of your hand."
     
     cardtrait:
       Polarity:
         name: POLARITY LINK
         description:
-          - "This card is <c=action>swapped</c> with its linked card from its other side of the deck when the deck <c=action>shuffles</c>."
+          - "This card is <c=action>swapped</c> with its linked card from its other side of the deck by <c=status>POLARITY</c>."
 
   Spica: 
     name: Spica

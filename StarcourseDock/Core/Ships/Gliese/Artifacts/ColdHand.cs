@@ -17,16 +17,8 @@ internal sealed class ColdHand : Artifact, IKokoroApi.IV2.IRedrawStatusApi.IHook
                 ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
                 Meta = new() { owner = Deck.colorless, pools = [ArtifactPool.Common] },
                 Sprite = Sprites.artifacts_ColdHand.Sprite,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Gliese", "artifact", "ColdHand", "name"]
-                    )
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Gliese", "artifact", "ColdHand", "description"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Gliese_artifact_ColdHand_name(),
+                Description = Localization.ship_Gliese_artifact_ColdHand_description(),
             }
         );
 

@@ -97,13 +97,9 @@ internal sealed class AFreezeCardWrapper : CardAction
                 $"{ModEntry.Instance.Package.Manifest.UniqueName}::RightFreeze"
             )
             {
-                Title = ModEntry.Instance.Localizations.Localize(
-                    ["ship", "Gliese", "action", "RightFreeze", "name"]
-                ),
+                Title = Localization.Str_ship_Gliese_action_RightFreeze_name(),
                 TitleColor = Colors.action,
-                Description = ModEntry.Instance.Localizations.Localize(
-                    ["ship", "Gliese", "action", "RightFreeze", "description"]
-                ),
+                Description = Localization.Str_ship_Gliese_action_RightFreeze_description(),
                 Icon = Sprites.icons_right_freeze.Sprite,
             };
         }
@@ -113,13 +109,9 @@ internal sealed class AFreezeCardWrapper : CardAction
                 $"{ModEntry.Instance.Package.Manifest.UniqueName}::LeftFreeze"
             )
             {
-                Title = ModEntry.Instance.Localizations.Localize(
-                    ["ship", "Gliese", "action", "LeftFreeze", "name"]
-                ),
+                Title = Localization.Str_ship_Gliese_action_LeftFreeze_name(), 
                 TitleColor = Colors.action,
-                Description = ModEntry.Instance.Localizations.Localize(
-                    ["ship", "Gliese", "action", "LeftFreeze", "description"]
-                ),
+                Description = Localization.Str_ship_Gliese_action_LeftFreeze_description(),
                 Icon = Sprites.icons_left_freeze.Sprite,
             };
         }

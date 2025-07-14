@@ -51,12 +51,8 @@ internal sealed class AlphergShip : IRegisterable
             "Alpherg",
             new()
             {
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(["ship", "Alpherg", "name"])
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(["ship", "Alpherg", "description"])
-                    .Localize,
+                Name = Localization.ship_Alpherg_name(),
+                Description = Localization.ship_Alpherg_description(),
                 UnderChassisSprite = chassisSprite.Sprite,
                 Ship = new()
                 {

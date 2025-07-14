@@ -23,16 +23,8 @@ internal class FixedStar : Artifact, IRegisterable
                     unremovable = true,
                 },
                 Sprite = Sprites.artifacts_FixedStar.Sprite,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Spica", "artifact", "FixedStar", "name"]
-                    )
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Spica", "artifact", "FixedStar", "description"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Spica_artifact_FixedStar_name(),
+                Description = Localization.ship_Spica_artifact_FixedStar_description(),
             }
         );
 

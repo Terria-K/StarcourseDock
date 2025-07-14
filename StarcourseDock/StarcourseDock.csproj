@@ -8,11 +8,16 @@
     <GameExePath>../../../../CobaltCore.exe</GameExePath>
     <GameDllPath>../../../../CobaltCore.dll</GameDllPath>
     <ModLoaderPath>../../../</ModLoaderPath>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
   </PropertyGroup>
 
   <ItemGroup>
     <ModFiles Include="i18n/**" />
     <ModFiles Include="assets/**/*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="i18n/en.yaml" />
   </ItemGroup>
 
   <ItemGroup>

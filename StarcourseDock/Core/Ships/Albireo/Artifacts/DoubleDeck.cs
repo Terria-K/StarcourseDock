@@ -23,21 +23,13 @@ internal sealed class DoubleDeck : Artifact, IRegisterable
                     unremovable = true,
                 },
                 Sprite = Sprites.artifacts_DoubleDeck.Sprite,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Albireo", "artifact", "DoubleDeck", "name"]
-                    )
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Albireo", "artifact", "DoubleDeck", "description"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Albireo_artifact_DoubleDeck_name(),
+                Description = Localization.ship_Albireo_artifact_DoubleDeck_description()
             }
         );
     }
 
-    public override List<Tooltip>? GetExtraTooltips() => [AlbireoKit.GetPolarityTraitTooltip()];
+    public override List<Tooltip>? GetExtraTooltips() => [AlbireoKit.GetPolarityTraitTooltip(), Polarity.GetTooltip()];
 
     public override void OnCombatStart(State state, Combat combat)
     {

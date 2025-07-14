@@ -26,18 +26,17 @@ internal sealed class PolarityWings : Artifact, IRegisterable
                     unremovable = true,
                 },
                 Sprite = Sprites.artifacts_PolarityWings.Sprite,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Albireo", "artifact", "PolarityWings", "name"]
-                    )
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Albireo", "artifact", "PolarityWings", "description"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Albireo_artifact_PolarityWings_name(),
+                Description = Localization.ship_Albireo_artifact_PolarityWings_description()
             }
         );
+    }
+
+    public override List<Tooltip>? GetExtraTooltips()
+    {
+        return [
+            Polarity.GetTooltip()
+        ];
     }
 
     public override Spr GetSprite()

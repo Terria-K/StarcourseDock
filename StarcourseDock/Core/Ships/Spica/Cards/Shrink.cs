@@ -22,9 +22,7 @@ internal class Shrink : Card, IRegisterable
                     dontOffer = true,
                 },
                 Art = StableSpr.cards_ScootLeft,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(["ship", "Spica", "card", "Shrink", "name"])
-                    .Localize,
+                Name = Localization.ship_Spica_card_Shrink_name(),
             }
         );
     }
@@ -45,23 +43,15 @@ internal class Shrink : Card, IRegisterable
             {
                 infinite = true,
                 description = flipped
-                    ? ModEntry.Instance.Localizations.Localize(
-                        ["ship", "Spica", "card", "Shrink_Flipped", "A", "description"]
-                    )
-                    : ModEntry.Instance.Localizations.Localize(
-                        ["ship", "Spica", "card", "Shrink", "A", "description"]
-                    ),
+                    ? Localization.Str_ship_Spica_card_Shrink_Flipped_A_description()
+                    : Localization.Str_ship_Spica_card_Shrink_A_description(),
             },
             _ => cardData with
             {
                 singleUse = true,
                 description = flipped
-                    ? ModEntry.Instance.Localizations.Localize(
-                        ["ship", "Spica", "card", "Shrink_Flipped", "description"]
-                    )
-                    : ModEntry.Instance.Localizations.Localize(
-                        ["ship", "Spica", "card", "Shrink", "description"]
-                    ),
+                    ? Localization.Str_ship_Spica_card_Shrink_Flipped_description()
+                    : Localization.Str_ship_Spica_card_Shrink_description(),
             },
         };
     }

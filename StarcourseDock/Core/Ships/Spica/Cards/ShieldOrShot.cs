@@ -21,11 +21,7 @@ internal class ShieldOrShot : Card, IRegisterable
                     upgradesTo = [Upgrade.A, Upgrade.B],
                     dontOffer = true,
                 },
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Spica", "card", "ShieldOrShot", "name"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Spica_card_ShieldOrShot_name(),
             }
         );
     }

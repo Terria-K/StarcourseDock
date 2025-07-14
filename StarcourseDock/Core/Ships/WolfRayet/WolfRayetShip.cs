@@ -1,8 +1,6 @@
 using CutebaltCore;
-using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
-using Teuria.Utilities;
 
 namespace Teuria.StarcourseDock;
 
@@ -43,12 +41,8 @@ internal sealed class WolfRayetShip : IRegisterable
             "WolfRayet",
             new()
             {
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(["ship", "WolfRayet", "name"])
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(["ship", "WolfRayet", "description"])
-                    .Localize,
+                Name = Localization.ship_WolfRayet_name(),
+                Description = Localization.ship_WolfRayet_description(),
                 UnderChassisSprite = Sprites.parts_wolf_rayet_chassis.Sprite,
                 Ship = new()
                 {

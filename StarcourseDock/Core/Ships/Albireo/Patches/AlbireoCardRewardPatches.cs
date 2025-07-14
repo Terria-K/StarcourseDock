@@ -72,7 +72,7 @@ internal sealed partial class AlbireoCardRewardPatches : IPatchable
 
     }
 
-    [OnPostfix<State>(nameof(State.PopulateRun))]
+    [OnPostfix<State>(nameof(State.PopulateRun), -400)]
     private static void State_PopulateRun_Postfix(State __instance)
     {
         if (!__instance.HasArtifactFromColorless<DoubleDeck>())

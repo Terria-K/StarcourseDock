@@ -23,16 +23,8 @@ internal sealed class CrystalCoreV2 : Artifact
                     unremovable = true,
                 },
                 Sprite = Sprites.artifacts_CrystalCoreV2.Sprite,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Gliese", "artifact", "CrystalCoreV2", "name"]
-                    )
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Gliese", "artifact", "CrystalCoreV2", "description"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Gliese_artifact_CrystalCoreV2_name(),
+                Description = Localization.ship_Gliese_artifact_CrystalCoreV2_description(),
             }
         );
     }

@@ -24,11 +24,7 @@ internal class SiriusBusiness : Card, IRegisterable
                     dontOffer = true,
                 },
                 Art = StableSpr.cards_GoatDrone,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Sirius", "card", "SiriusBusiness", "name"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Sirius_card_SiriusBusiness_name(),
             }
         );
     }

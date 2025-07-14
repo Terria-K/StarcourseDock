@@ -16,8 +16,8 @@ internal sealed class Polarity : IRegisterable
             "PolarityOrange",
             new()
             {
-                Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Albireo", "status", "Polarity", "name"]).Localize,
-                Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Albireo", "status", "Polarity", "orange", "description"]).Localize,
+                Name = Localization.ship_Albireo_status_Polarity_name(),
+                Description = Localization.ship_Albireo_status_Polarity_orange_description(),
                 Definition = new()
                 {
                     color = new Color("ff7c19"),
@@ -32,8 +32,8 @@ internal sealed class Polarity : IRegisterable
             "PolarityBlue",
             new()
             {
-                Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Albireo", "status", "Polarity", "name"]).Localize,
-                Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Albireo", "status", "Polarity", "blue", "description"]).Localize,
+                Name = Localization.ship_Albireo_status_Polarity_name(),
+                Description = Localization.ship_Albireo_status_Polarity_blue_description(),
                 Definition = new()
                 {
                     color = new Color("2f94ff"),
@@ -45,6 +45,17 @@ internal sealed class Polarity : IRegisterable
         );
     }
 
+    public static Tooltip GetTooltip()
+    {
+        return new GlossaryTooltip($"{ModEntry.Instance.Package.Manifest.UniqueName}::PolarityStatus")
+        {
+            Title = Localization.Str_ship_Albireo_status_Polarity_name(),
+            Description = Localization.Str_ship_Albireo_status_Polarity_description(),
+            Icon = Sprites.icons_status_polarity.Sprite,
+            TitleColor = Colors.status
+        };
+    }
+
     public static void SwitchPolarity(State state)
     {
         if (IsOrangePolarity(state))
@@ -54,8 +65,8 @@ internal sealed class Polarity : IRegisterable
             return;
         }
 
-            state.ship.Set(PolarityOrangeEntry.Status, 1);
-            state.ship.Set(PolarityBlueEntry.Status, 0);
+        state.ship.Set(PolarityOrangeEntry.Status, 1);
+        state.ship.Set(PolarityBlueEntry.Status, 0);
     }
 
     public static bool IsOrangePolarity(State s)

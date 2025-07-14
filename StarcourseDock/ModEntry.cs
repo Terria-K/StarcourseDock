@@ -12,8 +12,8 @@ namespace Teuria.StarcourseDock;
 
 public sealed partial class ModEntry : SimpleMod
 {
-    internal readonly ILocalizationProvider<IReadOnlyList<string>> AnyLocalizations;
-    internal readonly ILocaleBoundNonNullLocalizationProvider<IReadOnlyList<string>> Localizations;
+    internal readonly ILocalizationProvider<string> CsharpAnyLocalizations;
+    internal readonly ILocaleBoundNonNullLocalizationProvider<string> CsharpLocalizations;
     internal static ModEntry Instance { get; private set; } = null!;
     internal IHarmony Harmony { get; }
     internal IKokoroApi KokoroAPI { get; }
@@ -25,14 +25,10 @@ public sealed partial class ModEntry : SimpleMod
         Instance = this;
         Harmony = helper.Utilities.Harmony;
 
-        this.AnyLocalizations = new YamlLocalizationProvider(
-            tokenExtractor: new SimpleLocalizationTokenExtractor(),
-            localeStreamFunction: locale =>
-                package.PackageRoot.GetRelativeFile($"i18n/{locale}.yaml").OpenRead()
-        );
-        this.Localizations = new MissingPlaceholderLocalizationProvider<IReadOnlyList<string>>(
-            new CurrentLocaleOrEnglishLocalizationProvider<IReadOnlyList<string>>(
-                this.AnyLocalizations
+        CsharpAnyLocalizations = new CsharpLocalizationProvider();
+        CsharpLocalizations = new MissingPlaceholderLocalizationProvider<string>(
+            new CurrentLocaleOrEnglishLocalizationProvider<string>(
+                CsharpAnyLocalizations
             )
         );
 

@@ -20,16 +20,8 @@ internal sealed class FrostCannon : Artifact
                     unremovable = true,
                 },
                 Sprite = Sprites.artifacts_FrostCannon.Sprite,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Gliese", "artifact", "FrostCannon", "name"]
-                    )
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Gliese", "artifact", "FrostCannon", "description"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Gliese_artifact_FrostCannon_name(),
+                Description = Localization.ship_Gliese_artifact_FrostCannon_description(),
             }
         );
     }
@@ -44,7 +36,7 @@ internal sealed class FrostCannon : Artifact
         return
         [
             new TTGlossary("status.stunCharge", ["3"]),
-            new TTGlossary("action.stun", Array.Empty<object>()),
+            new TTGlossary("action.stun", []),
             .. StatusMeta.GetTooltips(ColdStatus.ColdEntry.Status, 1),
         ];
     }

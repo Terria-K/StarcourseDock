@@ -22,9 +22,7 @@ internal sealed class Unfreeze : Card, IHasCustomCardTraits
                     upgradesTo = [Upgrade.A, Upgrade.B],
                 },
                 Art = StableSpr.cards_SolarFlair,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(["ship", "Gliese", "card", "Unfreeze", "name"])
-                    .Localize,
+                Name = Localization.ship_Gliese_card_Unfreeze_name(),
             }
         );
     }
@@ -36,15 +34,9 @@ internal sealed class Unfreeze : Card, IHasCustomCardTraits
             cost = 1,
             description = upgrade switch
             {
-                Upgrade.A => ModEntry.Instance.Localizations.Localize(
-                    ["ship", "Gliese", "card", "Unfreeze", "A", "description"]
-                ),
-                Upgrade.B => ModEntry.Instance.Localizations.Localize(
-                    ["ship", "Gliese", "card", "Unfreeze", "B", "description"]
-                ),
-                _ => ModEntry.Instance.Localizations.Localize(
-                    ["ship", "Gliese", "card", "Unfreeze", "description"]
-                ),
+                Upgrade.A => Localization.Str_ship_Gliese_card_Unfreeze_A_description(),
+                Upgrade.B => Localization.Str_ship_Gliese_card_Unfreeze_B_description(),
+                _ => Localization.Str_ship_Gliese_card_Unfreeze_description(),
             },
         };
         return result;

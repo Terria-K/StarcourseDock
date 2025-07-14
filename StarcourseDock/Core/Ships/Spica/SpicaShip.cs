@@ -1,9 +1,6 @@
-using System.Reflection.Emit;
 using CutebaltCore;
-using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
-using Teuria.Utilities;
 
 namespace Teuria.StarcourseDock;
 
@@ -41,10 +38,8 @@ internal sealed class SpicaShip : IRegisterable
             "Spica",
             new()
             {
-                Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "name"]).Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(["ship", "Spica", "description"])
-                    .Localize,
+                Name = Localization.ship_Spica_name(),
+                Description = Localization.ship_Spica_description(),
                 UnderChassisSprite = Sprites.parts_empty_chassis.Sprite,
                 Ship = new()
                 {

@@ -36,24 +36,22 @@ internal sealed class AlbireoKit : IRegisterable
             "Polarity",
             new()
             {
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(["ship", "Albireo", "cardtrait", "Polarity", "name"])
-                    .Localize,
+                Name = Localization.ship_Albireo_cardtrait_Polarity_name(),
                 Icon = static (s, c) => GetIcon(c),
                 Tooltips = (state, card) =>
                 {
                     if (card is null)
                     {
-                        return [GetPolarityTraitTooltip()];
+                        return [GetPolarityTraitTooltip(), Polarity.GetTooltip()];
                     }
 
                     if (ModEntry.Instance.Helper.ModData.TryGetModData(card, "polarity.card.linked", out Card? linkedCard) && linkedCard is not null)
                     {
                         var cachedCard = CardTypeCache.CopyOrGet(linkedCard, ModEntry.Instance.Helper.ModData.GetModDataOrDefault(card, "polarity.orange", false));
-                        return [GetPolarityTraitTooltip(), new TTCard() { card = cachedCard }];
+                        return [GetPolarityTraitTooltip(), new TTCard() { card = cachedCard }, Polarity.GetTooltip()];
                     }
 
-                    return [GetPolarityTraitTooltip()];
+                    return [GetPolarityTraitTooltip(), Polarity.GetTooltip()];
                 },
             }
         );
@@ -83,13 +81,9 @@ internal sealed class AlbireoKit : IRegisterable
     {
         return new GlossaryTooltip($"{ModEntry.Instance.Package.Manifest.UniqueName}::Polarity")
         {
-            Title = ModEntry.Instance.Localizations.Localize(
-                ["ship", "Albireo", "cardtrait", "Polarity", "name"]
-            ),
+            Title = Localization.Str_ship_Albireo_cardtrait_Polarity_name(),
             TitleColor = Colors.cardtrait,
-            Description = ModEntry.Instance.Localizations.Localize(
-                ["ship", "Albireo", "cardtrait", "Polarity", "description"]
-            ),
+            Description = Localization.Str_ship_Albireo_cardtrait_Polarity_description(),
             Icon = Sprites.icons_polarity.Sprite,
         };
     }

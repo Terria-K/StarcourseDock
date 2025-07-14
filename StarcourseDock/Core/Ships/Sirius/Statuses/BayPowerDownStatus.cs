@@ -19,16 +19,8 @@ internal sealed class BayPowerDownStatus
             "BayPowerDown",
             new()
             {
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Sirius", "status", "BayPowerDown", "name"]
-                    )
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Sirius", "status", "BayPowerDown", "description"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Sirius_status_BayPowerDown_name(),
+                Description = Localization.ship_Sirius_status_BayPowerDown_description(),
                 Definition = new()
                 {
                     isGood = false,
@@ -65,13 +57,9 @@ internal sealed class BayPowerDownStatus
     {
         return new GlossaryTooltip($"{ModEntry.Instance.Package.Manifest.UniqueName}::powerDown")
         {
-            Title = ModEntry.Instance.Localizations.Localize(
-                ["ship", "Sirius", "icon", "powerDown", "name"]
-            ),
+            Title = Localization.Str_ship_Sirius_icon_powerDown_name(),
             TitleColor = Colors.midrow,
-            Description = ModEntry.Instance.Localizations.Localize(
-                ["ship", "Sirius", "icon", "powerDown", "description"]
-            ),
+            Description = Localization.Str_ship_Sirius_icon_powerDown_description(),
             Icon = Sprites.icons_power_down.Sprite,
         };
     }

@@ -22,16 +22,8 @@ internal sealed class SiriusMissileBayV2 : Artifact, IRegisterable
                     unremovable = true,
                 },
                 Sprite = Sprites.artifacts_SiriusMissileBayV2.Sprite,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Sirius", "artifact", "SiriusMissileBayV2", "name"]
-                    )
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Sirius", "artifact", "SiriusMissileBayV2", "description"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Sirius_artifact_SiriusMissileBayV2_name(),
+                Description = Localization.ship_Sirius_artifact_SiriusMissileBayV2_description(),
             }
         );
     }

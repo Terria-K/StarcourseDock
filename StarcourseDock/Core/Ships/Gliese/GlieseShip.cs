@@ -56,10 +56,8 @@ internal sealed class GlieseShip
             "Gliese",
             new()
             {
-                Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Gliese", "name"]).Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(["ship", "Gliese", "description"])
-                    .Localize,
+                Name = Localization.ship_Gliese_name(),
+                Description = Localization.ship_Gliese_description(),
                 UnderChassisSprite = Sprites.parts_empty_chassis.Sprite,
                 Ship = new()
                 {

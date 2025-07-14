@@ -4,6 +4,10 @@ using YamlDotNet.Serialization;
 
 namespace Teuria.StarcourseDock;
 
+internal sealed partial class CsharpLocalizationProvider : ILocalizationProvider<string>
+{
+}
+
 internal sealed partial class YamlLocalizationProvider
     : ILocalizationProvider<IReadOnlyList<string>>
 {

@@ -1,9 +1,9 @@
-using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
 using CutebaltCore;
 
 namespace Teuria.StarcourseDock;
+
 
 internal sealed class AlbireoShip : IRegisterable
 {
@@ -78,12 +78,8 @@ internal sealed class AlbireoShip : IRegisterable
             "Albireo",
             new()
             {
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(["ship", "Albireo", "name"])
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(["ship", "Albireo", "description"])
-                    .Localize,
+                Name = Localization.ship_Albireo_name(),
+                Description = Localization.ship_Albireo_description(),
                 UnderChassisSprite = Sprites.parts_albireo_chassis.Sprite,
                 Ship = new()
                 {

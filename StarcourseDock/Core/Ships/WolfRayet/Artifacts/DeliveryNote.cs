@@ -22,16 +22,8 @@ internal sealed class DeliveryNote : Artifact, IRegisterable
                     unremovable = true,
                 },
                 Sprite = Sprites.artifacts_DeliveryNote.Sprite,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "WolfRayet", "artifact", "DeliveryNote", "name"]
-                    )
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "WolfRayet", "artifact", "DeliveryNote", "description"]
-                    )
-                    .Localize,
+                Name = Localization.ship_WolfRayet_artifact_DeliveryNote_name(),
+                Description = Localization.ship_WolfRayet_artifact_DeliveryNote_description(),
             }
         );
     }

@@ -19,7 +19,7 @@ internal sealed class GlieseKit
                 Definition = new() { color = new Color("acdfff"), titleColor = Colors.black },
                 DefaultCardArt = StableSpr.cards_colorless,
                 BorderSprite = Sprites.cardShared_border_gliese.Sprite,
-                Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Gliese", "name"]).Localize,
+                Name = Localization.ship_Gliese_name(),
             }
         );
 
@@ -27,9 +27,7 @@ internal sealed class GlieseKit
             "Frozen",
             new()
             {
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(["ship", "Gliese", "trait", "Frozen", "name"])
-                    .Localize,
+                Name = Localization.ship_Gliese_trait_Frozen_name(),
                 Icon = (State s, Card? c) => ObtainFrozenTraitIcon(GetFrozenTraitAmount(c)),
                 Tooltips = (state, card) =>
                 {
@@ -42,9 +40,7 @@ internal sealed class GlieseKit
             "CantBeFrozen",
             new()
             {
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(["ship", "Gliese", "trait", "Frozen", "name"])
-                    .Localize,
+                Name = Localization.ship_Gliese_trait_CantBeFrozen_name(),
                 Icon = (State s, Card? c) => Sprites.icons_cant_frozen.Sprite,
                 Tooltips = (state, card) =>
                 {
@@ -54,13 +50,9 @@ internal sealed class GlieseKit
                             $"{ModEntry.Instance.Package.Manifest.UniqueName}::CantBeFrozenTrait"
                         )
                         {
-                            Title = ModEntry.Instance.Localizations.Localize(
-                                ["ship", "Gliese", "trait", "CantBeFrozen", "name"]
-                            ),
+                            Title = Localization.Str_ship_Gliese_trait_CantBeFrozen_name(),
                             TitleColor = Colors.cardtrait,
-                            Description = ModEntry.Instance.Localizations.Localize(
-                                ["ship", "Gliese", "trait", "CantBeFrozen", "description"]
-                            ),
+                            Description = Localization.Str_ship_Gliese_trait_CantBeFrozen_description(),
                             Icon = Sprites.icons_cant_frozen.Sprite,
                         },
                         GetFrozenTraitTooltip(),
@@ -73,9 +65,7 @@ internal sealed class GlieseKit
             "TurnEndTrigger",
             new()
             {
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(["ship", "Gliese", "trait", "Frozen", "name"])
-                    .Localize,
+                Name = Localization.ship_Gliese_trait_TurnEndTrigger_name(),
                 Icon = (State s, Card? c) => Sprites.icons_turn_end_trigger.Sprite,
                 Tooltips = (state, card) =>
                 {
@@ -85,13 +75,9 @@ internal sealed class GlieseKit
                             $"{ModEntry.Instance.Package.Manifest.UniqueName}::TurnEndTriggerTrait"
                         )
                         {
-                            Title = ModEntry.Instance.Localizations.Localize(
-                                ["ship", "Gliese", "trait", "TurnEndTrigger", "name"]
-                            ),
+                            Title = Localization.Str_ship_Gliese_trait_TurnEndTrigger_name(),
                             TitleColor = Colors.cardtrait,
-                            Description = ModEntry.Instance.Localizations.Localize(
-                                ["ship", "Gliese", "trait", "TurnEndTrigger", "description"]
-                            ),
+                            Description = Localization.Str_ship_Gliese_trait_TurnEndTrigger_description(),
                             Icon = Sprites.icons_turn_end_trigger.Sprite,
                         },
                     ];
@@ -104,13 +90,9 @@ internal sealed class GlieseKit
     {
         return new GlossaryTooltip($"{ModEntry.Instance.Package.Manifest.UniqueName}::FrozenTrait")
         {
-            Title = ModEntry.Instance.Localizations.Localize(
-                ["ship", "Gliese", "trait", "Frozen", "name"]
-            ),
+            Title = Localization.Str_ship_Gliese_trait_Frozen_name(),
             TitleColor = Colors.cardtrait,
-            Description = ModEntry.Instance.Localizations.Localize(
-                ["ship", "Gliese", "trait", "Frozen", "description"]
-            ),
+            Description = Localization.Str_ship_Gliese_trait_Frozen_description(),
             Icon = Sprites.icons_frozen.Sprite,
         };
     }

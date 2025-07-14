@@ -23,11 +23,7 @@ internal sealed class AbsoluteFreeze : Card, IHasCustomCardTraits
                     dontOffer = true,
                 },
                 Art = Sprites.cards_AbsoluteFreeze.Sprite,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Gliese", "card", "AbsoluteFreeze", "name"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Gliese_card_AbsoluteFreeze_name(),
             }
         );
     }
