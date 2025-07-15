@@ -10,6 +10,9 @@ internal sealed class AlbireoShip : IRegisterable
     internal static IPartEntry AlbireoMissileBayBlue { get; private set; } = null!;
     internal static IPartEntry AlbireoCannonBlue { get; private set; } = null!;
     internal static IPartEntry AlbireoCockpitBlue { get; private set; } = null!;
+    internal static IPartEntry AlbireoMissileBayOrange { get; private set; } = null!;
+    internal static IPartEntry AlbireoCannonOrange { get; private set; } = null!;
+    internal static IPartEntry AlbireoCockpitOrange { get; private set; } = null!;
     internal static IPartEntry AlbireoWingsBlue { get; private set; } = null!;
     internal static IPartEntry AlbireoWingsOrange { get; private set; } = null!;
     internal static IPartEntry AlbireoEmptyBlue { get; private set; } = null!;
@@ -39,6 +42,30 @@ internal sealed class AlbireoShip : IRegisterable
             new()
             {
                 Sprite = Sprites.parts_albireo_cockpit.Sprite
+            }
+        );
+
+        AlbireoMissileBayOrange = helper.Content.Ships.RegisterPart(
+            nameof(AlbireoMissileBayOrange),
+            new()
+            {
+                Sprite = Sprites.parts_albireo_missilebay_orange.Sprite
+            }
+        );
+
+        AlbireoCannonOrange = helper.Content.Ships.RegisterPart(
+            nameof(AlbireoCannonOrange),
+            new()
+            {
+                Sprite = Sprites.parts_albireo_cannon_orange.Sprite
+            }
+        );
+
+        AlbireoCockpitOrange = helper.Content.Ships.RegisterPart(
+            nameof(AlbireoCockpitOrange),
+            new()
+            {
+                Sprite = Sprites.parts_albireo_cockpit_orange.Sprite
             }
         );
 
@@ -101,19 +128,19 @@ internal sealed class AlbireoShip : IRegisterable
                             {
                                 type = PType.missiles,
                                 skin = AlbireoMissileBayBlue.UniqueName,
-                                key = "missiles"
+                                key = "ab_missiles"
                             },
                             new Part()
                             {
                                 type = PType.cannon,
                                 skin = AlbireoCannonBlue.UniqueName,
-                                key = "cannon"
+                                key = "ab_cannon"
                             },
                             new Part()
                             {
                                 type = PType.cockpit,
                                 skin = AlbireoCockpitBlue.UniqueName,
-                                key = "cockpit"
+                                key = "ab_cockpit"
                             },
                             new Part()
                             {

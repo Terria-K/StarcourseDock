@@ -114,6 +114,9 @@ public static partial class Sprites
     public static ISpriteEntry parts_albireo_empty_orange = null!;
     public static ISpriteEntry parts_albireo_empty_blue = null!;
     public static ISpriteEntry parts_albireo_wings_blue = null!;
+    public static ISpriteEntry parts_albireo_cannon_orange = null!;
+    public static ISpriteEntry parts_albireo_missilebay_orange = null!;
+    public static ISpriteEntry parts_albireo_cockpit_orange = null!;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
@@ -443,6 +446,15 @@ public static partial class Sprites
         );
         parts_albireo_wings_blue = helper.Content.Sprites.RegisterSprite(
             package.PackageRoot.GetRelativeFile("assets/parts/albireo_wings_blue.png")
+        );
+        parts_albireo_cannon_orange = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/albireo_cannon_orange.png")
+        );
+        parts_albireo_missilebay_orange = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/albireo_missilebay_orange.png")
+        );
+        parts_albireo_cockpit_orange = helper.Content.Sprites.RegisterSprite(
+            package.PackageRoot.GetRelativeFile("assets/parts/albireo_cockpit_orange.png")
         );
     }
 

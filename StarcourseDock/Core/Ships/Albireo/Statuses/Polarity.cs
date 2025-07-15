@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using CutebaltCore;
 using Nanoray.PluginManager;
 using Nickel;
@@ -58,15 +59,51 @@ internal sealed class Polarity : IRegisterable
 
     public static void SwitchPolarity(State state)
     {
+        var parts = CollectionsMarshal.AsSpan(state.ship.parts);
+
         if (IsOrangePolarity(state))
         {
             state.ship.Set(PolarityOrangeEntry.Status, 0);
             state.ship.Set(PolarityBlueEntry.Status, 1);
+
+            for (int i = 0; i < parts.Length; i++)
+            {
+                var p = parts[i];
+                switch (p.key)
+                {
+                    case "ab_missiles":
+                        p.skin = AlbireoShip.AlbireoMissileBayBlue.UniqueName;
+                        break;
+                    case "ab_cannon":
+                        p.skin = AlbireoShip.AlbireoCannonBlue.UniqueName;
+                        break;
+                    case "ab_cockpit":
+                        p.skin = AlbireoShip.AlbireoCockpitBlue.UniqueName;
+                        break;
+                }
+            }
             return;
         }
 
         state.ship.Set(PolarityOrangeEntry.Status, 1);
         state.ship.Set(PolarityBlueEntry.Status, 0);
+
+        for (int i = 0; i < parts.Length; i++)
+        {
+            var p = parts[i];
+            switch (p.key)
+            {
+                case "ab_missiles":
+                    p.skin = AlbireoShip.AlbireoMissileBayOrange.UniqueName;
+                    break;
+                case "ab_cannon":
+                    p.skin = AlbireoShip.AlbireoCannonOrange.UniqueName;
+                    break;
+                case "ab_cockpit":
+                    p.skin = AlbireoShip.AlbireoCockpitOrange.UniqueName;
+                    break;
+            }
+        }
     }
 
     public static bool IsOrangePolarity(State s)
