@@ -26,10 +26,8 @@ internal sealed class SiriusShip : IRegisterable
             "Sirius",
             new()
             {
-                Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Sirius", "name"]).Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(["ship", "Sirius", "description"])
-                    .Localize,
+                Name = Localization.ship_Sirius_name(),
+                Description = Localization.ship_Sirius_description(),
                 UnderChassisSprite = Sprites.parts_sirius_chassis.Sprite,
                 Ship = new()
                 {

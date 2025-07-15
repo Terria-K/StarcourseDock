@@ -1,28 +1,72 @@
 using CutebaltCore;
-using ZLinq;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class GlieseAbsoluteZeroPatches : IPatchable
+internal sealed partial class GlieseAbsoluteFreezePatches 
 {
-    [OnPostfix<Card>(nameof(Card.GetActualDamage))]
-    private static void Card_GetActualDamage_Postfix(State s, bool targetPlayer, ref int __result)
+    [OnPrefix<Card>(nameof(Card.RenderAction))]
+    private static bool Card_RenderAction_Prefix(
+        G g,
+        State state,
+        CardAction action,
+        bool dontDraw,
+        int shardAvailable,
+        int stunChargeAvailable,
+        int bubbleJuiceAvailable,
+        ref int __result
+    )
     {
-        if (targetPlayer)
+        if (action is not AFreezeCardWrapper freezeCard || freezeCard.action is null)
         {
-            return;
+            return true;
         }
 
-        Combat? combat = s.route as Combat;
+        var position = g.Push(rect: new()).rect.xy;
+        var initialX = (int)position.x;
 
-        if (combat == null)
+        if (!dontDraw)
         {
-            return;
+            bool isDisabled = freezeCard.action.disabled;
+            Color color;
+            if (isDisabled)
+            {
+                color = Colors.disabledIconTint;
+            }
+            else
+            {
+                color = Colors.white;
+            }
+            if (freezeCard.rightSide)
+            {
+                Draw.Sprite(
+                    Sprites.icons_right_freeze.Sprite,
+                    position.x,
+                    position.y,
+                    color: color
+                );
+            }
+            else
+            {
+                Draw.Sprite(Sprites.icons_left_freeze.Sprite, position.x, position.y, color: color);
+            }
         }
 
-        if (combat.hand.AsValueEnumerable().OfType<AbsoluteZero>().Any())
-        {
-            __result = 0;
-        }
+        position.x += 10;
+        g.Push(rect: new(position.x - initialX, 0));
+        position.x += Card.RenderAction(
+            g,
+            state,
+            freezeCard.action,
+            dontDraw,
+            shardAvailable,
+            stunChargeAvailable,
+            bubbleJuiceAvailable
+        );
+        g.Pop();
+        __result = (int)position.x - initialX;
+
+        g.Pop();
+
+        return false;
     }
 }

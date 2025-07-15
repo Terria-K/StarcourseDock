@@ -21,11 +21,7 @@ internal class DodgeOrShift : Card, IRegisterable
                     upgradesTo = [Upgrade.A, Upgrade.B],
                     dontOffer = true,
                 },
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Spica", "card", "DodgeOrShift", "name"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Spica_card_DodgeOrShift_name(),
             }
         );
     }

@@ -9,7 +9,7 @@ internal class AFreeze : CardAction
 
     public override void Begin(G g, State s, Combat c)
     {
-        global::Ship target = (this.targetPlayer ? s.ship : c.otherShip);
+        Ship target = this.targetPlayer ? s.ship : c.otherShip;
         if (target == null)
         {
             return;
@@ -44,10 +44,8 @@ internal class AFreeze : CardAction
         [
             new GlossaryTooltip($"{ModEntry.Instance.Package.Manifest.UniqueName}::freeze")
             {
-                Title = ModEntry.Instance.Localizations.Localize(["action", "Freeze", "name"]),
-                Description = ModEntry.Instance.Localizations.Localize(
-                    ["action", "Freeze", "description"]
-                ),
+                Title = Localization.Str_action_Freeze_name(),
+                Description = Localization.Str_action_Freeze_description(),
                 TitleColor = Colors.action,
                 Icon = Sprites.icons_freeze.Sprite,
             },

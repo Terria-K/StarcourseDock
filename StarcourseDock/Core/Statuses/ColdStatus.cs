@@ -19,10 +19,8 @@ internal sealed class ColdStatus
             "Cold",
             new()
             {
-                Name = ModEntry.Instance.AnyLocalizations.Bind(["status", "Cold", "name"]).Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(["status", "Cold", "description"])
-                    .Localize,
+                Name = Localization.status_Cold_name(),
+                Description = Localization.status_Cold_description(),
                 Definition = new()
                 {
                     isGood = false,

@@ -1,7 +1,5 @@
 using System.Reflection;
-using System.Reflection.Emit;
 using CutebaltCore;
-using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
 
@@ -23,11 +21,7 @@ internal class ToggleMissileBay : Card, IRegisterable
                     dontOffer = true,
                 },
                 Art = StableSpr.cards_GoatDrone,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Sirius", "card", "ToggleMissileBay", "name"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Sirius_card_ToggleMissileBay_name(),
             }
         );
     }

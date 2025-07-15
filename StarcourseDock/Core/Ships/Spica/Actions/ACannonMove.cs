@@ -24,21 +24,6 @@ internal class ACannonMove : CardAction
             }
         }
 
-        if (s.ship.Get(Status.lockdown) > 0)
-        {
-            Audio.Play(Event.Status_PowerDown, true);
-            s.ship.shake += 1.0;
-            return;
-        }
-
-        if (s.ship.Get(Status.engineStall) > 0)
-        {
-            Audio.Play(Event.Status_PowerDown, true);
-            s.ship.shake += 1.0;
-            s.ship.Add(Status.engineStall, -1);
-            return;
-        }
-
         int cannonIndex = s.ship.FindPartIndex("closeToScaffold");
         var list = s.ship.RetainParts(p => p.key != "closeToScaffold");
 

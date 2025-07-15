@@ -14,12 +14,10 @@ internal sealed class AlphergKit : IRegisterable
             "Alpherg",
             new()
             {
+                Name = Localization.ship_Alpherg_name(),
                 Definition = new() { color = new Color("6bc6d3"), titleColor = Colors.white },
                 DefaultCardArt = StableSpr.cards_colorless,
                 BorderSprite = Sprites.cardShared_border_alpherg.Sprite,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(["ship", "Alpherg", "name"])
-                    .Localize,
             }
         );
     }

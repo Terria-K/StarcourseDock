@@ -23,11 +23,7 @@ internal class RerouteCannon : Card, IRegisterable
                     dontOffer = true,
                 },
                 Art = StableSpr.cards_BlockerBurnout,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Alpherg", "card", "RerouteCannon", "name"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Alpherg_card_RerouteCannon_name()
             }
         );
     }
@@ -40,24 +36,18 @@ internal class RerouteCannon : Card, IRegisterable
             {
                 recycle = true,
                 cost = 0,
-                description = ModEntry.Instance.Localizations.Localize(
-                    ["ship", "Alpherg", "card", "RerouteCannon", "description"]
-                ),
+                description = Localization.Str_ship_Alpherg_card_RerouteCannon_description(), 
                 unremovableAtShops = true,
             },
             Upgrade.B => new()
             {
-                description = ModEntry.Instance.Localizations.Localize(
-                    ["ship", "Alpherg", "card", "RerouteCannon", "B", "description"]
-                ),
+                description = Localization.Str_ship_Alpherg_card_RerouteCannon_B_description(),
                 cost = 1,
                 unremovableAtShops = true,
             },
             _ => new()
             {
-                description = ModEntry.Instance.Localizations.Localize(
-                    ["ship", "Alpherg", "card", "RerouteCannon", "description"]
-                ),
+                description = Localization.Str_ship_Alpherg_card_RerouteCannon_description(), 
                 cost = 1,
                 unremovableAtShops = true,
             },

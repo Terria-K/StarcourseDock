@@ -1,12 +1,10 @@
 using System.Reflection;
-using CutebaltCore;
-using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed class FrostCannon : Artifact, IRegisterable
+internal sealed class FrostCannon : Artifact
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
@@ -22,16 +20,8 @@ internal sealed class FrostCannon : Artifact, IRegisterable
                     unremovable = true,
                 },
                 Sprite = Sprites.artifacts_FrostCannon.Sprite,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Gliese", "artifact", "FrostCannon", "name"]
-                    )
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Gliese", "artifact", "FrostCannon", "description"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Gliese_artifact_FrostCannon_name(),
+                Description = Localization.ship_Gliese_artifact_FrostCannon_description(),
             }
         );
     }
@@ -46,7 +36,7 @@ internal sealed class FrostCannon : Artifact, IRegisterable
         return
         [
             new TTGlossary("status.stunCharge", ["3"]),
-            new TTGlossary("action.stun", Array.Empty<object>()),
+            new TTGlossary("action.stun", []),
             .. StatusMeta.GetTooltips(ColdStatus.ColdEntry.Status, 1),
         ];
     }

@@ -5,7 +5,7 @@ using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed class CrystalCore : Artifact, IRegisterable
+internal sealed class CrystalCore : Artifact
 {
     public List<Part>? tempParts;
 
@@ -23,18 +23,15 @@ internal sealed class CrystalCore : Artifact, IRegisterable
                     unremovable = true,
                 },
                 Sprite = Sprites.artifacts_CrystalCore.Sprite,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Gliese", "artifact", "CrystalCore", "name"]
-                    )
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Gliese", "artifact", "CrystalCore", "description"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Gliese_artifact_CrystalCore_name(),
+                Description = Localization.ship_Gliese_artifact_CrystalCore_description(),
             }
         );
+    }
+
+    public override List<Tooltip>? GetExtraTooltips()
+    {
+        return [GlieseKit.GetFrozenTraitTooltip()];
     }
 
     public override void OnTurnStart(State state, Combat combat)
@@ -46,13 +43,30 @@ internal sealed class CrystalCore : Artifact, IRegisterable
         }
 
         combat.Queue(new ARemoveAllBrokenPart());
-        combat.Queue(new AShuffleShip() { targetPlayer = true });
     }
 
     public override void OnCombatEnd(State state)
     {
         state.rewardsQueue.QueueImmediate(new ARepairAllBrokenPart());
         state.rewardsQueue.QueueImmediate(new AResetShip { parts = tempParts });
+    }
+
+    public override void OnPlayerPlayCard(
+        int energyCost,
+        Deck deck,
+        Card card,
+        State state,
+        Combat combat,
+        int handPosition,
+        int handCount
+    )
+    {
+        if (card is Unfreeze)
+        {
+            return;
+        }
+        combat.QueueImmediate(new AFreezeCard() { selectedCard = card, increment = 1 });
+        Pulse();
     }
 
     public override void OnPlayerTakeNormalDamage(
@@ -77,6 +91,7 @@ internal sealed class CrystalCore : Artifact, IRegisterable
                     key = "crystal2::StarcourseDock",
                 }
             );
+            Pulse();
         }
     }
 }

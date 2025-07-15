@@ -189,6 +189,16 @@ internal static class ILMatch
         );
     }
 
+    public static InstructionMatcher Ldstr(string text)
+    {
+        return new InstructionMatcher(
+            (instr) =>
+            {
+                return instr.opcode == OpCodes.Ldstr && (instr.operand as string) == text;
+            }
+        );
+    }
+
     public static InstructionMatcher Stfld(string fieldName) =>
         new InstructionMatcher(
             (instr) =>

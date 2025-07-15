@@ -2,7 +2,6 @@ using System.Reflection;
 using CutebaltCore;
 using Nanoray.PluginManager;
 using Nickel;
-using ZLinq;
 
 namespace Teuria.StarcourseDock;
 
@@ -21,17 +20,9 @@ internal sealed class SiriusMissileBayV2 : Artifact, IRegisterable
                     pools = [ArtifactPool.Boss],
                     unremovable = true,
                 },
-                Sprite = Sprites.artifacts_SiriusMissileBay.Sprite,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Sirius", "artifact", "SiriusMissileBayV2", "name"]
-                    )
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Sirius", "artifact", "SiriusMissileBayV2", "description"]
-                    )
-                    .Localize,
+                Sprite = Sprites.artifacts_SiriusMissileBayV2.Sprite,
+                Name = Localization.ship_Sirius_artifact_SiriusMissileBayV2_name(),
+                Description = Localization.ship_Sirius_artifact_SiriusMissileBayV2_description(),
             }
         );
     }

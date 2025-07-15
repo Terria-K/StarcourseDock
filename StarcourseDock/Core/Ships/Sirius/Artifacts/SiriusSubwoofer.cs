@@ -2,7 +2,6 @@ using System.Reflection;
 using CutebaltCore;
 using Nanoray.PluginManager;
 using Nickel;
-using ZLinq;
 
 namespace Teuria.StarcourseDock;
 
@@ -15,23 +14,10 @@ internal sealed class SiriusSubwoofer : Artifact, IRegisterable
             new()
             {
                 ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-                Meta = new()
-                {
-                    owner = Deck.colorless,
-                    pools = [ArtifactPool.Common],
-                    unremovable = true,
-                },
+                Meta = new() { owner = Deck.colorless, pools = [ArtifactPool.Common] },
                 Sprite = Sprites.artifacts_SiriusSubwoofer.Sprite,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Sirius", "artifact", "SiriusSubwoofer", "name"]
-                    )
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Sirius", "artifact", "SiriusSubwoofer", "description"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Sirius_artifact_SiriusSubwoofer_name(),
+                Description = Localization.ship_Sirius_artifact_SiriusSubwoofer_description(),
             }
         );
     }

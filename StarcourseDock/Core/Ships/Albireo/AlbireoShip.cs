@@ -1,299 +1,165 @@
-using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
+using CutebaltCore;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed class AlbireoShip
+
+internal sealed class AlbireoShip : IRegisterable
 {
-    private static readonly UK AlbireoAUK = ModEntry.Instance.Helper.Utilities.ObtainEnumCase<UK>();
-    private static readonly UK AlbireoBUK = ModEntry.Instance.Helper.Utilities.ObtainEnumCase<UK>();
-    internal static IPartEntry AlbireoCannonLeft { get; private set; } = null!;
-    internal static IPartEntry AlbireoCannonRight { get; private set; } = null!;
-    internal static IPartEntry AlbireoMissileBayLeft { get; private set; } = null!;
-    internal static IPartEntry AlbireoMissileBayRight { get; private set; } = null!;
-    internal static IShipEntry ShipEntry { get; private set; } = null!;
+    internal static IPartEntry AlbireoMissileBayBlue { get; private set; } = null!;
+    internal static IPartEntry AlbireoCannonBlue { get; private set; } = null!;
+    internal static IPartEntry AlbireoCockpitBlue { get; private set; } = null!;
+    internal static IPartEntry AlbireoMissileBayOrange { get; private set; } = null!;
+    internal static IPartEntry AlbireoCannonOrange { get; private set; } = null!;
+    internal static IPartEntry AlbireoCockpitOrange { get; private set; } = null!;
+    internal static IPartEntry AlbireoWingsBlue { get; private set; } = null!;
+    internal static IPartEntry AlbireoWingsOrange { get; private set; } = null!;
+    internal static IPartEntry AlbireoEmptyBlue { get; private set; } = null!;
+    internal static IPartEntry AlbireoEmptyOrange { get; private set; } = null!;
+    internal static IShipEntry AlbireoShipEntry { get; private set; } = null!;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        AlbireoCannonLeft = helper.Content.Ships.RegisterPart(
-            "AlbireoCannonLeft",
+        AlbireoMissileBayBlue = helper.Content.Ships.RegisterPart(
+            nameof(AlbireoMissileBayBlue),
             new()
             {
-                Sprite = Sprites.parts_albireo_cannon_left.Sprite,
-                DisabledSprite = Sprites.parts_albireo_cannon_left_inactive.Sprite,
+                Sprite = Sprites.parts_albireo_missilebay.Sprite
             }
         );
 
-        AlbireoCannonRight = helper.Content.Ships.RegisterPart(
-            "AlbireoCannonRight",
+        AlbireoCannonBlue = helper.Content.Ships.RegisterPart(
+            nameof(AlbireoCannonBlue),
             new()
             {
-                Sprite = Sprites.parts_albireo_cannon_right.Sprite,
-                DisabledSprite = Sprites.parts_albireo_cannon_right_inactive.Sprite,
+                Sprite = Sprites.parts_albireo_cannon.Sprite
             }
         );
 
-        AlbireoMissileBayLeft = helper.Content.Ships.RegisterPart(
-            "AlbireoMissileBayLeft",
+        AlbireoCockpitBlue = helper.Content.Ships.RegisterPart(
+            nameof(AlbireoCockpitBlue),
             new()
             {
-                Sprite = Sprites.parts_albireo_missilebay_left.Sprite,
-                DisabledSprite = Sprites.parts_albireo_missilebay_inactive.Sprite,
+                Sprite = Sprites.parts_albireo_cockpit.Sprite
             }
         );
 
-        AlbireoMissileBayRight = helper.Content.Ships.RegisterPart(
-            "AlbireoMissileBayRight",
+        AlbireoMissileBayOrange = helper.Content.Ships.RegisterPart(
+            nameof(AlbireoMissileBayOrange),
             new()
             {
-                Sprite = Sprites.parts_albireo_missilebay_right.Sprite,
-                DisabledSprite = Sprites.parts_albireo_missilebay_inactive.Sprite,
+                Sprite = Sprites.parts_albireo_missilebay_orange.Sprite
             }
         );
 
-        ShipEntry = helper.Content.Ships.RegisterShip(
+        AlbireoCannonOrange = helper.Content.Ships.RegisterPart(
+            nameof(AlbireoCannonOrange),
+            new()
+            {
+                Sprite = Sprites.parts_albireo_cannon_orange.Sprite
+            }
+        );
+
+        AlbireoCockpitOrange = helper.Content.Ships.RegisterPart(
+            nameof(AlbireoCockpitOrange),
+            new()
+            {
+                Sprite = Sprites.parts_albireo_cockpit_orange.Sprite
+            }
+        );
+
+        AlbireoWingsBlue = helper.Content.Ships.RegisterPart(
+            nameof(AlbireoWingsBlue),
+            new()
+            {
+                Sprite = Sprites.parts_albireo_wings_blue.Sprite
+            }
+        );
+
+        AlbireoWingsOrange = helper.Content.Ships.RegisterPart(
+            nameof(AlbireoWingsOrange),
+            new()
+            {
+                Sprite = Sprites.parts_albireo_wings_orange.Sprite
+            }
+        );
+
+        AlbireoEmptyBlue = helper.Content.Ships.RegisterPart(
+            nameof(AlbireoEmptyBlue),
+            new()
+            {
+                Sprite = Sprites.parts_albireo_empty_blue.Sprite
+            }
+        );
+
+        AlbireoEmptyOrange = helper.Content.Ships.RegisterPart(
+            nameof(AlbireoEmptyOrange),
+            new()
+            {
+                Sprite = Sprites.parts_albireo_empty_orange.Sprite
+            }
+        );
+
+        AlbireoShipEntry = helper.Content.Ships.RegisterShip(
             "Albireo",
             new()
             {
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(["ship", "Albireo", "name"])
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(["ship", "Albireo", "description"])
-                    .Localize,
+                Name = Localization.ship_Albireo_name(),
+                Description = Localization.ship_Albireo_description(),
                 UnderChassisSprite = Sprites.parts_albireo_chassis.Sprite,
                 Ship = new()
                 {
                     ship = new()
                     {
-                        hull = 10,
-                        hullMax = 10,
+                        x = 7,
+                        hull = 12,
+                        hullMax = 12,
                         shieldMaxBase = 4,
                         parts =
                         [
                             new Part()
                             {
+                                type = PType.wing,
+                                skin = AlbireoWingsBlue.UniqueName,
+                                key = "blue_wing"
+                            },
+                            new Part()
+                            {
                                 type = PType.missiles,
-                                skin = AlbireoMissileBayLeft.UniqueName,
-                                key = "left_missile",
+                                skin = AlbireoMissileBayBlue.UniqueName,
+                                key = "ab_missiles"
                             },
                             new Part()
                             {
                                 type = PType.cannon,
-                                skin = AlbireoCannonLeft.UniqueName,
-                                key = "left_cannon",
+                                skin = AlbireoCannonBlue.UniqueName,
+                                key = "ab_cannon"
                             },
                             new Part()
                             {
                                 type = PType.cockpit,
-                                skin = helper
-                                    .Content.Ships.RegisterPart(
-                                        "AlbireoCockpit",
-                                        new() { Sprite = Sprites.parts_albireo_cockpit.Sprite }
-                                    )
-                                    .UniqueName,
+                                skin = AlbireoCockpitBlue.UniqueName,
+                                key = "ab_cockpit"
                             },
                             new Part()
                             {
-                                type = PType.cannon,
-                                skin = AlbireoCannonRight.UniqueName,
-                                key = "right_cannon",
-                            },
-                            new Part()
-                            {
-                                type = PType.missiles,
-                                skin = AlbireoMissileBayRight.UniqueName,
-                                key = "right_missile",
+                                type = PType.wing,
+                                skin = AlbireoWingsOrange.UniqueName,
+                                key = "orange_wing"
                             },
                         ],
                     },
-                    artifacts = [new ShieldPrep(), new DoubleStar()],
+
+                    artifacts = [new ShieldPrep(), new DoubleDeck()],
                     cards =
                     [
                         new DodgeColorless(),
                         new CannonColorless(),
-                        new BasicShieldColorless(),
-                        new BasicSpacer(),
+                        new BasicShieldColorless()
                     ],
                 },
             }
-        );
-
-        ModEntry.Instance.Harmony.Patch(
-            original: AccessTools.DeclaredMethod(typeof(Combat), nameof(Combat.DrawBG)),
-            postfix: new HarmonyMethod(Combat_DrawBG_Postfix)
-        );
-
-        ModEntry.Instance.Harmony.Patch(
-            original: AccessTools.DeclaredMethod(typeof(Combat), nameof(Combat.RenderWalls)),
-            postfix: new HarmonyMethod(Combat_RenderWalls_Postfix)
-        );
-    }
-
-    internal static void Combat_RenderWalls_Postfix(Combat __instance, G g)
-    {
-        if (!g.state.HasArtifactFromColorless<DoubleStar>())
-        {
-            return;
-        }
-
-        const double AllY = 19.0;
-
-        bool drawIcons = __instance.introTimer > 1.0;
-        var rect = new Rect?(new Rect() + Combat.arenaPos + __instance.GetCamOffset());
-        g.Push(rect: rect);
-        {
-            Box box = g.Push(
-                new UIKey(AlbireoAUK),
-                new Rect?(new Rect(0.0, 40.0, 16.0, 50.0) + new Vec((16 * 7) - 1, AllY))
-            );
-            Vec boxPos = box.rect.xy;
-
-            Color starBlueColor = new Color(0.01, 0.05, 0.5, 1.0).gain(15);
-            if (drawIcons && box.IsHover())
-            {
-                var albireoA = new GlossaryTooltip(
-                    $"{ModEntry.Instance.Package.Manifest.UniqueName}::Albireo::A"
-                )
-                {
-                    Title = ModEntry.Instance.Localizations.Localize(
-                        ["ship", "Albireo", "tooltip", "AlbireoA", "title"]
-                    ),
-                    TitleColor = starBlueColor,
-                    Description = ModEntry.Instance.Localizations.Localize(
-                        ["ship", "Albireo", "tooltip", "AlbireoA", "description"]
-                    ),
-                };
-                g.tooltips.Add(boxPos + new Vec(17.0, 0.0), albireoA);
-            }
-
-            Draw.Rect(boxPos.x - 1.0 + 9, -1000.0, 1, 2000.0, starBlueColor with { a = 0.6 });
-
-            if (drawIcons)
-            {
-                Color? color = box.IsHover() ? null : new Color(1.0, 1.0, 1.0, 0.3);
-
-                Draw.Sprite(
-                    Sprites.icons_blue_zone.Sprite,
-                    boxPos.x,
-                    boxPos.y + 17.0,
-                    color: color
-                );
-            }
-            g.Pop();
-        }
-        g.Pop();
-
-        rect = new Rect?(new Rect() + Combat.arenaPos + __instance.GetCamOffset());
-        g.Push(rect: rect);
-        {
-            Box box = g.Push(
-                new UIKey(AlbireoBUK),
-                new Rect?(new Rect(0.0, 40.0, 16.0, 50.0) + new Vec((16 * 11) - 1, AllY))
-            );
-            Vec boxPos = box.rect.xy;
-
-            Color starOrangeColor = new Color(0.5, 0.15, 0.01, 1.0).gain(10);
-            if (drawIcons && box.IsHover())
-            {
-                var albireoA = new GlossaryTooltip(
-                    $"{ModEntry.Instance.Package.Manifest.UniqueName}::Albireo::B"
-                )
-                {
-                    Title = ModEntry.Instance.Localizations.Localize(
-                        ["ship", "Albireo", "tooltip", "AlbireoB", "title"]
-                    ),
-                    TitleColor = starOrangeColor,
-                    Description = ModEntry.Instance.Localizations.Localize(
-                        ["ship", "Albireo", "tooltip", "AlbireoB", "description"]
-                    ),
-                };
-                g.tooltips.Add(boxPos + new Vec(17.0, 0.0), albireoA);
-            }
-
-            Draw.Rect(boxPos.x - 1.0 + 9, -1000.0, 1, 2000.0, starOrangeColor with { a = 0.6 });
-
-            if (drawIcons)
-            {
-                Color? color = box.IsHover() ? null : new Color(1.0, 1.0, 1.0, 0.3);
-
-                Draw.Sprite(
-                    Sprites.icons_orange_zone.Sprite,
-                    boxPos.x,
-                    boxPos.y + 17.0,
-                    color: color
-                );
-            }
-            g.Pop();
-        }
-        g.Pop();
-    }
-
-    internal static void Combat_DrawBG_Postfix(Combat __instance, G g)
-    {
-        if (__instance.modifier is MBinaryStar)
-        {
-            return;
-        }
-
-        if (!g.state.HasArtifactFromColorless<DoubleStar>())
-        {
-            return;
-        }
-
-        double t = g.state.map.age;
-        int moveSpeed = g.settings.reduceMotion ? 0 : 48;
-
-        var offset = new Vec(-__instance.camX * 16.0, t * moveSpeed);
-
-        const double PI = Math.PI;
-        Color leftColor = new Color(0.01, 0.05, 0.5, 1.0);
-        Color rightColor = new Color(0.5, 0.15, 0.01, 1.0);
-        MapBase map = g.state.map;
-
-        offset.y *= 0.2;
-
-        BGComponents.NormalStars(g, map.age, offset);
-        BGComponents.RegularNebula(g, offset, rightColor.gain(0.5));
-
-        Vec left = new Vec(100, 0);
-        Vec right = new Vec(500, 250);
-
-        left.x += offset.x * 0.2;
-        right.x += offset.x * 0.2;
-        double orbitAngle = PI * 2.0 + (486 * PI / 180);
-
-        Vec off = new Vec(-29, 9);
-        Vec star1Pos = right + off;
-        Vec star2Pos = left + off;
-        double star1Size = Math.Sin(orbitAngle);
-
-        BGComponents.Star(
-            star1Pos,
-            rightColor.gain(3.0),
-            70.0 + 50.0 * star1Size,
-            0.5 + 0.5 * star1Size
-        );
-        BGComponents.Star(
-            star2Pos,
-            leftColor.gain(20.0),
-            70.0 + 50.0 * star1Size,
-            0.5 + 0.5 * star1Size
-        );
-
-        Glow.Draw(
-            star1Pos,
-            500.0,
-            rightColor.gain(5.0).gain(0.5 + 0.5 * Math.Cos(orbitAngle + PI))
-        );
-        Glow.Draw(star2Pos, 500.0, leftColor.gain(5.0).gain(0.5 + 0.5 * Math.Cos(orbitAngle + PI)));
-
-        BGComponents.RegularGlowMono(
-            g,
-            offset + new Vec(0.0, map.age * 100.0),
-            rightColor.gain(0.5),
-            new Vec?(new Vec(0.4, 1.0))
         );
     }
 }

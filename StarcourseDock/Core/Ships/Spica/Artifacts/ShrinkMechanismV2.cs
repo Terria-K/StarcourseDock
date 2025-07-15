@@ -2,7 +2,6 @@ using System.Reflection;
 using CutebaltCore;
 using Nanoray.PluginManager;
 using Nickel;
-using ZLinq;
 
 namespace Teuria.StarcourseDock;
 
@@ -26,16 +25,8 @@ internal class ShrinkMechanismV2 : Artifact, IRegisterable
                     unremovable = true,
                 },
                 Sprite = Sprites.artifacts_ShrinkMechanismV2.Sprite,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Spica", "artifact", "ShrinkMechanismV2", "name"]
-                    )
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Spica", "artifact", "ShrinkMechanismV2", "description"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Spica_artifact_ShrinkMechanismV2_name(),
+                Description = Localization.ship_Spica_artifact_ShrinkMechanismV2_description(),
             }
         );
     }
@@ -77,7 +68,7 @@ internal class ShrinkMechanismV2 : Artifact, IRegisterable
                     if (p != null && p.type != PType.wing)
                     {
                         rightParts.Add(p);
-                        state.ship.RemoveParts("leftwing", [p.key]);
+                        state.ship.RemoveParts("leftwing", [p.key!]);
                     }
                 }
                 break;
@@ -90,7 +81,7 @@ internal class ShrinkMechanismV2 : Artifact, IRegisterable
                     if (p != null && p.type != PType.wing)
                     {
                         leftParts.Add(p);
-                        state.ship.RemoveParts("rightwing", [p.key]);
+                        state.ship.RemoveParts("rightwing", [p.key!]);
                     }
                 }
                 break;
@@ -124,19 +115,22 @@ internal class ShrinkMechanismV2 : Artifact, IRegisterable
         if (leftParts != null)
         {
             int index = state.ship.FindPartIndex("leftwing");
-            state.ship.InsertParts(state, index, index, true, leftParts);
+            state.ship.InsertParts(state, index, index, true, leftParts, true);
             leftParts.Clear();
         }
 
         if (rightParts != null)
         {
             int index = state.ship.FindPartIndex("rightwing");
+            List<Part> partReversed = [.. rightParts];
+            partReversed.Reverse();
             state.ship.InsertParts(
                 state,
                 index,
                 index,
                 false,
-                rightParts.AsValueEnumerable().Reverse().ToList()
+                partReversed,
+                true
             );
             rightParts.Clear();
         }

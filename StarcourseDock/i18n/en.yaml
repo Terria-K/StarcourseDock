@@ -24,9 +24,47 @@ action:
     description: "<c=downside>Gain an <c=status>ENGINE LOCK</c>, and a <c=action>total stun</c>.</c>"
 
 ship: 
+  Albireo: 
+    name: Albireo
+    description: "A double-decked ship controlled by double star polarity."
+
+    artifact: 
+      DoubleDeck: 
+        name: DOUBLE DECK
+        description: 
+          - "You start with <c=status>POLARITY</c>."
+          - "All non-<c=deck>Trash</c> starter cards, and EXEs and Post-battle card offering are <c=cardtrait>polarity linked</c> to another card."
+          - "<c=downside>You are offered 1 less card in post-battle card rewards.</c>"
+      PolarityWings: 
+        name: POLARITY WINGS
+        description: 
+          - "(Albireo-exclusive artifact!)"
+          - "Ending your turn will, if with orange <c=status>POLARITY</c>, your orange <c=part>wings</c> will retract and become <c=part>empty</c>, else if with blue <c=status>POLARITY</c>, your blue <c=part>wings</c> instead. Both if you have more than 0 <c=energy>ENERGY</c>."
+          - "<c=downside>(Lasts until your next turn starts.)</c>"
+
+    status:
+      Polarity: 
+        name: POLARITY
+        description: 
+          - "Switches when deck <c=action>shuffles</c>."
+        blue:
+          description: 
+            - "Switches when deck <c=action>shuffles</c>."
+            - "Blue linked cards appears in front of your hand."
+        orange:
+          description: 
+            - "Switches when deck <c=action>shuffles</c>."
+            - "Orange linked cards appears in front of your hand."
+    
+    cardtrait:
+      Polarity:
+        name: POLARITY LINK
+        description:
+          - "This card is <c=action>swapped</c> with its linked card from its other side of the deck by <c=status>POLARITY</c>."
+
   Spica: 
     name: Spica
-    description: "A fixed ship that <c=downside>cannot move on its own.</c>"
+    description: "Shrinking ship that <c=downside>cannot move on its own.</c>"
 
     card: 
       ShieldOrShot: 
@@ -88,36 +126,70 @@ ship:
 
   Gliese: 
     name: Gliese
-    description: "Chaotic crystalline entity that has a freezing ability, <c=downside>but constantly shuffles its part.</c>"
+    description: "Crystallized ship with an ability to stun attacks, <c=downside>and freeze its deck overtime.</c>"
 
     artifact: 
       CrystalCore: 
         name: CRYSTAL CORE
         description: 
-        - "At the end of enemy's turn, your ship's parts will <c=downside>shuffle.</c>"
-        - "If a wing gets <c=action>hit</c>, <c=downside>add a breakable part.</c>"
-        - "<c=downside>(Reset parts after combat)</c>"
+        - "If you play a card, <c=downside>if it does not have <c=cardtrait>FROZEN</c>, add it.</c>"
+        - "If your wing gets <c=action>hit</c>, <c=downside>add a breakable part.</c>"
       CrystalCoreV2: 
         name: CRYSTAL HEART
         description: 
         - "Replaces <c=artifact>CRYSTAL CORE</c>."
-        - "At the start of a combat, add an <c=card>Absolute Zero</c> in your draw pile."
+        - "At the start of a combat, add an <c=card>Absolute Freeze</c> in your draw pile."
         - "If a wing gets <c=action>hit</c>, <c=downside>add a temporary cannon that last after your turn.</c>"
-        - "<c=downside>(Reset parts after combat)</c>"
       FrostCannon: 
         name: FROST CANNON
         description: 
         - "At the start of each turn, gain 3 <c=status>STUN CHARGE</c>."
         - "<c=action>Stun</c> will inflict 1 <c=status>COLD</c> to the enemy."
+      ColdHand: 
+        name: COLD HAND
+        description: 
+        - "(Gliese-exclusive artifact!)"
+        - "Allows you to <c=status>REDRAW</c> a card for free if fully <c=cardtrait>FROZEN</c>."
 
     card: 
-      AbsoluteZero: 
-        name: Absolute Zero
-        description: "<c=action>Shuffles</c> your parts. While in your hand, all <c=action>attacks</c> <c=downside>deal 0 dmg.</c>"
+      AbsoluteFreeze: 
+        name: Absolute Freeze
+      Unfreeze: 
+        name: Unfreeze
+        description: "Choose 3 cards from <c=keyword>discard pile</c> to remove <c=cardtrait>FROZEN</c>."
+        A:
+          description: 
+          - "Choose 3 cards from <c=keyword>discard pile</c> to remove <c=cardtrait>FROZEN</c> and draw it."
+        B:
+          description: 
+          - "Choose 3 cards from <c=keyword>draw and discard pile</c> to remove <c=cardtrait>FROZEN</c>."
+    
+    trait:
+      Frozen:
+        name: Frozen
+        description: 
+        - "Everytime this card is <c=keyword>played</c>, increment the counter by 1."
+        - "If the counter is more than 3, <c=downside>this card becomes unplayable.</c>"
+      CantBeFrozen:
+        name: Cannot Be Frozen 
+        description: 
+        - "This card cannot obtain <c=cardtrait>FROZEN</c>."
+      TurnEndTrigger:
+        name: TURN END TRIGGER
+        description: "If this card is in your hand at the end of your turn, trigger the actions below the line."
+    
+    action:
+      RightFreeze:
+        name: RIGHT TRAIT MODIFIER
+        description: Add the following trait to the card to the right.
+      LeftFreeze:
+        name: LEFT TRAIT MODIFIER
+        description: Add the following trait to the card to the left.
+    
 
   WolfRayet: 
     name: Wolf Rayet
-    description: "Heavy ship loaded with heat-powered missiles."
+    description: "Heavy ship loaded with <c=status>HEAT</c>-powered missiles."
 
     artifact: 
       HeatShield: 
@@ -214,28 +286,3 @@ ship:
         description: 
           - "Every time you <c=action>ATTACK</c>, this drone copies your attack with additional <boldPink>1</c> dmg."
           - "When this drone is hit, <c=downside>it targets to the opposite side.</c>"
-
-  Albireo: 
-    name: Albireo
-    description: "A double tempered ship that harness the energy of double stars."
-
-    artifact: 
-      DoubleStar: 
-        name: DOUBLE STAR
-        description: 
-        - "Two zones will appear and add <c=card>Relative Motion</c> at the start of the combat."
-        - "If the ship is inside orange zone, <c=action>all cards do its action twice</c> and <c=downside>gain 1 less energy next turn.</c>"
-        - "If the ship is inside blue zone, <c=action>all attacks generate</c> <c=status>Stun</c> and gain 1 more energy next turn."
-        - "If there is a Binary Star, artifact is temporarily disabled."
-
-    card: 
-      RelativeMotion: 
-        name: Relative Motion
-
-    tooltip: 
-      AlbireoA: 
-        title: "BLUE STAR"
-        description: "Beyond this point, <c=downside>orange parts will be disabled.</c>"
-      AlbireoB: 
-        title: "ORANGE STAR"
-        description: "Beyond this point, <c=downside>blue parts will be disabled.</c>"

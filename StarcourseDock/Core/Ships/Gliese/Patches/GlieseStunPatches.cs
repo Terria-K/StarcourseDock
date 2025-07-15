@@ -2,7 +2,7 @@ using CutebaltCore;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class GlieseStunPatches : IPatchable
+internal sealed partial class GlieseStunPatches 
 {
     [OnPrefix<AStunPart>(nameof(AStunPart.Begin))]
     private static void AStunPart_Begin_Prefix(AStunPart __instance, State s, Combat c)

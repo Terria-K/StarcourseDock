@@ -1,7 +1,6 @@
 using System.Runtime.InteropServices;
 using FSPRO;
 using Nickel;
-using ZLinq;
 
 namespace Teuria.StarcourseDock;
 
@@ -95,12 +94,8 @@ internal sealed class AToggleMissileBay : CardAction
                 $"{ModEntry.Instance.Package.Manifest.UniqueName}::ToggleMissileBayIcon"
             )
             {
-                Title = ModEntry.Instance.Localizations.Localize(
-                    ["ship", "Sirius", "icon", "toggleMissileBay", "name"]
-                ),
-                Description = ModEntry.Instance.Localizations.Localize(
-                    ["ship", "Sirius", "icon", "toggleMissileBay", "description"]
-                ),
+                Title = Localization.Str_ship_Sirius_icon_toggleMissileBay_name(),
+                Description = Localization.Str_ship_Sirius_icon_toggleMissileBay_description(),
                 TitleColor = Colors.action,
                 IsWideIcon = true,
                 Icon = Sprites.icons_sirius_toggle.Sprite,

@@ -33,13 +33,11 @@ internal sealed class AlphergShip : IRegisterable
                 var state = MG.inst.g.state;
 
                 if (
-                    state.route is not Combat c
-                    || !ModEntry.Instance.Helper.ModData.TryGetModData(
-                        c,
+                    !ModEntry.Instance.Helper.ModData.TryGetModData(
+                        state.ship,
                         "alpherg_chassis.activation",
                         out bool leftActive
-                    )
-                    || !leftActive
+                    ) || !leftActive
                 )
                 {
                     return SpriteLoader.Get(Sprites.parts_alpherg_chassis.Sprite)!;
@@ -53,12 +51,8 @@ internal sealed class AlphergShip : IRegisterable
             "Alpherg",
             new()
             {
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(["ship", "Alpherg", "name"])
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(["ship", "Alpherg", "description"])
-                    .Localize,
+                Name = Localization.ship_Alpherg_name(),
+                Description = Localization.ship_Alpherg_description(),
                 UnderChassisSprite = chassisSprite.Sprite,
                 Ship = new()
                 {

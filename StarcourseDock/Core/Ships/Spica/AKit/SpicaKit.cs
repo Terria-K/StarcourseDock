@@ -17,7 +17,7 @@ internal sealed class SpicaKit : IRegisterable
                 Definition = new() { color = new Color("5a7752"), titleColor = Colors.white },
                 DefaultCardArt = StableSpr.cards_colorless,
                 BorderSprite = Sprites.cardShared_border_spica.Sprite,
-                Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Spica", "name"]).Localize,
+                Name = Localization.ship_Spica_name(),
             }
         );
     }

@@ -25,16 +25,8 @@ internal sealed class HeatShieldV2 : Artifact, IRegisterable
                     unremovable = true,
                 },
                 Sprite = Sprites.artifacts_VolcanicShield.Sprite,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "WolfRayet", "artifact", "HeatShieldV2", "name"]
-                    )
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "WolfRayet", "artifact", "HeatShieldV2", "description"]
-                    )
-                    .Localize,
+                Name = Localization.ship_WolfRayet_artifact_HeatShieldV2_name(),
+                Description = Localization.ship_WolfRayet_artifact_HeatShieldV2_description(),
             }
         );
     }

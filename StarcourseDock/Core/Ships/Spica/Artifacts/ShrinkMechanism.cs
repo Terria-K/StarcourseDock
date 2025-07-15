@@ -23,16 +23,8 @@ internal class ShrinkMechanism : Artifact, IRegisterable
                     unremovable = true,
                 },
                 Sprite = Sprites.artifacts_ShrinkMechanism.Sprite,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Spica", "artifact", "ShrinkMechanism", "name"]
-                    )
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Spica", "artifact", "ShrinkMechanism", "description"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Spica_artifact_ShrinkMechanism_name(),
+                Description = Localization.ship_Spica_artifact_ShrinkMechanism_description(),
             }
         );
     }

@@ -23,16 +23,8 @@ internal sealed class SiriusInquisitor : Artifact, IRegisterable
                     unremovable = true,
                 },
                 Sprite = Sprites.artifacts_SiriusInquisitor.Sprite,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Sirius", "artifact", "SiriusInquisitor", "name"]
-                    )
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Sirius", "artifact", "SiriusInquisitor", "description"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Sirius_artifact_SiriusInquisitor_name(),
+                Description = Localization.ship_Sirius_artifact_SiriusInquisitor_description(),
             }
         );
     }

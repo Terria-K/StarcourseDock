@@ -21,11 +21,7 @@ internal class BarrageMode : Card, IRegisterable
                     dontOffer = true,
                 },
                 Art = StableSpr.cards_Terminal,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Sirius", "card", "BarrageMode", "name"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Sirius_card_BarrageMode_name(),
             }
         );
     }
@@ -39,9 +35,7 @@ internal class BarrageMode : Card, IRegisterable
             singleUse = true,
             flippable = true,
             cost = 1,
-            description = ModEntry.Instance.Localizations.Localize(
-                ["ship", "Sirius", "card", "BarrageMode", "description"]
-            ),
+            description = Localization.Str_ship_Sirius_card_BarrageMode_description() 
         };
     }
 

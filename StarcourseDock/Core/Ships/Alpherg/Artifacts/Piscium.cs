@@ -26,16 +26,8 @@ internal class Piscium : Artifact, IRegisterable
                     unremovable = true,
                 },
                 Sprite = Sprites.artifacts_Piscium.Sprite,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Alpherg", "artifact", "Piscium", "name"]
-                    )
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Alpherg", "artifact", "Piscium", "description"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Alpherg_artifact_Piscium_name(),
+                Description = Localization.ship_Alpherg_artifact_Piscium_description(),
             }
         );
     }

@@ -1,10 +1,7 @@
 using System.Reflection;
-using System.Reflection.Emit;
 using CutebaltCore;
-using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
-using ZLinq;
 
 namespace Teuria.StarcourseDock;
 
@@ -25,11 +22,7 @@ internal class SiriusQuestion : Card, IRegisterable
                     dontOffer = true,
                 },
                 Art = StableSpr.cards_GoatDrone,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Sirius", "card", "SiriusQuestion", "name"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Sirius_card_SiriusQuestion_name(),
             }
         );
     }

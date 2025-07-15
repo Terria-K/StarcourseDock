@@ -26,16 +26,8 @@ internal class RoutedCannon : Artifact, IRegisterable
                     unremovable = true,
                 },
                 Sprite = Sprites.artifacts_RoutedCannon.Sprite,
-                Name = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Alpherg", "artifact", "RoutedCannon", "name"]
-                    )
-                    .Localize,
-                Description = ModEntry
-                    .Instance.AnyLocalizations.Bind(
-                        ["ship", "Alpherg", "artifact", "RoutedCannon", "description"]
-                    )
-                    .Localize,
+                Name = Localization.ship_Alpherg_artifact_RoutedCannon_name(),
+                Description = Localization.ship_Alpherg_artifact_RoutedCannon_description(),
             }
         );
 

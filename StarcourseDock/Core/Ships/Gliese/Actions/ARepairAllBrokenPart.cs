@@ -13,16 +13,16 @@ internal class ARepairAllBrokenPart : CardAction
             switch (part.key)
             {
                 case "crystal1::StarcourseDock":
-                    part.skin = GlieseShip.GlieseCrystal1.UniqueName;
+                    part.skin = "crystal_1";
                     break;
                 case "crystal2::StarcourseDock":
-                    part.skin = GlieseShip.GlieseCrystal2.UniqueName;
+                    part.skin = "crystal_2";
                     break;
                 case "crystal3::StarcourseDock":
-                    part.skin = GlieseShip.GlieseCrystal3.UniqueName;
+                    part.skin = "crystal_3";
                     break;
                 case "crystal4::StarcourseDock":
-                    part.skin = GlieseShip.GlieseCrystal2.UniqueName;
+                    part.skin = "crystal_0";
                     break;
             }
 

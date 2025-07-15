@@ -8,16 +8,23 @@
     <GameExePath>../../../../CobaltCore.exe</GameExePath>
     <GameDllPath>../../../../CobaltCore.dll</GameDllPath>
     <ModLoaderPath>../../../</ModLoaderPath>
+    <ProjectDir>$(MSBuildProjectDirectory)\</ProjectDir>
   </PropertyGroup>
 
   <ItemGroup>
-    <ModFiles Include="i18n/**" />
+    <CompilerVisibleProperty Include="ProjectDir" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ModFiles Include="assets/**/*" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ZLinq" Version="1.4.6" />
-    <PackageReference Include="YamlDotNet" Version="16.3.0" />
+    <AdditionalFiles Include="i18n/en.yaml" />
+    <AdditionalFiles Include="assets/**/*.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Nickel.ModBuildConfig" Version="2.0.2" />
     <PackageReference
       Include="EnumByNameSourceGenerator"

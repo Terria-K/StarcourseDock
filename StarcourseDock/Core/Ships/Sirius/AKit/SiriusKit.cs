@@ -17,7 +17,7 @@ internal sealed class SiriusKit : IRegisterable
                 Definition = new() { color = new Color("6c9ebd"), titleColor = Colors.black },
                 DefaultCardArt = StableSpr.cards_colorless,
                 BorderSprite = Sprites.cardShared_border_sirius.Sprite,
-                Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "Sirius", "name"]).Localize,
+                Name = Localization.ship_Sirius_name(),
             }
         );
     }
