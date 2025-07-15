@@ -51,6 +51,12 @@ internal sealed class APolaritySwitch : CardAction
                 if (ModEntry.Instance.Helper.ModData.TryGetModData(card, "polarity.card.linked", out Card? linkCard) && linkCard is not null)
                 {
                     linkCard.flipAnim = 2.0;
+                    linkCard.waitBeforeMoving = 0.0;
+                    card.drawAnim = 0.0;
+                    card.waitBeforeMoving = 0.0;
+                    card.pos = card.targetPos;
+                    linkCard.pos = linkCard.targetPos;
+                    linkCard.drawAnim = 0.0;
                     cardChanges.Add(linkCard);
                     ModEntry.Instance.Helper.ModData.SetOptionalModData<Card>(card, "polarity.card.linked", null);
                     ModEntry.Instance.Helper.ModData.SetOptionalModData(linkCard, "polarity.card.linked", card);
