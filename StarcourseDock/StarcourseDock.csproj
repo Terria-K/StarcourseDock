@@ -8,7 +8,6 @@
     <GameExePath>../../../../CobaltCore.exe</GameExePath>
     <GameDllPath>../../../../CobaltCore.dll</GameDllPath>
     <ModLoaderPath>../../../</ModLoaderPath>
-    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
     <ProjectDir>$(MSBuildProjectDirectory)\</ProjectDir>
   </PropertyGroup>
 
