@@ -85,10 +85,6 @@ internal class CuteGenerator : IIncrementalGenerator
 
         var ymlCompilation = context.CompilationProvider.Combine(ymlFileContents.Collect());
 
-        // context.RegisterSourceOutput(
-        //     ymlCompilation,
-        //     static (ctx, source) => CuteYmlGenerator.Generate(ctx, source.Left, source.Right)
-        // );
 
         var localProvider = context
             .SyntaxProvider.CreateSyntaxProvider(
@@ -124,6 +120,85 @@ internal class CuteGenerator : IIncrementalGenerator
         context.RegisterSourceOutput(
             localAndYmlCompilation,
             static (ctx, source) => CuteLocalGenerator.Generate(ctx, source.Left.Left, source.Left.Right, source.Right.Right)
+        );
+
+        var projectDir = context.AnalyzerConfigOptionsProvider
+            .Select((provider, _) =>
+            {
+                provider.GlobalOptions.TryGetValue("build_property.ProjectDir", out var dir);
+                return dir;
+            });
+
+        var pngFiles = context.AdditionalTextsProvider.Where(static file => file.Path.EndsWith(".png"));
+        var pngFilesPath = pngFiles.Select((x, token) => x.Path);
+
+        var pngCompilation = context.CompilationProvider.Combine(pngFilesPath.Collect());
+        var projectPngCompilation = pngCompilation.Combine(projectDir);
+
+        context.RegisterSourceOutput(
+            projectPngCompilation,
+            static (ctx, source) => CuteImagePathGenerator.Generate(ctx, source.Left.Left, source.Left.Right, source.Right)
+        );
+    }
+}
+
+internal static class CuteImagePathGenerator
+{
+    public static void Generate(
+        SourceProductionContext ctx,
+        Compilation comp,
+        ImmutableArray<string> synString,
+        string? projectDir
+    )
+    {
+        if (projectDir is null)
+        {
+            return;
+        }
+        var syn = comp.SyntaxTrees.First(x => x.HasCompilationUnitRoot);
+        var dir = syn.FilePath;
+        List<(string, string)> sprites = new List<(string, string)>();
+        foreach (var str in synString)
+        {
+            string dirName = Path.GetFileName(Path.GetDirectoryName(str));
+            string filename = Path.GetFileNameWithoutExtension(str);
+
+            string relativeUri = new Uri(projectDir).MakeRelativeUri(new Uri(str)).ToString();
+
+            sprites.Add((dirName + "_" + filename, relativeUri));
+        }
+
+        StringBuilder fieldBuilder = new StringBuilder();
+        StringBuilder assignmentBuilder = new StringBuilder();
+
+        foreach (var sprite in sprites)
+        {
+            fieldBuilder.AppendLine($"public static ISpriteEntry {sprite.Item1} = null!;");
+            assignmentBuilder.AppendLine($"""
+            {sprite.Item1} = helper.Content.Sprites.RegisterSprite(
+                package.PackageRoot.GetRelativeFile("{sprite.Item2}")
+            );
+            """);
+        }
+
+        ctx.AddSource(
+            "Sprites.g.cs",
+            $$"""
+            using Nanoray.PluginManager;
+            using Nickel;
+
+            namespace Teuria.StarcourseDock;
+
+            internal static class Sprites 
+            {
+            {{fieldBuilder}}
+
+                public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
+                {
+            {{assignmentBuilder}}
+                }
+            }
+            """
         );
     }
 }

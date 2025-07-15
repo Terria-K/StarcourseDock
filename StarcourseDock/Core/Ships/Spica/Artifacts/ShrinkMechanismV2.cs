@@ -2,7 +2,6 @@ using System.Reflection;
 using CutebaltCore;
 using Nanoray.PluginManager;
 using Nickel;
-using ZLinq;
 
 namespace Teuria.StarcourseDock;
 
@@ -123,12 +122,14 @@ internal class ShrinkMechanismV2 : Artifact, IRegisterable
         if (rightParts != null)
         {
             int index = state.ship.FindPartIndex("rightwing");
+            List<Part> partReversed = [.. rightParts];
+            partReversed.Reverse();
             state.ship.InsertParts(
                 state,
                 index,
                 index,
                 false,
-                rightParts.AsValueEnumerable().Reverse().ToList(),
+                partReversed,
                 true
             );
             rightParts.Clear();
