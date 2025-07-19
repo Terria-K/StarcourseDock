@@ -5,6 +5,17 @@ namespace Teuria.StarcourseDock;
 
 internal sealed partial class AlbireoStateAllowModifyPolarDeck : IPatchable
 {
+    [OnPrefix<State>(nameof(State.EndRun))]
+    private static void State_EndRun_Prefix(State __instance)
+    {
+        if (__instance.route is not Combat)
+        {
+            var oldDeck = __instance.deck;
+
+            ExtractPolarCardToDeck(oldDeck);
+        }
+    }
+
     [OnPrefix<Combat>(nameof(Combat.ReturnCardsToDeck))]
     private static void Combat_ReturnCardsToDeck_Prefix(Combat __instance, State state)
     {
@@ -13,35 +24,41 @@ internal sealed partial class AlbireoStateAllowModifyPolarDeck : IPatchable
             return;
         }
 
+        var oldDeck = state.deck;
+
+        ExtractPolarCardToDeck(oldDeck);
+
         var oldHand = __instance.hand;
 
-        PutThingsBack(oldHand);
+        ExtractPolarCardToDeck(oldHand);
 
         var oldExhaust = __instance.exhausted;
 
-        PutThingsBack(oldExhaust);
+        ExtractPolarCardToDeck(oldExhaust);
 
         var oldDiscard = __instance.discard;
 
-        PutThingsBack(oldDiscard);
+        ExtractPolarCardToDeck(oldDiscard);
 
-        static void PutThingsBack(in List<Card> deck)
+
+        state.rewardsQueue.QueueImmediate(new ARemoveCardByPolarity());
+    }
+
+    private static void ExtractPolarCardToDeck(in List<Card> deck)
+    {
+        List<Card> addToDeck = [];
+        foreach (var card in deck)
         {
-            List<Card> addToDeck = [];
-            foreach (var card in deck)
+            if (ModEntry.Instance.Helper.ModData.TryGetModData(card, "polarity.card.linked", out Card? linkCard) && linkCard is not null)
             {
-                if (ModEntry.Instance.Helper.ModData.TryGetModData(card, "polarity.card.linked", out Card? linkCard) && linkCard is not null)
-                {
-                    addToDeck.Add(linkCard);
-                    ModEntry.Instance.Helper.ModData.SetOptionalModData<bool>(linkCard, "polarity.card.toRemove", true);
-                }
-            }
-
-            foreach (var a in addToDeck)
-            {
-                deck.Add(a);
+                addToDeck.Add(linkCard);
+                ModEntry.Instance.Helper.ModData.SetOptionalModData<bool>(linkCard, "polarity.card.toRemove", true);
             }
         }
-        state.rewardsQueue.QueueImmediate(new ARemoveCardByPolarity());
+
+        foreach (var a in addToDeck)
+        {
+            deck.Add(a);
+        }
     }
 }

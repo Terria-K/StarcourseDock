@@ -123,7 +123,7 @@ internal partial class WolfRayetMissilesPatches : IPatchable
                                 $"{ModEntry.Instance.Package.Manifest.UniqueName}::MissilePartType"
                             )
                             {
-                                Description = Localization.Str_parttype_Missile_description(),
+                                Description = Localization.Str_ship_WolfRayet_parttype_Missile_description(),
                             }
                         );
                     }
@@ -136,16 +136,16 @@ internal partial class WolfRayetMissilesPatches : IPatchable
                                 $"{ModEntry.Instance.Package.Manifest.UniqueName}::HotStunModifier"
                             )
                             {
-                                Title = Localization.Str_parttrait_Hot_name(),
+                                Title = Localization.Str_ship_WolfRayet_parttrait_Hot_name(),
                                 TitleColor = Colors.parttrait,
-                                Description = Localization.Str_parttrait_Hot_description(),
+                                Description = Localization.Str_ship_WolfRayet_parttrait_Hot_description(),
                                 Icon = StableSpr.icons_heat,
                             }
                         );
 
                         g.tooltips.Add(
                             ttPos,
-                            new TTGlossary("status.heat", $"<c=boldPink>{3}</c>")
+                            new TTGlossary("status.heat", $"<c=boldPink>{g.state.ship.heatMin}</c>")
                         );
                     }
                 }
@@ -163,7 +163,7 @@ internal partial class WolfRayetMissilesPatches : IPatchable
         {
             __result = (
                 null,
-                Localization.Str_parttype_Missile_name()
+                Localization.Str_ship_WolfRayet_parttype_Missile_name()
             );
             return false;
         }

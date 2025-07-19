@@ -88,8 +88,5 @@ file sealed class DoubleDeckTempUpgradeHook : IKokoroApi.IV2.ITemporaryUpgradesA
             ModEntry.Instance.KokoroAPI.V2.TemporaryUpgrades.SetTemporaryUpgrade(args.State, linkCard, args.NewTemporaryUpgrade);
             return;
         }
-
-        // does it actually permanently upgrade if NewTemporaryUpgrade is null?
-        ModEntry.Instance.KokoroAPI.V2.TemporaryUpgrades.SetTemporaryUpgrade(args.State, linkCard, args.NewUpgrade);
     }
 }

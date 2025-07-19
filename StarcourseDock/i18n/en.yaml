@@ -6,18 +6,6 @@ status:
     - "If cold is 3 or more at end of turn, <c=action>FREEZE</c>."
     - "<c=downside>Decreases by 1 at the end of a turn.</c>"
 
-parttrait: 
-  Hot: 
-    name: HOT
-    description: "When this part is hit, gain a <c=status>HEAT</c>."
-
-parttype: 
-  Missile: 
-    name: <c=part>MISSILE LAUNCHER</c>
-    description: 
-    - "When this part is hit, activate it."
-    - "When the part is active, and the ship <c=action>overheats</c>, <c=action>launch</c> the missile to the opposing ship, dealing <c=boldPink>4</c> damages."
-
 action: 
   Freeze: 
     name: FREEZE
@@ -208,6 +196,18 @@ ship:
         name: DELIVERY NOTE
         description: 
         - "Deliver extra missiles to your empty space at the start of your turn."
+
+    parttrait: 
+      Hot: 
+        name: HOT
+        description: "When this part is hit, gain a <c=status>HEAT</c>."
+
+    parttype: 
+      Missile: 
+        name: <c=part>MISSILE LAUNCHER</c>
+        description: 
+        - "When this part is hit, activate it."
+        - "When the part is active, and the ship <c=action>overheats</c>, <c=action>launch</c> the missile to the opposing ship, dealing <c=boldPink>4</c> damage."
   
   Sirius:
     name: Sirius
