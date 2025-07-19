@@ -196,6 +196,21 @@ ship:
         name: DELIVERY NOTE
         description: 
         - "Deliver extra missiles in your designated empty space at the start of your turn."
+      SeriousDedication:
+        name: SERIOUS DEDICATION
+        description:
+        - "Requires <c=artifact>DELIVERY NOTE</c>."
+        - "Replaces <c=part>cannon</c> and <c=part>missile bay</c> with <c=part>missile launchers</c>."
+      LaunchCodes:
+        name: LAUNCH CODES
+        description:
+        - "(Wolf Rayet-exclusive artifact!)"
+        - "Add <c=card>Launch Override</c> and <c=card>False Launch</c> to your deck on pickup."
+    
+    action:
+      Launch:
+        name: LAUNCH
+        description: "All <c=part>missile launchers</c> are going to attack the enemy, dealing <c=damage>{{damage}}<c/> damage."
 
     parttrait: 
       Hot: 
@@ -207,7 +222,27 @@ ship:
         name: <c=part>MISSILE LAUNCHER</c>
         description: 
         - "When this part is hit, activate it."
-        - "When the part is active, and the ship <c=action>overheats</c>, <c=action>launch</c> the missile to the opposing ship, dealing <c=boldPink>4</c> damage."
+        - "When the part is active, and the ship <c=action>overheats</c>, <c=action>launch</c> the missile to the opposing ship, dealing <c=boldPink>{{Damage}}</c> damage."
+
+    card: 
+      LaunchOverride:
+        name: Launch Override
+        description: "<c=action>Launch</c> all active <c=part>missile launchers</c> with <c=downside>{{damage}} less damage</c>."
+        B:
+          description: "<c=action>Launch</c> all active <c=part>missile launchers</c>."
+
+      FalseLaunch: 
+        name: False Launch 
+
+    midrow:
+      RayetMiniMissile:
+        name: Rayet Mini Missile
+        description: 
+          - "This missile is going to deal <c=damage>4</c> damage."
+        A:
+          name: Rayet Mini Hot Missile
+          description: 
+            - "This missile is going to deal <c=damage>4</c> damage and inflicts <c=boldpink>3</c> <c=status>HEAT</c> to the target."
   
   Sirius:
     name: Sirius

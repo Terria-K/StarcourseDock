@@ -1,6 +1,5 @@
 using System.Reflection;
 using CutebaltCore;
-using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
 
@@ -34,10 +33,13 @@ internal sealed class DeliveryNote : Artifact, IRegisterable
         for (int i = lastIndex; i >= 0; i--)
         {
             var part = state.ship.parts[i];
-            if (part.skin == WolfRayetShip.MissileEmptySlot.UniqueName)
+            if (
+                part.skin == WolfRayetShip.MissileEmptySlot.UniqueName ||
+                part.skin == WolfRayetShip.MissileLeftEmptySlot.UniqueName ||
+                part.skin == WolfRayetShip.MissileRightEmptySlot.UniqueName
+            )
             {
                 combat.QueueImmediate(new AAddMissile() { x = i, targetPlayer = true });
-                part.key = null;
             }
         }
         Pulse();

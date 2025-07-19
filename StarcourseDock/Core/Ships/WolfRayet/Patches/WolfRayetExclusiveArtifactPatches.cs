@@ -10,6 +10,8 @@ internal partial class WolfRayetExclusiveArtifactPatches : IPatchable
         if (s.ship.key != WolfRayetShip.WolfRayetEntry.UniqueName)
         {
             __result.Add(typeof(HeatShieldV2));
+            __result.Add(typeof(LaunchCodes));
+            __result.Add(typeof(SeriousDedication));
         }
     }
 }

@@ -9,7 +9,11 @@ internal sealed class WolfRayetShip : IRegisterable
     internal static PStunMod HotStunModifier { get; private set; }
     internal static PType MissilePartType { get; private set; }
     internal static IPartEntry MissileSlot { get; private set; } = null!;
+    internal static IPartEntry MissileLeftSlot { get; private set; } = null!;
+    internal static IPartEntry MissileRightSlot { get; private set; } = null!;
     internal static IPartEntry MissileEmptySlot { get; private set; } = null!;
+    internal static IPartEntry MissileLeftEmptySlot { get; private set; } = null!;
+    internal static IPartEntry MissileRightEmptySlot { get; private set; } = null!;
     internal static IShipEntry WolfRayetEntry { get; private set; } = null!;
     internal static string MissilePartTypeID =
         $"{ModEntry.Instance.Package.Manifest.UniqueName}::MissilePartType";
@@ -28,12 +32,48 @@ internal sealed class WolfRayetShip : IRegisterable
             }
         );
 
+        MissileLeftSlot = helper.Content.Ships.RegisterPart(
+            "WolfRayetMissilesLeftSlot",
+            new()
+            {
+                Sprite = Sprites.parts_wolf_rayet_bay_missile.Sprite,
+                DisabledSprite = Sprites.parts_wolf_rayet_bay_missile_inactive.Sprite,
+            }
+        );
+
+        MissileRightSlot = helper.Content.Ships.RegisterPart(
+            "WolfRayetMissilesRightSlot",
+            new()
+            {
+                Sprite = Sprites.parts_wolf_rayet_bay_missile_right.Sprite,
+                DisabledSprite = Sprites.parts_wolf_rayet_bay_missile_right_inactive.Sprite,
+            }
+        );
+
         MissileEmptySlot = helper.Content.Ships.RegisterPart(
             "WolfRayetMissilesEmptySlot",
             new()
             {
                 Sprite = Sprites.parts_wolf_rayet_scaffolding.Sprite,
                 DisabledSprite = Sprites.parts_wolf_rayet_scaffolding.Sprite,
+            }
+        );
+
+        MissileLeftEmptySlot = helper.Content.Ships.RegisterPart(
+            "WolfRayetMissilesLeftEmptySlot",
+            new()
+            {
+                Sprite = Sprites.parts_wolf_rayet_bay_empty.Sprite,
+                DisabledSprite = Sprites.parts_wolf_rayet_bay_empty.Sprite,
+            }
+        );
+
+        MissileRightEmptySlot = helper.Content.Ships.RegisterPart(
+            "WolfRayetMissilesRightEmptySlot",
+            new()
+            {
+                Sprite = Sprites.parts_wolf_rayet_bay_empty_right.Sprite,
+                DisabledSprite = Sprites.parts_wolf_rayet_bay_empty_right.Sprite,
             }
         );
 
@@ -56,6 +96,7 @@ internal sealed class WolfRayetShip : IRegisterable
                             new Part()
                             {
                                 type = PType.missiles,
+                                key = "rayet_missiles",
                                 skin = helper
                                     .Content.Ships.RegisterPart(
                                         "WolfRayetMissileBay",
@@ -97,6 +138,7 @@ internal sealed class WolfRayetShip : IRegisterable
                             new Part()
                             {
                                 type = PType.cannon,
+                                key = "rayet_cannon",
                                 skin = helper
                                     .Content.Ships.RegisterPart(
                                         "WolfRayetCannon",

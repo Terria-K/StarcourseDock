@@ -5,10 +5,11 @@ internal sealed class ALaunchMissile : CardAction
     public bool targetPlayer;
     public Part? part;
     public int localX;
+    public int reduceDamage;
 
     public override void Begin(G g, State s, Combat c)
     {
-        global::Ship target = (!targetPlayer ? s.ship : c.otherShip);
+        Ship target = !targetPlayer ? s.ship : c.otherShip;
         RaycastResult ray = CombatUtils.RaycastFromShipLocal(s, c, localX, !targetPlayer);
 
         if (part != null)
@@ -23,7 +24,12 @@ internal sealed class ALaunchMissile : CardAction
                 }
             );
 
-            part.skin = WolfRayetShip.MissileEmptySlot.UniqueName;
+            part.skin = part.key switch
+            {
+                "rayet_missiles" => WolfRayetShip.MissileLeftEmptySlot.UniqueName,
+                "rayet_cannon" => WolfRayetShip.MissileRightEmptySlot.UniqueName,
+                _ => WolfRayetShip.MissileEmptySlot.UniqueName
+            };
             part.type = PType.empty;
             part.stunModifier = PStunMod.none;
             part.active = false;
@@ -51,7 +57,7 @@ internal sealed class ALaunchMissile : CardAction
             else if (invincible)
             {
                 c.QueueImmediate(
-                    c.stuff[ray.worldX].GetActionsOnShotWhileInvincible(s, c, true, 4)
+                    c.stuff[ray.worldX].GetActionsOnShotWhileInvincible(s, c, true, 4 - reduceDamage)
                 );
             }
             else
@@ -64,7 +70,7 @@ internal sealed class ALaunchMissile : CardAction
 
         if (ray.hitShip)
         {
-            dmg = target.NormalDamage(s, c, 4, ray.worldX, false);
+            dmg = target.NormalDamage(s, c, 4 - reduceDamage, ray.worldX, false);
             Part? partAtWorldX = target.GetPartAtWorldX(ray.worldX);
 
             if (partAtWorldX != null)

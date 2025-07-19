@@ -17,7 +17,7 @@ internal partial class WolfRayetMissilesPatches : IPatchable
 
         if (__instance.Get(Status.heat) >= __instance.heatTrigger)
         {
-            c.Queue(new ALaunchMissiles() { targetPlayer = __instance.isPlayerShip });
+            c.Queue(new ALaunchMissiles() { isPlayerShip = __instance.isPlayerShip });
         }
     }
 
@@ -123,7 +123,7 @@ internal partial class WolfRayetMissilesPatches : IPatchable
                                 $"{ModEntry.Instance.Package.Manifest.UniqueName}::MissilePartType"
                             )
                             {
-                                Description = Localization.Str_ship_WolfRayet_parttype_Missile_description(),
+                                Description = Localization.Str_ship_WolfRayet_parttype_Missile_description("4"),
                             }
                         );
                     }
