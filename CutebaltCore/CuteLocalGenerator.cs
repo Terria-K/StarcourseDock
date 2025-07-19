@@ -10,8 +10,6 @@ namespace CutebaltCore;
 
 internal static class CuteLocalGenerator
 {
-    private static HashSet<(string key, string? value)> keys = new HashSet<(string key, string? value)>();
-
     public static void Generate(
         SourceProductionContext ctx,
         Compilation comp,
@@ -19,6 +17,7 @@ internal static class CuteLocalGenerator
         ImmutableArray<string> synString
     )
     {
+        HashSet<(string key, string? value)> keys = new HashSet<(string key, string? value)>();
         Regex regex = new Regex("{{([ \\w\\.\\-_]+)}}");
         if (syn.IsDefaultOrEmpty)
         {
@@ -132,7 +131,7 @@ internal static class CuteLocalGenerator
                         GeneratedLocal{y}(
                         """
                         {x}
-                        """, (RegexTypeGenerated{y})tokens)
+                        """, (RegexTypeGenerated{y})tokens!)
                         """";
 
                         methods.AppendLine($$$"""
