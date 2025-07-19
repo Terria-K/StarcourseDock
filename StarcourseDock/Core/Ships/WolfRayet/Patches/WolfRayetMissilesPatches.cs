@@ -145,7 +145,7 @@ internal partial class WolfRayetMissilesPatches : IPatchable
 
                         g.tooltips.Add(
                             ttPos,
-                            new TTGlossary("status.heat", $"<c=boldPink>{g.state.ship.heatMin}</c>")
+                            new TTGlossary("status.heat", $"<c=boldPink>{g.state.ship.heatTrigger}</c>")
                         );
                     }
                 }

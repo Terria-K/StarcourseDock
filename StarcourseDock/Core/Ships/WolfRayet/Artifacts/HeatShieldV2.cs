@@ -8,8 +8,6 @@ namespace Teuria.StarcourseDock;
 internal sealed class HeatShieldV2 : Artifact, IRegisterable
 {
     public int currentHeatCounter;
-    public int oldHeat;
-    public bool hit;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
@@ -61,51 +59,9 @@ internal sealed class HeatShieldV2 : Artifact, IRegisterable
         currentHeatCounter = 0;
     }
 
-    public override void OnTurnEnd(State state, Combat combat)
-    {
-        oldHeat = state.ship.Get(Status.heat);
-    }
-
     public override List<Tooltip>? GetExtraTooltips()
     {
         return [new TTGlossary("status.shield", ["3"]), new TTGlossary("status.heat", ["3"])];
-    }
-
-    public override void OnPlayerTakeNormalDamage(
-        State state,
-        Combat combat,
-        int rawAmount,
-        Part? part
-    )
-    {
-        hit = true;
-    }
-
-    public override void OnEnemyAttack(State state, Combat combat)
-    {
-        if (!hit)
-        {
-            return;
-        }
-
-        hit = false;
-
-        var heat = state.ship.Get(Status.heat);
-        if (heat <= oldHeat)
-        {
-            return;
-        }
-
-        oldHeat = heat;
-
-        currentHeatCounter += heat - oldHeat;
-
-        if (currentHeatCounter >= 2)
-        {
-            currentHeatCounter = 0;
-            state.ship.Add(Status.shield, 3);
-            Pulse();
-        }
     }
 
     public override int? GetDisplayNumber(State s)

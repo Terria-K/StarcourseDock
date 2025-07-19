@@ -2,14 +2,13 @@ using System.Reflection;
 using CutebaltCore;
 using Nanoray.PluginManager;
 using Nickel;
+using Shockah.Kokoro;
 
 namespace Teuria.StarcourseDock;
 
 internal sealed class HeatShield : Artifact, IRegisterable
 {
     public int currentHeatCounter;
-    public int oldHeat;
-    public bool hit;
     public bool goalAchieved;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
@@ -30,6 +29,8 @@ internal sealed class HeatShield : Artifact, IRegisterable
                 Description = Localization.ship_WolfRayet_artifact_HeatShield_description(),
             }
         );
+
+        ModEntry.Instance.KokoroAPI.V2.StatusLogic.RegisterHook(new HeatStatusHook());
     }
 
     public override void OnTurnStart(State state, Combat combat)
@@ -50,54 +51,14 @@ internal sealed class HeatShield : Artifact, IRegisterable
         goalAchieved = false;
     }
 
-    public override void OnTurnEnd(State state, Combat combat)
-    {
-        oldHeat = state.ship.Get(Status.heat);
-    }
-
     public override List<Tooltip>? GetExtraTooltips()
     {
-        return [new TTGlossary("status.shield", ["2"]), new TTGlossary("status.heat", ["3"])];
-    }
-
-    public override void OnPlayerTakeNormalDamage(
-        State state,
-        Combat combat,
-        int rawAmount,
-        Part? part
-    )
-    {
-        hit = true;
-    }
-
-    public override void OnEnemyAttack(State state, Combat combat)
-    {
-        if (!hit)
+        int heatMin = 3;
+        if (MG.inst.g.state.ship != null)
         {
-            return;
+            heatMin = MG.inst.g.state.ship.heatTrigger;
         }
-
-        hit = false;
-        if (goalAchieved)
-        {
-            return;
-        }
-        var heat = state.ship.Get(Status.heat);
-        if (heat <= oldHeat)
-        {
-            return;
-        }
-
-        oldHeat = heat;
-
-        currentHeatCounter += heat - oldHeat;
-
-        if (currentHeatCounter >= 2)
-        {
-            goalAchieved = true;
-            state.ship.Add(Status.shield, 2);
-            Pulse();
-        }
+        return [new TTGlossary("status.shield", ["2"]), new TTGlossary("status.heat", [heatMin])];
     }
 
     public override int? GetDisplayNumber(State s)
@@ -113,5 +74,63 @@ internal sealed class HeatShield : Artifact, IRegisterable
         }
 
         return Sprites.artifacts_HeatShield.Sprite;
+    }
+}
+
+file sealed class HeatStatusHook : IKokoroApi.IV2.IStatusLogicApi.IHook
+{
+    public int ModifyStatusChange(IKokoroApi.IV2.IStatusLogicApi.IHook.IModifyStatusChangeArgs args)
+    {
+        if (args.Status != Status.heat || args.Combat.isPlayerTurn)
+        {
+            goto EXIT;
+        }
+
+        // heatShield
+        var heatShield = args.State.GetArtifactFromColorless<HeatShield>();
+
+        if (heatShield is not null)
+        {
+            if (heatShield.goalAchieved)
+            {
+                goto EXIT;
+            }
+            int heat = args.NewAmount - args.OldAmount;
+            if (heat <= 0)
+            {
+                goto EXIT;
+            }
+            heatShield.currentHeatCounter += args.NewAmount - args.OldAmount;
+
+            if (heatShield.currentHeatCounter >= 2)
+            {
+                heatShield.goalAchieved = true;
+                args.State.ship.Add(Status.shield, 2);
+                heatShield.Pulse();
+            }
+
+            goto EXIT;
+        }
+        var heatShieldV2 = args.State.GetArtifactFromColorless<HeatShieldV2>();
+
+        if (heatShieldV2 is not null)
+        {
+            int heat = args.NewAmount - args.OldAmount;
+            if (heat <= 0)
+            {
+                goto EXIT;
+            }
+            heatShieldV2.currentHeatCounter += args.NewAmount - args.OldAmount;
+
+            if (heatShieldV2.currentHeatCounter >= 2)
+            {
+                heatShieldV2.currentHeatCounter = 0;
+                args.State.ship.Add(Status.shield, 3);
+                heatShieldV2.Pulse();
+            }
+        }
+
+        EXIT:
+        return args.NewAmount;
     }
 }
