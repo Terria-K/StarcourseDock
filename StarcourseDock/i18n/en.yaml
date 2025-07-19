@@ -195,7 +195,7 @@ ship:
       DeliveryNote: 
         name: DELIVERY NOTE
         description: 
-        - "Deliver extra missiles to your empty space at the start of your turn."
+        - "Deliver extra missiles in your designated empty space at the start of your turn."
 
     parttrait: 
       Hot: 

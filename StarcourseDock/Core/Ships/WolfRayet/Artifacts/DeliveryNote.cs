@@ -34,7 +34,7 @@ internal sealed class DeliveryNote : Artifact, IRegisterable
         for (int i = lastIndex; i >= 0; i--)
         {
             var part = state.ship.parts[i];
-            if (part.type == PType.empty)
+            if (part.skin == WolfRayetShip.MissileEmptySlot.UniqueName)
             {
                 combat.QueueImmediate(new AAddMissile() { x = i, targetPlayer = true });
                 part.key = null;
