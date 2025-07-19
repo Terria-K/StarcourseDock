@@ -86,6 +86,11 @@ file sealed class HeatStatusHook : IKokoroApi.IV2.IStatusLogicApi.IHook
             goto EXIT;
         }
 
+        if (args.Ship != args.State.ship)
+        {
+            goto EXIT;
+        }
+
         // heatShield
         var heatShield = args.State.GetArtifactFromColorless<HeatShield>();
 

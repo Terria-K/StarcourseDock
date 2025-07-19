@@ -61,7 +61,12 @@ internal sealed class HeatShieldV2 : Artifact, IRegisterable
 
     public override List<Tooltip>? GetExtraTooltips()
     {
-        return [new TTGlossary("status.shield", ["3"]), new TTGlossary("status.heat", ["3"])];
+        int heatMin = 3;
+        if (MG.inst.g.state.ship != null)
+        {
+            heatMin = MG.inst.g.state.ship.heatTrigger;
+        }
+        return [new TTGlossary("status.shield", ["3"]), new TTGlossary("status.heat", [heatMin])];
     }
 
     public override int? GetDisplayNumber(State s)
