@@ -1,10 +1,7 @@
 using System.Reflection;
-using System.Reflection.Emit;
 using CutebaltCore;
-using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
-using Teuria.Utilities;
 
 namespace Teuria.StarcourseDock;
 
@@ -54,11 +51,14 @@ internal class Piscium : Artifact, IRegisterable
 
     public override void OnPlayerAttack(State state, Combat combat)
     {
-        if (aAttack != null)
+        if (aAttack != null && aAttack.multiCannonVolley)
         {
             return;
         }
+
         isRight = !isRight;
-        combat.QueueImmediate(new ASwapScaffold() { isRight = isRight });
+
+        int idx = combat.cardActions.FindIndex(x => x.GetType() == typeof(AJupiterShoot));
+        combat.cardActions.Insert(idx, new ASwapScaffold() { isRight = isRight });
     }
 }

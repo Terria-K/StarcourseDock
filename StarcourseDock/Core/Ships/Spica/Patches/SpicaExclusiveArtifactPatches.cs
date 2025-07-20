@@ -2,7 +2,7 @@ using CutebaltCore;
 
 namespace Teuria.StarcourseDock;
 
-internal partial class SpicaExclusiveArtifactPatches : IPatchable
+internal sealed partial class SpicaExclusiveArtifactPatches : IPatchable
 {
     [OnPostfix<ArtifactReward>(nameof(ArtifactReward.GetBlockedArtifacts))]
     private static void GetBlockedArtifacts_Postfix(HashSet<Type> __result, State s)

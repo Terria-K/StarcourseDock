@@ -146,6 +146,21 @@ internal static class ShipExtensions
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Part? GetPartByKey(this List<Part> parts, string key)
+    {
+        var spanParts = CollectionsMarshal.AsSpan(parts);
+        for (int i = 0; i < spanParts.Length; i++)
+        {
+            var part = spanParts[i];
+            if (part.key == key)
+            {
+                return part;
+            }
+        }
+        return null;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Part? GetPartByKey(this Ship ship, string key)
     {
         var spanParts = CollectionsMarshal.AsSpan(ship.parts);
