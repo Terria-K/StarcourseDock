@@ -47,7 +47,7 @@ internal class SiriusBusiness : Card, IRegisterable
             Upgrade.A => [new ASpawn { thing = new SiriusDrone() }, new AStatus() { targetPlayer = true, status = Status.droneShift, statusAmount = 1 }],
             Upgrade.B => [
                 new ASpawn { thing = new SiriusDrone() { bubbleShield = true }, offset = flipped ? 1 : -1 },
-                new ASpawn { thing = new SiriusDrone() { bubbleShield = true } }
+                new ASpawn { thing = new SiriusDrone() }
             ],
             _ => [new ASpawn { thing = new SiriusDrone() }],
         };

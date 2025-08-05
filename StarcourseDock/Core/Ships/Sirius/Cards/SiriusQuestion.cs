@@ -36,6 +36,7 @@ internal class SiriusQuestion : Card, IRegisterable
             retain = true,
             buoyant = true,
             unremovableAtShops = true,
+            flippable = upgrade == Upgrade.B
         };
     }
 
@@ -44,7 +45,10 @@ internal class SiriusQuestion : Card, IRegisterable
         return upgrade switch
         {
             Upgrade.A => [new ASpawn { thing = new SiriusSemiDualDrone() }, new AStatus() { targetPlayer = true, status = Status.droneShift, statusAmount = 1 }],
-            Upgrade.B => [new ASpawn { thing = new SiriusSemiDualDrone() { bubbleShield = true } }],
+            Upgrade.B => [
+                new ASpawn { thing = new SiriusSemiDualDrone() { bubbleShield = true }, offset = flipped ? 1 : -1 },
+                new ASpawn { thing = new SiriusSemiDualDrone() }
+            ],
             _ => [new ASpawn { thing = new SiriusSemiDualDrone() }],
         };
     }
