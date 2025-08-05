@@ -22,19 +22,10 @@ internal sealed class SiriusSubwoofer : Artifact, IRegisterable
         );
     }
 
-    public override int ModifyBaseJupiterDroneDamage(State state, Combat? combat, StuffBase midrow)
+    public override List<Tooltip>? GetExtraTooltips()
     {
-        if (midrow is not SiriusDrone)
-        {
-            return 0;
-        }
-
-        int partX = state.ship.parts.FindIndex(p => p.type == PType.comms);
-        if (partX >= 0 && midrow.x == partX + state.ship.x)
-        {
-            return 1;
-        }
-
-        return 0;
+        return [
+            SiriusDrone.GetGlobalTooltip()
+        ];
     }
 }

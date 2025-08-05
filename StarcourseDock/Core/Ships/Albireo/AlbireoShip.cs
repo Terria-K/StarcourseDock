@@ -1,12 +1,18 @@
 using Nanoray.PluginManager;
 using Nickel;
 using CutebaltCore;
+using System.Collections.Frozen;
 
 namespace Teuria.StarcourseDock;
 
 
 internal sealed class AlbireoShip : IRegisterable
 {
+    internal static IReadOnlyList<Type> ExclusiveArtifacts => [
+        typeof(DoubleDeck),
+        typeof(PolarityWings)
+    ];
+
     internal static IPartEntry AlbireoMissileBayBlue { get; private set; } = null!;
     internal static IPartEntry AlbireoCannonBlue { get; private set; } = null!;
     internal static IPartEntry AlbireoCockpitBlue { get; private set; } = null!;
@@ -108,6 +114,7 @@ internal sealed class AlbireoShip : IRegisterable
                 Name = Localization.ship_Albireo_name(),
                 Description = Localization.ship_Albireo_description(),
                 UnderChassisSprite = Sprites.parts_albireo_chassis.Sprite,
+                ExclusiveArtifactTypes = ExclusiveArtifacts.ToFrozenSet(),
                 Ship = new()
                 {
                     ship = new()

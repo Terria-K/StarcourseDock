@@ -6,7 +6,6 @@ namespace Teuria.StarcourseDock;
 internal sealed class SiriusSemiDualDrone : StuffBase
 {
     public static List<string> droneNames = new List<string> { "sirius", "traitorLater" };
-    public Upgrade upgrade;
     public bool hitByEnemy;
 
     public override bool IsHostile()
@@ -56,60 +55,50 @@ internal sealed class SiriusSemiDualDrone : StuffBase
         Vec offset = v + GetOffset(g);
         DrawWithHilight(
             g,
-            upgrade switch
-            {
-                Upgrade.A => Sprites.drones_siriusSemiDualDroneMKII.Sprite,
-                _ => Sprites.drones_siriusSemiDualDrone.Sprite,
-            },
+            Sprites.drones_siriusSemiDualDrone.Sprite,
             offset,
             flipY: targetPlayer
         );
+    }
+
+    public static Tooltip GetGlobalTooltip()
+    {
+        return new GlossaryTooltip(
+                $"{ModEntry.Instance.Package.Manifest.UniqueName}::siriusDrone"
+            )
+        {
+            Title = Localization.Str_ship_Sirius_midrow_SiriusSemiDualDrone_name(),
+            Description = Localization.Str_ship_Sirius_midrow_SiriusSemiDualDrone_description(),
+            TitleColor = Colors.midrow,
+            Icon = Sprites.icons_siriusSemiDualDrone.Sprite,
+        };
     }
 
     public override List<Tooltip> GetTooltips()
     {
         List<Tooltip> ttItems =
         [
-            upgrade switch
+            new GlossaryTooltip(
+                $"{ModEntry.Instance.Package.Manifest.UniqueName}::siriusDrone"
+            )
             {
-                Upgrade.A => new GlossaryTooltip(
-                    $"{ModEntry.Instance.Package.Manifest.UniqueName}::siriusSemiDualDrone"
-                )
-                {
-                    Title = Localization.Str_ship_Sirius_midrow_SiriusSemiDualDroneMKII_name(), 
-                    Description = Localization.Str_ship_Sirius_midrow_SiriusSemiDualDroneMKII_description(), 
-                    TitleColor = Colors.midrow,
-                    Icon = Sprites.icons_siriusSemiDualDroneMkII.Sprite,
-                    flipIconY = targetPlayer,
-                },
-                _ => new GlossaryTooltip(
-                    $"{ModEntry.Instance.Package.Manifest.UniqueName}::siriusDrone"
-                )
-                {
-                    Title = Localization.Str_ship_Sirius_midrow_SiriusSemiDualDrone_name(), 
-                    Description = Localization.Str_ship_Sirius_midrow_SiriusSemiDualDrone_description(), 
-                    TitleColor = Colors.midrow,
-                    Icon = Sprites.icons_siriusSemiDualDrone.Sprite,
-                    flipIconY = targetPlayer,
-                },
-            },
+                Title = Localization.Str_ship_Sirius_midrow_SiriusSemiDualDrone_name(),
+                Description = Localization.Str_ship_Sirius_midrow_SiriusSemiDualDrone_description(),
+                TitleColor = Colors.midrow,
+                Icon = Sprites.icons_siriusSemiDualDrone.Sprite,
+                flipIconY = targetPlayer,
+            }
         ];
 
         if (bubbleShield)
         {
-            ttItems.Add(new TTGlossary("midrow.bubbleShield", Array.Empty<object>()));
+            ttItems.Add(new TTGlossary("midrow.bubbleShield", []));
         }
         return ttItems;
     }
 
-    public override Spr? GetIcon()
-    {
-        return upgrade switch
-        {
-            Upgrade.A => Sprites.icons_siriusSemiDualDroneMkII.Sprite,
-            _ => Sprites.icons_siriusSemiDualDrone.Sprite,
-        };
-    }
+    public override Spr? GetIcon() => Sprites.icons_siriusSemiDualDrone.Sprite;
+    
 
     public override List<CardAction>? GetActionsOnBonkedWhileInvincible(
         State s,

@@ -1,15 +1,17 @@
-using System.Reflection;
-using System.Reflection.Emit;
+using System.Collections.Frozen;
 using CutebaltCore;
-using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
-using Teuria.Utilities;
 
 namespace Teuria.StarcourseDock;
 
 internal sealed class AlphergShip : IRegisterable
 {
+    internal static IReadOnlyList<Type> ExclusiveArtifacts => [
+        typeof(RoutedCannon),
+        typeof(Piscium)
+    ];
+
     internal static IPartEntry AlphergScaffoldOrange { get; set; } = null!;
     internal static IPartEntry AlphergScaffoldBlue { get; set; } = null!;
     internal static IShipEntry AlphergEntry { get; set; } = null!;
@@ -54,6 +56,7 @@ internal sealed class AlphergShip : IRegisterable
                 Name = Localization.ship_Alpherg_name(),
                 Description = Localization.ship_Alpherg_description(),
                 UnderChassisSprite = chassisSprite.Sprite,
+                ExclusiveArtifactTypes = ExclusiveArtifacts.ToFrozenSet(),
                 Ship = new()
                 {
                     ship = new()

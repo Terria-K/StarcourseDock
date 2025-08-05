@@ -1,14 +1,19 @@
-using System.Reflection.Emit;
+using System.Collections.Frozen;
 using CutebaltCore;
-using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
-using Teuria.Utilities;
 
 namespace Teuria.StarcourseDock;
 
 internal sealed class SiriusShip : IRegisterable
 {
+    internal static IReadOnlyList<Type> ExclusiveArtifacts => [
+        typeof(SiriusInquisitor),
+        typeof(SiriusMissileBay),
+        typeof(SiriusMissileBayV2),
+        typeof(SiriusSubwoofer),
+    ];
+
     internal static IShipEntry SiriusEntry { get; private set; } = null!;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
@@ -29,6 +34,7 @@ internal sealed class SiriusShip : IRegisterable
                 Name = Localization.ship_Sirius_name(),
                 Description = Localization.ship_Sirius_description(),
                 UnderChassisSprite = Sprites.parts_sirius_chassis.Sprite,
+                ExclusiveArtifactTypes = ExclusiveArtifacts.ToFrozenSet(),
                 Ship = new()
                 {
                     ship = new()

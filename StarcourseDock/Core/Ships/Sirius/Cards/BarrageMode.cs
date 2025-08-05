@@ -34,14 +34,15 @@ internal class BarrageMode : Card, IRegisterable
             retain = true,
             singleUse = true,
             flippable = true,
-            cost = 1,
-            description = Localization.Str_ship_Sirius_card_BarrageMode_description() 
+            cost = 1
         };
     }
 
     public override List<CardAction> GetActions(State s, Combat c)
     {
-        return [new AActivateAllParts() { partType = PType.missiles }];
+        return [
+            new AActivateAllPartsWrapper() { partType = PType.missiles }
+        ];
     }
 
     public override void OnFlip(G g)

@@ -7,21 +7,16 @@ internal sealed class ASiriusInquisitorShoot : CardAction
     public override void Begin(G g, State s, Combat c)
     {
         this.timer = 0.0;
-        bool damageUpgraded = false;
         var attacks = new SortedList<int, CardAction>();
         foreach ((int x, StuffBase midRow) in c.stuff)
         {
-            if (midRow is not SiriusSemiDualDrone sirius)
+            if (midRow is not SiriusSemiDualDrone)
             {
                 continue;
             }
-            if (sirius.upgrade == Upgrade.A && !damageUpgraded)
-            {
-                attackCopy.damage += 1;
-                damageUpgraded = true;
-            }
 
-            AAttack copy = Mutil.DeepCopy<AAttack>(this.attackCopy);
+
+            AAttack copy = Mutil.DeepCopy(attackCopy);
             copy.fast = true;
             copy.fromX = null;
             copy.fromDroneX = x;

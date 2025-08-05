@@ -1,3 +1,4 @@
+using System.Collections.Frozen;
 using CutebaltCore;
 using Nanoray.PluginManager;
 using Nickel;
@@ -6,6 +7,13 @@ namespace Teuria.StarcourseDock;
 
 internal sealed class SpicaShip : IRegisterable
 {
+    internal static IReadOnlyList<Type> ExclusiveArtifacts => [
+        typeof(ShrinkMechanism),
+        typeof(ShrinkMechanismV2),
+        typeof(TinyWormhole),
+        typeof(FixedStar),
+    ];
+
     internal static IPartEntry SpicaScaffold { get; private set; } = null!;
     internal static IPartEntry SpicaTriScaffold { get; private set; } = null!;
     internal static IPartEntry SpicaCannon { get; private set; } = null!;
@@ -41,6 +49,7 @@ internal sealed class SpicaShip : IRegisterable
                 Name = Localization.ship_Spica_name(),
                 Description = Localization.ship_Spica_description(),
                 UnderChassisSprite = Sprites.parts_empty_chassis.Sprite,
+                ExclusiveArtifactTypes = ExclusiveArtifacts.ToFrozenSet(),
                 Ship = new()
                 {
                     ship = new()

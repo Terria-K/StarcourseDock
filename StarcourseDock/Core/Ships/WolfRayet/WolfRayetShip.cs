@@ -1,3 +1,4 @@
+using System.Collections.Frozen;
 using CutebaltCore;
 using Nanoray.PluginManager;
 using Nickel;
@@ -6,6 +7,14 @@ namespace Teuria.StarcourseDock;
 
 internal sealed class WolfRayetShip : IRegisterable
 {
+    internal static IReadOnlyList<Type> ExclusiveArtifacts => [
+        typeof(HeatShield),
+        typeof(HeatShieldV2),
+        typeof(DeliveryNote),
+        typeof(LaunchCodes),
+        typeof(SeriousDedication),
+    ];
+
     internal static PStunMod HotStunModifier { get; private set; }
     internal static PType MissilePartType { get; private set; }
     internal static IPartEntry MissileSlot { get; private set; } = null!;
@@ -84,6 +93,7 @@ internal sealed class WolfRayetShip : IRegisterable
                 Name = Localization.ship_WolfRayet_name(),
                 Description = Localization.ship_WolfRayet_description(),
                 UnderChassisSprite = Sprites.parts_wolf_rayet_chassis.Sprite,
+                ExclusiveArtifactTypes = ExclusiveArtifacts.ToFrozenSet(),
                 Ship = new()
                 {
                     ship = new()

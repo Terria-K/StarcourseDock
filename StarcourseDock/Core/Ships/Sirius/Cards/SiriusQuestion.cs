@@ -43,8 +43,9 @@ internal class SiriusQuestion : Card, IRegisterable
     {
         return upgrade switch
         {
+            Upgrade.A => [new ASpawn { thing = new SiriusSemiDualDrone() }, new AStatus() { targetPlayer = true, status = Status.droneShift, statusAmount = 1 }],
             Upgrade.B => [new ASpawn { thing = new SiriusSemiDualDrone() { bubbleShield = true } }],
-            _ => [new ASpawn { thing = new SiriusSemiDualDrone() { upgrade = this.upgrade } }],
+            _ => [new ASpawn { thing = new SiriusSemiDualDrone() }],
         };
     }
 }

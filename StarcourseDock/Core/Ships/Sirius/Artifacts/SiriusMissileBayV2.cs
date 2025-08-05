@@ -41,7 +41,7 @@ internal sealed class SiriusMissileBayV2 : Artifact, IRegisterable
 
         foreach (Part p in state.ship.parts)
         {
-            if (p.key == null || !validSiriusParts.Contains(p.key))
+            if (p.key == null || !validSiriusParts.Contains(p.key) || !p.active)
             {
                 continue;
             }

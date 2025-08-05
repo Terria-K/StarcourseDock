@@ -41,13 +41,7 @@ internal class ToggleMissileBay : Card, IRegisterable
     {
         return
         [
-            new AToggleMissileBay(),
-            new AStatus()
-            {
-                status = BayPowerDownStatus.BayPowerDownEntry.Status,
-                statusAmount = 1,
-                targetPlayer = true,
-            },
+            new AToggleMissileBay()
         ];
     }
 }
