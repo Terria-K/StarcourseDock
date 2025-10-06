@@ -301,3 +301,15 @@ ship:
         description: 
           - "Every time you <c=action>ATTACK</c>, this drone copies your attack."
           - "When this drone is hit, <c=downside>it targets to the opposite side.</c>"
+
+  Gravi:
+    name: "Gravi"
+    description: A complex unstable dark matter ship that converts matter into a dark energy.
+
+  VelaX1:
+    name: "Vela X-1"
+    description: A luminous ship that releases a <c=midrow>gravitational orb</c> by <c=action>attacking</c>.
+
+  Io:
+    name: "Io"
+    description: Huge radioactive capsule ship that <c=downside>inflicts its own fuel when its move</c>.

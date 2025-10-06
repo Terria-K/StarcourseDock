@@ -31,7 +31,14 @@ internal sealed partial class AlphergPisciumPatches : IPatchable
         }
 
         piscium.isRight = !piscium.isRight;
+
         int idx = c.cardActions.FindIndex(x => x.GetType() == typeof(AJupiterShoot));
+        if (idx == -1)
+        {
+            c.QueueImmediate(new ASwapScaffold() { isRight = piscium.isRight });
+            return;
+        }
+
         c.cardActions.Insert(idx, new ASwapScaffold() { isRight = piscium.isRight });
     }
 }

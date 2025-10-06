@@ -5,7 +5,7 @@ namespace Teuria.StarcourseDock;
 
 internal sealed class SiriusSemiDualDrone : StuffBase
 {
-    public static List<string> droneNames = new List<string> { "sirius", "traitorLater" };
+    public static List<string> droneNames = ["sirius", "traitorLater"];
     public bool hitByEnemy;
 
     public override bool IsHostile()
@@ -31,8 +31,7 @@ internal sealed class SiriusSemiDualDrone : StuffBase
     {
         var state = MG.inst.g.state;
 
-        var combat = state.route as Combat;
-        if (combat is null)
+        if (state.route is not Combat combat)
         {
             return false;
         }

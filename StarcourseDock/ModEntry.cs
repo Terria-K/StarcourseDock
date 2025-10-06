@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using CutebaltCore;
+using HarmonyLib;
 using Microsoft.Extensions.Logging;
 using Nanoray.PluginManager;
 using Nickel;
@@ -32,6 +33,8 @@ public sealed partial class ModEntry : SimpleMod
             )
         );
 
+
+        //HotReloadExperiment();
         KokoroAPI = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!;
         EssentialAPI = helper.ModRegistry.GetApi<IEssentialsApi>("Nickel.Essentials")!;
         Sprites.Register(package, helper);
@@ -40,4 +43,79 @@ public sealed partial class ModEntry : SimpleMod
         Patchables.Patch(Harmony);
         ManualPatchables.Patch(Harmony);
     }
+
+    //public static ISpriteEntry TestSprite { get; private set; } =  null!;
+    //
+    //private void HotReloadExperiment()
+    //{
+    //    var watcher = new HotReloadWatcher(Package, Harmony);
+    //    var holder = Helper.Content.Sprites.RegisterSprite(
+    //        Package.PackageRoot.GetRelativeFile("assets/parts/albireo_chassis.png")
+    //    );
+    //
+    //    TestSprite = Helper.Content.Sprites.RegisterDynamicSprite(() => 
+    //    {
+    //        return SpriteLoader.Get(holder.Sprite)!;
+    //    });
+    //
+    //    watcher.AddToReload(() => {
+    //        holder = Helper.Content.Sprites.RegisterSprite(
+    //            Package.PackageRoot.GetRelativeFile("assets/parts/albireo_chassis.png")
+    //        );
+    //    });
+    //}
 }
+
+//internal sealed class HotReloadWatcher 
+//{
+//    private bool reload;
+//    private readonly List<Action> funcReload = [];
+//    private readonly object watchLock = new object();
+//    public static HotReloadWatcher Instance { get; private set; } = null!;
+//    public FileSystemWatcher Watcher { get; }
+//
+//    public HotReloadWatcher(IPluginPackage<IModManifest> package, IHarmony harmony) 
+//    {
+//        harmony.Patch(
+//            AccessTools.DeclaredMethod(typeof(State), nameof(State.Update)),
+//            postfix: new HarmonyMethod(HotReloadUpdateAssets)
+//        );
+//
+//        Instance = this;
+//        Console.WriteLine(package.PackageRoot.AsDirectory!.FullName);
+//        Watcher = new FileSystemWatcher(package.PackageRoot.AsDirectory!.FullName);
+//
+//        Watcher.Changed += HotReloadUpdate;
+//        Watcher.EnableRaisingEvents = true;
+//        Watcher.IncludeSubdirectories = true;
+//    }
+//
+//    public void AddToReload(Action action)
+//    {
+//        funcReload.Add(action);
+//    }
+//
+//    private void HotReloadUpdate(object sender, FileSystemEventArgs e)
+//    {
+//        lock (watchLock)
+//        {
+//            Instance.reload = true;
+//        }
+//    }
+//
+//    private static void HotReloadUpdateAssets()
+//    {
+//        lock (Instance.watchLock)
+//        {
+//            if (Instance.reload)
+//            {
+//                foreach (var reload in Instance.funcReload)
+//                {
+//                    reload();
+//                }
+//
+//                Instance.reload = false;
+//            }
+//        }
+//    }
+//}

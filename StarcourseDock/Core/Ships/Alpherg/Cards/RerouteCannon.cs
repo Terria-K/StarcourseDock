@@ -1,6 +1,5 @@
 using System.Reflection;
 using CutebaltCore;
-using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
 

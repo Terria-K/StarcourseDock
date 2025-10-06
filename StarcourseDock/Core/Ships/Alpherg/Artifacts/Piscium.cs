@@ -59,6 +59,12 @@ internal class Piscium : Artifact, IRegisterable
         isRight = !isRight;
 
         int idx = combat.cardActions.FindIndex(x => x.GetType() == typeof(AJupiterShoot));
+        if (idx == -1)
+        {
+            combat.QueueImmediate(new ASwapScaffold() { isRight = isRight });
+            return;
+        }
+
         combat.cardActions.Insert(idx, new ASwapScaffold() { isRight = isRight });
     }
 }

@@ -115,6 +115,7 @@ internal sealed class AlbireoShip : IRegisterable
                 Description = Localization.ship_Albireo_description(),
                 UnderChassisSprite = Sprites.parts_albireo_chassis.Sprite,
                 ExclusiveArtifactTypes = ExclusiveArtifacts.ToFrozenSet(),
+
                 Ship = new()
                 {
                     ship = new()
