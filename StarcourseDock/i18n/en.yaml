@@ -176,8 +176,8 @@ ship:
     
 
   WolfRayet: 
-    name: Wolf Rayet
-    description: "Heavy ship loaded with <c=status>HEAT</c>-powered missiles."
+    name: Betelgeuse 
+    description: "Heavy ship loaded with <c=status>HEAT</c> powered missiles."
 
     artifact: 
       HeatShield: 
@@ -204,7 +204,7 @@ ship:
       LaunchCodes:
         name: LAUNCH CODES
         description:
-        - "(Wolf Rayet-exclusive artifact!)"
+        - "(Betelgeuse-exclusive artifact!)"
         - "Add <c=card>Launch Override</c> and <c=card>False Launch</c> to your deck on pickup."
     
     action:
@@ -236,11 +236,11 @@ ship:
 
     midrow:
       RayetMiniMissile:
-        name: Rayet Mini Missile
+        name: Betelgeuse Mini Missile
         description: 
           - "This missile is going to deal <c=damage>4</c> damage."
         A:
-          name: Rayet Mini Hot Missile
+          name: Betelguese Mini Hot Missile
           description: 
             - "This missile is going to deal <c=damage>4</c> damage and inflicts <c=boldpink>3</c> <c=status>HEAT</c> to the target."
   
@@ -312,4 +312,38 @@ ship:
 
   Io:
     name: "Io"
-    description: Huge radioactive capsule ship that <c=downside>inflicts its own fuel when its move</c>.
+    description: A magnetic ship that <c=action>pull</c> <c=midrow>objects</c> inside it. 
+    artifact: 
+      DroneMania:
+        name: DRONE MANIA
+        description: At the start of a combat, <c=action>launch</c> <c=midrow>Io Drones</c>.
+
+      GravitationalPull:
+        name: GRAVITATIONAL PULL
+        description: 
+        - If any <c=midrow>midrow object</c> are destroyed, put it in a <c=card>Release</c> in your hand with a specific <c=action>launch</c> direction relative to the <c=part>cockpit</c>.
+
+      AsteroidAirlock:
+        name: ASTEROID AIRLOCK
+        description: 
+        - (IO-exclusive artifact!)
+        - If a <c=card>Release</c> can <c=action>launch</c> <c=midrow>asteroid</c>, the card cost 0 <c=energy>ENERGY</c>.
+
+    card:
+      PulledAndRelease:
+        name: Release
+
+    icon:
+      launchleft:
+        name: LAUNCH LEFT
+        description: Launch an <c=midrow>object</c> from your missile bay to the left.
+
+      launchright:
+        name: LAUNCH RIGHT
+        description: Launch an <c=midrow>object</c> from your missile bay to the right.
+
+    midrow:
+      IoDrone:
+        name: Io Drone
+        description: Every time you <c=action>ATTACK</c>, this drone copies your attack.
+
