@@ -31,7 +31,7 @@ internal sealed class AsteroidAirlock : Artifact, IRegisterable
     {
         return [
             new TTGlossary("midrow.asteroid"),
-            new TTCard() { card = new PulledAndRelease() }
+            new TTCard() { card = new Release() }
         ];
     }
 }

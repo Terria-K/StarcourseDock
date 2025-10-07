@@ -4,18 +4,25 @@ namespace Teuria.StarcourseDock;
 
 internal sealed partial class IoDroneDestroyedPatches : IPatchable
 {
-    [OnVirtualPostfix<StuffBase>(nameof(StuffBase.GetActionsOnDestroyed))]
-    private static void StuffBase_GetActionsOnDestroyed_Postfix(
-        State s, Combat c, StuffBase __instance)
+    [OnPrefix<Combat>(nameof(Combat.DestroyDroneAt))]
+    private static void Combat_DestroyDroneAt_Prefix(
+        State s, Combat __instance, int x)
     {
-        if (s.HasArtifactFromColorless<GravitationalPull>())
+        if (!s.HasArtifactFromColorless<GravitationalPull>())
         {
-            var x = s.ship.GetWorldXOfPart("iocenter");
-            if (x is {} y)
-            {
-                var dist = Math.Sign(__instance.x - y);
-                c.QueueImmediate(new AIOSlurpObjectInstant() { thing = __instance, dist = dist, timer = 0.1 });
-            }
+            return;
+        }
+
+        if (!__instance.stuff.TryGetValue(x, out var thing))
+        {
+            return;
+        }
+
+        var xcenter = s.ship.GetWorldXOfPart("iocenter");
+        if (xcenter is { } y)
+        {
+            var dist = Math.Sign(thing.x - y);
+            __instance.QueueImmediate(new AIOSlurpObjectInstant() { thing = thing, dist = dist, timer = 0.1 });
         }
     }
 }

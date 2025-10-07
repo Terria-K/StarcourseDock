@@ -5,7 +5,7 @@ using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed class PulledAndRelease : Card, IRegisterable
+internal sealed class Release : Card, IRegisterable
 {
 	public StuffBase thing = new FakeDrone();
     public bool isLeft;

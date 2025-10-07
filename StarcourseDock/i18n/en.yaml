@@ -205,7 +205,14 @@ ship:
         name: LAUNCH CODES
         description:
         - "(Betelgeuse-exclusive artifact!)"
-        - "Add <c=card>Launch Override</c> and <c=card>False Launch</c> to your deck on pickup."
+        - "Add <c=card>Launch Override</c> to your deck on pickup."
+      LifesEnd:
+        name: LIFE'S END
+        description:
+        - "(Betelgeuse-exclusive artifact!)"
+        - <c=downside>Lose all <c=keyword>max shield</c></c>.
+        - <c=downside>Gain 1 <c=status>CORRODE</c> for every odd turn</c>.
+        extra_description: On pickup, gain {{hull}} <c=hull>max hull</c>.
     
     action:
       Launch:
@@ -230,19 +237,6 @@ ship:
         description: "<c=action>Launch</c> all active <c=part>missile launchers</c> with <c=downside>{{damage}} less damage</c>."
         B:
           description: "<c=action>Launch</c> all active <c=part>missile launchers</c>."
-
-      FalseLaunch: 
-        name: False Launch 
-
-    midrow:
-      RayetMiniMissile:
-        name: Betelgeuse Mini Missile
-        description: 
-          - "This missile is going to deal <c=damage>4</c> damage."
-        A:
-          name: Betelguese Mini Hot Missile
-          description: 
-            - "This missile is going to deal <c=damage>4</c> damage and inflicts <c=boldpink>3</c> <c=status>HEAT</c> to the target."
   
   Sirius:
     name: Sirius
@@ -327,7 +321,7 @@ ship:
         name: ASTEROID AIRLOCK
         description: 
         - (IO-exclusive artifact!)
-        - If a <c=card>Release</c> can <c=action>launch</c> <c=midrow>asteroid</c>, the card cost 0 <c=energy>ENERGY</c>.
+        - If a <c=card>Release</c> can <c=action>launch</c> an <c=midrow>asteroid</c>, the card cost 0 <c=energy>ENERGY</c>.
 
     card:
       PulledAndRelease:

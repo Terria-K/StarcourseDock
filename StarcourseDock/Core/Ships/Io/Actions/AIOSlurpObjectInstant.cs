@@ -12,7 +12,7 @@ internal sealed class AIOSlurpObjectInstant : CardAction
 
         c.QueueImmediate(new AAddCard
         {
-            card = new PulledAndRelease
+            card = new Release
             {
                 thing = thing,
                 isLeft = dist == -1,

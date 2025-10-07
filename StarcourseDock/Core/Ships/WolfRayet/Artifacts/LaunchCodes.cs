@@ -29,14 +29,12 @@ internal sealed class LaunchCodes : Artifact, IRegisterable
     public override void OnReceiveArtifact(State state)
     {
         state.GetCurrentQueue().QueueImmediate(new AAddCard() { card = new LaunchOverride(), destination = CardDestination.Deck });
-        state.GetCurrentQueue().QueueImmediate(new AAddCard() { card = new FalseLaunch(), destination = CardDestination.Deck });
     }
 
     public override List<Tooltip>? GetExtraTooltips()
     {
         return [
-            new TTCard() { card = new LaunchOverride() },
-            new TTCard() { card = new FalseLaunch() }
+            new TTCard() { card = new LaunchOverride() }
         ];
     }
 }

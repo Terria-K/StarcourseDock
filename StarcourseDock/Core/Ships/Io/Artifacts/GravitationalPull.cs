@@ -30,7 +30,7 @@ internal sealed class GravitationalPull : Artifact, IRegisterable
     public override List<Tooltip> GetExtraTooltips()
     {
         return [
-            new TTCard() { card = new PulledAndRelease() }
+            new TTCard() { card = new Release() }
         ];
     }
 }

@@ -72,8 +72,7 @@ internal sealed class IoShip : IRegisterable
                             new Part()
                             {
                                 type = PType.empty,
-                                skin = IoEmpty
-                                    .UniqueName
+                                skin = IoEmpty.UniqueName
                             },
 
                             new Part()
@@ -91,8 +90,7 @@ internal sealed class IoShip : IRegisterable
                             new Part()
                             {
                                 type = PType.empty,
-                                skin = IoEmpty
-                                    .UniqueName
+                                skin = IoEmpty.UniqueName
                             },
 
                             new Part()

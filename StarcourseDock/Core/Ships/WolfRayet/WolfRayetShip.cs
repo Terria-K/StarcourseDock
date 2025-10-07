@@ -13,6 +13,7 @@ internal sealed class WolfRayetShip : IRegisterable
         typeof(DeliveryNote),
         typeof(LaunchCodes),
         typeof(SeriousDedication),
+        typeof(LifesEnd)
     ];
 
     internal static PStunMod HotStunModifier { get; private set; }
