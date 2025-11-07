@@ -5,26 +5,33 @@ using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed class GravitationalPull : Artifact, IRegisterable
+internal sealed class GravitationalPullV2 : Artifact, IRegisterable
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
         helper.Content.Artifacts.RegisterArtifact(
-            "GravitationalPull",
+            "GravitationalPullV2",
             new()
             {
                 ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
                 Meta = new()
                 {
                     owner = Deck.colorless,
-                    pools = [ArtifactPool.EventOnly],
+                    pools = [ArtifactPool.Boss],
                     unremovable = true,
                 },
-                Sprite = Sprites.artifacts_GravitationalPull.Sprite,
-                Name = Localization.ship_Io_artifact_GravitationalPull_name(),
-                Description = Localization.ship_Io_artifact_GravitationalPull_description(),
+                Sprite = Sprites.artifacts_SmartPull.Sprite,
+                Name = Localization.ship_Io_artifact_GravitationalPullV2_name(),
+                Description = Localization.ship_Io_artifact_GravitationalPullV2_description(),
             }
         );
+    }
+
+    public override void OnReceiveArtifact(State state)
+    {
+        state
+            .GetCurrentQueue()
+            .QueueImmediate(new ALoseArtifact { artifactType = new GravitationalPull().Key() });
     }
 
     public override List<Tooltip> GetExtraTooltips()
@@ -34,3 +41,4 @@ internal sealed class GravitationalPull : Artifact, IRegisterable
         ];
     }
 }
+

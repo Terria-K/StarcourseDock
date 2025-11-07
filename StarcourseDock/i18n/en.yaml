@@ -317,15 +317,35 @@ ship:
         description: 
         - If any <c=midrow>midrow object</c> are destroyed, put it in a <c=card>Release</c> in your hand with a specific <c=action>launch</c> direction relative to the <c=part>cockpit</c>.
 
+      GravitationalPullV2:
+        name: SMART PULL
+        description: 
+        - Replaces <c=status>GRAVITATIONAL PULL</c>
+        - If any <c=midrow>midrow object</c> are destroyed, put it in a <c=card>Release A</c> in your hand with a specific <c=action>launch</c> direction relative to the <c=part>cockpit</c>.
+
       AsteroidAirlock:
         name: ASTEROID AIRLOCK
         description: 
         - (IO-exclusive artifact!)
         - If a <c=card>Release</c> can <c=action>launch</c> an <c=midrow>asteroid</c>, the card cost 0 <c=energy>ENERGY</c>.
 
+      WaveInterferance:
+        name: WAVE INTERFERANCE 
+        description: 
+        - (IO-exclusive artifact!)
+        - Every time an enemy <c=action>attacks</c> on an <c=part>empty</c> space, <c=action>attack</c> by <c=damage>1</c> damage.
+
+      NightEclipse:
+        name: JUPITER ECLIPSE
+        description: 
+        - (IO-exclusive artifact!)
+        - At the start of a combat, add <c=card>Jupiter Eclipse</c> in your hand.
+
     card:
       PulledAndRelease:
         name: Release
+      JupiterEclipse:
+        name: Jupiter's Eclipse
 
     icon:
       launchleft:

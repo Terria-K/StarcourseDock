@@ -4,6 +4,7 @@ internal sealed class AIOSlurpObjectInstant : CardAction
 {
     public required StuffBase thing;
     public int dist;
+    public bool aUpgrade;
 
     public override void Begin(G g, State s, Combat c)
     {
@@ -16,7 +17,8 @@ internal sealed class AIOSlurpObjectInstant : CardAction
             {
                 thing = thing,
                 isLeft = dist == -1,
-                isCentered = dist == 0
+                isCentered = dist == 0,
+                upgrade = aUpgrade ? Upgrade.A : Upgrade.None
             },
             destination = CardDestination.Hand
         });

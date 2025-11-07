@@ -10,7 +10,10 @@ internal sealed class IoShip : IRegisterable
     internal static IReadOnlyList<Type> ExclusiveArtifacts => [
         typeof(DroneMania),
         typeof(GravitationalPull),
+        typeof(GravitationalPullV2),
         typeof(AsteroidAirlock),
+        typeof(NightEclipse),
+        typeof(WaveInterferance)
     ];
 
     public static IShipEntry IoShipEntry { get; private set; } = null!;

@@ -21,8 +21,9 @@ internal sealed class Release : Card, IRegisterable
                 Meta = new()
                 {
                     deck = IoKit.IoDeck.Deck,
-                    rarity = Rarity.rare,
+                    rarity = Rarity.uncommon,
                     dontOffer = true,
+                    upgradesTo = [Upgrade.A]
                 },
                 Art = StableSpr.cards_Catch,
                 Name = Localization.ship_Io_card_PulledAndRelease_name(),
@@ -49,17 +50,30 @@ internal sealed class Release : Card, IRegisterable
 
         if (isCentered)
         {
-            return [new AWrapperSpawn() { thing = thingActual, isLeft = !flipped }];
+            return upgrade switch 
+            {
+                Upgrade.A => [
+                    new AWrapperSpawn() { thing = thingActual, isLeft = !flipped }, 
+                    new ADrawCard() { count = 1 }
+                ],
+                _ => [new AWrapperSpawn() { thing = thingActual, isLeft = !flipped }],
+            };
         }
 
-		return 
-        [
-            new AWrapperSpawn
-            {
-                thing = thingActual,
-                isLeft = isLeft
-            }
-        ];
+		return upgrade switch
+        {
+            Upgrade.A => [
+                new AWrapperSpawn() { thing = thingActual, isLeft = isLeft }, 
+                new ADrawCard() { count = 1 }
+            ],
+            _ => [
+                new AWrapperSpawn
+                {
+                    thing = thingActual,
+                    isLeft = isLeft
+                }
+            ]
+        };
 	}
 
     private int GetCost(State s)
