@@ -34,7 +34,7 @@ internal class AMerge : CardAction
                     if (p != null && p.type != PType.wing)
                     {
                         artifact.rightParts.Add(p);
-                        s.ship.RemoveParts("leftwing", [p.key]);
+                        s.ship.RemoveParts("leftwing", [p.key!]);
                     }
                 }
                 break;
@@ -47,7 +47,7 @@ internal class AMerge : CardAction
                     if (p != null && p.type != PType.wing)
                     {
                         artifact.leftParts.Add(p);
-                        s.ship.RemoveParts("rightwing", [p.key]);
+                        s.ship.RemoveParts("rightwing", [p.key!]);
                     }
                 }
                 break;

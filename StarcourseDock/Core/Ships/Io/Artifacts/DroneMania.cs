@@ -29,19 +29,14 @@ internal sealed class DroneMania : Artifact, IRegisterable
 
     public override void OnCombatStart(State state, Combat combat)
     {
-        combat.Queue(new ASpawn() { fromPlayer = true, thing = new IoDrone() });
+        combat.QueueImmediate(
+            new AAddCard { card = new BurstDrone(), destination = CardDestination.Hand });
     }
 
     public override List<Tooltip> GetExtraTooltips()
     {
         return [
-            new GlossaryTooltip($"{ModEntry.Instance.Package.Manifest.UniqueName}::IoDroneArtifact")
-            {
-                Title = Localization.Str_ship_Io_midrow_IoDrone_name(),
-                TitleColor = Colors.midrow,
-                Description = Localization.Str_ship_Io_midrow_IoDrone_description(),
-                Icon = Sprites.icons_ioDrone.Sprite
-            }
+            new TTCard() { card = new BurstDrone() }
         ];
     }
 }

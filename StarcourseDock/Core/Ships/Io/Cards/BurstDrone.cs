@@ -5,7 +5,7 @@ using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed class JupiterEclipse : Card, IRegisterable
+internal sealed class BurstDrone : Card, IRegisterable
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
@@ -21,7 +21,7 @@ internal sealed class JupiterEclipse : Card, IRegisterable
                     dontOffer = true,
                 },
                 Art = StableSpr.cards_Catch,
-                Name = Localization.ship_Io_card_JupiterEclipse_name(),
+                Name = Localization.ship_Io_card_BurstDrone_name(),
             }
         );
     }
@@ -30,17 +30,17 @@ internal sealed class JupiterEclipse : Card, IRegisterable
 	{
 		return new CardData
 		{
-			cost = 3,
+			cost = 0,
             temporary = true,
-            flippable = true,
-			exhaust = true,
+            singleUse = true,
+            retain = true,
 			art = StableSpr.cards_GoatDrone
 		};
 	}
 
 	public override List<CardAction> GetActions(State s, Combat c)
 	{
-        return [new AWrapperSpawn() { thing = new JupiterDrone(), isLeft = !flipped }];
+        return [new ASpawn() { thing = new IoDrone() }];
 	}
 }
 

@@ -22,21 +22,31 @@ internal sealed partial class IoCardRender : IPatchable
         
 		var position = g.Push(rect: new()).rect.xy;
 		var initialX = (int)position.x;
+        Color? color = action.disabled ? Colors.disabledText : null;
 
         if (spawn.isLeft)
         {
             if (!dontDraw)
             {
-                Draw.Sprite(Sprites.icons_left_bay_spawn.Sprite, position.x, position.y);
+                Draw.Sprite(Sprites.icons_left_bay_spawn.Sprite, position.x, position.y, color: color);
             }
             position.x += SpriteLoader.Get(Sprites.icons_left_bay_spawn.Sprite)?.Width ?? 0;
+            position.x -= 1;
+        }
+        else if (spawn.isRandom)
+        {
+            if (!dontDraw)
+            {
+                Draw.Sprite(Sprites.icons_random_bay_spawn.Sprite, position.x, position.y, color: color);
+            }
+            position.x += SpriteLoader.Get(Sprites.icons_random_bay_spawn.Sprite)?.Width ?? 0;
             position.x -= 1;
         }
         else 
         {
             if (!dontDraw)
             {
-                Draw.Sprite(Sprites.icons_right_bay_spawn.Sprite, position.x, position.y);
+                Draw.Sprite(Sprites.icons_right_bay_spawn.Sprite, position.x, position.y, color: color);
             }
             position.x += SpriteLoader.Get(Sprites.icons_right_bay_spawn.Sprite)?.Width ?? 0;
             position.x -= 1;
@@ -49,7 +59,7 @@ internal sealed partial class IoCardRender : IPatchable
         {
             if (!dontDraw)
             {
-                Draw.Sprite(i.path, position.x, position.y);
+                Draw.Sprite(i.path, position.x, position.y, color: color);
             }
             position.x += SpriteLoader.Get(i.path)?.Width ?? 0;
         }

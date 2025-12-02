@@ -5,7 +5,7 @@ using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed class WaveInterferance : Artifact, IRegisterable
+internal sealed class WaveTrigger : Artifact, IRegisterable
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
@@ -20,9 +20,9 @@ internal sealed class WaveInterferance : Artifact, IRegisterable
                     pools = [ArtifactPool.Common],
                     unremovable = true,
                 },
-                Sprite = Sprites.artifacts_WaveInterferance.Sprite,
-                Name = Localization.ship_Io_artifact_WaveInterferance_name(),
-                Description = Localization.ship_Io_artifact_WaveInterferance_description(),
+                Sprite = Sprites.artifacts_WaveTrigger.Sprite,
+                Name = Localization.ship_Io_artifact_WaveTrigger_name(),
+                Description = Localization.ship_Io_artifact_WaveTrigger_description(),
             }
         );
     }

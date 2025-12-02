@@ -22,10 +22,9 @@ internal sealed class Release : Card, IRegisterable
                 {
                     deck = IoKit.IoDeck.Deck,
                     rarity = Rarity.uncommon,
-                    dontOffer = true,
-                    upgradesTo = [Upgrade.A]
+                    dontOffer = true
                 },
-                Art = StableSpr.cards_Catch,
+                Art = Sprites.cards_IORelease_Top.Sprite,
                 Name = Localization.ship_Io_card_PulledAndRelease_name(),
             }
         );
@@ -37,9 +36,9 @@ internal sealed class Release : Card, IRegisterable
 		{
 			cost = GetCost(state),
             temporary = true,
-            flippable = isCentered,
+            floppable = true,
 			singleUse = true,
-			art = StableSpr.cards_Release
+            art = flipped ? Sprites.cards_IORelease_Bottom.Sprite : Sprites.cards_IORelease_Top.Sprite
 		};
 	}
 
@@ -50,34 +49,29 @@ internal sealed class Release : Card, IRegisterable
 
         if (isCentered)
         {
-            return upgrade switch 
-            {
-                Upgrade.A => [
-                    new AWrapperSpawn() { thing = thingActual, isLeft = !flipped }, 
-                    new ADrawCard() { count = 1 }
-                ],
-                _ => [new AWrapperSpawn() { thing = thingActual, isLeft = !flipped }],
-            };
+            return [new AWrapperSpawn() { thing = thingActual, isRandom = true, disabled = flipped }, new ADummyAction(), new ASingleUseDummyAction() { disabled = !flipped}];
         }
 
-		return upgrade switch
-        {
-            Upgrade.A => [
-                new AWrapperSpawn() { thing = thingActual, isLeft = isLeft }, 
-                new ADrawCard() { count = 1 }
-            ],
-            _ => [
-                new AWrapperSpawn
-                {
-                    thing = thingActual,
-                    isLeft = isLeft
-                }
-            ]
-        };
+		return 
+        [
+            new AWrapperSpawn
+            {
+                thing = thingActual,
+                isLeft = isLeft,
+                disabled = flipped
+            },
+            new ADummyAction(),
+            new ASingleUseDummyAction() { disabled = !flipped }
+        ];
 	}
 
     private int GetCost(State s)
     {
+        if (flipped && s.HasArtifactFromColorless<TrashHatch>())
+        {
+            return 0;
+        }
+
         if (s.HasArtifactFromColorless<AsteroidAirlock>() && thing.GetType() == typeof(Asteroid))
         {
             return 0;

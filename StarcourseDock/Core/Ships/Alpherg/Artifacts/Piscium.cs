@@ -5,7 +5,7 @@ using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal class Piscium : Artifact, IRegisterable
+internal sealed class Piscium : Artifact, IRegisterable
 {
     public bool isRight;
 

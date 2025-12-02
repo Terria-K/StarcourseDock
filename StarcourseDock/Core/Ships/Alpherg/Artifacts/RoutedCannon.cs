@@ -1,14 +1,12 @@
 using System.Reflection;
-using System.Reflection.Emit;
 using CutebaltCore;
 using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
-using Teuria.Utilities;
 
 namespace Teuria.StarcourseDock;
 
-internal class RoutedCannon : Artifact, IRegisterable
+internal sealed class RoutedCannon : Artifact, IRegisterable
 {
     public bool disabled;
 

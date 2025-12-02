@@ -4,7 +4,7 @@ using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed class VelaX1Ship : IRegisterable
+internal sealed class Charon : IRegisterable
 {
     public static IShipEntry VelaX1Entry { get; private set; } = null!;
 

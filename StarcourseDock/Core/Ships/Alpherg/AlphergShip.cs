@@ -9,7 +9,8 @@ internal sealed class AlphergShip : IRegisterable
 {
     internal static IReadOnlyList<Type> ExclusiveArtifacts => [
         typeof(RoutedCannon),
-        typeof(Piscium)
+        typeof(Piscium),
+        typeof(TidalBooster)
     ];
 
     internal static IPartEntry AlphergScaffoldOrange { get; set; } = null!;
@@ -61,9 +62,9 @@ internal sealed class AlphergShip : IRegisterable
                 {
                     ship = new()
                     {
-                        hull = 12,
-                        hullMax = 12,
-                        shieldMaxBase = 6,
+                        hull = 11,
+                        hullMax = 11,
+                        shieldMaxBase = 4,
                         parts =
                         [
                             new Part()

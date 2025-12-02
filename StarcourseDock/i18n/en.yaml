@@ -104,6 +104,11 @@ ship:
       RoutedCannon: 
         name: ROUTED CANNON
         description: "Allows ship to <c=action>attack</c> from empty space."
+      TidalBooster: 
+        name: TIDAL BOOSTER
+        description: 
+        - "Requires <c=artifact>PISCIUM DANCE</c>."
+        - "When your left cannon is active, your <c=action>attacks</c> inflicts a <c=status>HEAT</c>. When your right cannon is active, your <c=action>attacks</c> inflicts an <c=status>UNDERDRIVE</c> <c=downside>(Caps at 2 attacks per turn)</c>."
 
     card: 
       RerouteCannon: 
@@ -111,6 +116,11 @@ ship:
         description: "Temporarily <c=action>activate</c> cannon and <c=downside>deactivate <c=artifact>ROUTED CANNON.</c></c>"
         B: 
           description: "Temporarily <c=action>activate</c> cannon."
+    
+    status:
+      Infradrive:
+        name: INFRADRIVE
+        description: Remove <c=boldPink>{{dmg}}</c> damage from all attacks. <c=downside>Goes away at end of turn.</c>
 
   Gliese: 
     name: Gliese
@@ -206,13 +216,6 @@ ship:
         description:
         - "(Betelgeuse-exclusive artifact!)"
         - "Add <c=card>Launch Override</c> to your deck on pickup."
-      LifesEnd:
-        name: LIFE'S END
-        description:
-        - "(Betelgeuse-exclusive artifact!)"
-        - <c=downside>Lose all <c=keyword>max shield</c></c>.
-        - <c=downside>Gain 1 <c=status>CORRODE</c> for every odd turn</c>.
-        extra_description: On pickup, gain {{hull}} <c=hull>max hull</c>.
     
     action:
       Launch:
@@ -300,9 +303,28 @@ ship:
     name: "Gravi"
     description: A complex unstable dark matter ship that converts matter into a dark energy.
 
-  VelaX1:
-    name: "Vela X-1"
-    description: A luminous ship that releases a <c=midrow>gravitational orb</c> by <c=action>attacking</c>.
+  Charon:
+    name: "Charon"
+    description: An unforgiving ship that endlessly <c=action>attack</c> its target.
+    artifact:
+      WrathRailgun: # Starter artifact
+        name: WRATH RAILGUN
+        description: Every two <c=action>attacks</c> in one turn, gain a <c=status>WRATH CHARGE.</c>
+      CrimsonCannon: # Boss artifact
+        name: CRIMSON CANNON
+        description: Gain 2 extra <c=energy>ENERGY</c> every turn. <c=downside>Your ship's cannons become <c=parttrait>fragile</c> at the start of combat.</c>
+    
+    status:
+      WrathCharge:
+        name: WRATH CHARGE
+        description: 
+        - At the ends of your turn, <c=action>attacks</c> for <c=damage>{{dmg}}</c> damage, {{times}} times.
+        - <c=downside>Deals <c=damage>{{times}}</c> blockable damage.</c>
+    
+    parttrait:
+      Fragile:
+        name: FRAGILE
+        description: This part takes <c=downside>triple</c> damage from all attacks.
 
   Io:
     name: "Io"
@@ -310,18 +332,18 @@ ship:
     artifact: 
       DroneMania:
         name: DRONE MANIA
-        description: At the start of a combat, <c=action>launch</c> <c=midrow>Io Drones</c>.
+        description: At the start of a combat, add <c=card>Burst Drone</c> to your hand.
 
       GravitationalPull:
         name: GRAVITATIONAL PULL
         description: 
-        - If any <c=midrow>midrow object</c> are destroyed, put it in a <c=card>Release</c> in your hand with a specific <c=action>launch</c> direction relative to the <c=part>cockpit</c>.
+        - If any <c=midrow>midrow object</c> are destroyed, put it in a <c=card>Release</c> in your hand with a specific <c=action>launch</c> side relative to the <c=part>cockpit</c>.
 
-      GravitationalPullV2:
-        name: SMART PULL
+      TrashHatch:
+        name: TRASH HATCH
         description: 
-        - Replaces <c=status>GRAVITATIONAL PULL</c>
-        - If any <c=midrow>midrow object</c> are destroyed, put it in a <c=card>Release A</c> in your hand with a specific <c=action>launch</c> direction relative to the <c=part>cockpit</c>.
+        - Requires <c=artifact>GRAVITATIONAL PULL</c>.
+        - <c=card>Release</c> now cost 0 <c=energy>ENERGY</c> when flipped.
 
       AsteroidAirlock:
         name: ASTEROID AIRLOCK
@@ -329,32 +351,30 @@ ship:
         - (IO-exclusive artifact!)
         - If a <c=card>Release</c> can <c=action>launch</c> an <c=midrow>asteroid</c>, the card cost 0 <c=energy>ENERGY</c>.
 
-      WaveInterferance:
-        name: WAVE INTERFERANCE 
+      WaveTrigger:
+        name: WAVE TRIGGER
         description: 
         - (IO-exclusive artifact!)
         - Every time an enemy <c=action>attacks</c> on an <c=part>empty</c> space, <c=action>attack</c> by <c=damage>1</c> damage.
 
-      NightEclipse:
-        name: JUPITER ECLIPSE
-        description: 
-        - (IO-exclusive artifact!)
-        - At the start of a combat, add <c=card>Jupiter Eclipse</c> in your hand.
-
     card:
       PulledAndRelease:
         name: Release
-      JupiterEclipse:
-        name: Jupiter's Eclipse
+      BurstDrone:
+        name: Burst Drone
 
     icon:
       launchleft:
         name: LAUNCH LEFT
-        description: Launch an <c=midrow>object</c> from your missile bay to the left.
+        description: Launch an <c=midrow>object</c> from your missile bay to the left side.
 
       launchright:
         name: LAUNCH RIGHT
-        description: Launch an <c=midrow>object</c> from your missile bay to the right.
+        description: Launch an <c=midrow>object</c> from your missile bay to the right side.
+
+      launchrandom:
+        name: LAUNCH RANDOM
+        description: Launch an <c=midrow>object</c> from your missile bay to the random side.
 
     midrow:
       IoDrone:

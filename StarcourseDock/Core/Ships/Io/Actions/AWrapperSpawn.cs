@@ -5,9 +5,15 @@ namespace Teuria.StarcourseDock;
 internal class AWrapperSpawn : ASpawn
 {
     public bool isLeft;
+    public bool isRandom;
 
     public override void Begin(G g, State s, Combat c)
     {
+        if (isRandom)
+        {
+            isLeft = s.rngActions.Next() < 0.5;
+        }
+
         timer = 0.0;
         if (isLeft)
         {
@@ -32,6 +38,19 @@ internal class AWrapperSpawn : ASpawn
     public override List<Tooltip> GetTooltips(State s)
     {
         List<Tooltip> ttItems = [];
+        if (isRandom)
+        {
+            ttItems.Add(
+                new GlossaryTooltip($"{ModEntry.Instance.Package.Manifest.UniqueName}::baydirrandom")
+                {
+                    Title = Localization.Str_ship_Io_icon_launchrandom_name(),
+                    TitleColor = Colors.action,
+                    Description = Localization.Str_ship_Io_icon_launchrandom_description(),
+                    Icon = Sprites.icons_random_bay_spawn.Sprite
+                }
+            );
+            return ttItems;
+        }
         int partX = s.ship.x;
         int? fromX;
         if (isLeft)
