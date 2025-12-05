@@ -18,7 +18,7 @@ internal static class CuteLocalGenerator
     )
     {
         HashSet<(string key, string? value)> keys = new HashSet<(string key, string? value)>();
-        Regex regex = new Regex("{{([ \\w\\.\\-_]+)}}");
+        Regex regex = new Regex(@"{{([ \w\.\-_]+)}}");
         if (syn.IsDefaultOrEmpty)
         {
             return;
@@ -102,18 +102,26 @@ internal static class CuteLocalGenerator
                 if (match is not null)
                 {
                     StringBuilder replacedValues = new StringBuilder();
-                    List<string> matchedValues = new List<string>();
+                    HashSet<string> matchedValues = new HashSet<string>();
                     List<string> functionParamatersValues = new List<string>();
-
-                    for (int i = 1; i <= match.Groups.Count; i += 1)
+                    Match currentMatch = match;
+                    while (currentMatch.Success)
                     {
-                        string v = match.Groups[i].Value;
-                        if (!string.IsNullOrEmpty(v))
+                        for (int i = 1; i <= currentMatch.Groups.Count; i += 1)
                         {
-                            matchedValues.Add(v);
-                            replacedValues.AppendLine($".Replace(\"{{{{{v}}}}}\", token.{v})");
-                            functionParamatersValues.Add($"string {v}");
+                            string v = currentMatch.Groups[i].Value;
+                            if (!string.IsNullOrEmpty(v))
+                            {
+                                if (matchedValues.Contains(v))
+                                {
+                                    continue;
+                                }
+                                matchedValues.Add(v);
+                                replacedValues.AppendLine($".Replace(\"{{{{{v}}}}}\", token.{v})");
+                                functionParamatersValues.Add($"string {v}");
+                            }
                         }
+                        currentMatch = currentMatch.NextMatch();
                     }
 
                     if (matchedValues.Count != 0)

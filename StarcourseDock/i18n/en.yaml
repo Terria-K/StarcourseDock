@@ -305,12 +305,12 @@ ship:
 
   Charon:
     name: "Charon"
-    description: An unforgiving ship that endlessly <c=action>attack</c> its target.
+    description: A merciless ship that endlessly <c=action>attacks</c> its target.
     artifact:
-      WrathRailgun: # Starter artifact
-        name: WRATH RAILGUN
+      WrathDrill: 
+        name: WRATH DRILL
         description: Every two <c=action>attacks</c> in one turn, gain a <c=status>WRATH CHARGE.</c>
-      CrimsonCannon: # Boss artifact
+      CrimsonCannon: 
         name: CRIMSON CANNON
         description: Gain 2 extra <c=energy>ENERGY</c> every turn. <c=downside>Your ship's cannons become <c=parttrait>fragile</c> at the start of combat.</c>
     
@@ -318,8 +318,8 @@ ship:
       WrathCharge:
         name: WRATH CHARGE
         description: 
-        - At the ends of your turn, <c=action>attacks</c> for <c=damage>{{dmg}}</c> damage, {{times}} times.
-        - <c=downside>Deals <c=damage>{{times}}</c> blockable damage.</c>
+        - At the end of your turn, <c=action>attacks</c> for <c=boldPink>{{Damage}}</c> damage.
+        - Every <c=boldPink>2</c> <c=status>WRATH CHARGE</c> <c=downside>Deals <c=damage>1</c> blockable damage at end of turn.</c>
     
     parttrait:
       Fragile:

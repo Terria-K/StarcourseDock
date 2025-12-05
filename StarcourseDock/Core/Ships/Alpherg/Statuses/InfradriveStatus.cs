@@ -22,7 +22,7 @@ internal sealed class InfradriveStatus : IRegisterable,
                 Description = Localization.ship_Alpherg_status_Infradrive_description("1"),
                 Definition = new()
                 {
-                    color = new Color("44de58"),
+                    color = new Color("3a7d47"),
                     isGood = false,
                     icon = Sprites.icons_infradrive.Sprite
                 },
