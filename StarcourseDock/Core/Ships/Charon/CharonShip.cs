@@ -39,6 +39,7 @@ internal sealed class CharonShip : IRegisterable
             {
                 Name = Localization.ship_Charon_name(),
                 Description = Localization.ship_Charon_description(),
+                UnderChassisSprite = Sprites.parts_charon_chassis.Sprite,
                 Ship = new()
                 {
                     ship = new()

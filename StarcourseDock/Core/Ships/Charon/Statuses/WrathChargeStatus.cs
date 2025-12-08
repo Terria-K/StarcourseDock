@@ -53,7 +53,8 @@ internal sealed class WrathChargeStatus : IRegisterable,
         {
             return args.Tooltips;
         }
+        var state = MG.inst.g.state;
 
-        return [GetTooltip(Card.GetActualDamage(MG.inst.g.state, 1))];
+        return [GetTooltip(Card.GetActualDamage(state, 1))];
     }
 }
