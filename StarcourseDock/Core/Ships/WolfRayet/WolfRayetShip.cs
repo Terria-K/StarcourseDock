@@ -86,6 +86,14 @@ internal sealed class WolfRayetShip : IRegisterable
             }
         );
 
+        var missileRigEmptySlot = helper.Content.Ships.RegisterPart(
+            "WolfRayetMissilesRigEmptySlot",
+            new()
+            {
+                Sprite = Sprites.parts_wolf_rayet_rig_scaffolding.Sprite
+            }
+        );
+
         WolfRayetEntry = helper.Content.Ships.RegisterShip(
             "WolfRayet",
             new()
@@ -170,5 +178,6 @@ internal sealed class WolfRayetShip : IRegisterable
         );
 
         EnumExtensions.partStrs[MissilePartType] = MissilePartTypeID;
+        WolfRayetEntry.RegisterAddScaffold(new AddScaffoldConfiguration() { Part = missileRigEmptySlot });
     }
 }

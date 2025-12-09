@@ -124,5 +124,7 @@ internal sealed class IoShip : IRegisterable
                 },
             }
         );
+
+        IoShipEntry.RegisterAddScaffold(new AddScaffoldConfiguration() { Part = IoEmpty });
     }
 }

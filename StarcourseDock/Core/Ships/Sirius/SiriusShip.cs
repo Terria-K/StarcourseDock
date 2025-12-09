@@ -27,6 +27,14 @@ internal sealed class SiriusShip : IRegisterable
             }
         );
 
+        var siriusEmpty = helper.Content.Ships.RegisterPart(
+            "SiriusEmpty",
+            new()
+            {
+                Sprite = Sprites.parts_sirius_empty.Sprite,
+            }
+        );
+
         SiriusEntry = helper.Content.Ships.RegisterShip(
             "Sirius",
             new()
@@ -99,5 +107,7 @@ internal sealed class SiriusShip : IRegisterable
                 },
             }
         );
+
+        SiriusEntry.RegisterAddScaffold(new AddScaffoldConfiguration() { Part = siriusEmpty });
     }
 }

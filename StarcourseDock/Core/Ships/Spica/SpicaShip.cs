@@ -32,6 +32,11 @@ internal sealed class SpicaShip : IRegisterable
             new() { Sprite = Sprites.parts_spica_tri_scaffolding.Sprite }
         );
 
+        var spicaSeleneScaffold = helper.Content.Ships.RegisterPart(
+            "SpicaSeleneScaffolding",
+            new() { Sprite = Sprites.parts_spica_selene_scaffolding.Sprite }
+        );
+
         SpicaCannon = helper.Content.Ships.RegisterPart(
             "SpicaCannon",
             new() { Sprite = Sprites.parts_spica_cannon.Sprite }
@@ -120,5 +125,7 @@ internal sealed class SpicaShip : IRegisterable
                 },
             }
         );
+
+        SpicaEntry.RegisterAddScaffold(new() { Part = spicaSeleneScaffold });
     }
 }
