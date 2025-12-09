@@ -107,8 +107,8 @@ ship:
       TidalBooster: 
         name: TIDAL BOOSTER
         description: 
-        - "Requires <c=artifact>PISCIUM DANCE</c>."
-        - "When your left cannon is active, your <c=action>attacks</c> inflicts a <c=status>HEAT</c>. When your right cannon is active, your <c=action>attacks</c> inflicts an <c=status>UNDERDRIVE</c> <c=downside>(Caps at 2 attacks per turn)</c>."
+        - "Requires <c=artifact>PISCIUM DANCE</c> and <c=artifact>ROUTED CANNON</c>."
+        - "When your left cannon is active, your <c=action>attacks</c> inflicts a <c=status>HEAT</c>. When your right cannon is active, your <c=action>attacks</c> inflicts an <c=status>UNDERDRIVE</c>, <c=downside>caps at 2 attacks per turn</c>."
 
     card: 
       RerouteCannon: 
@@ -310,16 +310,29 @@ ship:
       WrathDrill: 
         name: WRATH DRILL
         description: Every two <c=action>attacks</c> in one turn, gain a <c=status>WRATH CHARGE.</c>
+      EnrageDrill: 
+        name: ENRAGE DRILL
+        description: 
+        - Replaces <c=artifact>WRATH DRILL</c>.
+        - Every two <c=action>attacks</c> in one turn, gain 2 <c=status>WRATH CHARGE</c>S.
+        - <c=downside>The blockable damage taken from <c=status>WRATH CHARGE</c> increases by 1.</c>
       CrimsonCannon: 
         name: CRIMSON CANNON
-        description: Gain 2 extra <c=energy>ENERGY</c> every turn. <c=downside>Your ship's cannons become <c=parttrait>fragile</c> at the start of combat.</c>
+        description: 
+        - (Charon-exclusive artifact!)
+        - Gain 2 extra <c=energy>ENERGY</c> every turn. <c=downside>Your ship's cannons become <c=parttrait>fragile</c> at the start of combat.</c>
+      SanityExpansion: 
+        name: SANITY EXPANSION
+        description: 
+        - (Charon-exclusive artifact!)
+        - Increase the amount of <c=status>WRATH CHARGE</c> required to take blockable damage at end of turn by 1.
     
     status:
       WrathCharge:
         name: WRATH CHARGE
         description: 
         - At the end of your turn, <c=action>attacks</c> for <c=boldPink>{{Damage}}</c> damage.
-        - Every <c=boldPink>2</c> <c=status>WRATH CHARGE</c> <c=downside>Deals <c=damage>1</c> blockable damage at end of turn.</c>
+        - Every <c=boldPink>{{Times}}</c> <c=status>WRATH CHARGE</c> <c=downside>Deals <c=boldPink>{{TakeDamage}}</c> blockable damage at end of turn.</c>
     
     parttrait:
       Fragile:

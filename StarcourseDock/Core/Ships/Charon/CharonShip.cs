@@ -1,3 +1,4 @@
+using System.Collections.Frozen;
 using CutebaltCore;
 using Nanoray.PluginManager;
 using Nickel;
@@ -6,6 +7,13 @@ namespace Teuria.StarcourseDock;
 
 internal sealed class CharonShip : IRegisterable
 {
+    internal static IReadOnlyList<Type> ExclusiveArtifacts => [
+        typeof(WrathDrill),
+        typeof(CrimsonCannon),
+        typeof(SanityExpansion),
+        typeof(EnrageDrill)
+    ];
+
     public static PDamMod Fragile { get; private set; }
     public static IShipEntry CharonEntry { get; private set; } = null!;
     private static List<Spr>? drillSprites;
@@ -32,6 +40,10 @@ internal sealed class CharonShip : IRegisterable
             return SpriteLoader.Get(drillSprites.GetModulo((int)(s.time * 12.0)))!;
         });
 
+        var charonEmpty = helper.Content.Ships.RegisterPart("CharonEmpty", new()
+        {
+            Sprite = Sprites.parts_charon_empty.Sprite
+        });
 
         CharonEntry = helper.Content.Ships.RegisterShip(
             "Charon",
@@ -40,6 +52,8 @@ internal sealed class CharonShip : IRegisterable
                 Name = Localization.ship_Charon_name(),
                 Description = Localization.ship_Charon_description(),
                 UnderChassisSprite = Sprites.parts_charon_chassis.Sprite,
+                ExclusiveArtifactTypes = ExclusiveArtifacts.ToFrozenSet(),
+
                 Ship = new()
                 {
                     ship = new()
@@ -48,6 +62,7 @@ internal sealed class CharonShip : IRegisterable
                         hull = 12,
                         hullMax = 12,
                         shieldMaxBase = 4,
+
                         parts = [
                             new Part()
                             {
@@ -57,6 +72,7 @@ internal sealed class CharonShip : IRegisterable
                                     Sprite = Sprites.parts_charon_wing_left.Sprite
                                 }).UniqueName
                             },
+
                             new Part()
                             {
                                 type = PType.cannon,
@@ -65,6 +81,7 @@ internal sealed class CharonShip : IRegisterable
                                     Sprite = charonCannon.Sprite
                                 }).UniqueName
                             },
+
                             new Part() 
                             {
                                 type = PType.cockpit,
@@ -73,14 +90,13 @@ internal sealed class CharonShip : IRegisterable
                                     Sprite = Sprites.parts_charon_cockpit.Sprite
                                 }).UniqueName
                             },
+
                             new Part()
                             {
                                 type = PType.empty,
-                                skin = helper.Content.Ships.RegisterPart("CharonEmpty", new()
-                                {
-                                    Sprite = Sprites.parts_charon_empty.Sprite
-                                }).UniqueName
+                                skin = charonEmpty.UniqueName
                             },
+
                             new Part()
                             {
                                 type = PType.missiles,
@@ -89,6 +105,7 @@ internal sealed class CharonShip : IRegisterable
                                     Sprite = Sprites.parts_charon_misslebay.Sprite
                                 }).UniqueName
                             },
+
                             new Part()
                             {
                                 type = PType.wing,
@@ -99,6 +116,7 @@ internal sealed class CharonShip : IRegisterable
                             }
                         ]
                     },
+
                     artifacts = [new ShieldPrep(), new WrathDrill()],
                     cards = [
                         new CannonColorless(), 
@@ -108,5 +126,7 @@ internal sealed class CharonShip : IRegisterable
                 }
             }
         );
+
+        CharonEntry.RegisterAddScaffold(new() { Part = charonEmpty });
     }
 }

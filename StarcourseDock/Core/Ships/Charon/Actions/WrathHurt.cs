@@ -7,6 +7,11 @@ public sealed class WrathHurt : CardAction
     public override void Begin(G g, State s, Combat c)
     {
         timer = 0.0;
+        if (hurtAmount == 0)
+        {
+            return;
+        }
+
         c.QueueImmediate(new AHurt() { hurtShieldsFirst = true, hurtAmount = hurtAmount, targetPlayer = true });
     }
 }

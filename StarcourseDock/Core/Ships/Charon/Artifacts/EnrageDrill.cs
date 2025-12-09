@@ -5,29 +5,36 @@ using CutebaltCore;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed class WrathDrill : Artifact, IRegisterable
+internal sealed class EnrageDrill : Artifact, IRegisterable
 {
     public int attacks;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
         helper.Content.Artifacts.RegisterArtifact(
-            "WrathDrill",
+            "EnrageDrill",
             new()
             {
                 ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
                 Meta = new()
                 {
                     owner = Deck.colorless,
-                    pools = [ArtifactPool.EventOnly],
+                    pools = [ArtifactPool.Boss],
                     unremovable = true,
                 },
-                Sprite = Sprites.artifacts_WrathDrill.Sprite,
-                Name = Localization.ship_Charon_artifact_WrathDrill_name(),
-                Description = Localization.ship_Charon_artifact_WrathDrill_description()
+                Sprite = Sprites.artifacts_EnrageDrill.Sprite,
+                Name = Localization.ship_Charon_artifact_EnrageDrill_name(),
+                Description = Localization.ship_Charon_artifact_EnrageDrill_description()
             }
 
         );
+    }
+
+    public override void OnReceiveArtifact(State state)
+    {
+        state
+            .GetCurrentQueue()
+            .QueueImmediate(new ALoseArtifact { artifactType = new WrathDrill().Key() });
     }
 
     public override void OnTurnStart(State state, Combat combat)
@@ -52,7 +59,7 @@ internal sealed class WrathDrill : Artifact, IRegisterable
         if (attacks >= 2)
         {
             attacks = 0;
-            state.ship.Add(WrathChargeStatus.WrathCharge.Status, 1);
+            state.ship.Add(WrathChargeStatus.WrathCharge.Status, 2);
             Pulse();
         }
     }
