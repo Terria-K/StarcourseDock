@@ -13,11 +13,6 @@ internal sealed class AActivateAllPartsWrapper : CardAction
         c.QueueImmediate(new AActivateAllParts() { partType = partType });
     }
 
-    public override Icon? GetIcon(State s)
-    {
-        return new Icon(Sprites.icons_sirius_barrage.Sprite, null, Colors.white);
-    }
-
     public override List<Tooltip> GetTooltips(State s)
     {
         Ship ship = (!(s.route is Combat combat)) ? s.ship : (targetPlayer ? s.ship : combat.otherShip);
@@ -28,18 +23,6 @@ internal sealed class AActivateAllPartsWrapper : CardAction
                 part.hilightToggle = true;
             }
         }
-        return
-        [
-            new GlossaryTooltip(
-                $"{ModEntry.Instance.Package.Manifest.UniqueName}::BarrageIcon"
-            )
-            {
-                Title = Localization.Str_ship_Sirius_icon_barrageMode_name(),
-                Description = Localization.Str_ship_Sirius_icon_barrageMode_description(),
-                TitleColor = Colors.action,
-                IsWideIcon = true,
-                Icon = Sprites.icons_sirius_barrage.Sprite,
-            },
-        ];
+        return [];
     }
 }

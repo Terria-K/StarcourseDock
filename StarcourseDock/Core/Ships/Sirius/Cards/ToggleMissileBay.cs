@@ -30,6 +30,7 @@ internal class ToggleMissileBay : Card, IRegisterable
     {
         return new()
         {
+            description = Localization.Str_ship_Sirius_card_ToggleMissileBay_description(),
             temporary = true,
             retain = true,
             singleUse = true,

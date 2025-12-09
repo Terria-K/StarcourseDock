@@ -30,6 +30,7 @@ internal class BarrageMode : Card, IRegisterable
     {
         return new()
         {
+            description = Localization.Str_ship_Sirius_card_BarrageMode_description(),
             temporary = true,
             retain = true,
             singleUse = true,

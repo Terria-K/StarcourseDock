@@ -275,16 +275,10 @@ ship:
         name: Sirius Question
       ToggleMissileBay:
         name: Toggle Bay
+        description: Toggle which missile bay is active.
       BarrageMode:
         name: Barrage Mode
-
-    icon:
-      barrageMode:
-        name: BARRAGE MODE
-        description: "Both bays are active until next turn. <c=keyword>Flip to toggle.</c>"
-      toggleMissileBay:
-        name: TOGGLE MISSILE BAY
-        description: "Toggle which missile bay is active."
+        description: Both missile bays are active until next turn. <c=keyword>Flip to toggle.</c>
       
     midrow:
       SiriusDrone:
