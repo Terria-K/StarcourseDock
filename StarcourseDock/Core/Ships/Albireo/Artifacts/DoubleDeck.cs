@@ -28,8 +28,6 @@ internal sealed class DoubleDeck : Artifact, IRegisterable
                 Description = Localization.ship_Albireo_artifact_DoubleDeck_description()
             }
         );
-
-        ModEntry.Instance.KokoroAPI.V2.TemporaryUpgrades.RegisterHook(new DoubleDeckTempUpgradeHook());
     }
 
     public override List<Tooltip>? GetExtraTooltips() => [AlbireoKit.GetPolarityTraitTooltip(), Polarity.GetTooltip()];
@@ -71,22 +69,5 @@ internal sealed class DoubleDeck : Artifact, IRegisterable
         }
 
         return -1;
-    }
-}
-
-file sealed class DoubleDeckTempUpgradeHook : IKokoroApi.IV2.ITemporaryUpgradesApi.IHook
-{
-    public void OnTemporaryUpgrade(IKokoroApi.IV2.ITemporaryUpgradesApi.IHook.IOnTemporaryUpgradeArgs args)
-    {
-        if (!ModEntry.Instance.Helper.ModData.TryGetModData(args.Card, "polarity.card.linked", out Card? linkCard) || linkCard is null)
-        {
-            return;
-        }
-
-        if (args.NewTemporaryUpgrade != null)
-        {
-            ModEntry.Instance.KokoroAPI.V2.TemporaryUpgrades.SetTemporaryUpgrade(args.State, linkCard, args.NewTemporaryUpgrade);
-            return;
-        }
     }
 }
