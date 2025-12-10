@@ -7,7 +7,7 @@ namespace Teuria.StarcourseDock;
 
 internal sealed class TidalBooster : Artifact, IRegisterable
 {
-    public bool isRoutedCannonActive;
+    public bool isRoutedCannonNotActive;
     public int underdriveCap;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
@@ -33,12 +33,12 @@ internal sealed class TidalBooster : Artifact, IRegisterable
     public override void OnTurnStart(State state, Combat combat)
     {
         underdriveCap = 0;
-        isRoutedCannonActive = true;
+        isRoutedCannonNotActive = false;
     }
 
     public override Spr GetSprite()
     {
-        if (!isRoutedCannonActive)
+        if (isRoutedCannonNotActive)
         {
             return Sprites.artifacts_TidalBooster_BothInactive.Sprite;
         }
@@ -57,13 +57,13 @@ internal sealed class TidalBooster : Artifact, IRegisterable
 
         if (routedCannon is not null)
         {
-            isRoutedCannonActive = !routedCannon.disabled;
+            isRoutedCannonNotActive = routedCannon.disabled;
         }
     }
 
     public override void OnEnemyGetHit(State state, Combat combat, Part? part)
     {
-        if (!isRoutedCannonActive)
+        if (isRoutedCannonNotActive)
         {
             return;
         }

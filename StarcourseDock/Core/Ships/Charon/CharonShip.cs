@@ -27,15 +27,13 @@ internal sealed class CharonShip : IRegisterable
 
             var s = global.state;
 
-            if (drillSprites is null)
-            {
-                drillSprites = [];
-                drillSprites.Add(Sprites.parts_charon_cannon1.Sprite);
-                drillSprites.Add(Sprites.parts_charon_cannon2.Sprite);
-                drillSprites.Add(Sprites.parts_charon_cannon3.Sprite);
-                drillSprites.Add(Sprites.parts_charon_cannon4.Sprite);
-                drillSprites.Add(Sprites.parts_charon_cannon5.Sprite);
-            }
+            drillSprites ??= [
+                    Sprites.parts_charon_cannon1.Sprite,
+                    Sprites.parts_charon_cannon2.Sprite,
+                    Sprites.parts_charon_cannon3.Sprite,
+                    Sprites.parts_charon_cannon4.Sprite,
+                    Sprites.parts_charon_cannon5.Sprite
+                ];
 
             return SpriteLoader.Get(drillSprites.GetModulo((int)(s.time * 12.0)))!;
         });
