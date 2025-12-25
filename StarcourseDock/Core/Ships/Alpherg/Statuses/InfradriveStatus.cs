@@ -24,7 +24,8 @@ internal sealed class InfradriveStatus : IRegisterable,
                 {
                     color = new Color("3a7d47"),
                     isGood = false,
-                    icon = Sprites.icons_infradrive.Sprite
+                    icon = Sprites.icons_infradrive.Sprite,
+                    affectedByTimestop = true
                 },
             }
         );
@@ -57,7 +58,10 @@ internal sealed class InfradriveStatus : IRegisterable,
 
         if (args.Timing == IKokoroApi.IV2.IStatusLogicApi.StatusTurnTriggerTiming.TurnEnd)
         {
-            args.Ship.Set(Infradrive.Status, 0);
+            if (args.Ship.Get(Status.timeStop) == 0)
+            {
+                args.Ship.Set(Infradrive.Status, 0);
+            }
         }
     }
 
