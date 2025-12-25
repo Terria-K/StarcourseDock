@@ -23,7 +23,7 @@ internal sealed partial class AddScaffoldPatch : IPatchable, IManualPatchable
         cursor.Emit(OpCodes.Ldloc, op.Value);
         cursor.EmitDelegate((State s, Part part) =>
         {
-            ref var scaff = ref CollectionsMarshal.GetValueRefOrNullRef(AddScaffoldManager.Scaffolds, s.ship.key);
+            ref var scaff = ref CollectionsMarshal.GetValueRefOrNullRef(SeleneScaffoldManager.Scaffolds, s.ship.key);
 
             if (Unsafe.IsNullRef(ref scaff))
             {

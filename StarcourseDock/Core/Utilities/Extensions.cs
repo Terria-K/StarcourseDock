@@ -1,34 +1,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using Nickel;
 
 namespace Teuria.Utilities;
-
-public readonly struct AddScaffoldConfiguration
-{
-    public required IPartEntry Part { get; init; }
-}
-
-internal static class ShipEntryExtensions
-{
-    extension(IShipEntry entry)
-    {
-        public void RegisterAddScaffold(AddScaffoldConfiguration configuration)
-        {
-            AddScaffoldManager.Add(entry.UniqueName, configuration.Part);
-        }
-    }
-}
-
-internal static class AddScaffoldManager
-{
-    public static Dictionary<string, IPartEntry> Scaffolds = [];
-
-    public static void Add(string shipName, IPartEntry spriteEntry)
-    {
-        Scaffolds.Add(shipName, spriteEntry);
-    }
-}
 
 internal static class ArtifactExtensions
 {

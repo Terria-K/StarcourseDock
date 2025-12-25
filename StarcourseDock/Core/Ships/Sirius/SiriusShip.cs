@@ -108,6 +108,6 @@ internal sealed class SiriusShip : IRegisterable
             }
         );
 
-        SiriusEntry.RegisterAddScaffold(new AddScaffoldConfiguration() { Part = siriusEmpty });
+        SiriusEntry.AddSeleneScaffold(new SeleneScaffoldConfiguration() { Part = siriusEmpty });
     }
 }

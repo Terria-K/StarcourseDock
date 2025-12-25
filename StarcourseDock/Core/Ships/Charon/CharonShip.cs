@@ -125,6 +125,6 @@ internal sealed class CharonShip : IRegisterable
             }
         );
 
-        CharonEntry.RegisterAddScaffold(new() { Part = charonEmpty });
+        CharonEntry.AddSeleneScaffold(new() { Part = charonEmpty });
     }
 }

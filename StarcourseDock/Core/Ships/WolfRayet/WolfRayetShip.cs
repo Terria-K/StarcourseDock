@@ -178,6 +178,6 @@ internal sealed class WolfRayetShip : IRegisterable
         );
 
         EnumExtensions.partStrs[MissilePartType] = MissilePartTypeID;
-        WolfRayetEntry.RegisterAddScaffold(new AddScaffoldConfiguration() { Part = missileRigEmptySlot });
+        WolfRayetEntry.AddSeleneScaffold(new SeleneScaffoldConfiguration() { Part = missileRigEmptySlot });
     }
 }

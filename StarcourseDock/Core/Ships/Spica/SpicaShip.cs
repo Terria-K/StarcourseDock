@@ -126,6 +126,6 @@ internal sealed class SpicaShip : IRegisterable
             }
         );
 
-        SpicaEntry.RegisterAddScaffold(new() { Part = spicaSeleneScaffold });
+        SpicaEntry.AddSeleneScaffold(new() { Part = spicaSeleneScaffold });
     }
 }
