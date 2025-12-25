@@ -108,7 +108,7 @@ ship:
         name: TIDAL BOOSTER
         description: 
         - "Requires <c=artifact>PISCIUM DANCE</c> and <c=artifact>ROUTED CANNON</c>."
-        - "When your left cannon is active, your <c=action>attacks</c> inflicts a <c=status>HEAT</c>. When your right cannon is active, your <c=action>attacks</c> inflicts an <c=status>UNDERDRIVE</c>, <c=downside>caps at 2 attacks per turn</c>."
+        - "When your right cannon is active, your <c=action>attacks</c> inflicts an <c=status>INFRADRIVE</c>, <c=downside>caps at 1 attacks per turn</c>. When your left cannon is active, your <c=action>attacks</c> inflicts an <c=status>OXIDATION</c>."
 
     card: 
       RerouteCannon: 

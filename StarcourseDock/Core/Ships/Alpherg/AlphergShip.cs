@@ -15,6 +15,7 @@ internal sealed class AlphergShip : IRegisterable
 
     internal static IPartEntry AlphergScaffoldOrange { get; set; } = null!;
     internal static IPartEntry AlphergScaffoldBlue { get; set; } = null!;
+    internal static IPartEntry AlphergScaffoldGreen { get; set; } = null!;
     internal static IShipEntry AlphergEntry { get; set; } = null!;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
@@ -27,6 +28,11 @@ internal sealed class AlphergShip : IRegisterable
         AlphergScaffoldBlue = helper.Content.Ships.RegisterPart(
             "AlphergScaffoldBlue",
             new() { Sprite = Sprites.parts_alpherg_scaffold_blue.Sprite }
+        );
+
+        AlphergScaffoldGreen = helper.Content.Ships.RegisterPart(
+            "AlphergScaffoldGreen",
+            new() { Sprite = Sprites.parts_alpherg_scaffold_green.Sprite }
         );
 
         var chassisSprite = helper.Content.Sprites.RegisterDynamicSprite(

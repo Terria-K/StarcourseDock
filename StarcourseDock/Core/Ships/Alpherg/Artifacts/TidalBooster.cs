@@ -8,7 +8,9 @@ namespace Teuria.StarcourseDock;
 internal sealed class TidalBooster : Artifact, IRegisterable
 {
     public bool isRoutedCannonNotActive;
-    public int underdriveCap;
+    public int infradriveCap;
+    public bool isPlayerAttack;
+    public const int InfradriveLimit = 1;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
@@ -32,7 +34,7 @@ internal sealed class TidalBooster : Artifact, IRegisterable
 
     public override void OnTurnStart(State state, Combat combat)
     {
-        underdriveCap = 0;
+        infradriveCap = 0;
         isRoutedCannonNotActive = false;
     }
 
@@ -43,7 +45,7 @@ internal sealed class TidalBooster : Artifact, IRegisterable
             return Sprites.artifacts_TidalBooster_BothInactive.Sprite;
         }
 
-        if (underdriveCap < 2)
+        if (infradriveCap < InfradriveLimit)
         {
             return Sprites.artifacts_TidalBooster.Sprite;
         }
@@ -61,6 +63,11 @@ internal sealed class TidalBooster : Artifact, IRegisterable
         }
     }
 
+    public override void OnPlayerAttack(State state, Combat combat)
+    {
+        isPlayerAttack = true;
+    }
+
     public override void OnEnemyGetHit(State state, Combat combat, Part? part)
     {
         if (isRoutedCannonNotActive)
@@ -73,6 +80,13 @@ internal sealed class TidalBooster : Artifact, IRegisterable
             return;
         }
 
+        if (!isPlayerAttack)
+        {
+            return;
+        }
+
+        isPlayerAttack = true;
+
         var piscium = state.GetArtifactFromColorless<Piscium>();
         if (piscium is null)
         {
@@ -81,13 +95,13 @@ internal sealed class TidalBooster : Artifact, IRegisterable
 
         if (piscium.isRight)
         {
-            combat.otherShip.Add(Status.heat, 1);
+            combat.otherShip.Add(ModEntry.Instance.KokoroAPI.V2.OxidationStatus.Status, 1);
             Pulse();
         }
-        else if (underdriveCap < 2)
+        else if (infradriveCap < InfradriveLimit)
         {
             combat.otherShip.Add(InfradriveStatus.Infradrive.Status, 1);
-            underdriveCap += 1;
+            infradriveCap += 1;
             Pulse();
         }
     }
@@ -95,7 +109,10 @@ internal sealed class TidalBooster : Artifact, IRegisterable
     public override List<Tooltip>? GetExtraTooltips()
     {
         return [
-            ..StatusMeta.GetTooltips(Status.heat, 3), InfradriveStatus.GetTooltip(1)
+            InfradriveStatus.GetTooltip(1),
+            ..StatusMeta.GetTooltips(
+                ModEntry.Instance.KokoroAPI.V2.OxidationStatus.Status, 
+                ModEntry.Instance.KokoroAPI.V2.OxidationStatus.GetOxidationStatusThreshold(MG.inst.g.state, MG.inst.g.state.ship))
         ];
     }
 }

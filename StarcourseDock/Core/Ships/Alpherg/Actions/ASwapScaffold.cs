@@ -10,14 +10,18 @@ internal class ASwapScaffold : CardAction
         if (isRight)
         {
             int x = s.ship.FindPartIndex(x =>
-                x.skin == AlphergShip.AlphergScaffoldOrange.UniqueName
+                x.skin == (s.HasArtifactFromColorless<TidalBooster>() 
+                ? AlphergShip.AlphergScaffoldGreen.UniqueName
+                : AlphergShip.AlphergScaffoldOrange.UniqueName)
             );
             if (x == -1)
             {
                 return;
             }
             s.ship.parts = s.ship.RetainParts(x =>
-                x.skin != AlphergShip.AlphergScaffoldOrange.UniqueName
+                x.skin != (s.HasArtifactFromColorless<TidalBooster>() 
+                ? AlphergShip.AlphergScaffoldGreen.UniqueName
+                : AlphergShip.AlphergScaffoldOrange.UniqueName)
             );
 
             int len = s.ship.parts.Count;
@@ -43,6 +47,10 @@ internal class ASwapScaffold : CardAction
 
             int len = s.ship.parts.Count;
 
+            var skin = s.HasArtifactFromColorless<TidalBooster>() 
+                ? AlphergShip.AlphergScaffoldGreen.UniqueName
+                : AlphergShip.AlphergScaffoldOrange.UniqueName;
+
             s.ship.InsertPart(
                 s,
                 Math.Abs(x - len),
@@ -50,7 +58,7 @@ internal class ASwapScaffold : CardAction
                 false,
                 new Part()
                 {
-                    skin = AlphergShip.AlphergScaffoldOrange.UniqueName,
+                    skin = skin,
                     type = PType.empty,
                 }
             );
