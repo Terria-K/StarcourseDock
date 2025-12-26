@@ -14,13 +14,20 @@ internal sealed class CharonShip : IRegisterable
         typeof(EnrageDrill)
     ];
 
-    public static PDamMod Fragile { get; private set; }
+    public static IPartDamageModifierEntry Fragile { get; private set; } = null!;
     public static IShipEntry CharonEntry { get; private set; } = null!;
     private static List<Spr>? drillSprites;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        Fragile = helper.Utilities.ObtainEnumCase<PDamMod>();
+        Fragile = helper.Content.Ships.RegisterPartDamageModifier("Fragile", new()
+        {
+            Name = Localization.ship_Charon_parttrait_Fragile_name(),
+            Description = Localization.ship_Charon_parttrait_Fragile_description(),
+            Sprite = Sprites.icons_fragile.Sprite,
+            ModifyIncomingDamage = (args) => args.IncomingDamage * 3
+        });
+        
         var charonCannon = helper.Content.Sprites.RegisterDynamicSprite(() =>
         {
             var global = MG.inst.g;

@@ -7,7 +7,7 @@ internal sealed class ADisableAllMissiles : CardAction
         for (int i = 0; i < s.ship.parts.Count; i++)
         {
             var part = s.ship.parts[i];
-            if (part.type == WolfRayetShip.MissilePartType)
+            if (part.type == WolfRayetShip.MissilePartType.PartType)
             {
                 part.active = false;
             }

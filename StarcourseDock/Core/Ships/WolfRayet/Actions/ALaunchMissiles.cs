@@ -20,7 +20,7 @@ internal sealed class ALaunchMissiles : CardAction
                 continue;
             }
 
-            if (part.type == WolfRayetShip.MissilePartType && part.active)
+            if (part.type == WolfRayetShip.MissilePartType.PartType && part.active)
             {
                 c.Queue(
                     new ALaunchMissile()

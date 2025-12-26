@@ -1,5 +1,3 @@
-using Teuria.Utilities;
-
 namespace Teuria.StarcourseDock;
 
 internal sealed class MissileDeliveryFX : FX
@@ -21,8 +19,8 @@ internal sealed class MissileDeliveryFX : FX
                     "rayet_cannon" => WolfRayetShip.MissileRightSlot.UniqueName,
                     _ => WolfRayetShip.MissileSlot.UniqueName
                 };
-                part.type = WolfRayetShip.MissilePartType;
-                part.stunModifier = WolfRayetShip.HotStunModifier;
+                part.type = WolfRayetShip.MissilePartType.PartType;
+                part.stunModifier = WolfRayetShip.HotStunModifier.PartStunModifier;
             }
         }
     }

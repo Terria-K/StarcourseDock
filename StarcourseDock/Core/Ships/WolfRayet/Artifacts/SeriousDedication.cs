@@ -33,8 +33,8 @@ internal sealed class SeriousDedication : Artifact, IRegisterable
             var part = state.ship.parts[i];
             if (part.key == "rayet_missiles")
             {
-                part.type = WolfRayetShip.MissilePartType;
-                part.stunModifier = WolfRayetShip.HotStunModifier;
+                part.type = WolfRayetShip.MissilePartType.PartType;
+                part.stunModifier = WolfRayetShip.HotStunModifier.PartStunModifier;
                 part.skin = WolfRayetShip.MissileLeftSlot.UniqueName;
                 part.active = false;
                 continue;
@@ -42,8 +42,8 @@ internal sealed class SeriousDedication : Artifact, IRegisterable
 
             if (part.key == "rayet_cannon")
             {
-                part.type = WolfRayetShip.MissilePartType;
-                part.stunModifier = WolfRayetShip.HotStunModifier;
+                part.type = WolfRayetShip.MissilePartType.PartType;
+                part.stunModifier = WolfRayetShip.HotStunModifier.PartStunModifier;
                 part.skin = WolfRayetShip.MissileRightSlot.UniqueName;
                 part.active = false;
             }

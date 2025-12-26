@@ -15,8 +15,8 @@ internal sealed class WolfRayetShip : IRegisterable
         typeof(SeriousDedication)
     ];
 
-    internal static PStunMod HotStunModifier { get; private set; }
-    internal static PType MissilePartType { get; private set; }
+    internal static IPartStunModifierEntry HotStunModifier { get; private set; } = null!;
+    internal static IPartTypeEntry MissilePartType { get; private set; } = null!;
     internal static IPartEntry MissileSlot { get; private set; } = null!;
     internal static IPartEntry MissileLeftSlot { get; private set; } = null!;
     internal static IPartEntry MissileRightSlot { get; private set; } = null!;
@@ -24,13 +24,25 @@ internal sealed class WolfRayetShip : IRegisterable
     internal static IPartEntry MissileLeftEmptySlot { get; private set; } = null!;
     internal static IPartEntry MissileRightEmptySlot { get; private set; } = null!;
     internal static IShipEntry WolfRayetEntry { get; private set; } = null!;
-    internal static string MissilePartTypeID =
-        $"{ModEntry.Instance.Package.Manifest.UniqueName}::MissilePartType";
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        HotStunModifier = helper.Utilities.ObtainEnumCase<PStunMod>();
-        MissilePartType = helper.Utilities.ObtainEnumCase<PType>();
+        HotStunModifier = helper.Content.Ships.RegisterPartStunModifier("Hot", new()
+        {
+            Name = Localization.ship_WolfRayet_parttrait_Hot_name(),
+            Description = Localization.ship_WolfRayet_parttrait_Hot_description(),
+            Sprite = StableSpr.icons_heat,
+            PartsGetHit = (args) =>
+            {
+                args.Ship.Add(Status.heat, 1);
+            }
+        });
+
+        MissilePartType = helper.Content.Ships.RegisterPartType("Missile", new()
+        {
+            Name = Localization.ship_WolfRayet_parttype_Missile_name(),
+            Description = Localization.ship_WolfRayet_parttype_Missile_description()
+        });
 
         MissileSlot = helper.Content.Ships.RegisterPart(
             "WolfRayetMissilesSlot",
@@ -134,22 +146,22 @@ internal sealed class WolfRayetShip : IRegisterable
                             },
                             new Part()
                             {
-                                type = MissilePartType,
-                                stunModifier = HotStunModifier,
+                                type = MissilePartType.PartType,
+                                stunModifier = HotStunModifier.PartStunModifier,
                                 skin = MissileSlot.UniqueName,
                                 active = false,
                             },
                             new Part()
                             {
-                                type = MissilePartType,
-                                stunModifier = HotStunModifier,
+                                type = MissilePartType.PartType,
+                                stunModifier = HotStunModifier.PartStunModifier,
                                 skin = MissileSlot.UniqueName,
                                 active = false,
                             },
                             new Part()
                             {
-                                type = MissilePartType,
-                                stunModifier = HotStunModifier,
+                                type = MissilePartType.PartType,
+                                stunModifier = HotStunModifier.PartStunModifier,
                                 skin = MissileSlot.UniqueName,
                                 active = false,
                             },
@@ -177,7 +189,6 @@ internal sealed class WolfRayetShip : IRegisterable
             }
         );
 
-        EnumExtensions.partStrs[MissilePartType] = MissilePartTypeID;
         WolfRayetEntry.AddSeleneScaffold(new SeleneScaffoldConfiguration() { Part = missileRigEmptySlot });
     }
 }

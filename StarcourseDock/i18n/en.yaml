@@ -220,7 +220,7 @@ ship:
     action:
       Launch:
         name: LAUNCH
-        description: "All <c=part>missile launchers</c> are going to attack the enemy, dealing <c=damage>{{damage}}<c/> damage."
+        description: "All active <c=part>missile launchers</c> are going to launch into the enemy that deals <c=damage>{{damage}}<c/> damage."
 
     parttrait: 
       Hot: 
@@ -232,7 +232,7 @@ ship:
         name: <c=part>MISSILE LAUNCHER</c>
         description: 
         - "When this part is hit, activate it."
-        - "When the part is active, and the ship <c=action>overheats</c>, <c=action>launch</c> the missile to the opposing ship, dealing <c=boldPink>{{Damage}}</c> damage."
+        - "When the part is active, and the ship <c=action>overheats</c>, launch this part into the opposing ship that deals 4 damage."
 
     card: 
       LaunchOverride:

@@ -17,11 +17,11 @@ public sealed class AFragile : CardAction
 		{
 			if (justTheActiveOverride)
 			{
-				part.damageModifierOverrideWhileActive = CharonShip.Fragile;
+				part.damageModifierOverrideWhileActive = CharonShip.Fragile.PartDamageModifier;
 			}
 			else
 			{
-				part.damageModifier = CharonShip.Fragile;
+				part.damageModifier = CharonShip.Fragile.PartDamageModifier;
 			}
 
 			Audio.Play(new GUID?(Event.Status_PowerDown), true);
