@@ -1,16 +1,16 @@
 {
 	"UniqueName": "Teuria.StarcourseDock",
-	"Version": "1.8.0",
+	"Version": "1.8.1",
 	"DisplayName": "Starcourse Dock",
 	"Description": "Collection of Teuria's Ship that has its own unique challenging abilities.",
 	"Author": "Teuria",
-	"RequiredApiVersion": "1.18.7",
+	"RequiredApiVersion": "1.19.0",
 	"EntryPointAssembly": "StarcourseDock.dll",
 	"LoadPhase": "AfterGameAssembly",
 	"Dependencies": [
 		{
 			"UniqueName": "Shockah.Kokoro",
-			"Version": "2.12.0"
+			"Version": "2.15.1"
 		}
 	],
     "UpdateChecks": {
