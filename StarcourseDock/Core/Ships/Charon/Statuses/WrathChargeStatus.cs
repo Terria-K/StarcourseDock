@@ -24,6 +24,7 @@ internal sealed class WrathChargeStatus : IRegisterable,
                     color = new Color("8f1224"),
                     isGood = true,
                     icon = Sprites.icons_wrathCharge.Sprite,
+                    affectedByTimestop = false
                 },
                 ShouldFlash = (s, c, ship, status) =>
                 {

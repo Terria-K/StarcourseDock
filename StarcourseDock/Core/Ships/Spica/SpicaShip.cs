@@ -75,7 +75,7 @@ internal sealed class SpicaShip : IRegisterable
                                         new() { Sprite = Sprites.parts_spica_wing_left.Sprite }
                                     )
                                     .UniqueName,
-                                key = "leftwing",
+                                key = "Starcourse::leftwing",
                             },
                             new Part()
                             {
@@ -116,7 +116,7 @@ internal sealed class SpicaShip : IRegisterable
                                         new() { Sprite = Sprites.parts_spica_wing_right.Sprite }
                                     )
                                     .UniqueName,
-                                key = "rightwing",
+                                key = "Starcourse::rightwing",
                             },
                         ],
                     },

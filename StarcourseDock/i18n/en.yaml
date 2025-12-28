@@ -108,7 +108,7 @@ ship:
         name: TIDAL BOOSTER
         description: 
         - "Requires <c=artifact>PISCIUM DANCE</c> and <c=artifact>ROUTED CANNON</c>."
-        - "When your right cannon is active, your <c=action>attacks</c> inflicts an <c=status>INFRADRIVE</c>, <c=downside>caps at 1 attacks per turn</c>. When your left cannon is active, your <c=action>attacks</c> inflicts an <c=status>OXIDATION</c>."
+        - "When your right cannon is active, your <c=action>attacks</c> inflicts an <c=status>INFRADRIVE</c>, <c=downside>caps at 1 attacks per turn</c>. When your left cannon is active, your <c=action>attacks</c> inflicts a <c=status>REDOX</c>."
 
     card: 
       RerouteCannon: 
@@ -120,7 +120,10 @@ ship:
     status:
       Infradrive:
         name: INFRADRIVE
-        description: Remove <c=boldPink>{{dmg}}</c> damage from all attacks. <c=downside>Goes away at end of turn.</c>
+        description: Remove <c=boldPink>{0}</c> damage from all attacks. <c=downside>Goes away at end of turn.</c>
+      Reoxido:
+        name: REDOX
+        description: If redox is {0} or more at end of turn, gain 1 <c=status>CORRODE</c> and set oxidation to 0. <c=downside>Decreases by 1 at end of turn.</c>
 
   Gliese: 
     name: Gliese

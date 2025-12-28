@@ -10,18 +10,16 @@ internal class ASwapScaffold : CardAction
         if (isRight)
         {
             int x = s.ship.FindPartIndex(x =>
-                x.skin == (s.HasArtifactFromColorless<TidalBooster>() 
-                ? AlphergShip.AlphergScaffoldGreen.UniqueName
-                : AlphergShip.AlphergScaffoldOrange.UniqueName)
+                x.skin == AlphergShip.AlphergScaffoldGreen.UniqueName || 
+                x.skin == AlphergShip.AlphergScaffoldOrange.UniqueName
             );
             if (x == -1)
             {
                 return;
             }
             s.ship.parts = s.ship.RetainParts(x =>
-                x.skin != (s.HasArtifactFromColorless<TidalBooster>() 
-                ? AlphergShip.AlphergScaffoldGreen.UniqueName
-                : AlphergShip.AlphergScaffoldOrange.UniqueName)
+                x.skin != AlphergShip.AlphergScaffoldGreen.UniqueName && 
+                x.skin != AlphergShip.AlphergScaffoldOrange.UniqueName
             );
 
             int len = s.ship.parts.Count;
@@ -31,7 +29,7 @@ internal class ASwapScaffold : CardAction
                 len - 1 - x,
                 0,
                 true,
-                new Part() { skin = AlphergShip.AlphergScaffoldBlue.UniqueName, type = PType.empty }
+                new Part() { skin = AlphergShip.AlphergScaffoldBlue.UniqueName, type = PType.empty, key = "Starcourse::wingright" }
             );
         }
         else
@@ -60,6 +58,7 @@ internal class ASwapScaffold : CardAction
                 {
                     skin = skin,
                     type = PType.empty,
+                    key = "Starcourse::wingleft"
                 }
             );
         }

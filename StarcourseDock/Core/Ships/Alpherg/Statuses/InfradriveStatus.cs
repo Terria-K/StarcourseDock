@@ -11,7 +11,6 @@ internal sealed class InfradriveStatus : IRegisterable,
 {
     public static IStatusEntry Infradrive { get; internal set; } = null!;
 
-
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
         Infradrive = helper.Content.Statuses.RegisterStatus(
@@ -19,7 +18,7 @@ internal sealed class InfradriveStatus : IRegisterable,
             new()
             {
                 Name = Localization.ship_Alpherg_status_Infradrive_name(),
-                Description = Localization.ship_Alpherg_status_Infradrive_description("1"),
+                Description = Localization.ship_Alpherg_status_Infradrive_description(),
                 Definition = new()
                 {
                     color = new Color("3a7d47"),
@@ -36,44 +35,36 @@ internal sealed class InfradriveStatus : IRegisterable,
         ModEntry.Instance.KokoroAPI.V2.StatusRendering.RegisterHook(infradriveStatus, 0);
     }
 
-    public static Tooltip GetTooltip(int amount)
-    {
-        return new GlossaryTooltip($"{ModEntry.Instance.Package.Manifest.UniqueName}::InfradriveStatus")
-        {
-            Title = Localization.Str_ship_Alpherg_status_Infradrive_name(),
-            Description = Localization.Str_ship_Alpherg_status_Infradrive_description(amount.ToString()),
-            Icon = Sprites.icons_infradrive.Sprite,
-            TitleColor = Colors.status
-        };
-    }
+	public double ModifyStatusTurnTriggerPriority(IKokoroApi.IV2.IStatusLogicApi.IHook.IModifyStatusTurnTriggerPriorityArgs args)
+		=> args.Status == Infradrive.Status ? args.Priority + 10 : args.Priority;
 
-    public void OnStatusTurnTrigger(
-        IKokoroApi.IV2.IStatusLogicApi.IHook.IOnStatusTurnTriggerArgs args
-    )
+    public bool HandleStatusTurnAutoStep(IKokoroApi.IV2.IStatusLogicApi.IHook.IHandleStatusTurnAutoStepArgs args)
     {
-        if (args.Status != Infradrive.Status)
+        if (args.Timing != IKokoroApi.IV2.IStatusLogicApi.StatusTurnTriggerTiming.TurnEnd)
         {
-            return;
+            return false;
         }
 
-        if (args.Timing == IKokoroApi.IV2.IStatusLogicApi.StatusTurnTriggerTiming.TurnEnd)
+        if (args.Status != Infradrive.Status)
         {
-            if (args.Ship.Get(Status.timeStop) == 0)
+            return false;
+        }
+
+        args.Amount = 0;
+
+        return false;
+    }
+
+    public IReadOnlyList<Tooltip> OverrideStatusTooltips(IKokoroApi.IV2.IStatusRenderingApi.IHook.IOverrideStatusTooltipsArgs args)
+    {
+        foreach (var tooltip in args.Tooltips)
+        {
+            if (tooltip is TTGlossary glossary && glossary.key == $"status.{Infradrive.Status}")
             {
-                args.Ship.Set(Infradrive.Status, 0);
+                glossary.vals = [$"<c=boldPink>{args.Amount}</c>"];
             }
         }
-    }
 
-    public IReadOnlyList<Tooltip> OverrideStatusTooltips(
-        IKokoroApi.IV2.IStatusRenderingApi.IHook.IOverrideStatusTooltipsArgs args
-    )
-    {
-        if (args.Status != Infradrive.Status)
-        {
-            return args.Tooltips;
-        }
-
-        return [ GetTooltip(args.Amount)];
+        return args.Tooltips;
     }
 }

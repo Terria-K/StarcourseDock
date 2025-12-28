@@ -25,4 +25,11 @@ internal sealed class SanityExpansion : Artifact, IRegisterable
             }
         );
     }
+
+    public override List<Tooltip>? GetExtraTooltips()
+    {
+        return [
+            WrathChargeStatus.GetTooltip(1, 2, 1)
+        ];
+    }
 }

@@ -64,6 +64,7 @@ internal sealed class AlphergShip : IRegisterable
                 Description = Localization.ship_Alpherg_description(),
                 UnderChassisSprite = chassisSprite.Sprite,
                 ExclusiveArtifactTypes = ExclusiveArtifacts.ToFrozenSet(),
+
                 Ship = new()
                 {
                     ship = new()
@@ -86,6 +87,7 @@ internal sealed class AlphergShip : IRegisterable
                             new Part()
                             {
                                 type = PType.empty,
+                                key = "Starcourse::wingleft",
                                 skin = AlphergScaffoldOrange.UniqueName,
                             },
                             new Part()
@@ -137,6 +139,7 @@ internal sealed class AlphergShip : IRegisterable
                             },
                         ],
                     },
+
                     artifacts = [new ShieldPrep(), new Piscium(), new RoutedCannon()],
                     cards =
                     [

@@ -32,6 +32,18 @@ internal sealed class TidalBooster : Artifact, IRegisterable
         );
     }
 
+    public override void OnReceiveArtifact(State state)
+    {
+        int x = state.ship.FindPartIndex(x => x.skin == AlphergShip.AlphergScaffoldOrange.UniqueName);
+
+        if (x == -1)
+        {
+            return;
+        }
+
+        state.ship.parts[x].skin = AlphergShip.AlphergScaffoldGreen.UniqueName;
+    }
+
     public override void OnTurnStart(State state, Combat combat)
     {
         infradriveCap = 0;
@@ -95,7 +107,7 @@ internal sealed class TidalBooster : Artifact, IRegisterable
 
         if (piscium.isRight)
         {
-            combat.otherShip.Add(ModEntry.Instance.KokoroAPI.V2.OxidationStatus.Status, 1);
+            combat.otherShip.Add(ReoxidoStatus.Reoxido.Status, 1);
             Pulse();
         }
         else if (infradriveCap < InfradriveLimit)
@@ -109,10 +121,8 @@ internal sealed class TidalBooster : Artifact, IRegisterable
     public override List<Tooltip>? GetExtraTooltips()
     {
         return [
-            InfradriveStatus.GetTooltip(1),
-            ..StatusMeta.GetTooltips(
-                ModEntry.Instance.KokoroAPI.V2.OxidationStatus.Status, 
-                ModEntry.Instance.KokoroAPI.V2.OxidationStatus.GetOxidationStatusThreshold(MG.inst.g.state, MG.inst.g.state.ship))
+            ..StatusMeta.GetTooltips(InfradriveStatus.Infradrive.Status, 1),
+            ..StatusMeta.GetTooltips(ReoxidoStatus.Reoxido.Status, 4)
         ];
     }
 }

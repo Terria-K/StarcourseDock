@@ -59,8 +59,8 @@ internal class ShrinkMechanismV2 : Artifact, IRegisterable
 
         switch (part.key)
         {
-            case "rightwing":
-                int? rx = state.ship.GetLocalXOfPart("rightwing");
+            case "Starcourse::rightwing":
+                int? rx = state.ship.GetLocalXOfPart("Starcourse::rightwing");
                 if (rx != null)
                 {
                     int v = rx.Value;
@@ -68,12 +68,12 @@ internal class ShrinkMechanismV2 : Artifact, IRegisterable
                     if (p != null && p.type != PType.wing)
                     {
                         rightParts.Add(p);
-                        state.ship.RemoveParts("leftwing", [p.key!]);
+                        state.ship.RemoveParts("Starcourse::leftwing", [p.key!]);
                     }
                 }
                 break;
-            case "leftwing":
-                int? lx = state.ship.GetLocalXOfPart("leftwing");
+            case "Starcourse::leftwing":
+                int? lx = state.ship.GetLocalXOfPart("Starcourse::leftwing");
                 if (lx != null)
                 {
                     int v = lx.Value;
@@ -81,7 +81,7 @@ internal class ShrinkMechanismV2 : Artifact, IRegisterable
                     if (p != null && p.type != PType.wing)
                     {
                         leftParts.Add(p);
-                        state.ship.RemoveParts("rightwing", [p.key!]);
+                        state.ship.RemoveParts("Starcourse::rightwing", [p.key!]);
                     }
                 }
                 break;
@@ -114,14 +114,14 @@ internal class ShrinkMechanismV2 : Artifact, IRegisterable
     {
         if (leftParts != null)
         {
-            int index = state.ship.FindPartIndex("leftwing");
+            int index = state.ship.FindPartIndex("Starcourse::leftwing");
             state.ship.InsertParts(state, index, index, true, leftParts, true);
             leftParts.Clear();
         }
 
         if (rightParts != null)
         {
-            int index = state.ship.FindPartIndex("rightwing");
+            int index = state.ship.FindPartIndex("Starcourse::rightwing");
             List<Part> partReversed = [.. rightParts];
             partReversed.Reverse();
             state.ship.InsertParts(

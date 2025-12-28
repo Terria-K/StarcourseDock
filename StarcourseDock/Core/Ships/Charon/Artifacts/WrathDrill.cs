@@ -56,4 +56,11 @@ internal sealed class WrathDrill : Artifact, IRegisterable
             Pulse();
         }
     }
+
+    public override List<Tooltip>? GetExtraTooltips()
+    {
+        return [
+            WrathChargeStatus.GetTooltip(1, 2, 1)
+        ];
+    }
 }

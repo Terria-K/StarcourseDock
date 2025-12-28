@@ -1,4 +1,3 @@
-using System.Collections.Frozen;
 using CutebaltCore;
 using Nanoray.PluginManager;
 using Nickel;

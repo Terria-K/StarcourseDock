@@ -4,8 +4,9 @@ using HarmonyLib;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class SpicaProperShufflePatches : IPatchable
+internal sealed partial class AlphergProperShufflePatches : IPatchable
 {
+
     [OnTranspiler<AShuffleShip>(nameof(AShuffleShip.Begin))]
     private static IEnumerable<CodeInstruction> AShuffleShip_Begin_Transpiler(
         IEnumerable<CodeInstruction> instructions,
@@ -28,19 +29,29 @@ internal sealed partial class SpicaProperShufflePatches : IPatchable
             {
                 return p;
             }
-            if (s.ship.key == SpicaShip.SpicaEntry.UniqueName)
+            if (s.ship.key == AlphergShip.AlphergEntry.UniqueName)
             {
-                Part? rightWing = p.GetPartByKey("Starcourse::rightwing");
-                Part? leftWing = p.GetPartByKey("Starcourse::leftwing");
+                int count = p.Count;
 
-                if (rightWing is null || leftWing is null)
+                int c = Mutil.Clamp(s.rngActions.NextInt() % count, 1, count - 2);
+
+                Part? wingRight = p.GetPartByKey("Starcourse::wingright");
+
+                if (wingRight is not null)
                 {
+                    p.Remove(wingRight);
+                    p.Insert(c, wingRight);
                     return p;
                 }
-                p.Remove(rightWing);
-                p.Remove(leftWing);
-                p.Insert(0, leftWing);
-                p.Insert(p.Count, rightWing);
+
+                Part? wingLeft = p.GetPartByKey("Starcourse::wingleft");
+
+                if (wingLeft is not null)
+                {
+                    p.Remove(wingLeft);
+                    p.Insert(c, wingLeft);
+                    return p;
+                }
             }
             return p;
         });

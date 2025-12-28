@@ -16,7 +16,7 @@ internal class AMerge : CardAction
         artifact.leftParts ??= new List<Part>();
         artifact.rightParts ??= new List<Part>();
 
-        part ??= flipped ? s.ship.GetPartByKey("leftwing") : s.ship.GetPartByKey("rightwing");
+        part ??= flipped ? s.ship.GetPartByKey("Starcourse::leftwing") : s.ship.GetPartByKey("Starcourse::rightwing");
 
         if (part == null)
         {
@@ -25,8 +25,8 @@ internal class AMerge : CardAction
 
         switch (part.key)
         {
-            case "rightwing":
-                int? rx = s.ship.GetLocalXOfPart("rightwing");
+            case "Starcourse::rightwing":
+                int? rx = s.ship.GetLocalXOfPart("Starcourse::rightwing");
                 if (rx != null)
                 {
                     int v = rx.Value;
@@ -34,12 +34,12 @@ internal class AMerge : CardAction
                     if (p != null && p.type != PType.wing)
                     {
                         artifact.rightParts.Add(p);
-                        s.ship.RemoveParts("leftwing", [p.key!]);
+                        s.ship.RemoveParts("Starcourse::leftwing", [p.key!]);
                     }
                 }
                 break;
-            case "leftwing":
-                int? lx = s.ship.GetLocalXOfPart("leftwing");
+            case "Starcourse::leftwing":
+                int? lx = s.ship.GetLocalXOfPart("Starcourse::leftwing");
                 if (lx != null)
                 {
                     int v = lx.Value;
@@ -47,7 +47,7 @@ internal class AMerge : CardAction
                     if (p != null && p.type != PType.wing)
                     {
                         artifact.leftParts.Add(p);
-                        s.ship.RemoveParts("rightwing", [p.key!]);
+                        s.ship.RemoveParts("Starcourse::rightwing", [p.key!]);
                     }
                 }
                 break;

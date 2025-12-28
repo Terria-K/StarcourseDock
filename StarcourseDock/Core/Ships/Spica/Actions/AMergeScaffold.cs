@@ -14,11 +14,11 @@ internal class AMergeScaffold : CardAction
         string centerKey;
         if (flipped)
         {
-            centerKey = "rightwing";
+            centerKey = "Starcourse::rightwing";
         }
         else
         {
-            centerKey = "leftwing";
+            centerKey = "Starcourse::leftwing";
         }
 
         s.ship.RemoveParts(centerKey, ["toRemove"]);

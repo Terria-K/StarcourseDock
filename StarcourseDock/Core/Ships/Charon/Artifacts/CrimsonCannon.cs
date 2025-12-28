@@ -61,4 +61,19 @@ internal sealed class CrimsonCannon : Artifact, IRegisterable
     {
         state.ship.baseEnergy -= 2;
     }
+
+    public override List<Tooltip>? GetExtraTooltips()
+    {
+        return [
+            new GlossaryTooltip(
+                $"{ModEntry.Instance.Package.Manifest.UniqueName}::FragileDamageModifierOnArtifact"
+            )
+            {
+                Title = Localization.Str_ship_Charon_parttrait_Fragile_name(),
+                TitleColor = Colors.parttrait,
+                Description = Localization.Str_ship_Charon_parttrait_Fragile_description(),
+                Icon = Sprites.icons_fragile.Sprite,
+            }
+        ];
+    }
 }
