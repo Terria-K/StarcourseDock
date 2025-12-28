@@ -2,11 +2,10 @@ using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
 using CutebaltCore;
-using Shockah.Kokoro;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed class DoubleDeck : Artifact, IRegisterable
+internal class DoubleDeck : Artifact, IRegisterable
 {
     public bool isOrange;
 
@@ -59,15 +58,5 @@ internal sealed class DoubleDeck : Artifact, IRegisterable
         }
 
         return Sprites.artifacts_DoubleDeck.Sprite;
-    }
-
-    public override int ModifyCardRewardCount(State state, bool isEvent, bool inCombat)
-    {
-        if (isEvent || inCombat)
-        {
-            return 0;
-        }
-
-        return -1;
     }
 }

@@ -11,18 +11,28 @@ action:
     name: FREEZE
     description: "<c=downside>Gain an <c=status>ENGINE LOCK</c>, and a <c=action>total stun</c>.</c>"
 
+customRunOptions:
+  DoubleCard:
+    artifact:
+      DoubleCard:
+        name: DOUBLE CARD
+        description: 
+          - "You start with <c=status>POLARITY</c>."
+          - "All non-<c=deck>Trash</c> starter cards, and EXEs and Post-battle card offering are <c=cardtrait>polarity linked</c> to another card."
+
 ship: 
   Albireo: 
     name: Albireo
     description: "A double-decked ship controlled by double star polarity."
 
     artifact: 
+
       DoubleDeck: 
         name: DOUBLE DECK
         description: 
           - "You start with <c=status>POLARITY</c>."
           - "All non-<c=deck>Trash</c> starter cards, and EXEs and Post-battle card offering are <c=cardtrait>polarity linked</c> to another card."
-          - "<c=downside>You are offered 1 less card in post-battle card rewards.</c>"
+
       PolarityWings: 
         name: POLARITY WINGS
         description: 
