@@ -65,6 +65,11 @@ internal sealed partial class PopulateRun : IPatchable
             return;
         }
 
+        if (__instance.ship.key == AlbireoShip.AlbireoShipEntry.UniqueName)
+        {
+            return;
+        }
+
         foreach (var artifact in DoubleCardRunOption.Artifacts.Value)
         {
             if (__instance.runConfig.IsOptionSelected(artifact.Key()))

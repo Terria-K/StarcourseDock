@@ -44,7 +44,7 @@ internal sealed partial class AlbireoUpgradeCardPatches : IPatchable, IManualPat
 
     private static void CardUpgrade_Render_14_1_Postfix(Upgrade upgradePath, in Card __result)
     {
-        if (ModEntry.Instance.Helper.ModData.TryGetModData(__result, "polarity.card.linked", out Card? linkedCard) && linkedCard is not null)
+        if (__result.TryGetLinkedCard(out Card? linkedCard))
         {
             bool validUpgrade = false;
             Card card = Mutil.DeepCopy(linkedCard);
@@ -63,7 +63,7 @@ internal sealed partial class AlbireoUpgradeCardPatches : IPatchable, IManualPat
                 card.upgrade = upgradePath;
             }
 
-            ModEntry.Instance.Helper.ModData.SetModData(__result, "polarity.card.linked", card);
+            __result.LinkedCard = card;
         }
     }
 
@@ -99,7 +99,7 @@ internal sealed partial class AlbireoUpgradeCardPatches : IPatchable, IManualPat
                 continue;
             }
 
-            if (ModEntry.Instance.Helper.ModData.TryGetModData(card, "polarity.card.linked", out Card? linkedCard) && linkedCard is not null)
+            if (card.TryGetLinkedCard(out Card? linkedCard))
             {
                 var upgradePath = card.upgrade;
                 var availableUpgrades = linkedCard.GetMeta().upgradesTo.AsSpan();

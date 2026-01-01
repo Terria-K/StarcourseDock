@@ -47,8 +47,8 @@ internal sealed partial class AlbireoAddCardPatches : IPatchable
             s, linkCard, AlbireoKit.PolarityTrait, true, true
         );
 
-        ModEntry.Instance.Helper.ModData.SetOptionalModData(card, "polarity.card.linked", linkCard);
-        ModEntry.Instance.Helper.ModData.SetModData(card, "polarity.orange", doubleDeck.isOrange);
-        ModEntry.Instance.Helper.ModData.SetModData(linkCard, "polarity.orange", !doubleDeck.isOrange);
+        card.LinkedCard = linkCard;
+        card.IsOrange = doubleDeck.isOrange;
+        card.IsOrange = !doubleDeck.isOrange;
     }
 }

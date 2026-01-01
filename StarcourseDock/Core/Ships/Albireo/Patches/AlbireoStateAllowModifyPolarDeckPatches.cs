@@ -3,7 +3,7 @@ using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class AlbireoStateAllowModifyPolarDeck : IPatchable
+internal sealed partial class AlbireoStateAllowModifyPolarDeckPatches : IPatchable
 {
     [OnPrefix<State>(nameof(State.EndRun))]
     private static void State_EndRun_Prefix(State __instance)
@@ -49,7 +49,7 @@ internal sealed partial class AlbireoStateAllowModifyPolarDeck : IPatchable
         List<Card> addToDeck = [];
         foreach (var card in deck)
         {
-            if (ModEntry.Instance.Helper.ModData.TryGetModData(card, "polarity.card.linked", out Card? linkCard) && linkCard is not null)
+            if (card.TryGetLinkedCard(out Card? linkCard))
             {
                 addToDeck.Add(linkCard);
                 ModEntry.Instance.Helper.ModData.SetOptionalModData<bool>(linkCard, "polarity.card.toRemove", true);

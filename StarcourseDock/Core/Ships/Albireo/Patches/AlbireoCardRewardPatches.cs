@@ -65,9 +65,9 @@ internal sealed partial class AlbireoCardRewardPatches : IPatchable
                 s, linkCard, AlbireoKit.PolarityTrait, true, true
             );
 
-            ModEntry.Instance.Helper.ModData.SetOptionalModData(card, "polarity.card.linked", linkCard);
-            ModEntry.Instance.Helper.ModData.SetModData(card, "polarity.orange", doubleStar.isOrange);
-            ModEntry.Instance.Helper.ModData.SetModData(linkCard, "polarity.orange", !doubleStar.isOrange);
+            card.LinkedCard = linkCard;
+            card.IsOrange = doubleStar.isOrange;
+            linkCard.IsOrange = !doubleStar.isOrange;
         }
 
     }
@@ -104,9 +104,9 @@ internal sealed partial class AlbireoCardRewardPatches : IPatchable
                 __instance, linkCard, AlbireoKit.PolarityTrait, true, true
             );
 
-            ModEntry.Instance.Helper.ModData.SetOptionalModData(card, "polarity.card.linked", linkCard);
-            ModEntry.Instance.Helper.ModData.SetModData(card, "polarity.orange", false);
-            ModEntry.Instance.Helper.ModData.SetModData(linkCard, "polarity.orange", true);
+            card.LinkedCard = linkCard;
+            card.IsOrange = false;
+            linkCard.IsOrange = true;
         }
     }
 }
