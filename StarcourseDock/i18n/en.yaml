@@ -1,16 +1,4 @@
 ---
-status: 
-  Cold: 
-    name: COLD
-    description: 
-    - "If cold is 3 or more at end of turn, <c=action>FREEZE</c>."
-    - "<c=downside>Decreases by 1 at the end of a turn.</c>"
-
-action: 
-  Freeze: 
-    name: FREEZE
-    description: "<c=downside>Gain an <c=status>ENGINE LOCK</c>, and a <c=action>total stun</c>.</c>"
-
 customRunOptions:
   DoubleCard:
     artifact:
@@ -63,6 +51,16 @@ ship:
   Atlas:
     name: Atlas
     description: "A swift speed ship that can travel at the speed of cards."
+
+    artifact:
+      GyroscopeEngine:
+        name: GYROSCOPE ENGINE
+        description: When you play a card, move by an amount equal to its distance from the center of your hand.
+
+    parttrait:
+      LeftMoveStun:
+        name: MOVE 3 LEFT
+        description: When this part is hit, move <c=keyword>3</c> to the left.
 
   Spica: 
     name: Spica
