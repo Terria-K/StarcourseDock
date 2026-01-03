@@ -19,7 +19,8 @@ internal sealed class GyroscopeEngine : Artifact, IRegisterable
                 Meta = new()
                 {
                     owner = Deck.colorless,
-                    pools = [ArtifactPool.EventOnly]
+                    pools = [ArtifactPool.EventOnly],
+                    unremovable = true
                 },
                 Sprite = Sprites.artifacts_GyroscopeEngine.Sprite
             }

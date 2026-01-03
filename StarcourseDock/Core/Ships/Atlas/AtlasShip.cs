@@ -5,6 +5,7 @@ using Nickel;
 
 namespace Teuria.StarcourseDock;
 
+
 internal sealed class AtlasShip : IRegisterable
 {
     internal static IReadOnlyList<Type> ExclusiveArtifacts => [
@@ -90,5 +91,7 @@ internal sealed class AtlasShip : IRegisterable
             UnderChassisSprite = Sprites.parts_atlas_chassis.Sprite,
             ExclusiveArtifactTypes = ExclusiveArtifacts.ToFrozenSet()
         });
+
+        AtlasEntry.AddSeleneScaffold(new() { Part = empty });
     }
 }
