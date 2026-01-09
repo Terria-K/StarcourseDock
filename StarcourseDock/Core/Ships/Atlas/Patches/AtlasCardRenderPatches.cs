@@ -30,6 +30,11 @@ internal sealed partial class AtlasCardRenderPatches : IPatchable
         }
 
         int handCount = combat.hand.Count;
+
+        if (handCount <= 1)
+        {
+            return;
+        }
         int handPosition = combat.hand.FindIndex(c => c.uuid == __instance.uuid);
         if (handPosition == -1)
         {
@@ -46,6 +51,10 @@ internal sealed partial class AtlasCardRenderPatches : IPatchable
         if ((handCount & 1) == 0 && dir == 0)
         {
             dir = (distance > 0) ? 1 : -1;
+        }
+        else if (dir == 0)
+        {
+            return;
         }
 
         var position = posOverride ?? __instance.pos;
