@@ -10,19 +10,9 @@ internal sealed partial class AtlasMoveLeftTraitPatches : IPatchable
     [OnPrefix<Ship>(nameof(Ship.NormalDamage))]
     private static void Ship_NormalDamage_Prefix(Ship __instance, Combat c, int? maybeWorldGridX)
     {
-        if (maybeWorldGridX is null)
-        {
-            return;
-        }
-
-        Part? part = __instance.GetPartAtWorldX(maybeWorldGridX.Value);
-
-        if (part == null)
-        {
-            return;
-        }
-
-        if (part.stunModifier == AtlasShip.LeftMoveStunModifier)
+        if (maybeWorldGridX is int x && 
+            __instance.GetPartAtWorldX(x) is Part part && 
+            part.stunModifier == AtlasShip.LeftMoveStunModifier)
         {
             c.QueueImmediate(new AMove()
             {
