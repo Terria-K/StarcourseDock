@@ -20,5 +20,7 @@ internal sealed class IoKit : IRegisterable
                 Name = Localization.ship_Io_name(),
             }
         );
+
+        ModEntry.Instance.KokoroAPI.V2.CardRendering.RegisterHook(new TripleFloppedTrait());
     }
 }

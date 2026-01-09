@@ -365,7 +365,7 @@ ship:
         name: TRASH HATCH
         description: 
         - Requires <c=artifact>GRAVITATIONAL PULL</c>.
-        - <c=card>Release</c> now cost 0 <c=energy>ENERGY</c> when flipped.
+        - <c=card>Release</c> now cost 0 <c=energy>ENERGY</c> when only using the <c=keyword>trash</c>.
 
       AsteroidAirlock:
         name: ASTEROID AIRLOCK
@@ -377,7 +377,7 @@ ship:
         name: WAVE TRIGGER
         description: 
         - (IO-exclusive artifact!)
-        - Every time an enemy <c=action>attacks</c> on an <c=part>empty</c> space, <c=action>attack</c> by <c=damage>1</c> damage.
+        - Every time an enemy <c=action>attacks</c> on an <c=part>empty</c> part, <c=action>attack</c> by <c=damage>1</c> damage.
 
     card:
       PulledAndRelease:
@@ -402,4 +402,15 @@ ship:
       IoDrone:
         name: Io Drone
         description: Every time you <c=action>ATTACK</c>, this drone copies your attack.
+      
+    cardtrait:
+      TripleCard:
+        name: Triad Card
+        description:
+          mouse_keyboard:
+            - This card has three separate sets of actions.
+            - In combat <c=keyword>right click or crtl-click</c> this card to switch between them.
+          controller:
+            - This card has three separate sets of actions.
+            - In combat, press {{Button}} on this card to switch between them.
 
