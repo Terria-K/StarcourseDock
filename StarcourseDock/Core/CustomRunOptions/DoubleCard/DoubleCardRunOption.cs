@@ -39,7 +39,7 @@ internal sealed partial class DoubleCardRunOption :
         return api.MakeList([
             api.MakePadding(
                 api.MakeText(
-                    () => "<c=white>STARCOURSE DOCK</c>"
+                    () => "<c=white>Starcourse Dock options</c>"
                 ).SetFont(DB.thicket),
                 8, 4
             ),
