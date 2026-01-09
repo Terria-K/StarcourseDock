@@ -10,6 +10,8 @@ internal sealed class AtlasShip : IRegisterable
 {
     internal static IReadOnlyList<Type> ExclusiveArtifacts => [
         typeof(GyroscopeEngine),
+        typeof(FrailMotherboard),
+        typeof(SlowMotherboard)
     ];
 
     internal static IShipEntry AtlasEntry { get; set; } = null!;
@@ -84,7 +86,7 @@ internal sealed class AtlasShip : IRegisterable
                     ]
                 },
 
-                artifacts = [new ShieldPrep(), new GyroscopeEngine()],
+                artifacts = [new ShieldPrep(), new GyroscopeEngine(), new FrailMotherboard()],
                 cards = [new CannonColorless(), new DodgeColorless(), new BasicShieldColorless()]
             },
 

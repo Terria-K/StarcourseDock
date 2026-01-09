@@ -56,11 +56,31 @@ ship:
       GyroscopeEngine:
         name: GYROSCOPE ENGINE
         description: When you play a card, move by an amount equal to its distance from the center of your hand.
+      FrailMotherboard:
+        name: FRAIL MOTHERBOARD
+        description: At the start of a combat, add <c=card>Engine Upkeep</c> to your draw pile.
+      SlowMotherboard:
+        name: SLOW MOTHERBOARD
+        description: 
+        - Replaces <c=artifact>FRAIL MOTHERBOARD</c>.
+        - At the start of a combat, add <c=card>Engine Upkeep A</c> to your draw pile.
+    
+    card:
+      EngineMaintenance:
+        name: Engine Upkeep
 
     parttrait:
       LeftMoveStun:
-        name: MOVE 3 LEFT
-        description: When this part is hit, move <c=keyword>3</c> to the left.
+        name: UNSTABLE
+        description: When this part is hit, <c=action>move left</c> by <c=keyword>3</c>.
+
+    cardtrait:
+      TurnEndTrigger:
+        name: TURN END TRIGGER
+        description: "If this card is in your hand at the end of your turn, trigger the actions below the line."
+      OnDrawTrigger:
+        name: ON DRAW TRIGGER
+        description: "If this card drawn to your hand, trigger the actions below the line."
 
   Spica: 
     name: Spica
