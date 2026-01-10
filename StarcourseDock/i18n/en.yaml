@@ -157,69 +157,6 @@ ship:
         name: REDOX
         description: If redox is {0} or more at end of turn, gain 1 <c=status>CORRODE</c> and set redox to 0. <c=downside>Decreases by 1 at end of turn.</c>
 
-  Gliese: 
-    name: Gliese
-    description: "Crystallized ship with an ability to stun attacks, <c=downside>and freeze its deck overtime.</c>"
-
-    artifact: 
-      CrystalCore: 
-        name: CRYSTAL CORE
-        description: 
-        - "If you play a card, <c=downside>if it does not have <c=cardtrait>FROZEN</c>, add it.</c>"
-        - "If your wing gets <c=action>hit</c>, <c=downside>add a breakable part.</c>"
-      CrystalCoreV2: 
-        name: CRYSTAL HEART
-        description: 
-        - "Replaces <c=artifact>CRYSTAL CORE</c>."
-        - "At the start of a combat, add an <c=card>Absolute Freeze</c> in your draw pile."
-        - "If a wing gets <c=action>hit</c>, <c=downside>add a temporary cannon that last after your turn.</c>"
-      FrostCannon: 
-        name: FROST CANNON
-        description: 
-        - "At the start of each turn, gain 3 <c=status>STUN CHARGE</c>."
-        - "<c=action>Stun</c> will inflict 1 <c=status>COLD</c> to the enemy."
-      ColdHand: 
-        name: COLD HAND
-        description: 
-        - "(Gliese-exclusive artifact!)"
-        - "Allows you to <c=status>REDRAW</c> a card for free if fully <c=cardtrait>FROZEN</c>."
-
-    card: 
-      AbsoluteFreeze: 
-        name: Absolute Freeze
-      Unfreeze: 
-        name: Unfreeze
-        description: "Choose 3 cards from <c=keyword>discard pile</c> to remove <c=cardtrait>FROZEN</c>."
-        A:
-          description: 
-          - "Choose 3 cards from <c=keyword>discard pile</c> to remove <c=cardtrait>FROZEN</c> and draw it."
-        B:
-          description: 
-          - "Choose 3 cards from <c=keyword>draw and discard pile</c> to remove <c=cardtrait>FROZEN</c>."
-    
-    trait:
-      Frozen:
-        name: Frozen
-        description: 
-        - "Everytime this card is <c=keyword>played</c>, increment the counter by 1."
-        - "If the counter is more than 3, <c=downside>this card becomes unplayable.</c>"
-      CantBeFrozen:
-        name: Cannot Be Frozen 
-        description: 
-        - "This card cannot obtain <c=cardtrait>FROZEN</c>."
-      TurnEndTrigger:
-        name: TURN END TRIGGER
-        description: "If this card is in your hand at the end of your turn, trigger the actions below the line."
-    
-    action:
-      RightFreeze:
-        name: RIGHT TRAIT MODIFIER
-        description: Add the following trait to the card to the right.
-      LeftFreeze:
-        name: LEFT TRAIT MODIFIER
-        description: Add the following trait to the card to the left.
-    
-
   WolfRayet: 
     name: Betelgeuse 
     description: "Heavy ship loaded with <c=status>HEAT</c> powered missiles."
