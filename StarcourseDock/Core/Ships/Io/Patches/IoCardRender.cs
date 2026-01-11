@@ -15,7 +15,7 @@ internal sealed partial class IoCardRender : IPatchable
             return;
         }
 
-        if (__instance is IAmFloppableThreeTimes { Active: false })
+        if (__instance is not IAmFloppableThreeTimes { Active: true })
         {
             return;
         }
