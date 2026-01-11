@@ -38,6 +38,10 @@ internal sealed class GyroscopeEngine : Artifact, IRegisterable
         {
             dir = (distance > 0) ? 1 : -1;
         }
+        else if (dir == 0)
+        {
+            return;
+        }
 
         combat.Queue(new AMove()
         {
