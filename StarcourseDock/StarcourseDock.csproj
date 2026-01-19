@@ -40,4 +40,8 @@
       ReferenceOutputAssembly="false"
     />
   </ItemGroup>
+
+  <ItemGroup>
+    <PathMap>Teuria.StarcourseDock/</PathMap>
+  </ItemGroup>
 </Project>
