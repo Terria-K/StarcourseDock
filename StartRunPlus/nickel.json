@@ -1,0 +1,19 @@
+{
+	"UniqueName": "Teuria.StartRunPlus",
+	"Version": "1.0.0",
+	"DisplayName": "Start Run+",
+	"Description": "Start Run Plus is a game mode that scales all stats from an end game stats and makes everything tougher.",
+	"Author": "Teuria",
+	"RequiredApiVersion": "1.19.0",
+	"EntryPointAssembly": "StartRunPlus.dll",
+	"LoadPhase": "AfterGameAssembly",
+	"MethodsToStopInlining": [
+		{ "TypeName": "RunSummaryRoute", "MethodName": "LeaveScreen" }
+	],
+	"Dependencies": [
+		{
+			"UniqueName": "Shockah.Kokoro",
+			"Version": "2.15.1"
+		}
+	]
+}

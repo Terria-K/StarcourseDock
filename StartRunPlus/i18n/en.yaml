@@ -1,0 +1,20 @@
+---
+artifact:
+  StartRunPlus:
+    name: START RUN+
+    description: 
+    - Scales all stats by the endgame stats.
+    - "+1: Increases both player's and enemy's max hull by 4. <c=downside>If its in Harder difficulty or higher, player only increases max hull by 2.</c>"
+    - "Receives 1 common artifact offering and 1 boss artifact offering at the start of a run."
+    - "+2: Increase both player's and enemy's max hull by 8. <c=downside>If its in Harder difficulty or higher, player only increases max hull by 4.</c>"
+    - <c=downside>Enemies now gain 1 <c=status>Powerdrive</c> at the start of a combat</c>.
+    - "Receives 2 common artifact offering and 1 boss artifact offering at the start of a run."
+    - "+3: Increase both player's and enemy's max hull by 12. <c=downside>If its in Harder difficulty or higher, player only increases max hull by 6.</c>"
+    - <c=downside>Enemies now gain 2 <c=status>Powerdrive</c> at the start of a combat</c>.
+    - "Receives 3 common artifact offering and 2 boss artifact offering at the start of a run."
+    - "+4: Increase both player's and enemy's max hull by 16. <c=downside>If its in Harder difficulty or higher, player only increases max hull by 8.</c>"
+    - <c=downside>Enemies now gain 3 <c=status>Powerdrive</c> at the start of a combat</c>.
+    - "Receives 4 common artifact offering and 2 boss artifact offering at the start of a run."
+    - "+5: Increase both player's and enemy's max hull by 20. <c=downside>If its in Harder difficulty or higher, player only increases max hull by 10.</c>"
+    - <c=downside>Enemies now gain 4 <c=status>Powerdrive</c> at the start of a combat</c>.
+    - "Receives 5 common artifact offering and 3 boss artifact offering at the start of a run."

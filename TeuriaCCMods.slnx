@@ -6,4 +6,5 @@
   </Configurations>
   <Project Path="CutebaltCore/CutebaltCore.csproj" />
   <Project Path="StarcourseDock/StarcourseDock.csproj" />
+  <Project Path="StartRunPlus/StartRunPlus.csproj" />
 </Solution>

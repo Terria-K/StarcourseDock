@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>14</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Version>1.0.0</Version>
+    <GameExePath>../../../../CobaltCore.exe</GameExePath>
+    <GameDllPath>../../../../CobaltCore.dll</GameDllPath>
+    <ModLoaderPath>../../../</ModLoaderPath>
+    <ProjectDir>$(MSBuildProjectDirectory)\</ProjectDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <CompilerVisibleProperty Include="ProjectDir" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ModFiles Include="assets/**/*" />
+    <ModFiles Include="i18n/en.yaml*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Watch Include="**/*.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nickel.ModBuildConfig" Version="2.1.0" />
+    <PackageReference Include="YamlDotNet" Version="16.3.0" />
+    <PackageReference
+      Include="EnumByNameSourceGenerator"
+      Version="1.1.2"
+      PrivateAssets="All"
+      ExcludeAssets="runtime"
+    />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PathMap>Teuria.StartRunPlus</PathMap>
+  </ItemGroup>
+</Project>
