@@ -32,7 +32,7 @@ internal sealed class BurstDrone : Card, IRegisterable
 		{
 			cost = 0,
             temporary = true,
-            singleUse = true,
+            exhaust = true,
             retain = true,
 			art = StableSpr.cards_GoatDrone
 		};
