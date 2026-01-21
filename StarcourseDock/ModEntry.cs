@@ -7,7 +7,6 @@ using Nickel;
 using Nickel.Essentials;
 using Nickel.ModSettings;
 using Shockah.Kokoro;
-using Teuria.HotReload;
 
 [assembly: InternalsVisibleTo("GeneratedTextTransformation")]
 

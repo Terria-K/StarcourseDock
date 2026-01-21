@@ -60,7 +60,7 @@ internal sealed partial class PopulateRun : IPatchable
     [OnPostfix<State>(nameof(State.PopulateRun))]
     private static void State_PopulateRun_Postfix(State __instance)
     {
-        if (!DoubleCardRunOption.CustomRunOptionsAPI.IsStartingNormalRun)
+        if (DoubleCardRunOption.CustomRunOptionsAPI is null || !DoubleCardRunOption.CustomRunOptionsAPI.IsStartingNormalRun)
         {
             return;
         }

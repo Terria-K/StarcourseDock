@@ -35,7 +35,7 @@
     />
   </ItemGroup>
 
-  <ItemGroup>
-    <PathMap>Teuria.StartRunPlus</PathMap>
-  </ItemGroup>
+  <PropertyGroup>
+    <PathMap>$(MSBuildProjectDirectory)=Teuria.StartRunPlus</PathMap>
+  </PropertyGroup>
 </Project>
