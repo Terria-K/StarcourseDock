@@ -69,6 +69,7 @@ internal sealed class AlphergShip : IRegisterable
                 {
                     ship = new()
                     {
+                        x = 2,
                         hull = 11,
                         hullMax = 11,
                         shieldMaxBase = 4,

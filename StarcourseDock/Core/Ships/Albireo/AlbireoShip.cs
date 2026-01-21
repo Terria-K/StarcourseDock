@@ -120,7 +120,7 @@ internal sealed class AlbireoShip : IRegisterable
                 {
                     ship = new()
                     {
-                        x = 7,
+                        x = -1,
                         hull = 12,
                         hullMax = 12,
                         shieldMaxBase = 4,

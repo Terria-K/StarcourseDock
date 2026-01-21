@@ -35,6 +35,7 @@ internal sealed class AtlasShip : IRegisterable
             {
                 ship = new()
                 {
+                    x = 3,
                     hull = 7,
                     hullMax = 7,
                     shieldMaxBase = 2,

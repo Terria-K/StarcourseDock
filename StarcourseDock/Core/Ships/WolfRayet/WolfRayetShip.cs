@@ -106,6 +106,7 @@ internal sealed class WolfRayetShip : IRegisterable
                 {
                     ship = new()
                     {
+                        x = -3,
                         hull = 15,
                         hullMax = 15,
                         shieldMaxBase = 8,
