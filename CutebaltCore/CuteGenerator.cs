@@ -92,19 +92,19 @@ internal class CuteGenerator : IIncrementalGenerator
                 static (ctx, _) =>
                 {
                     var syntax = (TypeDeclarationSyntax)ctx.Node;
-                    var interfaces = ctx.SemanticModel.GetDeclaredSymbol(syntax)?.Interfaces;
-
-                    if (interfaces is null)
+                    var symbol = ctx.SemanticModel.GetDeclaredSymbol(syntax);
+                    if (symbol is null)
                     {
                         return null;
                     }
+                    var interfaces = symbol.Interfaces;
 
                     foreach (var interf in interfaces)
                     {
                         string fullname = interf.ToDisplayString();
                         if (fullname == "CutebaltCore.ILocalProvider" || fullname == "Nickel.ILocalizationProvider<string>")
                         {
-                            return syntax;
+                            return new LocalType(symbol.ToFullDisplayString(), symbol.Name, fullname == "Nickel.ILocalizationProvider<string>");
                         }
                     }
 

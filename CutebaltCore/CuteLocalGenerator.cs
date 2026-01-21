@@ -8,17 +8,20 @@ using YamlDotNet.Serialization;
 
 namespace CutebaltCore;
 
+
+public record class LocalType(string FullClassName, string Name, bool IsProvider);
+
 internal static class CuteLocalGenerator
 {
     public static void Generate(
         SourceProductionContext ctx,
         Compilation comp,
-        ImmutableArray<TypeDeclarationSyntax?> syn,
+        ImmutableArray<LocalType?> syn,
         ImmutableArray<string> synString
     )
     {
-        HashSet<(string key, string? value)> keys = new HashSet<(string key, string? value)>();
-        Regex regex = new Regex(@"{{([ \w\.\-_]+)}}");
+        var keys = new HashSet<(string key, string? value)>();
+        var regex = new Regex(@"{{([ \w\.\-_]+)}}");
         if (syn.IsDefaultOrEmpty)
         {
             return;
@@ -29,9 +32,9 @@ internal static class CuteLocalGenerator
         membersAndValue.Add("en", []);
 
         ulong typeId = 0;
-        StringBuilder types = new StringBuilder();
-        StringBuilder methods = new StringBuilder();
-        StringBuilder locals = new StringBuilder();
+        var types = new StringBuilder();
+        var methods = new StringBuilder();
+        var locals = new StringBuilder();
 
         foreach (var text in synString)
         {
@@ -70,7 +73,7 @@ internal static class CuteLocalGenerator
 
                         if (d.Value is List<object> arr)
                         {
-                            StringBuilder builderArr = new StringBuilder();
+                            var builderArr = new StringBuilder();
                             string key = d.Key.ToString();
 
                             foreach (var s in arr)
@@ -84,7 +87,7 @@ internal static class CuteLocalGenerator
                 }
             }
 
-            StringBuilder fieldBuilder = new StringBuilder();
+            var fieldBuilder = new StringBuilder();
             foreach (var allKey in keys)
             {
                 string lang = "en";
@@ -101,9 +104,9 @@ internal static class CuteLocalGenerator
                 var match = regex.Match(value);
                 if (match is not null)
                 {
-                    StringBuilder replacedValues = new StringBuilder();
-                    HashSet<string> matchedValues = new HashSet<string>();
-                    List<string> functionParamatersValues = new List<string>();
+                    var replacedValues = new StringBuilder();
+                    var matchedValues = new HashSet<string>();
+                    var functionParamatersValues = new List<string>();
                     Match currentMatch = match;
                     while (currentMatch.Success)
                     {
@@ -177,11 +180,16 @@ internal static class CuteLocalGenerator
             );
         }
 
-        StringBuilder builder = new StringBuilder();
+        var builder = new StringBuilder();
 
-        foreach (var symbol in GetSerializableSymbols(comp, syn, "ILocalizationProvider"))
+        foreach (var symbol in syn)
         {
-            var className = QuoteWriter.AddExpression(() => symbol.ToFullDisplayString());
+            if (symbol is null || !symbol.IsProvider)
+            {
+                continue;
+            }
+
+            var className = QuoteWriter.AddExpression(() => symbol.FullClassName);
 
             var bodyLine = QuoteWriter.AddStatement(sb =>
             {
@@ -192,7 +200,7 @@ internal static class CuteLocalGenerator
 
             foreach (var lang in availableLanguages)
             {
-                StringBuilder fields = new StringBuilder();
+                var fields = new StringBuilder();
                 if (membersAndValue.TryGetValue(lang, out var list))
                 {
                     foreach (var l in list)
@@ -253,36 +261,5 @@ internal static class CuteLocalGenerator
                 """
             );
         }
-    }
-
-    private static IEnumerable<INamedTypeSymbol> GetSerializableSymbols(
-        Compilation compilation,
-        ImmutableArray<TypeDeclarationSyntax?> syn,
-        string serialize
-    )
-    {
-        foreach (var partialClass in syn)
-        {
-            if (partialClass is null)
-            {
-                continue;
-            }
-            var model = compilation.GetSemanticModel(partialClass.SyntaxTree);
-            var symbol = model.GetDeclaredSymbol(partialClass);
-            if (symbol is null)
-            {
-                continue;
-            }
-
-            if (HasInterfaces(symbol, serialize))
-            {
-                yield return symbol;
-            }
-        }
-    }
-
-    private static bool HasInterfaces(INamedTypeSymbol symbol, string interfaceName)
-    {
-        return symbol.Interfaces.Any(intfa => intfa.Name.StartsWith(interfaceName));
     }
 }
