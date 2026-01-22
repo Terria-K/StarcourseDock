@@ -6,12 +6,30 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CutebaltCore;
 
+internal abstract record class RegisterType 
+{
+    internal sealed record class Patchable(
+        string ClassName,
+        string ShortClassName,
+        string Namespace,
+        HashSet<PatchSymbol> Symbols,
+        Dictionary<string, List<string>> Prefixes,
+        Dictionary<string, List<string>> Postfixes,
+        Dictionary<string, List<string>> Finalizers,
+        Dictionary<string, List<string>> Transpilers
+    ) 
+        : RegisterType;
+    internal sealed record class Registerable(string ClassName) : RegisterType;
+    internal sealed record class ManualPatchable(string ClassName) : RegisterType;
+}
+
+internal sealed record class PatchSymbol(string TypeSym, string MethodSym, bool IsVirtual, int? Priority);
+
 internal static class CutePatchGenerator
 {
     public static void Generate(
         SourceProductionContext ctx,
-        Compilation comp,
-        ImmutableArray<TypeDeclarationSyntax?> syn
+        ImmutableArray<RegisterType?> syn
     )
     {
         if (syn.IsDefaultOrEmpty)
@@ -20,68 +38,73 @@ internal static class CutePatchGenerator
         }
 
         string body = "";
-
-        foreach (var symbol in GetSerializableSymbols(comp, syn, "IRegisterable"))
-        {
-            var className = QuoteWriter.AddExpression(() => symbol.ToFullDisplayString());
-
-            var bodyLine = QuoteWriter.AddStatement(sb =>
-            {
-                sb.AppendLine($"        {className}.Register(package, helper);");
-
-                return sb.ToString();
-            });
-
-            body += bodyLine;
-        }
-
         string anotherBody = "";
-
-        foreach (var symbol in GetSerializableSymbols(comp, syn, "IPatchable"))
-        {
-            StringBuilder builder = new StringBuilder();
-            WritePatches(symbol, builder);
-            anotherBody += QuoteWriter.AddStatement(sb =>
-            {
-                sb.AppendLine($"        {symbol.ToFullDisplayString()}.Patch(harmony);");
-                return sb.ToString();
-            });
-            var ns = symbol.GetSymbolNamespace();
-            ctx.AddSource(
-                $"CutebaltCore.{symbol.Name}.g.cs",
-                $$"""
-                // Source Generated Code by CutebaltCore  :>>>>>>
-                using HarmonyLib;
-                using Nickel;
-
-                namespace {{ns}};
-
-                partial class {{symbol.Name}} 
-                {
-                    public static void Patch(IHarmony harmony) 
-                    {
-                {{builder}}
-                    }
-                }
-
-                """
-            );
-        }
-
         string justAnotherBody = "";
 
-        foreach (var symbol in GetSerializableSymbols(comp, syn, "IManualPatchable"))
+        foreach (var t in syn)
         {
-            var className = QuoteWriter.AddExpression(symbol.ToFullDisplayString);
-
-            var bodyLine = QuoteWriter.AddStatement(sb =>
+            switch (t) 
             {
-                sb.AppendLine($"        {className}.ManualPatch(harmony);");
+                case RegisterType.Registerable reg:
+                {
+                    var className = QuoteWriter.AddExpression(() => reg.ClassName);
 
-                return sb.ToString();
-            });
+                    var bodyLine = QuoteWriter.AddStatement(sb =>
+                    {
+                        sb.AppendLine($"        {className}.Register(package, helper);");
 
-            justAnotherBody += bodyLine;
+                        return sb.ToString();
+                    });
+
+                    body += bodyLine;
+                    break;
+                }
+                case RegisterType.Patchable patchable:
+                {
+                    var builder = new StringBuilder();
+                    WritePatches(patchable, builder);
+                    anotherBody += QuoteWriter.AddStatement(sb =>
+                    {
+                        sb.AppendLine($"        {patchable.ClassName}.Patch(harmony);");
+                        return sb.ToString();
+                    });
+
+                    ctx.AddSource(
+                        $"CutebaltCore.{patchable.ShortClassName}.g.cs",
+                        $$"""
+                        // Source Generated Code by CutebaltCore  :>>>>>>
+                        using HarmonyLib;
+                        using Nickel;
+
+                        namespace {{patchable.Namespace}};
+
+                        partial class {{patchable.ShortClassName}} 
+                        {
+                            public static void Patch(IHarmony harmony) 
+                            {
+                        {{builder}}
+                            }
+                        }
+
+                        """
+                    );
+                    break;
+                }
+                case RegisterType.ManualPatchable manualPatchable:
+                {
+                    var className = QuoteWriter.AddExpression(() => manualPatchable.ClassName);
+
+                    var bodyLine = QuoteWriter.AddStatement(sb =>
+                    {
+                        sb.AppendLine($"        {className}.ManualPatch(harmony);");
+
+                        return sb.ToString();
+                    });
+
+                    justAnotherBody += bodyLine;
+                    break;
+                }
+            }
         }
 
         var reversePatchableQuotes = $$"""
@@ -137,112 +160,18 @@ internal static class CutePatchGenerator
         );
     }
 
-    private static void WritePatches(INamedTypeSymbol symbol, StringBuilder builder)
+    private static void WritePatches(RegisterType.Patchable patchable, StringBuilder builder)
     {
-        HashSet<(string typeSym, string, bool, int?)> symbols =
-            new HashSet<(string typeSym, string, bool, int?)>();
-
-        Dictionary<string, List<string>> prefixBatches = new Dictionary<string, List<string>>();
-
-        Dictionary<string, List<string>> postfixBatches = new Dictionary<string, List<string>>();
-
-        Dictionary<string, List<string>> finalizerBatches = new Dictionary<string, List<string>>();
-
-        Dictionary<string, List<string>> transpilerBatches = new Dictionary<string, List<string>>();
-
-        var members = symbol.GetMembers();
-        foreach (var member in members)
-        {
-            if (member is IMethodSymbol method)
-            {
-                var name = method.ToDisplayString();
-                int last = name.IndexOf('(');
-                name = name.Substring(0, last);
-
-                var attributes = method.GetAttributes();
-
-                foreach (var attribute in attributes)
-                {
-                    var type = attribute.AttributeClass!.TypeArguments[0].ToFullDisplayString();
-                    var methodName = attribute.ConstructorArguments[0];
-                    var priority = attribute.ConstructorArguments[1];
-
-                    symbols.Add(
-                        (
-                            type,
-                            methodName.ToCSharpString(),
-                            attribute.AttributeClass.Name.Contains("Virtual"),
-                            int.Parse(priority.Value!.ToString())
-                        )
-                    );
-
-                    switch (attribute.AttributeClass.Name)
-                    {
-                        case "OnPrefix":
-                            AddToBatch(
-                                prefixBatches,
-                                $"{type}+{methodName.ToCSharpString()}",
-                                name
-                            );
-                            break;
-                        case "OnPostfix":
-                            AddToBatch(
-                                postfixBatches,
-                                $"{type}+{methodName.ToCSharpString()}",
-                                name
-                            );
-                            break;
-                        case "OnTranspiler":
-                            AddToBatch(
-                                transpilerBatches,
-                                $"{type}+{methodName.ToCSharpString()}",
-                                name
-                            );
-                            break;
-                        case "OnFinalizer":
-                            AddToBatch(
-                                finalizerBatches,
-                                $"{type}+{methodName.ToCSharpString()}",
-                                name
-                            );
-                            break;
-                        case "OnVirtualPrefix":
-                            AddToBatch(
-                                prefixBatches,
-                                $"{type}+{methodName.ToCSharpString()}",
-                                name
-                            );
-                            break;
-                        case "OnVirtualPostfix":
-                            AddToBatch(
-                                postfixBatches,
-                                $"{type}+{methodName.ToCSharpString()}",
-                                name
-                            );
-                            break;
-                        case "OnVirtualTranspiler":
-                            AddToBatch(
-                                transpilerBatches,
-                                $"{type}+{methodName.ToCSharpString()}",
-                                name
-                            );
-                            break;
-                        case "OnVirtualFinalizer":
-                            AddToBatch(
-                                finalizerBatches,
-                                $"{type}+{methodName.ToCSharpString()}",
-                                name
-                            );
-                            break;
-                    }
-                }
-            }
-        }
+        var symbols = patchable.Symbols;
+        var prefixBatches = patchable.Prefixes;
+        var postfixBatches = patchable.Postfixes;
+        var finalizerBatches = patchable.Finalizers;
+        var transpilerBatches = patchable.Transpilers;
 
         foreach (var sym in symbols)
         {
             RETRY:
-            string key = $"{sym.Item1}+{sym.Item2}";
+            string key = $"{sym.TypeSym}+{sym.MethodSym}";
             int maxCount = 0;
             if (prefixBatches.TryGetValue(key, out var pb))
             {
@@ -273,7 +202,7 @@ internal static class CutePatchGenerator
 
             string secondArgs = "";
 
-            if (sym.Item4 is { } priority)
+            if (sym.Priority is { } priority)
             {
                 secondArgs = ", " + priority;
             }
@@ -318,8 +247,8 @@ internal static class CutePatchGenerator
             }
 
             string harmonyPatch = $"""
-                        harmony.{(sym.Item3 ? "PatchVirtual" : "Patch")}(
-                            AccessTools.DeclaredMethod(typeof({sym.Item1}), {sym.Item2}),
+                        harmony.{(sym.IsVirtual ? "PatchVirtual" : "Patch")}(
+                            AccessTools.DeclaredMethod(typeof({sym.TypeSym}), {sym.MethodSym}),
                         /* prefix */    {TryAddTrailingCommas(
                     prefix,
                     postfix,
@@ -356,48 +285,5 @@ internal static class CutePatchGenerator
             }
             return target;
         }
-
-        void AddToBatch(Dictionary<string, List<string>> batch, string key, string methodName)
-        {
-            if (batch.TryGetValue(key, out var val))
-            {
-                val.Add(methodName);
-                return;
-            }
-
-            var list = new List<string>() { methodName };
-            batch.Add(key, list);
-        }
-    }
-
-    private static IEnumerable<INamedTypeSymbol> GetSerializableSymbols(
-        Compilation compilation,
-        ImmutableArray<TypeDeclarationSyntax?> syn,
-        string serialize
-    )
-    {
-        foreach (var partialClass in syn)
-        {
-            if (partialClass is null)
-            {
-                continue;
-            }
-            var model = compilation.GetSemanticModel(partialClass.SyntaxTree);
-            var symbol = model.GetDeclaredSymbol(partialClass);
-            if (symbol is null)
-            {
-                continue;
-            }
-
-            if (HasInterfaces(symbol, serialize))
-            {
-                yield return symbol;
-            }
-        }
-    }
-
-    private static bool HasInterfaces(INamedTypeSymbol symbol, string interfaceName)
-    {
-        return symbol.Interfaces.Any(intfa => intfa.Name.StartsWith(interfaceName));
     }
 }

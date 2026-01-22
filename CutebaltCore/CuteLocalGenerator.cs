@@ -15,7 +15,6 @@ internal static class CuteLocalGenerator
 {
     public static void Generate(
         SourceProductionContext ctx,
-        Compilation comp,
         ImmutableArray<LocalType?> syn,
         ImmutableArray<string> synString
     )

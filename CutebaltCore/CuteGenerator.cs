@@ -1,5 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Text;
+﻿using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -41,28 +40,144 @@ internal class CuteGenerator : IIncrementalGenerator
         });
 
         var patchProvider = context
-            .SyntaxProvider.CreateSyntaxProvider(
+            .SyntaxProvider.CreateSyntaxProvider<RegisterType?>(
                 static (node, _) =>
                     node is TypeDeclarationSyntax syntax && syntax.BaseList?.Types.Count > 0,
                 static (ctx, _) =>
                 {
                     var syntax = (TypeDeclarationSyntax)ctx.Node;
-                    var interfaces = ctx.SemanticModel.GetDeclaredSymbol(syntax)?.Interfaces;
-
-                    if (interfaces is null)
+                    var symbol = ctx.SemanticModel.GetDeclaredSymbol(syntax);
+                    if (symbol is null)
                     {
                         return null;
                     }
 
+                    var interfaces = symbol.Interfaces;
+
                     foreach (var interf in interfaces)
                     {
                         string fullname = interf.ToDisplayString();
-                        if (
-                            fullname == "CutebaltCore.IRegisterable"
-                            || fullname == "CutebaltCore.IPatchable"
-                        )
+                        if (fullname == "CutebaltCore.IRegisterable")
                         {
-                            return syntax;
+                            return new RegisterType.Registerable(symbol.ToFullDisplayString());
+                        }
+                        else if (fullname == "CutebaltCore.IPatchable")
+                        {
+                            var symbols = new HashSet<PatchSymbol>();
+                            var prefixBatches = new Dictionary<string, List<string>>();
+
+                            var postfixBatches = new Dictionary<string, List<string>>();
+
+                            var finalizerBatches = new Dictionary<string, List<string>>();
+
+                            var transpilerBatches = new Dictionary<string, List<string>>();
+
+                            var members = symbol.GetMembers();
+                            foreach (var member in members)
+                            {
+                                if (member is IMethodSymbol method)
+                                {
+                                    var name = method.ToDisplayString();
+                                    int last = name.IndexOf('(');
+                                    name = name.Substring(0, last);
+
+                                    var attributes = method.GetAttributes();
+
+                                    foreach (var attribute in attributes)
+                                    {
+                                        var type = attribute.AttributeClass!.TypeArguments[0].ToFullDisplayString();
+                                        var methodName = attribute.ConstructorArguments[0];
+                                        var priority = attribute.ConstructorArguments[1];
+
+                                        symbols.Add(
+                                            new PatchSymbol(
+                                                type,
+                                                methodName.ToCSharpString(),
+                                                attribute.AttributeClass.Name.Contains("Virtual"),
+                                                int.Parse(priority.Value!.ToString())
+                                            )
+                                        );
+
+                                        switch (attribute.AttributeClass.Name)
+                                        {
+                                            case "OnPrefix":
+                                                AddToBatch(
+                                                    prefixBatches,
+                                                    $"{type}+{methodName.ToCSharpString()}",
+                                                    name
+                                                );
+                                                break;
+                                            case "OnPostfix":
+                                                AddToBatch(
+                                                    postfixBatches,
+                                                    $"{type}+{methodName.ToCSharpString()}",
+                                                    name
+                                                );
+                                                break;
+                                            case "OnTranspiler":
+                                                AddToBatch(
+                                                    transpilerBatches,
+                                                    $"{type}+{methodName.ToCSharpString()}",
+                                                    name
+                                                );
+                                                break;
+                                            case "OnFinalizer":
+                                                AddToBatch(
+                                                    finalizerBatches,
+                                                    $"{type}+{methodName.ToCSharpString()}",
+                                                    name
+                                                );
+                                                break;
+                                            case "OnVirtualPrefix":
+                                                AddToBatch(
+                                                    prefixBatches,
+                                                    $"{type}+{methodName.ToCSharpString()}",
+                                                    name
+                                                );
+                                                break;
+                                            case "OnVirtualPostfix":
+                                                AddToBatch(
+                                                    postfixBatches,
+                                                    $"{type}+{methodName.ToCSharpString()}",
+                                                    name
+                                                );
+                                                break;
+                                            case "OnVirtualTranspiler":
+                                                AddToBatch(
+                                                    transpilerBatches,
+                                                    $"{type}+{methodName.ToCSharpString()}",
+                                                    name
+                                                );
+                                                break;
+                                            case "OnVirtualFinalizer":
+                                                AddToBatch(
+                                                    finalizerBatches,
+                                                    $"{type}+{methodName.ToCSharpString()}",
+                                                    name
+                                                );
+                                                break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            return new RegisterType.Patchable(symbol.ToFullDisplayString(), symbol.Name, symbol.GetSymbolNamespace(), symbols, prefixBatches, postfixBatches, finalizerBatches, transpilerBatches);
+
+                            static void AddToBatch(Dictionary<string, List<string>> batch, string key, string methodName)
+                            {
+                                if (batch.TryGetValue(key, out var val))
+                                {
+                                    val.Add(methodName);
+                                    return;
+                                }
+
+                                var list = new List<string>() { methodName };
+                                batch.Add(key, list);
+                            }
+                        }
+                        else if (fullname == "CutebaltCore.IManualPatchable")
+                        {
+                            return new RegisterType.ManualPatchable(symbol.ToFullDisplayString());
                         }
                     }
 
@@ -75,7 +190,7 @@ internal class CuteGenerator : IIncrementalGenerator
 
         context.RegisterImplementationSourceOutput(
             patchCompilation,
-            static (ctx, source) => CutePatchGenerator.Generate(ctx, source.Left, source.Right)
+            static (ctx, source) => CutePatchGenerator.Generate(ctx, source.Right)
         );
 
         var ymlFiles = context.AdditionalTextsProvider.Where(static file => file.Path.EndsWith(".yaml"));
@@ -118,7 +233,7 @@ internal class CuteGenerator : IIncrementalGenerator
 
         context.RegisterSourceOutput(
             localAndYmlCompilation,
-            static (ctx, source) => CuteLocalGenerator.Generate(ctx, source.Left.Left, source.Left.Right, source.Right.Right)
+            static (ctx, source) => CuteLocalGenerator.Generate(ctx, source.Left.Right, source.Right.Right)
         );
 
         var projectDir = context.AnalyzerConfigOptionsProvider
@@ -137,67 +252,6 @@ internal class CuteGenerator : IIncrementalGenerator
         context.RegisterSourceOutput(
             projectPngCompilation,
             static (ctx, source) => CuteImagePathGenerator.Generate(ctx, source.Left.Left, source.Left.Right, source.Right)
-        );
-    }
-}
-
-internal static class CuteImagePathGenerator
-{
-    public static void Generate(
-        SourceProductionContext ctx,
-        Compilation comp,
-        ImmutableArray<string> synString,
-        string? projectDir
-    )
-    {
-        if (projectDir is null)
-        {
-            return;
-        }
-        var syn = comp.SyntaxTrees.First(x => x.HasCompilationUnitRoot);
-        var dir = syn.FilePath;
-        List<(string, string)> sprites = new List<(string, string)>();
-        foreach (var str in synString)
-        {
-            string dirName = Path.GetFileName(Path.GetDirectoryName(str));
-            string filename = Path.GetFileNameWithoutExtension(str);
-
-            string relativeUri = new Uri(projectDir).MakeRelativeUri(new Uri(str)).ToString();
-
-            sprites.Add((dirName + "_" + filename, relativeUri));
-        }
-
-        StringBuilder fieldBuilder = new StringBuilder();
-        StringBuilder assignmentBuilder = new StringBuilder();
-
-        foreach (var sprite in sprites)
-        {
-            fieldBuilder.AppendLine($"public static ISpriteEntry {sprite.Item1} = null!;");
-            assignmentBuilder.AppendLine($"""
-            {sprite.Item1} = helper.Content.Sprites.RegisterSprite(
-                package.PackageRoot.GetRelativeFile("{sprite.Item2}")
-            );
-            """);
-        }
-
-        ctx.AddSource(
-            "Sprites.g.cs",
-            $$"""
-            using Nanoray.PluginManager;
-            using Nickel;
-
-            namespace Teuria.StarcourseDock;
-
-            internal static class Sprites 
-            {
-            {{fieldBuilder}}
-
-                public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
-                {
-            {{assignmentBuilder}}
-                }
-            }
-            """
         );
     }
 }
