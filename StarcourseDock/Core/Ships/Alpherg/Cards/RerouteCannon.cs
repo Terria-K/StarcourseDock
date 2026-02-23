@@ -33,7 +33,7 @@ internal class RerouteCannon : Card, IRegisterable
         {
             Upgrade.A => new()
             {
-                recycle = true,
+                retain = true,
                 cost = 0,
                 description = Localization.Str_ship_Alpherg_card_RerouteCannon_description(), 
                 unremovableAtShops = true,
@@ -47,7 +47,7 @@ internal class RerouteCannon : Card, IRegisterable
             _ => new()
             {
                 description = Localization.Str_ship_Alpherg_card_RerouteCannon_description(), 
-                cost = 1,
+                cost = 0,
                 unremovableAtShops = true,
             },
         };

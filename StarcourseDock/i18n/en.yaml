@@ -132,10 +132,10 @@ ship:
     artifact: 
       Piscium: 
         name: PISCIUM DANCE
-        description: "For everytime your ship <c=action>attacks</c>, <c=action>swap</c> the scaffold at the opposite side of the ship."
+        description: "For everytime your ship <c=action>attacks</c>, put the <c=part>empty</c> space at the opposite side of the ship."
       RoutedCannon: 
         name: ROUTED CANNON
-        description: "Allows ship to <c=action>attack</c> from empty space."
+        description: "Allows ship to <c=action>attack</c> from <c=part>empty</c> space."
       TidalBooster: 
         name: TIDAL BOOSTER
         description: 
