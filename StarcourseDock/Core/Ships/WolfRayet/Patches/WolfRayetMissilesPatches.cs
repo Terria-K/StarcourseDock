@@ -1,14 +1,15 @@
 using System.Reflection.Emit;
-using CutebaltCore;
 using HarmonyLib;
 using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal partial class WolfRayetMissilesPatches : IPatchable
+[HarmonyPatch]
+internal partial class WolfRayetMissilesPatches
 {
-    [OnPostfix<Ship>(nameof(Ship.OnAfterTurn))]
-    private static void OnAfterTurn_Postfix(Ship __instance, Combat c)
+    [HarmonyPatch(typeof(Ship), nameof(Ship.OnAfterTurn))]
+    [HarmonyPostfix]
+    private static void Ship_OnAfterTurn_Postfix(Ship __instance, Combat c)
     {
         if (__instance.GetPartTypeCount(WolfRayetShip.MissilePartType) == 0)
         {
@@ -21,7 +22,8 @@ internal partial class WolfRayetMissilesPatches : IPatchable
         }
     }
 
-    [OnPrefix<Ship>(nameof(Ship.NormalDamage))]
+    [HarmonyPatch(typeof(Ship), nameof(Ship.NormalDamage))]
+    [HarmonyPrefix]
     private static void Ship_NormalDamage_Prefix(Ship __instance, int? maybeWorldGridX)
     {
         if (maybeWorldGridX is null)
@@ -47,7 +49,8 @@ internal partial class WolfRayetMissilesPatches : IPatchable
         }
     }
 
-    [OnPostfix<Ship>(nameof(Ship.RenderPartUI))]
+    [HarmonyPatch(typeof(Ship), nameof(Ship.RenderPartUI))]
+    [HarmonyPostfix]
     private static void Ship_RenderPartUI_Postfix(
         Ship __instance,
         G g,
@@ -77,7 +80,8 @@ internal partial class WolfRayetMissilesPatches : IPatchable
         Draw.Sprite(StableSpr.icons_heat, v.x + 9, v.y, color: color);
     }
 
-    [OnTranspiler<Ship>(nameof(Ship.RenderPartUI))]
+    [HarmonyPatch(typeof(Ship), nameof(Ship.RenderPartUI))]
+    [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> Ship_RenderPartUI_Transpiler(
         IEnumerable<CodeInstruction> instructions,
         ILGenerator generator
@@ -153,7 +157,8 @@ internal partial class WolfRayetMissilesPatches : IPatchable
             .Generate();
     }
 
-    [OnPrefix<TTGlossary>(nameof(TTGlossary.BuildIconAndText))]
+    [HarmonyPatch(typeof(TTGlossary), nameof(TTGlossary.BuildIconAndText))]
+    [HarmonyPrefix]
     private static bool TTGlossary_BuildIconAndText_Prefix(
         TTGlossary __instance,
         ref ValueTuple<Spr?, string> __result

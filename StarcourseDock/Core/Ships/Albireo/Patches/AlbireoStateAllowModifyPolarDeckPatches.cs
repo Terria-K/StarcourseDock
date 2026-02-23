@@ -1,11 +1,13 @@
-using CutebaltCore;
+using HarmonyLib;
 using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class AlbireoStateAllowModifyPolarDeckPatches : IPatchable
+[HarmonyPatch]
+internal sealed partial class AlbireoStateAllowModifyPolarDeckPatches
 {
-    [OnPrefix<State>(nameof(State.EndRun))]
+    [HarmonyPatch(typeof(State), nameof(State.EndRun))]
+    [HarmonyPrefix]
     private static void State_EndRun_Prefix(State __instance)
     {
         if (__instance.route is not Combat)
@@ -16,7 +18,8 @@ internal sealed partial class AlbireoStateAllowModifyPolarDeckPatches : IPatchab
         }
     }
 
-    [OnPrefix<Combat>(nameof(Combat.ReturnCardsToDeck))]
+    [HarmonyPatch(typeof(Combat), nameof(Combat.ReturnCardsToDeck))]
+    [HarmonyPrefix]
     private static void Combat_ReturnCardsToDeck_Prefix(Combat __instance, State state)
     {
         if (!state.HasArtifact<DoubleDeck>())

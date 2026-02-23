@@ -30,7 +30,7 @@ internal sealed class BurstDrone : Card, IRegisterable
 	{
 		return new CardData
 		{
-			cost = 0,
+			cost = 1,
             temporary = true,
             exhaust = true,
             retain = true,

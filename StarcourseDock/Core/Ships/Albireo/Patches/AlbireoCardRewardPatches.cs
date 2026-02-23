@@ -1,12 +1,13 @@
 using System.Runtime.InteropServices;
-using CutebaltCore;
-using Nickel;
+using HarmonyLib;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class AlbireoCardRewardPatches : IPatchable
+[HarmonyPatch]
+internal sealed partial class AlbireoCardRewardPatches
 {
-    [OnPostfix<ACardOffering>(nameof(ACardOffering.BeginWithRoute))]
+    [HarmonyPatch(typeof(ACardOffering), nameof(ACardOffering.BeginWithRoute))]
+    [HarmonyPrefix]
     private static void ACardOffering_BeginWithRoute_Postfix(ACardOffering __instance, State s, in Route __result)
     {
         if (__result is not CardReward cardReward)
@@ -72,7 +73,9 @@ internal sealed partial class AlbireoCardRewardPatches : IPatchable
 
     }
 
-    [OnPostfix<State>(nameof(State.PopulateRun), -400)]
+    [HarmonyPatch(typeof(State), nameof(State.PopulateRun))]
+    [HarmonyPriority(-400)]
+    [HarmonyPostfix]
     private static void State_PopulateRun_Postfix(State __instance)
     {
         if (!__instance.HasArtifactFromColorless<DoubleDeck>())

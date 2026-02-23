@@ -1,12 +1,13 @@
 using System.Reflection.Emit;
-using CutebaltCore;
 using HarmonyLib;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class AlphergRoutedCannonPatches : IPatchable
+[HarmonyPatch]
+internal sealed partial class AlphergRoutedCannonPatches
 {
-    [OnPrefix<AAttack>(nameof(AAttack.GetTooltips))]
+    [HarmonyPatch(typeof(AAttack), nameof(AAttack.GetTooltips))]
+    [HarmonyPrefix]
     internal static void AAttack_GetTooltips_Prefix(State s)
     {
         var routedCannon = s.GetArtifactFromColorless<RoutedCannon>();
@@ -32,7 +33,8 @@ internal sealed partial class AlphergRoutedCannonPatches : IPatchable
         }
     }
 
-    [OnPostfix<AVolleyAttackFromAllCannons>(nameof(AVolleyAttackFromAllCannons.Begin))]
+    [HarmonyPatch(typeof(AVolleyAttackFromAllCannons), nameof(AVolleyAttackFromAllCannons.Begin))]
+    [HarmonyPostfix]
     internal static void AVolleyAttackFromAllCannons_Begin_Postfix(
         AVolleyAttackFromAllCannons __instance,
         State s,
@@ -59,7 +61,8 @@ internal sealed partial class AlphergRoutedCannonPatches : IPatchable
         c.QueueImmediate(listOfAttacks);
     }
 
-    [OnTranspiler<AAttack>(nameof(AAttack.Begin))]
+    [HarmonyPatch(typeof(AAttack), nameof(AAttack.Begin))]
+    [HarmonyTranspiler]
     internal static IEnumerable<CodeInstruction> AAttack_Begin_Transpiler(
         IEnumerable<CodeInstruction> instructions,
         ILGenerator generator

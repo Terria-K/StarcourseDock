@@ -1,23 +1,24 @@
-using CutebaltCore;
 using HarmonyLib;
-using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal partial class AAttack_Global_Patches : IPatchable
+[HarmonyPatch]
+internal partial class AAttack_Global_Patches
 {
     public static AAttack? Global_AAttack;
     public static State? Global_State;
 
-    [OnPrefix<AAttack>("Begin")]
+    [HarmonyPatch(typeof(AAttack), nameof(AAttack.Begin))]
+    [HarmonyPrefix]
     private static void GetGlobalState_Prefix(State s, AAttack __instance)
     {
         Global_AAttack = __instance;
         Global_State = s;
     }
 
-    [OnPostfix<AAttack>("Begin")]
-    private static void GetGlobalState_Postfix(State s, AAttack __instance)
+    [HarmonyPatch(typeof(AAttack), nameof(AAttack.Begin))]
+    [HarmonyPostfix]
+    private static void GetGlobalState_Postfix()
     {
         Global_AAttack = null;
         Global_State = null;

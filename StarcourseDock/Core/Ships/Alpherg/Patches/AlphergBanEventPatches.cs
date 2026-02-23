@@ -1,10 +1,12 @@
-using CutebaltCore;
+using HarmonyLib;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class AlphergBanEventPaches : IPatchable
+[HarmonyPatch]
+internal sealed partial class AlphergBanEventPaches
 {
-    [OnPrefix<StoryNode>(nameof(StoryNode.Filter))]
+    [HarmonyPatch(typeof(StoryNode), nameof(StoryNode.Filter))]
+    [HarmonyPrefix]
     internal static bool StoryNode_Filter_Prefix(string key, State s, ref bool __result)
     {
         if (s.ship.key == AlphergShip.AlphergEntry.UniqueName && key == "AddScaffold")

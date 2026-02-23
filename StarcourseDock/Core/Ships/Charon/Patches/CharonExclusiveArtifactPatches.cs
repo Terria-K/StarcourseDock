@@ -1,11 +1,12 @@
-using System.Runtime.CompilerServices;
-using CutebaltCore;
+using HarmonyLib;
 
 namespace Teuria.StarcourseDock;
 
-internal partial class CharonExclusiveArtifactPatches : IPatchable
+[HarmonyPatch]
+internal partial class CharonExclusiveArtifactPatches
 {
-    [OnPostfix<ArtifactReward>(nameof(ArtifactReward.GetBlockedArtifacts))]
+    [HarmonyPatch(typeof(ArtifactReward), nameof(ArtifactReward.GetBlockedArtifacts))]
+    [HarmonyPostfix]
     private static void GetBlockedArtifacts_Postfix(HashSet<Type> __result, State s)
     {
         if (s.ship.key == CharonShip.CharonEntry.UniqueName)

@@ -1,10 +1,12 @@
-using CutebaltCore;
+using HarmonyLib;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class AlbireoCardRenderPatches : IPatchable
+[HarmonyPatch]
+internal sealed partial class AlbireoCardRenderPatches
 {
-    [OnPrefix<Card>(nameof(Card.Render))]
+    [HarmonyPatch(typeof(Card), nameof(Card.Render))]
+    [HarmonyPrefix]
     private static void Card_Render_Prefix(Card __instance, G g, Vec? posOverride = null, State? fakeState = null, bool ignoreAnim = false, bool ignoreHover = false, bool hideFace = false, bool hilight = false, bool showRarity = false, bool autoFocus = false, UIKey? keyOverride = null, OnMouseDown? onMouseDown = null, OnMouseDownRight? onMouseDownRight = null, OnInputPhase? onInputPhase = null, double? overrideWidth = null, UIKey? leftHint = null, UIKey? rightHint = null, UIKey? upHint = null, UIKey? downHint = null, int? renderAutopilot = null, bool? forceIsInteractible = null, bool reportTextBoxesForLocTest = false, bool isInCombatHand = false)
     {
         if (__instance.flipAnim <= 0 && __instance.TryGetLinkedCard(out Card? linkedCard))

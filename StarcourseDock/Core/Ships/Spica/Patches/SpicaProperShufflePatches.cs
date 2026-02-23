@@ -1,12 +1,13 @@
 using System.Reflection.Emit;
-using CutebaltCore;
 using HarmonyLib;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class SpicaProperShufflePatches : IPatchable
+[HarmonyPatch]
+internal sealed partial class SpicaProperShufflePatches
 {
-    [OnTranspiler<AShuffleShip>(nameof(AShuffleShip.Begin))]
+    [HarmonyPatch(typeof(AShuffleShip), nameof(AShuffleShip.Begin))]
+    [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> AShuffleShip_Begin_Transpiler(
         IEnumerable<CodeInstruction> instructions,
         ILGenerator generator

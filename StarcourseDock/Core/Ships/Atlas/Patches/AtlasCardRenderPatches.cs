@@ -1,10 +1,12 @@
-using CutebaltCore;
+using HarmonyLib;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class AtlasCardRenderPatches : IPatchable
+[HarmonyPatch]
+internal sealed partial class AtlasCardRenderPatches
 {
-    [OnPrefix<Card>(nameof(Card.Render))]
+    [HarmonyPatch(typeof(Card), nameof(Card.Render))]
+    [HarmonyPrefix]
     public static void Card_Render_Prefix(Card __instance, G g, State? fakeState, Vec? posOverride, double? overrideWidth, bool __runOriginal)
     {
         if (!__runOriginal)

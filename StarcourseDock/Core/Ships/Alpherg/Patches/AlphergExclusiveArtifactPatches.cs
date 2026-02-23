@@ -1,10 +1,12 @@
-using CutebaltCore;
+using HarmonyLib;
 
 namespace Teuria.StarcourseDock;
 
-internal partial class AlphergExclusiveArtifactPatches : IPatchable
+[HarmonyPatch]
+internal partial class AlphergExclusiveArtifactPatches
 {
-    [OnPostfix<ArtifactReward>(nameof(ArtifactReward.GetBlockedArtifacts))]
+    [HarmonyPatch(typeof(ArtifactReward), nameof(ArtifactReward.GetBlockedArtifacts))]
+    [HarmonyPostfix]
     private static void GetBlockedArtifacts_Postfix(HashSet<Type> __result, State s)
     {
         if (s.ship.key == AlphergShip.AlphergEntry.UniqueName)

@@ -1,12 +1,13 @@
 using System.Reflection.Emit;
-using CutebaltCore;
 using HarmonyLib;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class SiriusSemiDualDronePatches : IPatchable
+[HarmonyPatch]
+internal sealed partial class SiriusSemiDualDronePatches
 {
-    [OnPostfix<AAttack>(nameof(AAttack.Begin))]
+    [HarmonyPatch(typeof(AAttack), nameof(AAttack.Begin))]
+    [HarmonyPostfix]
     private static void AAttack_Begin_Postfix(AAttack __instance, Combat c)
     {
         if (__instance.fromDroneX != null)
@@ -21,7 +22,8 @@ internal sealed partial class SiriusSemiDualDronePatches : IPatchable
         }
     }
 
-    [OnTranspiler<AAttack>(nameof(AAttack.Begin))]
+    [HarmonyPatch(typeof(AAttack), nameof(AAttack.Begin))]
+    [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> AAttack_Begin_Transpiler(
         IEnumerable<CodeInstruction> instructions,
         ILGenerator generator
@@ -51,7 +53,8 @@ internal sealed partial class SiriusSemiDualDronePatches : IPatchable
             .Generate();
     }
 
-    [OnPrefix<AAttack>(nameof(AAttack.GetTooltips))]
+    [HarmonyPatch(typeof(AAttack), nameof(AAttack.GetTooltips))]
+    [HarmonyPrefix]
     private static void AAttack_GetTooltips_Prefix(State s)
     {
         Combat? c = s.route as Combat;
@@ -70,11 +73,11 @@ internal sealed partial class SiriusSemiDualDronePatches : IPatchable
         }
     }
 
-    [OnPrefix<AAttack>(nameof(AAttack.DoWeHaveCannonsThough))]
+    [HarmonyPatch(typeof(AAttack), nameof(AAttack.DoWeHaveCannonsThough))]
+    [HarmonyPrefix]
     private static bool AAttack_DoWeHaveCannonsThough_Prefix(State s, ref bool __result)
     {
-        Combat? c = s.route as Combat;
-        if (c == null)
+        if (s.route is not Combat c)
         {
             return true;
         }

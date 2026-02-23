@@ -1,6 +1,5 @@
 using System.Reflection;
 using System.Reflection.Emit;
-using CutebaltCore;
 using HarmonyLib;
 using Microsoft.Extensions.Logging;
 using Nanoray.Shrike;
@@ -8,10 +7,12 @@ using Nanoray.Shrike.Harmony;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class AlphergInfradrivePatches : IPatchable
+[HarmonyPatch]
+internal sealed partial class AlphergInfradrivePatches
 {
-    [OnTranspiler<Card>(nameof(Card.GetActualDamage))]
-    internal static IEnumerable<CodeInstruction> Card_GetActualDamage_Prefix(IEnumerable<CodeInstruction> instructions, MethodBase originalMethod)
+	[HarmonyPatch(typeof(Card), nameof(Card.GetActualDamage))]
+	[HarmonyTranspiler]
+    internal static IEnumerable<CodeInstruction> Card_GetActualDamage_Transpiler(IEnumerable<CodeInstruction> instructions, MethodBase originalMethod)
     {
         // Shamelessly steals some code
 		try

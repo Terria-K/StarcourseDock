@@ -1,14 +1,15 @@
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using CutebaltCore;
 using HarmonyLib;
-using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class AddScaffoldPatch : IPatchable, IManualPatchable
+[HarmonyPatch]
+internal sealed partial class AddScaffoldPatch 
 {
+    [HarmonyPatch(typeof(Events), nameof(Events.AddScaffold))]
+    [HarmonyTranspiler]
     public static IEnumerable<CodeInstruction> Events_AddScaffold_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         var cursor = new ILCursor(generator, instructions);
@@ -34,13 +35,5 @@ internal sealed partial class AddScaffoldPatch : IPatchable, IManualPatchable
         });
 
         return cursor.Generate();
-    }
-
-    public static void ManualPatch(IHarmony harmony)
-    {
-        harmony.Patch(
-            AccessTools.DeclaredMethod(typeof(Events), nameof(Events.AddScaffold)),
-            transpiler: new HarmonyMethod(Events_AddScaffold_Transpiler)
-        );
     }
 }

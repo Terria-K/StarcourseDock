@@ -1,10 +1,12 @@
-using CutebaltCore;
+using HarmonyLib;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class SpicaFixedStarPatches : IPatchable
+[HarmonyPatch]
+internal sealed partial class SpicaFixedStarPatches
 {
-    [OnPrefix<AMove>(nameof(AMove.Begin))]
+    [HarmonyPatch(typeof(AMove), nameof(AMove.Begin))]
+    [HarmonyPrefix]
     private static bool AMove_Begin_Prefix(AMove __instance, State s, Combat c)
     {
         if (

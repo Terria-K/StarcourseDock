@@ -8,7 +8,6 @@ internal static class CuteImagePathGenerator
 {
     public static void Generate(
         SourceProductionContext ctx,
-        Compilation comp,
         ImmutableArray<string> synString,
         string? projectDir
     )
@@ -17,9 +16,10 @@ internal static class CuteImagePathGenerator
         {
             return;
         }
-        var syn = comp.SyntaxTrees.First(x => x.HasCompilationUnitRoot);
-        var dir = syn.FilePath;
-        var sprites = new List<(string, string)>();
+
+        var fieldBuilder = new StringBuilder();
+        var assignmentBuilder = new StringBuilder();
+
         foreach (var str in synString)
         {
             string dirName = Path.GetFileName(Path.GetDirectoryName(str));
@@ -27,18 +27,13 @@ internal static class CuteImagePathGenerator
 
             string relativeUri = new Uri(projectDir).MakeRelativeUri(new Uri(str)).ToString();
 
-            sprites.Add((dirName + "_" + filename, relativeUri));
-        }
+            string fileID = dirName + "_" + filename;
+            string relPath = relativeUri;
 
-        var fieldBuilder = new StringBuilder();
-        var assignmentBuilder = new StringBuilder();
-
-        foreach (var sprite in sprites)
-        {
-            fieldBuilder.AppendLine($"public static ISpriteEntry {sprite.Item1} = null!;");
+            fieldBuilder.AppendLine($"public static ISpriteEntry {fileID} = null!;");
             assignmentBuilder.AppendLine($"""
-            {sprite.Item1} = helper.Content.Sprites.RegisterSprite(
-                package.PackageRoot.GetRelativeFile("{sprite.Item2}")
+            {fileID} = helper.Content.Sprites.RegisterSprite(
+                package.PackageRoot.GetRelativeFile("{relPath}")
             );
             """);
         }

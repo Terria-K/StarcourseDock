@@ -1,13 +1,14 @@
 using System.Reflection.Emit;
-using CutebaltCore;
 using HarmonyLib;
 using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class IoCardRender : IPatchable
+[HarmonyPatch]
+internal sealed partial class IoCardRender
 {
-    [OnPostfix<Card>(nameof(Card.GetAllTooltips))]
+    [HarmonyPatch(typeof(Card), nameof(Card.GetAllTooltips))]
+    [HarmonyPostfix]
     private static void Card_GetAllTooltips_Postfix(Card __instance, State s, bool showCardTraits, ref IEnumerable<Tooltip> __result)
     {
         if (!showCardTraits)
@@ -47,7 +48,8 @@ internal sealed partial class IoCardRender : IPatchable
         });
     }
 
-    [OnTranspiler<Card>(nameof(Card.Render))]
+    [HarmonyPatch(typeof(Card), nameof(Card.Render))]
+    [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> Card_Render_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         var cursor = new ILCursor(generator, instructions);
@@ -84,15 +86,13 @@ internal sealed partial class IoCardRender : IPatchable
         return cursor.Generate();
     }
 
-    [OnPrefix<Card>(nameof(Card.RenderAction))]
+    [HarmonyPatch(typeof(Card), nameof(Card.RenderAction))]
+    [HarmonyPrefix]
     private static bool Card_RenderAction_Prefix(
         G g, 
         State state, 
         CardAction action, 
         bool dontDraw, 
-        int shardAvailable, 
-        int stunChargeAvailable, 
-        int bubbleJuiceAvailable, 
         ref int __result)
     {
         if (action is not AWrapperSpawn spawn)

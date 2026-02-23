@@ -1,11 +1,12 @@
-using CutebaltCore;
-using Nickel;
+using HarmonyLib;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class AlbireoAddCardPatches : IPatchable
+[HarmonyPatch]
+internal sealed partial class AlbireoAddCardPatches
 {
-    [OnPrefix<AAddCard>(nameof(AAddCard.Begin))]
+    [HarmonyPatch(typeof(AAddCard), nameof(AAddCard.Begin))]
+    [HarmonyPrefix]
     private static void AAddCard_Begin_Prefix(State s, AAddCard __instance)
     {
         var doubleDeck = s.GetArtifactFromColorless<DoubleDeck>();

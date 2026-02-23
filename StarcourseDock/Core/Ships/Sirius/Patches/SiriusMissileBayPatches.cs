@@ -1,12 +1,13 @@
 using System.Reflection.Emit;
-using CutebaltCore;
 using HarmonyLib;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class SiriusMissileBayPatches : IPatchable
+[HarmonyPatch]
+internal sealed partial class SiriusMissileBayPatches
 {
-    [OnTranspiler<Card>(nameof(Card.RenderAction))]
+    [HarmonyPatch(typeof(Card), nameof(Card.RenderAction))]
+    [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> Card_RenderAction_Transpiler(
         IEnumerable<CodeInstruction> instructions,
         ILGenerator generator
@@ -29,15 +30,13 @@ internal sealed partial class SiriusMissileBayPatches : IPatchable
                     new CodeInstruction(OpCodes.Ldflda, fld),
                 ]
             )
-            .EmitDelegate(RenderAction_Lambda)
+            .EmitDelegate((CardAction action, ref int e) =>
+            {
+                if (action is AToggleMissileBay or AActivateAllPartsWrapper)
+                {
+                    e -= 9;
+                }
+            })
             .Generate();
-    }
-
-    private static void RenderAction_Lambda(CardAction action, ref int e)
-    {
-        if (action is AToggleMissileBay or AActivateAllPartsWrapper)
-        {
-            e -= 9;
-        }
     }
 }

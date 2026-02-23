@@ -1,14 +1,10 @@
-﻿using System.Runtime.CompilerServices;
-using CutebaltCore;
-using HarmonyLib;
+﻿using CutebaltCore;
 using Microsoft.Extensions.Logging;
 using Nanoray.PluginManager;
 using Nickel;
 using Nickel.Essentials;
 using Nickel.ModSettings;
 using Shockah.Kokoro;
-
-[assembly: InternalsVisibleTo("GeneratedTextTransformation")]
 
 namespace Teuria.StarcourseDock;
 
@@ -41,7 +37,6 @@ public sealed partial class ModEntry : SimpleMod
         Sprites.Register(package, helper);
 
         Registerables.Register(package, helper);
-        Patchables.Patch(Harmony);
-        ManualPatchables.Patch(Harmony);
+        Harmony.PatchAll(typeof(ModEntry).Assembly);
     }
 }

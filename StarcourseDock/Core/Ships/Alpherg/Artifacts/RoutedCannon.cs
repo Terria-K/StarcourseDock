@@ -28,32 +28,6 @@ internal sealed class RoutedCannon : Artifact, IRegisterable
                 Description = Localization.ship_Alpherg_artifact_RoutedCannon_description(),
             }
         );
-
-        MethodInfo? info = null!;
-
-        foreach (var nestedType in typeof(AAttack).GetNestedTypes())
-        {
-            foreach (var method in nestedType.GetMethods())
-            {
-                if (method.Name.Contains("<GetFromX>"))
-                {
-                    var parameters = method.GetParameters();
-                    if (parameters.Length == 1)
-                    {
-                        var p = parameters[0];
-                        if (p.ParameterType == typeof(Part))
-                        {
-                            info = method;
-                        }
-                    }
-                }
-            }
-        }
-
-        ModEntry.Instance.Harmony.Patch(
-            info,
-            prefix: new HarmonyMethod(AAttack_GetFromX_b__23_0_Prefix)
-        );
     }
 
     public override Spr GetSprite()
@@ -93,25 +67,5 @@ internal sealed class RoutedCannon : Artifact, IRegisterable
             }
             disabled = true;
         }
-    }
-
-    internal static bool AAttack_GetFromX_b__23_0_Prefix(Part p, ref bool __result)
-    {
-        var state = AAttack_Global_Patches.Global_State;
-        var aAttack = AAttack_Global_Patches.Global_AAttack;
-        if (state is null || aAttack is null || aAttack.targetPlayer)
-        {
-            return true;
-        }
-
-        var routedCannon = state.GetArtifactFromColorless<RoutedCannon>();
-
-        if (routedCannon is not null && !routedCannon.disabled)
-        {
-            __result = (p.type == PType.empty || p.type == PType.cannon) && p.active;
-            return false;
-        }
-
-        return true;
     }
 }

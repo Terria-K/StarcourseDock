@@ -1,13 +1,14 @@
 using System.Reflection.Emit;
-using CutebaltCore;
 using HarmonyLib;
 using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal partial class CharonFragilePatches : IPatchable
+[HarmonyPatch]
+internal partial class CharonFragilePatches
 {
-    [OnFinalizer<Ship>(nameof(Ship.ModifyDamageDueToParts))]
+    [HarmonyPatch(typeof(Ship), nameof(Ship.ModifyDamageDueToParts))]
+    [HarmonyFinalizer]
     private static Exception? ModifyDamageDueToParts_Finalizer(Part part, int incomingDamage, ref int __result, Exception __exception)
     {
         PDamMod mod = part.GetDamageModifier();
@@ -29,7 +30,8 @@ internal partial class CharonFragilePatches : IPatchable
         return __exception;
     }
 
-    [OnPostfix<Ship>(nameof(Ship.RenderPartUI))]
+    [HarmonyPatch(typeof(Ship), nameof(Ship.RenderPartUI))]
+    [HarmonyPostfix]
     private static void Ship_RenderPartUI_Postfix(
         Ship __instance,
         G g,
@@ -59,7 +61,8 @@ internal partial class CharonFragilePatches : IPatchable
         Draw.Sprite(Sprites.icons_fragile.Sprite, v.x + 1.0, v.y, color: color);
     }
 
-    [OnTranspiler<Ship>(nameof(Ship.RenderPartUI))]
+    [HarmonyPatch(typeof(Ship), nameof(Ship.RenderPartUI))]
+    [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> Ship_RenderPartUI_Transpiler(
         IEnumerable<CodeInstruction> instructions,
         ILGenerator generator

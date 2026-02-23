@@ -1,4 +1,5 @@
 using CutebaltCore;
+using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
 using Nickel.ModSettings;
@@ -55,9 +56,11 @@ internal sealed partial class DoubleCardRunOption :
     }
 }
 
-internal sealed partial class PopulateRun : IPatchable
+[HarmonyPatch]
+internal sealed partial class PopulateRunPatches 
 {
-    [OnPostfix<State>(nameof(State.PopulateRun))]
+    [HarmonyPatch(typeof(State), nameof(State.PopulateRun))]
+    [HarmonyPostfix]
     private static void State_PopulateRun_Postfix(State __instance)
     {
         if (DoubleCardRunOption.CustomRunOptionsAPI is null || !DoubleCardRunOption.CustomRunOptionsAPI.IsStartingNormalRun)
@@ -90,15 +93,15 @@ file static class RunConfigExt
 
         public void SelectOption(string key, bool isSelected)
         {
-            var dailyModifierKeys = ModEntry.Instance.Helper.ModData.ObtainModData<List<string>>(config, "OptionsSelected");
-            dailyModifierKeys.Remove(key);
+            var optionKeys = ModEntry.Instance.Helper.ModData.ObtainModData<List<string>>(config, "OptionsSelected");
+            optionKeys.Remove(key);
 
             if (!isSelected)
             {
                 return;
             }
                 
-            dailyModifierKeys.Add(key);
+            optionKeys.Add(key);
         }
     }
 }

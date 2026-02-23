@@ -1,11 +1,12 @@
-using CutebaltCore;
-using Nickel;
+using HarmonyLib;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class AlbireoCopyCardPatches : IPatchable
+[HarmonyPatch]
+internal sealed partial class AlbireoCopyCardPatches
 {
-    [OnPostfix<Card>(nameof(Card.CopyWithNewId))]
+    [HarmonyPatch(typeof(Card), nameof(Card.CopyWithNewId))]
+    [HarmonyPostfix]
     internal static void Card_CopyWithNewId_Postfix(Card __result)
     {
         if (__result.TryGetLinkedCard(out var linkedCard))

@@ -1,13 +1,14 @@
 using System.Reflection.Emit;
-using CutebaltCore;
 using HarmonyLib;
 using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class AtlasMoveLeftTraitPatches : IPatchable
+[HarmonyPatch]
+internal sealed partial class AtlasMoveLeftTraitPatches
 {
-    [OnPrefix<Ship>(nameof(Ship.NormalDamage))]
+    [HarmonyPatch(typeof(Ship), nameof(Ship.NormalDamage))]
+    [HarmonyPrefix]
     private static void Ship_NormalDamage_Prefix(Ship __instance, Combat c, int? maybeWorldGridX)
     {
         if (maybeWorldGridX is int x && 
@@ -22,7 +23,8 @@ internal sealed partial class AtlasMoveLeftTraitPatches : IPatchable
         }
     }
 
-    [OnPostfix<Ship>(nameof(Ship.RenderPartUI))]
+    [HarmonyPatch(typeof(Ship), nameof(Ship.RenderPartUI))]
+    [HarmonyPostfix]
     private static void Ship_RenderPartUI_Postfix(
         Ship __instance,
         G g,
@@ -52,7 +54,8 @@ internal sealed partial class AtlasMoveLeftTraitPatches : IPatchable
         Draw.Sprite(Sprites.icons_moveLeftTrait.Sprite, v.x + 9, v.y, color: color);
     }
 
-    [OnTranspiler<Ship>(nameof(Ship.RenderPartUI))]
+    [HarmonyPatch(typeof(Ship), nameof(Ship.RenderPartUI))]
+    [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> Ship_RenderPartUI_Transpiler(
         IEnumerable<CodeInstruction> instructions,
         ILGenerator generator

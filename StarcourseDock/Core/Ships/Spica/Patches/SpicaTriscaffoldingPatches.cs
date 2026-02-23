@@ -1,12 +1,13 @@
 using System.Reflection.Emit;
-using CutebaltCore;
 using HarmonyLib;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class SpicaTriscaffoldingPatches : IPatchable
+[HarmonyPatch]
+internal sealed partial class SpicaTriscaffoldingPatches
 {
-    [OnTranspiler<TridimensionalCockpit>(nameof(TridimensionalCockpit.OnReceiveArtifact))]
+    [HarmonyPatch(typeof(TridimensionalCockpit), nameof(TridimensionalCockpit.OnReceiveArtifact))]
+    [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnReceiveArtifact_Transpiler(
         IEnumerable<CodeInstruction> instructions,
         ILGenerator generator

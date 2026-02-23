@@ -1,73 +1,22 @@
-using System.Reflection;
 using System.Runtime.InteropServices;
-using CutebaltCore;
 using HarmonyLib;
-using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class AlbireoUpgradeCardPatches : IPatchable, IManualPatchable
+[HarmonyPatch]
+internal sealed partial class AlbireoUpgradeCardPatches
 {
-    public static void ManualPatch(IHarmony harmony)
-    {
-        MethodInfo? cardUpgrade_Render_info = null!;
-
-        foreach (var method in typeof(CardUpgrade).GetMethods())
-        {
-            if (method.Name.Contains("<Render>"))
-            {
-                var parameters = method.GetParameters();
-                if (parameters.Length == 1)
-                {
-                    var p = parameters[0];
-                    if (p.ParameterType == typeof(Upgrade))
-                    {
-                        cardUpgrade_Render_info = method;
-                    }
-                }
-            }
-        }
-
-        ModEntry.Instance.Harmony.Patch(
-            cardUpgrade_Render_info,
-            postfix: new HarmonyMethod(CardUpgrade_Render_14_1_Postfix)
-        );
-    }
-
     private static G? global;
 
-    [OnPrefix<CardUpgrade>(nameof(CardUpgrade.Render))]
+    [HarmonyPatch(typeof(CardUpgrade), nameof(CardUpgrade.Render))]
+    [HarmonyPrefix]
     private static void CardUpgrade_Render_Prefix(G g)
     {
         global = g;
     }
 
-    private static void CardUpgrade_Render_14_1_Postfix(Upgrade upgradePath, in Card __result)
-    {
-        if (__result.TryGetLinkedCard(out Card? linkedCard))
-        {
-            bool validUpgrade = false;
-            Card card = Mutil.DeepCopy(linkedCard);
-            var meta = card.GetMeta().upgradesTo.AsSpan();
-            for (int i = 0; i < meta.Length; i++)
-            {
-                if (meta[i] == upgradePath)
-                {
-                    validUpgrade = true;
-                    break;
-                }
-            }
-
-            if (validUpgrade)
-            {
-                card.upgrade = upgradePath;
-            }
-
-            __result.LinkedCard = card;
-        }
-    }
-
-    [OnPostfix<AUpgradeCardRandom>(nameof(AUpgradeCardRandom.BeginWithRoute))]
+    [HarmonyPatch(typeof(AUpgradeCardRandom), nameof(AUpgradeCardRandom.BeginWithRoute))]
+    [HarmonyPostfix]
     private static void AUpgradeCardRandom_BeginWithRoute_Postfix(State s, in Route __result)
     {
         if (__result is not ShowCards showCards)

@@ -1,10 +1,12 @@
-using CutebaltCore;
+using HarmonyLib;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class CharonWrathChargeBlastPatches : IPatchable
+[HarmonyPatch]
+internal sealed partial class CharonWrathChargeBlastPatches 
 {
-    [OnPrefix<Ship>(nameof(Ship.OnAfterTurn))]
+    [HarmonyPatch(typeof(Ship), nameof(Ship.OnAfterTurn))]
+    [HarmonyPrefix]
     public static void Ship_OnAfterTurn_Prefix(Ship __instance, State s, Combat c)
     {
         var wrath = __instance.Get(WrathChargeStatus.WrathCharge.Status);
@@ -17,7 +19,8 @@ internal sealed partial class CharonWrathChargeBlastPatches : IPatchable
         }
     }
 
-    [OnPostfix<AEnemyTurnAfter>(nameof(AEnemyTurnAfter.Begin))]
+    [HarmonyPatch(typeof(AEnemyTurnAfter), nameof(AEnemyTurnAfter.Begin))]
+    [HarmonyPostfix]
     public static void AEnemyTurnAfter_Begin_Postfix(State s, Combat c)
     {
         var hasSanity = s.HasArtifactFromColorless<SanityExpansion>();

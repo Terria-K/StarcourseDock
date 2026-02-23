@@ -1,10 +1,12 @@
-using CutebaltCore;
+using HarmonyLib;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class SiriusDronePatches : IPatchable
+[HarmonyPatch]
+internal sealed partial class SiriusDronePatches
 {
-    [OnPrefix<AJupiterShoot>(nameof(AJupiterShoot.Begin))]
+    [HarmonyPatch(typeof(AJupiterShoot), nameof(AJupiterShoot.Begin))]
+    [HarmonyPrefix]
     private static void AJupiterShoot_Begin_Prefix(AJupiterShoot __instance, State s, Combat c)
     {
         SortedList<int, CardAction> siriusAttacks = [];

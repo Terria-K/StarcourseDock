@@ -1,10 +1,12 @@
-using CutebaltCore;
+using HarmonyLib;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed partial class IoDroneDestroyedPatches : IPatchable
+[HarmonyPatch]
+internal sealed partial class IoDroneDestroyedPatches
 {
-    [OnPrefix<Combat>(nameof(Combat.DestroyDroneAt))]
+    [HarmonyPatch(typeof(Combat), nameof(Combat.DestroyDroneAt))]
+    [HarmonyPrefix]
     private static void Combat_DestroyDroneAt_Prefix(
         State s, Combat __instance, int x)
     {
