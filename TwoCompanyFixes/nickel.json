@@ -1,0 +1,10 @@
+{
+	"UniqueName": "Teuria.TwoCompanyFixes",
+	"Version": "1.0.0",
+	"DisplayName": "Two Company Fixes",
+	"Description": "This fixes a missile crash for Two's Company.",
+	"Author": "Teuria",
+	"RequiredApiVersion": "1.19.0",
+	"EntryPointAssembly": "TwoCompanyFixes.dll",
+	"LoadPhase": "BeforeGameAssembly"
+}
