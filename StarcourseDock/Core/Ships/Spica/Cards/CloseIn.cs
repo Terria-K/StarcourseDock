@@ -5,7 +5,7 @@ using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-internal sealed class Shrink : Card, IRegisterable
+internal sealed class CloseIn : Card, IRegisterable
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
@@ -21,7 +21,7 @@ internal sealed class Shrink : Card, IRegisterable
                     dontOffer = true,
                 },
                 Art = StableSpr.cards_ScootLeft,
-                Name = Localization.ship_Spica_card_Shrink_name(),
+                Name = Localization.ship_Spica_card_CloseIn_name(),
             }
         );
     }
@@ -30,20 +30,20 @@ internal sealed class Shrink : Card, IRegisterable
     {
         return new()
         {
-            temporary = true,
-            flippable = true,
-            retain = true,
-            cost = 1,
-            art = flipped ? StableSpr.cards_ScootRight : StableSpr.cards_ScootLeft,
-            infinite = true,
-            description = flipped
-                ? Localization.Str_ship_Spica_card_Shrink_Flipped_description()
-                : Localization.Str_ship_Spica_card_Shrink_description(),
+                temporary = true,
+                flippable = true,
+                retain = true,
+                cost = 1,
+                art = flipped ? StableSpr.cards_ScootRight : StableSpr.cards_ScootLeft,
+                singleUse = true,
+                description = flipped
+                    ? Localization.Str_ship_Spica_card_CloseIn_Flipped_description()
+                    : Localization.Str_ship_Spica_card_CloseIn_description(),
         };
     }
 
     public override List<CardAction> GetActions(State s, Combat c)
     {
-        return [new AMerge() { flipped = flipped }];
+        return [new AMergeScaffold() { flipped = flipped }];
     }
 }

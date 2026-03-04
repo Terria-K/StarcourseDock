@@ -91,16 +91,20 @@ ship:
         name: Shield Or Shot
       DodgeOrShift: 
         name: Dodge or Shift
+      CloseIn:
+        name: Close-In
+        description: "<c=downside>Remove red scaffold</c> and <c=action>merge</c> rightmost part to the left."
+      CloseIn_Flipped:
+        name: Close-In
+        description: "<c=downside>Remove red scaffold</c> and <c=action>merge</c> leftmost part to the right."
+
       Shrink: 
         name: Shrink
-        description: "<c=downside>Remove red scaffold</c> and <c=action>merge</c> rightmost part to the left."
-        A: 
-          description: "<c=downside>Remove right wing's part to its left.</c>"
+        description: "<c=downside>Remove right wing's part to its left.</c>"
+
       Shrink_Flipped: 
         name: Shrink
-        description: "<c=downside>Remove red scaffold</c> and <c=action>merge</c> leftmost part to the right."
-        A:
-          description: "<c=downside>Remove left wing's part to its right.</c>"
+        description: "<c=downside>Remove left wing's part to its right.</c>"
 
     artifact: 
       FixedStar: 
@@ -110,13 +114,13 @@ ship:
       ShrinkMechanism: 
         name: SHRINK MECHANISM
         description: 
-        - "At the start of your turn, if you don't have a <c=card>Shrink</c> in your hand, gain one, and add a red scaffold next to your cannon if you don't have one."
+        - "At the start of your turn, if you don't have a <c=card>Close-In</c> in your hand, gain one, and add a red scaffold next to your cannon if you don't have one."
         - "<c=downside>(Reset parts after combat)</c>"
       ShrinkMechanismV2: 
         name: SHRINK MECHANISM V2
         description: 
         - "Replaces <c=artifact>SHRINK MECHANISM</c>"
-        - "At the start of your turn, if you don't have a <c=card>Shrink A</c> in your hand, gain one."
+        - "At the start of your turn, if you don't have a <c=card>Shrink</c> in your hand, gain one."
         - "Everytime a wing get hit, <c=downside>remove the next or previous part if its not a wing.</c>"
         - "<c=downside>(Reset parts after turn or combat)</c>"
       TinyWormhole: 
