@@ -26,4 +26,10 @@ internal sealed class DoubleCard : DoubleDeck, IRegisterable
             }
         );
     }
+
+    public override void OnReceiveArtifact(State state)
+    {
+        maxCapacity = 5;
+        count = 3;
+    }
 }

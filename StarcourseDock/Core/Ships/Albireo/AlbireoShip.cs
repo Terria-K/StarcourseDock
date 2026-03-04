@@ -10,7 +10,8 @@ internal sealed class AlbireoShip : IRegisterable
 {
     internal static IReadOnlyList<Type> ExclusiveArtifacts => [
         typeof(DoubleDeck),
-        typeof(PolarityWings)
+        typeof(PolarityWings),
+        typeof(DoublePolarity)
     ];
 
     internal static IPartEntry AlbireoMissileBayBlue { get; private set; } = null!;

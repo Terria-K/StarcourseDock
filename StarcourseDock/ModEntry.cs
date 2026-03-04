@@ -5,6 +5,7 @@ using Nickel;
 using Nickel.Essentials;
 using Nickel.ModSettings;
 using Shockah.Kokoro;
+using TheJazMaster.CombatQoL;
 
 namespace Teuria.StarcourseDock;
 
@@ -15,6 +16,7 @@ public sealed partial class ModEntry : SimpleMod
     internal static ModEntry Instance { get; private set; } = null!;
     internal IHarmony Harmony { get; }
     internal IKokoroApi KokoroAPI { get; }
+    internal ICombatQolApi? CombatQolAPI { get; }
     internal IModSettingsApi ModSettingsAPI { get; }
     internal IEssentialsApi EssentialAPI { get; }
 
@@ -34,6 +36,7 @@ public sealed partial class ModEntry : SimpleMod
         KokoroAPI = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!;
         EssentialAPI = helper.ModRegistry.GetApi<IEssentialsApi>("Nickel.Essentials")!;
         ModSettingsAPI = helper.ModRegistry.GetApi<IModSettingsApi>("Nickel.ModSettings")!;
+        CombatQolAPI = helper.ModRegistry.GetApi<ICombatQolApi>("TheJazMaster.CombatQoL");
         Sprites.Register(package, helper);
 
         Registerables.Register(package, helper);

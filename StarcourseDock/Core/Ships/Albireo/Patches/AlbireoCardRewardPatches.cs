@@ -7,7 +7,7 @@ namespace Teuria.StarcourseDock;
 internal sealed partial class AlbireoCardRewardPatches
 {
     [HarmonyPatch(typeof(ACardOffering), nameof(ACardOffering.BeginWithRoute))]
-    [HarmonyPrefix]
+    [HarmonyPostfix]
     private static void ACardOffering_BeginWithRoute_Postfix(ACardOffering __instance, State s, in Route __result)
     {
         if (__result is not CardReward cardReward)
@@ -70,7 +70,6 @@ internal sealed partial class AlbireoCardRewardPatches
             card.IsOrange = doubleStar.isOrange;
             linkCard.IsOrange = !doubleStar.isOrange;
         }
-
     }
 
     [HarmonyPatch(typeof(State), nameof(State.PopulateRun))]

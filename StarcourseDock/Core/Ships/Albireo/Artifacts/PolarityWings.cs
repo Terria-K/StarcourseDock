@@ -43,8 +43,19 @@ internal sealed class PolarityWings : Artifact, IRegisterable
     {
         if (state is not null && state.TryGetTarget(out State? s) && s is not null)
         {
-            if (Polarity.IsOrangePolarity(s))
+            if (Polarity.IsOrangePolarity(s, out bool isMiddle))
             {
+                if (isMiddle)
+                {
+                    if (isOrange)
+                    {
+                        return Sprites.artifacts_PolarityWings_Orange.Sprite;
+                    }
+                    else
+                    {
+                        return Sprites.artifacts_PolarityWings.Sprite;
+                    }
+                }
                 isOrange = true;
                 return Sprites.artifacts_PolarityWings_Orange.Sprite;
             }
@@ -136,7 +147,12 @@ internal sealed class PolarityWings : Artifact, IRegisterable
             return;
         }
 
-        bool isOrange = Polarity.IsOrangePolarity(state);
+        bool isOrange = Polarity.IsOrangePolarity(state, out bool isMiddle);
+
+        if (isMiddle)
+        {
+            isOrange = this.isOrange;
+        }
 
         string targetWing;
         string skin;

@@ -20,7 +20,11 @@ ship:
         description: 
           - "You start with <c=status>POLARITY</c>."
           - "All non-<c=deck>Trash</c> starter cards, and EXEs and Post-battle card offering are <c=cardtrait>polarity linked</c> to another card."
-
+      DoublePolarity: 
+        name: DOUBLE POLARITY
+        description: 
+          - "(Albireo-exclusive artifact!)"
+          - "+1 on both <c=status>POLARITY</c> capacity."
       PolarityWings: 
         name: POLARITY WINGS
         description: 
@@ -32,15 +36,18 @@ ship:
       Polarity: 
         name: POLARITY
         description: 
-          - "Switches when deck <c=action>shuffles</c>."
+          - Playing the rightmost or second-rightmost card pushes <c=status>POLARITY</c> right.
+          - Playing the leftmost or second-leftmost card pushes <c=status>POLARITY</c> left.
+          - Only one side can be active. 
         blue:
           description: 
-            - "Switches when deck <c=action>shuffles</c>."
             - "Blue linked cards appears in front of your hand."
         orange:
           description: 
-            - "Switches when deck <c=action>shuffles</c>."
             - "Orange linked cards appears in front of your hand."
+        white:
+          description: 
+            - "Previously active linked cards appears in front of your hand."
     
     cardtrait:
       Polarity:

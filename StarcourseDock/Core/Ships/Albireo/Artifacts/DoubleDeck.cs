@@ -2,12 +2,19 @@ using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
 using CutebaltCore;
+using Microsoft.Xna.Framework;
+using System.Text.Json.Serialization;
 
 namespace Teuria.StarcourseDock;
 
 internal class DoubleDeck : Artifact, IRegisterable
 {
     public bool isOrange;
+    public int count = 2;
+    public int maxCapacity = 3;
+
+    [JsonIgnore]
+    public int HalfMax => (int)Math.Ceiling(maxCapacity / 2.0);
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
@@ -31,23 +38,51 @@ internal class DoubleDeck : Artifact, IRegisterable
 
     public override List<Tooltip>? GetExtraTooltips() => [AlbireoKit.GetPolarityTraitTooltip(), Polarity.GetTooltip()];
 
-    public override void OnCombatStart(State state, Combat combat)
+    public override void OnTurnStart(State state, Combat combat)
     {
-        if (isOrange)
+        if (combat.turn == 1)
         {
-            state.ship.Set(Polarity.PolarityOrangeEntry.Status);
-        }
-        else
-        {
-            state.ship.Set(Polarity.PolarityBlueEntry.Status);
+            state.ship.Set(Polarity.PolarityStatus.Status, count);
+            if (count < HalfMax && isOrange)
+            {
+                combat.QueueImmediate(new APolaritySwitch());
+                isOrange = false;
+            }
+
+            if (count > HalfMax && !isOrange)
+            {
+                combat.QueueImmediate(new APolaritySwitch());
+                isOrange = true;
+            }
         }
     }
 
-    public override void OnPlayerDeckShuffle(State state, Combat combat)
+    public override void OnPlayerPlayCard(int energyCost, Deck deck, Card card, State state, Combat combat, int handPosition, int handCount)
     {
-        combat.Queue(new APolaritySwitch());
-        Polarity.SwitchPolarity(state);
-        isOrange = !isOrange;
+        if (handCount <= 1)
+        {
+            return;
+        }
+
+        if ((handCount == 3 && (handPosition == 0 || handPosition == 2)) ||
+            (handCount != 3) && (handPosition <= 1 || handPosition >= handCount - 2))
+        {
+            int delta = -Math.Sign(handCount - 1 - 2 * handPosition);
+            count = MathHelper.Clamp(count + delta, 1, maxCapacity);
+            state.ship.Set(Polarity.PolarityStatus.Status, count);
+        }
+
+        if (count < HalfMax && isOrange)
+        {
+            combat.QueueImmediate(new APolaritySwitch() { isOrange = !isOrange });
+            isOrange = false;
+        }
+
+        if (count > HalfMax && !isOrange)
+        {
+            combat.QueueImmediate(new APolaritySwitch() { isOrange = !isOrange });
+            isOrange = true;
+        }
     }
 
     public override Spr GetSprite()
