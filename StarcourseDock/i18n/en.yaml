@@ -38,7 +38,7 @@ ship:
         description: 
           - Playing the rightmost or second-rightmost card pushes <c=status>POLARITY</c> right.
           - Playing the leftmost or second-leftmost card pushes <c=status>POLARITY</c> left.
-          - Only one side can be active. 
+          - <c=downside>Only one side can be active.</c> 
         blue:
           description: 
             - "Blue linked cards appears in front of your hand."
