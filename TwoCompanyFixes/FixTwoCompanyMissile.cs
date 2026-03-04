@@ -5,7 +5,6 @@ using System.Text;
 using MonoMod.Utils;
 using MonoMod.Cil;
 using Mono.Cecil.Cil;
-using Mono.Cecil.Rocks;
 
 namespace Teuria.TwoCompanyFixes;
 
