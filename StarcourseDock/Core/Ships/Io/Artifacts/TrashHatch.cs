@@ -30,7 +30,8 @@ internal sealed class TrashHatch : Artifact, IRegisterable
     public override List<Tooltip> GetExtraTooltips()
     {
         return [
-            new TTCard() { card = new Release() }
+            new TTCard() { card = new Release() },
+            ..StatusMeta.GetTooltips(ReoxidoStatus.Reoxido.Status, 4)
         ];
     }
 }

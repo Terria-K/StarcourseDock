@@ -6,13 +6,15 @@ using Nickel;
 
 namespace Teuria.StarcourseDock;
 
-public interface IAmFloppableThreeTimes
+public interface IAmFloppableThreeTimesAndFlippable
 {
     int FlipIndex { get; set; }
     bool KnownFlipped { get; set; }
+    bool ShouldFlipIconFlipX { get; set; }
     // note to self: do not forget to mark this as [JsonIgnore] (Newtonsoft Edition)
     bool Flipped { get; }
-    bool Active { get; }
+    bool Flippable { get; }
+    bool FlipOverrides { get; set; }
 
     void HandleFlip()
     {
@@ -26,7 +28,7 @@ public interface IAmFloppableThreeTimes
     }
 }
 
-internal sealed class Release : Card, IRegisterable, IAmFloppableThreeTimes
+internal sealed class Release : Card, IRegisterable, IAmFloppableThreeTimesAndFlippable
 {
 	public StuffBase thing = new FakeDrone();
     public bool isLeft;
@@ -36,8 +38,12 @@ internal sealed class Release : Card, IRegisterable, IAmFloppableThreeTimes
     [JsonIgnore]
     public bool Flipped => flipped;
 
+    public bool ShouldFlipIconFlipX { get; set; }
+
     [JsonIgnore]
-    public bool Active => isCentered; 
+    public bool Flippable => FlipOverrides || isCentered;
+
+    public bool FlipOverrides { get; set; }
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
@@ -52,7 +58,7 @@ internal sealed class Release : Card, IRegisterable, IAmFloppableThreeTimes
                     rarity = Rarity.uncommon,
                     dontOffer = true
                 },
-                Art = Sprites.cards_IORelease_Top.Sprite,
+                Art = Sprites.cards_IORelease_Triple0.Sprite,
                 Name = Localization.ship_Io_card_PulledAndRelease_name(),
             }
         );
@@ -65,75 +71,66 @@ internal sealed class Release : Card, IRegisterable, IAmFloppableThreeTimes
             cost = GetCost(state),
             temporary = true,
             floppable = true,
-            singleUse = true
+            singleUse = true,
+            flippable = Flippable
         };
-        if (isCentered)
-        {
-            (this as IAmFloppableThreeTimes).HandleFlip();
-            return cardData with
-            {
-                art = FlipIndex switch
-                {
-                    1 => Sprites.cards_IORelease_Triple1.Sprite,
-                    2 => Sprites.cards_IORelease_Triple2.Sprite,
-                    _ => Sprites.cards_IORelease_Triple0.Sprite
-                }
-            };
-        }
+
+        (this as IAmFloppableThreeTimesAndFlippable).HandleFlip();
 
         return cardData with
         {
-            art = flipped ? Sprites.cards_IORelease_Bottom.Sprite : Sprites.cards_IORelease_Top.Sprite
+            art = FlipIndex switch
+            {
+                1 => Sprites.cards_IORelease_Triple1.Sprite,
+                2 => Sprites.cards_IORelease_Triple2.Sprite,
+                _ => Sprites.cards_IORelease_Triple0.Sprite
+            }
         };
 	}
 
     public override void OnFlip(G g)
     {
         base.OnFlip(g);
-        (this as IAmFloppableThreeTimes).HandleFlip();
+        (this as IAmFloppableThreeTimesAndFlippable).HandleFlip();
+
+        if (Flippable && FlipIndex == 0)
+        {
+            flipAnim = 1.0;
+            flopAnim = 0;
+            ShouldFlipIconFlipX = !ShouldFlipIconFlipX;
+        }
     }
 
 	public override List<CardAction> GetActions(State s, Combat c)
 	{
-		StuffBase thingActual = Mutil.DeepCopy(thing);
-		thingActual.targetPlayer = false;
-
-        if (isCentered)
-        {
-            return [
-                new AWrapperSpawn() { thing = thingActual, disabled = FlipIndex != 0, isLeft = true },
-                new AWrapperSpawn() { thing = thingActual, disabled = FlipIndex != 1, isLeft = false },
-                new ASingleUseDummyAction() { disabled = FlipIndex != 2 }
-            ];
-        }
+		StuffBase thingBackwards = Mutil.DeepCopy(thing);
+		thingBackwards.targetPlayer = !thingBackwards.targetPlayer;
 
 		return 
         [
             new AWrapperSpawn
             {
-                thing = thingActual,
-                isLeft = isLeft,
-                disabled = flipped
+                thing = thingBackwards,
+                isLeft = Flippable ? !ShouldFlipIconFlipX : isLeft,
+                disabled = FlipIndex != 0
             },
-            new ADummyAction(),
-            new ASingleUseDummyAction() { disabled = !flipped }
+            new AWrapperSpawn
+            {
+                thing = thing,
+                isLeft = Flippable ? !ShouldFlipIconFlipX : isLeft,
+                disabled = FlipIndex != 1
+            },
+            new ASingleUseDummyAction() { disabled = FlipIndex != 2 }
         ];
 	}
 
     private int GetCost(State s)
     {
-        if (isCentered)
-        {
-            if (s.HasArtifactFromColorless<TrashHatch>() && FlipIndex % 3 == 2)
-            {
-                return 0;
-            }
-        }
-        else if (flipped && s.HasArtifactFromColorless<TrashHatch>())
+        if (s.HasArtifactFromColorless<TrashHatch>() && FlipIndex == 2)
         {
             return 0;
         }
-
+        
         if (s.HasArtifactFromColorless<AsteroidAirlock>() && thing.GetType() == typeof(Asteroid))
         {
             return 0;

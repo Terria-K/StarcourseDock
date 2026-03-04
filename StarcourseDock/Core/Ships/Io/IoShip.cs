@@ -18,6 +18,8 @@ internal sealed class IoShip : IRegisterable
     public static IShipEntry IoShipEntry { get; private set; } = null!;
     public static IPartEntry IoBayLeft { get; private set; } = null!;
     public static IPartEntry IoBayRight { get; private set; } = null!;
+    public static IPartEntry IoEmpty { get; private set; } = null!;
+    public static IPartEntry IoEmptyActive { get; private set; } = null!;
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
@@ -31,9 +33,14 @@ internal sealed class IoShip : IRegisterable
             new() { Sprite = Sprites.parts_io_bay_right.Sprite }
         );
 
-        var IoEmpty = helper.Content.Ships.RegisterPart(
+        IoEmpty = helper.Content.Ships.RegisterPart(
             "IoEmpty",
             new() { Sprite = Sprites.parts_io_empty.Sprite }
+        );
+
+        IoEmptyActive = helper.Content.Ships.RegisterPart(
+            "IoEmptyActive",
+            new() { Sprite = Sprites.parts_io_empty_activated.Sprite }
         );
 
         IoShipEntry = helper.Content.Ships.RegisterShip(

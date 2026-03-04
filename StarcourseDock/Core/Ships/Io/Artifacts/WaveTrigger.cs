@@ -27,6 +27,21 @@ internal sealed class WaveTrigger : Artifact, IRegisterable
         );
     }
 
+    public override void OnTurnStart(State state, Combat combat)
+    {
+        foreach(var part in state.ship.parts)
+        {
+            if (part.type == PType.empty)
+            {
+                ModEntry.Instance.Helper.ModData.SetOptionalModData<bool>(part, "attacked", false);
+                if (part.skin == IoShip.IoEmptyActive.UniqueName)
+                {
+                    part.skin = IoShip.IoEmpty.UniqueName;
+                }
+            }
+        }
+    }
+
     public override void OnPlayerDodgeHit(State state, Combat combat)
     {
         var aattack = AAttack_Global_Patches.Global_AAttack;
@@ -43,10 +58,21 @@ internal sealed class WaveTrigger : Artifact, IRegisterable
                 return;
             }
 
+            if (ModEntry.Instance.Helper.ModData.GetOptionalModData<bool>(part, "attacked") is not {} v || v)
+            {
+                return;
+            }
+
             if (part.type == PType.empty)
             {
                 combat.QueueImmediate(new AAttack() { damage = Card.GetActualDamage(state, 1, false) });
                 Pulse();
+                ModEntry.Instance.Helper.ModData.SetOptionalModData<bool>(part, "attacked", true);
+
+                if (part.skin == IoShip.IoEmpty.UniqueName)
+                {
+                    part.skin = IoShip.IoEmptyActive.UniqueName;
+                }
             }
 
             return;
@@ -60,10 +86,21 @@ internal sealed class WaveTrigger : Artifact, IRegisterable
                 return;
             }
 
+            if (ModEntry.Instance.Helper.ModData.GetOptionalModData<bool>(part, "attacked") is not {} v || v)
+            {
+                return;
+            }
+
             if (part.type == PType.empty)
             {
                 combat.QueueImmediate(new AAttack() { damage = Card.GetActualDamage(state, 1, false) });
                 Pulse();
+                ModEntry.Instance.Helper.ModData.SetOptionalModData<bool>(part, "attacked", true);
+
+                if (part.skin == IoShip.IoEmpty.UniqueName)
+                {
+                    part.skin = IoShip.IoEmptyActive.UniqueName;
+                }
             }
         }
     }

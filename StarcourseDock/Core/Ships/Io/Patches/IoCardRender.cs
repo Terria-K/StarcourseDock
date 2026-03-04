@@ -9,14 +9,14 @@ internal sealed partial class IoCardRender
 {
     [HarmonyPatch(typeof(Card), nameof(Card.GetAllTooltips))]
     [HarmonyPostfix]
-    private static void Card_GetAllTooltips_Postfix(Card __instance, State s, bool showCardTraits, ref IEnumerable<Tooltip> __result)
+    private static void Card_GetAllTooltips_Postfix(Card __instance, bool showCardTraits, ref IEnumerable<Tooltip> __result)
     {
         if (!showCardTraits)
         {
             return;
         }
 
-        if (__instance is not IAmFloppableThreeTimes { Active: true })
+        if (__instance is not IAmFloppableThreeTimesAndFlippable)
         {
             return;
         }
@@ -62,7 +62,7 @@ internal sealed partial class IoCardRender
         cursor.Emit(new CodeInstruction(OpCodes.Ldloc, op.Value));
         cursor.EmitDelegate((Spr spr, Card c, State s) =>
         {
-            if (c is not IAmFloppableThreeTimes {Active: true} flop)
+            if (c is not IAmFloppableThreeTimesAndFlippable flop)
             {
                 return spr;
             }
@@ -77,10 +77,34 @@ internal sealed partial class IoCardRender
 
         cursor.GotoNext(MoveType.After, [ILMatch.Ldfld("flipped")]);
         cursor.Emit(OpCodes.Ldarg_0);
-        cursor.Emit(new CodeInstruction(OpCodes.Ldloc, op.Value));
-        cursor.EmitDelegate((bool flipped, Card c, State s) =>
+        cursor.EmitDelegate((bool flipped, Card c) =>
         {
-            return c is not IAmFloppableThreeTimes {Active: true} && flipped;
+            return c is not IAmFloppableThreeTimesAndFlippable && flipped;
+        });
+
+
+        cursor.GotoNext(MoveType.After, [ILMatch.Ldfld("floppable")]);
+        cursor.Emit(OpCodes.Ldarg_0);
+        cursor.EmitDelegate((bool floppable, Card c) =>
+        {
+            if (c is not IAmFloppableThreeTimesAndFlippable)
+            {
+                return floppable;
+            }
+
+            return false;
+        });
+
+        cursor.GotoNext(MoveType.After, [ILMatch.Ldfld("flipped")]);
+        cursor.Emit(OpCodes.Ldarg_0);
+        cursor.EmitDelegate((bool flipped, Card c) =>
+        {
+            if (c is not IAmFloppableThreeTimesAndFlippable flip)
+            {
+                return flipped;
+            }
+
+            return flip.ShouldFlipIconFlipX;
         });
 
         return cursor.Generate();
@@ -139,7 +163,7 @@ internal sealed partial class IoCardRender
         {
             if (!dontDraw)
             {
-                Draw.Sprite(i.path, position.x, position.y, color: color);
+                Draw.Sprite(i.path, position.x, position.y, color: color, flipY: i.flipY);
             }
             position.x += SpriteLoader.Get(i.path)?.Width ?? 0;
         }

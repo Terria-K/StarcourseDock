@@ -17,8 +17,7 @@ internal sealed class AsteroidAirlock : Artifact, IRegisterable
                 Meta = new()
                 {
                     owner = Deck.colorless,
-                    pools = [ArtifactPool.Common],
-                    unremovable = true,
+                    pools = [ArtifactPool.Common]
                 },
                 Sprite = Sprites.artifacts_AsteroidAirlock.Sprite,
                 Name = Localization.ship_Io_artifact_AsteroidAirlock_name(),

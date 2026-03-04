@@ -25,7 +25,8 @@ internal sealed class IoDrone : JupiterDrone
                 Title = Localization.Str_ship_Io_midrow_IoDrone_name(),
                 TitleColor = Colors.midrow,
                 Description = Localization.Str_ship_Io_midrow_IoDrone_description(),
-                Icon = Sprites.icons_ioDrone.Sprite
+                Icon = Sprites.icons_ioDrone.Sprite,
+                FlipIconY = targetPlayer
             }
         );
 

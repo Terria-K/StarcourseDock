@@ -326,7 +326,8 @@ ship:
         name: TRASH HATCH
         description: 
         - Requires <c=artifact>GRAVITATIONAL PULL</c>.
-        - <c=card>Release</c> now cost 0 <c=energy>ENERGY</c> when only using the <c=keyword>trash</c>.
+        - <c=card>Release</c> now cost 0 <c=energy>ENERGY</c> on using the <c=action>trash</c> action. 
+        - <c=downside>Gain <c=boldPink>1</c> <c=status>REDOX</c> after using a <c=action>trash</c> action from <c=card>Release</c></c>.
 
       AsteroidAirlock:
         name: ASTEROID AIRLOCK
@@ -338,7 +339,7 @@ ship:
         name: WAVE TRIGGER
         description: 
         - (IO-exclusive artifact!)
-        - Every time an enemy <c=action>attacks</c> on an <c=part>empty</c> part, <c=action>attack</c> by <c=damage>1</c> damage.
+        - Every time an attack pass through your <c=part>empty</c> part, <c=action>attack</c> for <c=damage>1</c> damage <c=downside>once per turn</c>.
 
     card:
       PulledAndRelease:

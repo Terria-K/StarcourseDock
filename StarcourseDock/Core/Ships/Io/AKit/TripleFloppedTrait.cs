@@ -10,23 +10,15 @@ internal sealed class TripleFloppedTrait : IKokoroApi.IV2.ICardRenderingApi.IHoo
     public Matrix ModifyCardActionRenderMatrix(IKokoroApi.IV2.ICardRenderingApi.IHook.IModifyCardActionRenderMatrixArgs args)
     {
 		var g = args.G;
-
-		if (args.Card is not IAmFloppableThreeTimes { Active: true })
-		{
-			return Matrix.Identity;
-		}
-
 		var actions = args.Actions;
 
-		var spacing = 12 * g.mg.PIX_SCALE;
-		var newXOffset = 12 * g.mg.PIX_SCALE;
-		var newYOffset = 10 * g.mg.PIX_SCALE;
-		var index = actions.ToList().IndexOf(args.Action);
-		return index switch
+		if (args.Card is IAmFloppableThreeTimesAndFlippable)
 		{
-			0 => Matrix.CreateTranslation(-newXOffset, -newYOffset - (int)((index - actions.Count / 2.0 + 0.5) * spacing), 0),
-			1 => Matrix.CreateTranslation(newXOffset, -newYOffset - (int)((index - actions.Count / 2.0 + 0.5) * spacing), 0),
-			_ => Matrix.Identity
-		};
+			int spacing = 9 * g.mg.PIX_SCALE;
+			int index = actions.ToList().IndexOf(args.Action);
+			return Matrix.CreateTranslation(0, (int)((index - actions.Count / 2.0 + 0.5) * spacing), 0);
+		}
+
+		return Matrix.Identity;
     }
 }

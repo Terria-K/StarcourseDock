@@ -23,6 +23,9 @@ internal static class ILMatch
     public static InstructionMatcher Contains(string contains, StringComparison comparison) =>
         new InstructionMatcher((instr) => instr.ToString().Contains(contains, comparison));
 
+    public static InstructionMatcher Ble() =>
+        new InstructionMatcher((instr) => instr.opcode == OpCodes.Ble);
+
     public static InstructionMatcher LdcI4(int num) =>
         new InstructionMatcher(
             (instr) =>
@@ -284,6 +287,12 @@ internal static class ILMatch
                     && operand.Name == fieldName
                     && operand.FieldType.Name == typeName;
             }
+        );
+
+    public static InstructionMatcher Dup() =>
+        new InstructionMatcher(
+            (instr) =>
+                instr.opcode == OpCodes.Dup 
         );
 
     public static InstructionMatcher Call(string methodName) =>
