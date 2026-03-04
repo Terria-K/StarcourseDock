@@ -31,14 +31,14 @@ internal class ShrinkMechanism : Artifact, IRegisterable
 
     public override List<Tooltip>? GetExtraTooltips()
     {
-        return [new TTCard { card = new Shrink() }];
+        return [new TTCard { card = new CloseIn() }];
     }
 
     public override void OnTurnStart(State state, Combat combat)
     {
-        if (!combat.HasCardOnHand<Shrink>())
+        if (!combat.HasCardOnHand<CloseIn>())
         {
-            combat.Queue(new AAddCard { card = new Shrink(), destination = CardDestination.Hand });
+            combat.Queue(new AAddCard { card = new CloseIn(), destination = CardDestination.Hand });
         }
 
         if (combat.turn == 1)

@@ -40,7 +40,7 @@ internal class ShrinkMechanismV2 : Artifact, IRegisterable
 
     public override List<Tooltip>? GetExtraTooltips()
     {
-        return [new TTCard { card = new Shrink() { upgrade = Upgrade.A } }];
+        return [new TTCard { card = new Shrink() }];
     }
 
     public override void OnPlayerTakeNormalDamage(
@@ -95,7 +95,7 @@ internal class ShrinkMechanismV2 : Artifact, IRegisterable
             combat.Queue(
                 new AAddCard
                 {
-                    card = new Shrink() { upgrade = Upgrade.A },
+                    card = new Shrink(),
                     destination = CardDestination.Hand,
                 }
             );
