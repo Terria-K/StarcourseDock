@@ -21,32 +21,59 @@ internal sealed class AlbireoPolarityRenderCardPatches
 
         const int YOffset = 85;
 
-        if (__instance.hand.Count <= 3)
-        {
-            Card leftCard = __instance.hand[0];
-            Rect leftRect = leftCard.GetScreenRect() + leftCard.pos + new Vec(0, leftCard.hoverAnim * -2.0);
-            Draw.Sprite(Sprites.icons_polarity_push.Sprite, leftRect.x - 8, leftRect.y + YOffset);
+        Card leftCard = __instance.hand[0];
+        Rect leftRect = leftCard.GetScreenRect() + leftCard.pos + new Vec(0, leftCard.hoverAnim * -2.0);
+        Draw.Sprite(Sprites.icons_polarity_push.Sprite, leftRect.x - 8, leftRect.y + YOffset);
 
-            Card rightCard = __instance.hand[__instance.hand.Count -1];
-            Rect rightRect = rightCard.GetScreenRect() + rightCard.pos + new Vec(0, rightCard.hoverAnim * -2.0);
-            Draw.Sprite(Sprites.icons_polarity_push_orange.Sprite, rightRect.x + rightRect.w -1, rightRect.y + YOffset);
+        Card rightCard = __instance.hand[__instance.hand.Count -1];
+        Rect rightRect = rightCard.GetScreenRect() + rightCard.pos + new Vec(0, rightCard.hoverAnim * -2.0);
+        Draw.Sprite(Sprites.icons_polarity_push_orange.Sprite, rightRect.x + rightRect.w -1, rightRect.y + YOffset);
+    }
+
+    [HarmonyPatch(typeof(Card), nameof(Card.Render)), HarmonyPostfix]
+    public static void Card_Render_Postfix(Card __instance, G g, State? fakeState, Vec? posOverride, double? overrideWidth, bool __runOriginal)
+    {
+        if (!__runOriginal)
+        {
+            return;
         }
-        else
+
+        State s = fakeState is not null ? fakeState : g.state;
+
+        var status = g.state.ship.Get(Polarity.PolarityStatus.Status);
+        if (status == 0)
         {
-            Card leftCard = __instance.hand[0];
-            Rect leftRect = leftCard.GetScreenRect() + leftCard.pos + new Vec(0, leftCard.hoverAnim * -2.0);
-            Draw.Sprite(Sprites.icons_polarity_push.Sprite, leftRect.x - 8, leftRect.y + YOffset);
+            return;
+        }
 
-            Card leftSecondCard = __instance.hand[1];
-            Rect leftSecondRect = leftSecondCard.GetScreenRect() + leftSecondCard.pos + new Vec(0, leftSecondCard.hoverAnim * -2.0);
+        if (s.route is not Combat combat)
+        {
+            return;
+        }
+
+        if (combat.routeOverride is not null)
+        {
+            return;
+        }
+
+        if (combat.hand.Count <= 3)
+        {
+            return;
+        }
+
+        const int YOffset = 85;
+
+        int handCount = combat.hand.Count;
+        int handPosition = combat.hand.FindIndex(c => c.uuid == __instance.uuid);
+
+        if (handPosition == 1)
+        {
+            Rect leftSecondRect = __instance.GetScreenRect() + __instance.pos + new Vec(0, __instance.hoverAnim * -2.0);
             Draw.Sprite(Sprites.icons_polarity_push_second.Sprite, leftSecondRect.x - 8, leftSecondRect.y + YOffset);
-
-            Card rightCard = __instance.hand[__instance.hand.Count -1];
-            Rect rightRect = rightCard.GetScreenRect() + rightCard.pos + new Vec(0, rightCard.hoverAnim * -2.0);
-            Draw.Sprite(Sprites.icons_polarity_push_orange.Sprite, rightRect.x + rightRect.w - 1, rightRect.y + YOffset);
-
-            Card rightSecondCard = __instance.hand[__instance.hand.Count -2];
-            Rect rightSecondRect = rightSecondCard.GetScreenRect() + rightSecondCard.pos + new Vec(0, rightSecondCard.hoverAnim * -2.0);
+        }
+        else if (handPosition == handCount - 2)
+        {
+            Rect rightSecondRect = __instance.GetScreenRect() + __instance.pos + new Vec(0, __instance.hoverAnim * -2.0);
             Draw.Sprite(Sprites.icons_polarity_push_orange_second.Sprite, rightSecondRect.x + rightSecondRect.w - 1, rightSecondRect.y + YOffset);
         }
     }

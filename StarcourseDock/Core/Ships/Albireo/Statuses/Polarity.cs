@@ -84,34 +84,13 @@ internal sealed class Polarity : IRegisterable,
 
         for (int i = 0; i < colors.Length; i += 1)
         {
-            if (i < half)
+            colors[i] = i switch
             {
-                if (amount <= i)
-                {
-                    colors[i] = new Color("2f94ff");
-                }
-                else
-                {
-                    colors[i] = new Color("004896");
-                }
-            }
-
-            if (i == half)
-            {
-                colors[i] = Colors.white;
-            }
-
-            if (i > half)
-            {
-                if (amount >= i)
-                {
-                    colors[i] = new Color("ff7c19");
-                }
-                else
-                {
-                    colors[i] = new Color("cc000e");
-                }
-            }
+                _ when i == half => Colors.white,
+                _ when i > half => amount >= i ? new Color("ff7c19") : new Color("cc000e"),
+                _ when i < half => amount <= i ? new Color("2f94ff") : new Color("004896"),
+                _ => Colors.white
+            };
         }
 
         return (colors, null);
@@ -127,44 +106,36 @@ internal sealed class Polarity : IRegisterable,
                 return args.Tooltips;
             }
 
-            if (args.Ship?.Get(args.Status) > deck.HalfMax)
+            return args.Ship?.Get(args.Status) switch
             {
-                return [
+                var x when x > deck.HalfMax => [
                     new GlossaryTooltip($"{ModEntry.Instance.Package.Manifest.UniqueName}::PolarityStatus")
                     {
                         Title = Localization.Str_ship_Albireo_status_Polarity_name(),
                         Description = Localization.Str_ship_Albireo_status_Polarity_orange_description(),
                         Icon = Sprites.icons_status_polarity.Sprite,
                         TitleColor = Colors.status
-                    }
-                ];
-            }
+                    }],
 
-            if (args.Ship?.Get(args.Status) < deck.HalfMax)
-            {
-                return [
+                var x when x < deck.HalfMax => [
                     new GlossaryTooltip($"{ModEntry.Instance.Package.Manifest.UniqueName}::PolarityStatus")
                     {
                         Title = Localization.Str_ship_Albireo_status_Polarity_name(),
                         Description = Localization.Str_ship_Albireo_status_Polarity_blue_description(),
                         Icon = Sprites.icons_status_polarity.Sprite,
                         TitleColor = Colors.status
-                    }
-                ];
-            }
+                    }],
 
-            if (args.Ship?.Get(args.Status) == deck.HalfMax)
-            {
-                return [
+                var x when x == deck.HalfMax => [
                     new GlossaryTooltip($"{ModEntry.Instance.Package.Manifest.UniqueName}::PolarityStatus")
                     {
                         Title = Localization.Str_ship_Albireo_status_Polarity_name(),
                         Description = Localization.Str_ship_Albireo_status_Polarity_white_description(),
                         Icon = Sprites.icons_status_polarity.Sprite,
                         TitleColor = Colors.status
-                    }
-                ];
-            }
+                    }],
+                _ => args.Tooltips
+            };
         }
         return args.Tooltips;
     }

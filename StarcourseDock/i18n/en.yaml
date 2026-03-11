@@ -6,6 +6,7 @@ customRunOptions:
         name: DOUBLE CARD
         description: 
           - "You start with <c=status>POLARITY</c>."
+          - "+1 on both <c=status>POLARITY</c> capacity."
           - "All non-<c=deck>Trash</c> starter cards, and EXEs and Post-battle card offering are <c=cardtrait>polarity linked</c> to another card."
 
 ship: 
@@ -41,12 +42,21 @@ ship:
           - <c=downside>Only one side can be active.</c> 
         blue:
           description: 
+            - Playing the rightmost or second-rightmost card pushes <c=status>POLARITY</c> right.
+            - Playing the leftmost or second-leftmost card pushes <c=status>POLARITY</c> left.
+            - <c=downside>Only one side can be active.</c> 
             - "Blue linked cards appears in front of your hand."
         orange:
           description: 
+            - Playing the rightmost or second-rightmost card pushes <c=status>POLARITY</c> right.
+            - Playing the leftmost or second-leftmost card pushes <c=status>POLARITY</c> left.
+            - <c=downside>Only one side can be active.</c> 
             - "Orange linked cards appears in front of your hand."
         white:
           description: 
+            - Playing the rightmost or second-rightmost card pushes <c=status>POLARITY</c> right.
+            - Playing the leftmost or second-leftmost card pushes <c=status>POLARITY</c> left.
+            - <c=downside>Only one side can be active.</c> 
             - "Previously active linked cards appears in front of your hand."
     
     cardtrait:
