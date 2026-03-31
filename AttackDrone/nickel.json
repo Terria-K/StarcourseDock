@@ -6,5 +6,10 @@
 	"Author": "Teuria",
 	"RequiredApiVersion": "1.19.0",
 	"EntryPointAssembly": "AttackDrone.dll",
-	"LoadPhase": "AfterGameAssembly"
+	"LoadPhase": "AfterGameAssembly",
+    "UpdateChecks": {
+        "NexusMods": {
+            "ID": 86
+        }
+    }
 }
