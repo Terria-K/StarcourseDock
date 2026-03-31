@@ -7,7 +7,7 @@ ship:
 artifacts:
   DroneMkI:
     name: ATTACK DRONE
-    description: <c=downside>You can only have 1 <c=status>EVADE</c>.</c>.
+    description: <c=downside>You can only have 1 <c=status>EVADE</c>.</c>
 
   DroneMkII:
     name: ATTACK DRONE MK II

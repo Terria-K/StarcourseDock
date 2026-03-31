@@ -42,5 +42,9 @@ internal sealed class DroneMkII : Artifact
                 p.skin = AttackDroneShip.AttackDroneIISkin.UniqueName;
             }
         }
+
+        state
+            .GetCurrentQueue()
+            .QueueImmediate(new ALoseArtifact { artifactType = new DroneMkI().Key() });
     }
 }
