@@ -1,0 +1,17 @@
+---
+ship:
+  AttackDrone:
+    name: Attack Drone
+    description: A versatile drone that shoots an enemy.
+  
+artifacts:
+  DroneMkI:
+    name: ATTACK DRONE
+    description: <c=downside>You can only have 1 <c=status>EVADE</c>.</c>.
+
+  DroneMkII:
+    name: ATTACK DRONE MK II
+    description: 
+    - Replaces <c=artifact>ATTACK DRONE</c>.
+    - Deals <c=keyword>+1</c> damage to all <c=action>attacks</c>.
+    - <c=downside>You can only have 1 <c=status>EVADE</c>.</c>.

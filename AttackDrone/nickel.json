@@ -1,0 +1,10 @@
+{
+	"UniqueName": "Teuria.AttackDrone",
+	"Version": "1.0.0",
+	"DisplayName": "Attack Drone",
+	"Description": "Play as an attack drone.",
+	"Author": "Teuria",
+	"RequiredApiVersion": "1.19.0",
+	"EntryPointAssembly": "AttackDrone.dll",
+	"LoadPhase": "AfterGameAssembly"
+}
