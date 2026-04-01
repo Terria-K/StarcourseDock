@@ -1,7 +1,7 @@
 ---
 ship:
   AttackDrone:
-    name: Attack Drone
+    name: Isaac Jr.
     description: A versatile drone that shoots an enemy.
   
 artifacts:
