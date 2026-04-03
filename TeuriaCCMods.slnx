@@ -8,5 +8,6 @@
   <Project Path="StarcourseDock/StarcourseDock.csproj" />
   <Project Path="StartRunPlus/StartRunPlus.csproj" />
   <Project Path="AttackDrone/AttackDrone.csproj" />
+  <Project Path="OnlineCoOp/OnlineCoOp.csproj" />
   <Project Path="TwoCompanyFixes/TwoCompanyFixes.csproj" />
 </Solution>

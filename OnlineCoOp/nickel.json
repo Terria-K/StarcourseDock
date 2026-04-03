@@ -1,0 +1,21 @@
+{
+	"UniqueName": "Teuria.OnlineCoOp",
+	"Version": "1.0.0",
+	"DisplayName": "Online CoOp",
+	"Description": "Play with a player.",
+	"Author": "Teuria",
+	"RequiredApiVersion": "1.19.0",
+	"EntryPointAssembly": "OnlineCoOp.dll",
+	"LoadPhase": "AfterDbInit",
+	"MethodsToStopInlining": [
+		{ "TypeName": "Combat", "MethodName": "Queue" },
+		{ "TypeName": "Combat", "MethodName": "QueueImmediate" },
+		{ "TypeName": "Combat", "MethodName": "PlayerCanAct" }
+	],
+	"Dependencies": [
+		{
+			"UniqueName": "Shockah.CustomRunOptions",
+			"Version": "1.5.3"
+		}
+	]
+}
