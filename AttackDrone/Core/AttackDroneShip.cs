@@ -1,3 +1,4 @@
+using System.Collections.Frozen;
 using Nanoray.PluginManager;
 using Nickel;
 
@@ -43,6 +44,7 @@ internal static class AttackDroneShip
                 UnderChassisSprite = emptyChassisSprite.Sprite,
                 Name = ModEntry.Instance.AnyLocalizations.Bind(["ship", "AttackDrone", "name"]).Localize,
                 Description = ModEntry.Instance.AnyLocalizations.Bind(["ship", "AttackDrone", "description"]).Localize,
+                ExclusiveArtifactTypes = new HashSet<Type>() { typeof(DroneMkI), typeof(DroneMkII) }.ToFrozenSet(),
                 Ship = new()
                 {
                     cards = [new CannonColorless(), new CannonColorless(), new DodgeColorless(), new DodgeColorless()],
